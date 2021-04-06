@@ -1,0 +1,2 @@
+1  Website  URL  description  key  key  key  key  key  key  key  key  NOTHING  NOTHING  NOTHING  NOTHING  NOTHING  NOTHING  NOTHING  NOTHING  NOTHING  NOTHING
+2  personal_data  Name  Tel  Sex  Discription  mail  public_mail  public_mail_code  key  key  key  NOTHING  NOTHING  NOTHING  NOTHING  NOTHING  NOTHING  NOTHING  NOTHING  NOTHING  NOTHING
