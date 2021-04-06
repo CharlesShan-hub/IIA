@@ -1,7 +1,8 @@
-# IIA
-Intelligent Information Assistant
+# IIA - Intelligent Information Assistant
+## IIA 介绍
+IIA(Intelligent Information Assistant)是致力于帮助个人管理信息的软件. 
 
-## Information Helper 版本说明
+## IIA 版本说明
 ### 0.n版本 - 测试版本，没有成型的功能
 
 #### v0.1 2019.9.19
