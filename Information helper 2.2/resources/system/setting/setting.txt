@@ -1,0 +1,8 @@
+music  on_or_off  on  
+music  name  遇见-陈一发儿.mp3
+common  font  未设置    
+common  dark_mod  off
+safe  password  off  
+safe  password  reset
+plot  mood  散点图  
+Me

@@ -1,0 +1,7 @@
+music  on_or_off  off  
+music  name  未设置
+common  font  未设置    
+common  dark_mod  off
+safe  password  off
+safe  password  reset
+Me
