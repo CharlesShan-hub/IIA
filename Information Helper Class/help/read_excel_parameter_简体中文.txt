@@ -1,0 +1,98 @@
+Title1
+读取Excel参数\n\n
+Title2
+表名 - sheet_name\n
+Item
+[str, int, list, 或 None, 默认 0] ‘字符串’对应‘表名’。‘整数’对应以零为索引的‘表位置’。‘字符串/整数列表’用于请求‘多个表’。‘None’以获取‘所有表’。
+Item_bold
+在信息助手应用中当前只允许导入单个表。\n
+Item
+Available cases:\n
+Item
+• 0(默认): 导入第一张表\n
+Item
+• 1: 导入第二张表\n
+Item
+• "Sheet1": 导入名称为"Sheet1"的表\n
+Item
+• [0, 1, "Sheet5"]: (当前不支持)分别导入第一张, 第二张, 名称为"Sheet5"的表, 这三张表保存成字典格式。\n
+Item
+• None: (当前不支持)导入所有表。\n\n
+Title2
+表头行数 - header\n
+Item
+[int, list of int, 默认 0] 用于已解析数据帧的列标签的行(0-索引)。如果一个整数列表被传递，这些行位置将被组合成一个多索引。如果没有头文件，请使用None。\n\n
+Title2
+表头内容 - names\n
+Item
+[array-like, 默认 None] 要使用的列名列表。如果文件不包含头行，则应该将“表头行数”-header设置成None。\n\n
+Title2
+行索引 - index_col\n
+Item
+[int, list of int, 默认 None] 列(0索引)用作数据帧的行标签。如果没有这样的列，则传递None。如果传递了一个列表，这些列将被组合成一个多索引。如果使用usecols选择数据的子集，index_col将基于该子集。\n\n
+Title2
+指定列 - usecols\n
+Item
+[int, str, list-like, or callable 默认 None]\n
+Item
+• None, 传递所有列.\n
+Item
+• str, 指定用逗号分隔的Excel列字母列表和列范围(例如“A:E”或“A,C,E:F”)。范围包括两边。\n
+Item
+• int类型的列表, 然后指示要解析的列表列号。\n
+Item
+• string类型列表, 然后指示要解析的列名列表。0.24.0新版功能。\n
+Item
+• callable, 然后根据它计算每个列名，如果可调用对象返回True，则解析该列。\n
+Item
+根据上述行为返回列的子集。\n\n
+Title2
+认成真 - true_values\n
+Item
+[list, 默认 None] 处理成“真”的值。\n\n
+Title2
+认成假 - false_values\n
+Item
+[list, 默认 None] 处理成“假”的值。\n\n
+Title2
+转换器 - converters\n
+Item
+[dict, 默认 None] 用于在某些列中转换值的函数的字典。键可以是整数或列标签，值是接受一个输入参数(Excel单元格内容)并返回转换后的内容的函数。\n\n
+Title2
+跳过行 - skiprows\n
+Item
+[list-like, int, or callable, optional] 要跳过的行号(0索引)或文件开头要跳过的行数(int)。如果可调用，可调用函数将根据行索引进行计算，如果应该跳过行则返回True，否则返回False。一个有效的可调用参数的例子是lambda x: x in [0,2]。\n\n
+Title2
+前几行 - nrows\n
+Item
+[int, 默认 None] 要解析的行数。\n\n
+Title2
+认成空 - na_values\n
+Item
+[scalar, str, list-like, or dict, default None] 附加的字符串可以像NA/NaN那样识别。默认认成空的值是:‘’, ‘#N/A’, ‘#N/A N/A’, ‘#NA’, ‘-1.#IND’, ‘-1.#QNAN’, ‘-NaN’, ‘-nan’, ‘1.#IND’, ‘1.#QNAN’, ‘<NA>’, ‘N/A’, ‘NA’, ‘NULL’, ‘NaN’, ‘n/a’, ‘nan’, ‘null’.\n\n
+Title2
+导入空值 - keep_default_na\n
+Item
+[bool, 默认 True] 解析数据时是否包含默认的NaN值。根据是否传入na_values，具体如下:\n
+Item
+• 如果 keep_default_na == True, 如果指定了na_values, na_values将被附加到用于解析的默认NaN值中。\n
+Item
+• 如果 keep_default_na == True, 并且未指定na_values, 仅使用默认的NaN值进行解析。\n
+Item
+• 如果 keep_default_na == False, 如果指定了na_values，那么只有指定了na_values的NaN值才会用于解析。\n
+Item
+• 如果 keep_default_na == False, 如果没有指定na_values，那么没有字符串会被解析为NaN。\n
+Item
+注意，如果na_filter作为False传入，那么keep_default_na和na_values参数将被忽略。\n\n
+Title2
+整浮点数转化 - convert_float\n
+Item
+[bool, 默认 True] 将整型浮点数转换为int(即1.0 - > 1)。如果为False，所有的数值数据都将以浮点数的形式读入:Excel内部将所有的数字存储为浮点数。\n\n
+Title2
+检测空值 - verbose\n
+Item
+[bool, 默认 False] 指出放置在非数字列中的NA值的数量。\n\n
+Title2
+标记空值 - na_filter\n
+Item
+[bool, 默认 True] 检测缺失的值标记(空字符串和na_values的值)。在没有任何NAs的数据中，传递na_filter=False可以提高读取大文件的性能。\n\n
