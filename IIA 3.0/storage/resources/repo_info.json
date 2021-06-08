@@ -1,0 +1,52 @@
+{
+    "repo_id": [
+        [
+            0
+        ],
+        [
+            0,
+            0
+        ],
+        [
+            0,
+            1
+        ],
+        [
+            0,
+            2
+        ],
+        [
+            0,
+            2,
+            0
+        ],
+        [
+            1
+        ],
+        [
+            1,
+            0
+        ]
+    ],
+    "[0]": {
+        "name": "datalist"
+    },
+    "[1]": {
+        "name": "bedelete"
+    },
+    "[1, 0]": {
+        "name": "copy_bedelete"
+    },
+    "[0, 0]": {
+        "name": "copy_datalist"
+    },
+    "[0, 1]": {
+        "name": "copy_datalist2"
+    },
+    "[0, 2]": {
+        "name": "copy_datalist3.1"
+    },
+    "[0, 2, 0]": {
+        "name": "copy_datalist3.2"
+    }
+}
