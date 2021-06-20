@@ -1,0 +1,12 @@
+iris,sepal_length,sepal_width,petal_length,petal_width,species
+20年评优最终公示,学号,班级,总成绩,德育成绩,智育成绩,体育成绩,课程成绩,课程成绩专业排名（不含体育成绩）,综合成绩专业排名,奖学金,先进个人
+flights,year,month,passengers
+积极分子基本情况表,姓名,确定为积极分子时间,性别,民族,出生年月,文化程度,单位职务,联系电话,备注
+titanic,survived,pclass,sex,age,sibsp,parch,fare,embarked,class,who,adult_male,deck,embark_town,alive,alone
+物理竞赛报名表(class2),班级,姓名,学号
+查阅版 2020年 北邮  全国大学生英语竞赛初赛成绩,序号,学号,考场,教室号,客观题成绩,主观题成绩,总分
+销量,店铺,季度,商品名称,销售量,销售额
+12:11:2020六级刷题情况,内容,开始,结束,首次正确,二次正确,总数量
+学生活动,活动名称,组织部门,姓名,班级,学号,获奖情况,加分情况
+penguins,species,island,culmen_length_mm,culmen_depth_mm,flipper_length_mm,body_mass_g,sex
+电影清单,263,全球风暴 2D+3D Geostorm.2017.1080p.BluRay.x264-GECKOS[rarbg],4T-Movies,3D,2017.0,科幻,太空

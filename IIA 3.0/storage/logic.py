@@ -47,7 +47,11 @@ def creat_copy_repository(
 	""" 
 	copy_repo(old_repo_id=old_repo_id,name=name,old_name=old_name,log=log)
 
-
+def delete_repositroy(
+	repo_id=None,name=None,log=False):
+	""" 删除数据库
+	"""
+	delete_repo(repo_id=repo_id,name=name,log=log)
 
 #def 
 #a = repository()

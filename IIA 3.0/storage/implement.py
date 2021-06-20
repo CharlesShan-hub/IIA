@@ -16,6 +16,7 @@ def load_csv(path,encoding='UTF-8'):
 			data.append(line)
 	return data
 
+# json文件读入
 def load_json(path,encoding='UTF-8'):
 	''' 获取数据
 	'''
@@ -23,11 +24,18 @@ def load_json(path,encoding='UTF-8'):
 		a = json.load(f)    #此时a是一个字典对象
 	return a
 
+# json文件写入
 def write_json(path, content, encoding='UTF-8'):
 	''' 写入数据
 	'''
 	with open(path, 'w', encoding='utf-8') as f:
 		f.write(json.dumps(content, indent=4, ensure_ascii=False))
+
+# 文件删除
+def file_delete(path):
+	if(os.path.exists(path)):
+		os.remove(path)
+
 
 #####################################################
 # 基础功能
@@ -67,13 +75,28 @@ def get_repo_id(name):
 	except:
 		return False
 
+# 查看数据仓库的属性
+def get_repo_property(repo_id,con):
+	all_repo_info = load_json("./storage/resources/repo_info.json")
+	return all_repo_info[str(repo_id)][con]
+
 # 判断输入的repo_id是否存在
 def exist_repo_id(repo_id):
 	all_repo_info = load_json("./storage/resources/repo_info.json")
 	return repo_id in all_repo_info['repo_id']
 
+# 获取数据仓库互联信息
+def get_repo_family_info(repo_id):
+	all_repo_info = load_json("./storage/resources/repo_info.json")
+	temp = {"repo_id":[]}
+	for one_repo_id in all_repo_info["repo_id"]:
+		if one_repo_id[0] == repo_id[0]:
+			temp["repo_id"].append(one_repo_id)
+			temp[str(one_repo_id)] = all_repo_info[str(one_repo_id)]
+	return temp
+
 # 构建某个仓库的备份的信息并保存
-def creat_copy_repo_info(old_repo_id,name):
+def creat_copy_repo_info(old_repo_id,repo_name):
 	if exist_repo_id(old_repo_id) == False:
 		return False
 	repo_id = list(old_repo_id)
@@ -99,7 +122,11 @@ def creat_copy_repo_info(old_repo_id,name):
 	else:
 		all_repo_info["repo_id"].insert(repo_id_index+1,repo_id)
 
-	all_repo_info[str(repo_id)] = {"name":name}
+	all_repo_info[str(repo_id)] = {
+		"name":repo_name,
+		"exist": True,
+		"cloud": False
+	}
 	write_json(path, all_repo_info)
 
 # 数据库文件的创建
@@ -114,7 +141,11 @@ def save_repo_info(repo_id,repo_name):
 	path = "./storage/resources/repo_info.json"
 	all_repo_info = load_json(path)
 	all_repo_info['repo_id'].append(repo_id)
-	all_repo_info[str(repo_id)] = {"name":repo_name}
+	all_repo_info[str(repo_id)] = {
+		"name":repo_name,
+		"exist": True,
+		"cloud": False
+	}
 	write_json(path, all_repo_info)
 
 # 数据表 -> 数据库数据表

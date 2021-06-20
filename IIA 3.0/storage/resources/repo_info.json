@@ -29,24 +29,38 @@
         ]
     ],
     "[0]": {
-        "name": "datalist"
+        "name": "datalist",
+        "exist": true,
+        "cloud": false
     },
     "[1]": {
-        "name": "bedelete"
+        "name": "bedelete",
+        "exist": true,
+        "cloud": false
     },
     "[1, 0]": {
-        "name": "copy_bedelete"
+        "name": "copy_bedelete",
+        "exist": true,
+        "cloud": false
     },
     "[0, 0]": {
-        "name": "copy_datalist"
+        "name": "copy_datalist",
+        "exist": true,
+        "cloud": false
     },
     "[0, 1]": {
-        "name": "copy_datalist2"
+        "name": "copy_datalist2",
+        "exist": true,
+        "cloud": false
     },
     "[0, 2]": {
-        "name": "copy_datalist3.1"
+        "name": "copy_datalist3.1",
+        "exist": true,
+        "cloud": false
     },
     "[0, 2, 0]": {
-        "name": "copy_datalist3.2"
+        "name": "copy_datalist3.2",
+        "exist": true,
+        "cloud": false
     }
 }
