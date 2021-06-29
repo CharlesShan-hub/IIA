@@ -229,12 +229,12 @@ def ini_setting_var():
         palette = get_setting(items=['common', 'palette'], default='Autumn')
         # 非暗黑模式
         if palette == 'Snow':
+            '''
             COLOR_BACK = 'green';COLOR_FRONT = 'red';COLOR_SUB = 'white';COLOR_MB_FRONT = 'black'
             COLOR_F1_BACK = 'pink';COLOR_F2_BACK = "yellow";COLOR_F2_FRONT = "blue"
             '''
             COLOR_BACK = '#F2F2F2';COLOR_FRONT = 'black';COLOR_SUB = '#F2F2F2';COLOR_MB_FRONT = 'black'
             COLOR_F1_BACK = '#F2F2F2';COLOR_F2_BACK = "#EDEDED";COLOR_F2_FRONT = "black"
-            '''
         elif palette == 'Autumn':
             COLOR_BACK = 'floralwhite';COLOR_FRONT = 'black';COLOR_SUB = 'floralwhite';COLOR_MB_FRONT = 'black'
             COLOR_F1_BACK = 'floralwhite';COLOR_F2_BACK = "#FFF5EE";COLOR_F2_FRONT = "black"

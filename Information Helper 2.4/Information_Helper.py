@@ -196,6 +196,7 @@ def ini_setting_var():
         COLOR_BACK = 'dimgray';COLOR_FRONT = 'white';COLOR_SUB = 'black';COLOR_MB_FRONT = 'black'
         COLOR_F1_BACK = 'black';COLOR_F2_BACK = "#383838";COLOR_F2_FRONT = "white"
     else: 
+        '''
         palette = get_setting(items=['common', 'palette'], default='Autumn')
         # 非暗黑模式
         if palette == 'Snow':
@@ -231,6 +232,49 @@ def ini_setting_var():
         elif palette == 'Chocolate':
             COLOR_BACK = '#312520';COLOR_FRONT = 'white';COLOR_SUB = '#312520';COLOR_MB_FRONT = 'black'
             COLOR_F1_BACK = '#312520';COLOR_F2_BACK = "#4c221f";COLOR_F2_FRONT = "white"       
+        '''
+        palette = get_setting(items=['common', 'palette'], default='Autumn')
+        # 非暗黑模式
+        if palette == 'Snow':
+            '''
+            COLOR_BACK = 'green';COLOR_FRONT = 'red';COLOR_SUB = 'white';COLOR_MB_FRONT = 'black'
+            COLOR_F1_BACK = 'pink';COLOR_F2_BACK = "yellow";COLOR_F2_FRONT = "blue"
+            '''
+            COLOR_BACK = '#F2F2F2';COLOR_FRONT = 'black';COLOR_SUB = '#F2F2F2';COLOR_MB_FRONT = 'black'
+            COLOR_F1_BACK = '#F2F2F2';COLOR_F2_BACK = "#EDEDED";COLOR_F2_FRONT = "black"
+        elif palette == 'Autumn':
+            COLOR_BACK = 'floralwhite';COLOR_FRONT = 'black';COLOR_SUB = 'floralwhite';COLOR_MB_FRONT = 'black'
+            COLOR_F1_BACK = 'floralwhite';COLOR_F2_BACK = "#FFF5EE";COLOR_F2_FRONT = "black"
+        elif palette ==  'Warm Winter':
+            COLOR_BACK = 'oldlace';COLOR_FRONT = 'black';COLOR_SUB = 'oldlace';COLOR_MB_FRONT = 'black'
+            COLOR_F1_BACK = 'oldlace';COLOR_F2_BACK = "floralwhite";COLOR_F2_FRONT = "black"
+        elif palette == 'Psychedelic':
+            COLOR_BACK = 'aliceblue';COLOR_FRONT = 'black';COLOR_SUB = 'aliceblue';COLOR_MB_FRONT = 'black'
+            COLOR_F1_BACK = 'aliceblue';COLOR_F2_BACK = "ghostwhite";COLOR_F2_FRONT = "black"
+        elif palette == 'Strawberry':
+            COLOR_BACK = '#e4c6d0';COLOR_FRONT = 'black';COLOR_SUB = '#e4c6d0';COLOR_MB_FRONT = 'black'
+            COLOR_F1_BACK = '#e4c6d0';COLOR_F2_BACK = "#edd1d8";COLOR_F2_FRONT = "black"
+        elif palette == 'Jasmine':
+            COLOR_BACK = 'lavenderblush';COLOR_FRONT = 'black';COLOR_SUB = 'lavenderblush';COLOR_MB_FRONT = 'black'
+            COLOR_F1_BACK = 'lavenderblush';COLOR_F2_BACK = "#fff0f1";COLOR_F2_FRONT = "black"
+        elif palette == 'Mint':
+            COLOR_BACK = '#F5FFFA';COLOR_FRONT = 'black';COLOR_SUB = '#F5FFFA';COLOR_MB_FRONT = 'black'
+            COLOR_F1_BACK = '#F5FFFA';COLOR_F2_BACK = "#F1FFF0";COLOR_F2_FRONT = "black"
+        elif palette == 'Jade-like stone white':
+            COLOR_BACK = '#d6ecf0';COLOR_FRONT = 'black';COLOR_SUB = '#d6ecf0';COLOR_MB_FRONT = 'black'
+            COLOR_F1_BACK = '#d6ecf0';COLOR_F2_BACK = "#f0fcff";COLOR_F2_FRONT = "black"
+        elif palette == 'Stock':
+            COLOR_BACK = '#F4DAB0';COLOR_FRONT = 'black';COLOR_SUB = '#F4DAB0';COLOR_MB_FRONT = 'black'
+            COLOR_F1_BACK = '#F4DAB0';COLOR_F2_BACK = "bisque";COLOR_F2_FRONT = "black"
+        elif palette == 'Watercolor Painting':
+            COLOR_BACK = '#424c50';COLOR_FRONT = 'white';COLOR_SUB = '#424c50';COLOR_MB_FRONT = 'black'
+            COLOR_F1_BACK = '#424c50';COLOR_F2_BACK = "#41555f";COLOR_F2_FRONT = "white"
+        elif palette == 'Chocolate':
+            COLOR_BACK = '#312520';COLOR_FRONT = 'white';COLOR_SUB = '#312520';COLOR_MB_FRONT = 'black'
+            COLOR_F1_BACK = '#312520';COLOR_F2_BACK = "#4c221f";COLOR_F2_FRONT = "white"  
+        else: # 按Warm Winter
+            COLOR_BACK = 'oldlace';COLOR_FRONT = 'black';COLOR_SUB = 'oldlace';COLOR_MB_FRONT = 'black'
+            COLOR_F1_BACK = 'oldlace';COLOR_F2_BACK = "floralwhite";COLOR_F2_FRONT = "black" 
 
 def ini_build_window():
     ''' Initializes the generation window 初始化生成窗口
@@ -408,6 +452,7 @@ def ini_build_var():
     SPLIT = '\u263A'  # ☺
     # 设置选项字典
     global settingDict
+    # old: 'common - palette':['Snow','Autumn','Warm Winter','Psychedelic','Strawberry','Jasmine','Mint','Light Blue Aroma','Stock','Watercolor Painting','Chocolate'],
     settingDict = {'Me - password':[''],
                    'Me - mail':[''],
                    'music - on_or_off':['on','off'],
@@ -418,7 +463,7 @@ def ini_build_var():
                    'common - insert_way':['item','file'],
                    'search - time_event':['on','off'],
                    'search - mode':['Search All','Search Template','Keywords'],
-                   'common - palette':['Snow','Autumn','Warm Winter','Psychedelic','Strawberry','Jasmine','Mint','Light Blue Aroma','Stock','Watercolor Painting','Chocolate'],
+                   'common - palette':['Snow','Autumn','Warm Winter','Psychedelic','Strawberry','Jasmine','Mint','Jade-like stone white','Stock','Watercolor Painting','Chocolate'],
                    'common - language':['English','简体中文']}
     # 语言
     global language
