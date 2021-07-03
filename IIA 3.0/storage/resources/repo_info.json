@@ -4,62 +4,16 @@
             0
         ],
         [
-            0,
-            0
-        ],
-        [
-            0,
             1
-        ],
-        [
-            0,
-            2
-        ],
-        [
-            0,
-            2,
-            0
-        ],
-        [
-            1
-        ],
-        [
-            1,
-            0
         ]
     ],
     "[0]": {
-        "name": "datalist",
+        "name": "RepoTest",
         "exist": true,
         "cloud": false
     },
     "[1]": {
-        "name": "bedelete",
-        "exist": true,
-        "cloud": false
-    },
-    "[1, 0]": {
-        "name": "copy_bedelete",
-        "exist": true,
-        "cloud": false
-    },
-    "[0, 0]": {
-        "name": "copy_datalist",
-        "exist": true,
-        "cloud": false
-    },
-    "[0, 1]": {
-        "name": "copy_datalist2",
-        "exist": true,
-        "cloud": false
-    },
-    "[0, 2]": {
-        "name": "copy_datalist3.1",
-        "exist": true,
-        "cloud": false
-    },
-    "[0, 2, 0]": {
-        "name": "copy_datalist3.2",
+        "name": "RepoTest2",
         "exist": true,
         "cloud": false
     }
