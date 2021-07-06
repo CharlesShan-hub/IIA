@@ -1,9 +1,11 @@
 import os
 import json
 
+
 # 检查路径
 if os.path.exists('./storage/resources') == False:
 	os.makedirs('./storage/resources')
+
 
 if os.path.exists('./storage/resources/repo_info.json') == False:
 	with open('./storage/resources/repo_info.json'\
@@ -13,14 +15,24 @@ if os.path.exists('./storage/resources/repo_info.json') == False:
 		}
 		f.write(json.dumps(content, indent=4, ensure_ascii=False))
 
+
 import storage.custom as custom
+
 
 def creat_repository(name):
 	''' 创建新数据仓库
 	'''
 	return custom.creat_repo(name)
 
-def delete_repositroy(repo_id=[],name=''):
+
+def copy_repository(
+	name=None,old_name='',old_repo_id=[]):
+	''' 创建数据库备份
+	''' 
+	return custom.copy_repo(old_repo_id=old_repo_id,name=name,old_name=old_name)
+
+
+def delete_repository(repo_id=[],name=''):
 	''' 删除数据库
 	本地仓库例子:[0] - [0,0] - [0,0,0]
 	              |        - [0,0,1]
@@ -32,33 +44,24 @@ def delete_repositroy(repo_id=[],name=''):
 
 	本地仓库有云端备份: 提供两种方案 - 仅删除本地, 删除本地与云端.
 	如果要删除云端, 要先对云端操作, 操作失败就停止.
-	1. 如果只删除本地仓库: 检查到该仓库有云端备份, 就近删除本地db文件, 信息标记为空但保留位置, 名称标记不变.
+	1. 如果只删除本地仓库: 检查到该仓库有云端备份, 就仅删除本地db文件, 信息标记为空但保留位置, 名称标记不变.
+	2. 如果要同时删除云端仓库: 就按照“本地仓库没有云端备份”的方法, 同时操作本地与云端.(注意云端或本地都有可能是占位结点)
+	3. 如果仅删除云端备份: 本地不动, 云端按照“本地仓库没有云端备份的方法”操作.(注意云端有可能是占位结点)
+
+	返回值是删除删除成功与否
 	'''
 	return custom.delete_repo(repo_id=repo_id,name=name)
 
-def copy_repository(
-	name=None,old_name='',old_repo_id=[]):
-	''' 创建数据库备份
-	''' 
-	return custom.copy_repo(old_repo_id=old_repo_id,name=name,old_name=old_name)
 
-def clean_repository():
-	''' 整理数据库
-	'''
-	pass
-
-def cover_repostory():
+def cover_repository(from_name='',to_name='',from_repo_id=[],to_repo_id=[]):
 	''' 覆盖数据库(版本回退)
 	'''
-	pass
+	return custom.cover_repo(from_name,to_name,from_repo_id,to_repo_id)
 
-def configure_repostory():
-	''' 配置数据库(比如改名, 与自定义标签添加与内容修改)
-	'''
-	pass
 
-def get_label_repostory():
-	''' 获取数据库配置(比如cloud,exist,与自定义标签)
+def configure_repository(repo_id=[],name='',con_name=None, con_content=None, mode='auto'):
+	''' 配置数据库(比如改名, 与自定义标签添加与内容修改与获取)
 	'''
-	pass
+	return custom.configure_repo(repo_id,name,con_name, con_content, mode)
+
 
