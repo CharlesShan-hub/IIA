@@ -1,11 +1,14 @@
+import threading
+import server
+import ui
 
-a = [0,1,2,3,4,5,6]
-b = [0,1,2,3]
-c = [a,b,[0,1],[2],[3],[0,1,2,3,4,5]]
-def _is_sub_list(x):
-	print(x)
-	if len(x)<=len(b):
-		return False
-	return x[:len(b)] == b
+class ServerThread(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+    def run(self):
+        server.run()
 
-print(list(filter(_is_sub_list, c)))
+if __name__ == "__main__":
+	server_thread = ServerThread()
+	server_thread.start()
+	ui.run()

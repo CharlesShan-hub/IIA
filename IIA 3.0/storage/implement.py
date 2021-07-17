@@ -213,6 +213,14 @@ def get_repo_id(name):
 		return False
 
 
+def is_child_repo_id(child_repo_id, repo_id):
+	''' 判断第一个结点是不是第二个的子结点
+	'''
+	if len(child_repo_id)<=len(repo_id):
+		return False
+	return child_repo_id[:len(repo_id)] == repo_id
+
+
 def get_child_repo_id(repo_id):
 	''' 获取某个仓库的下一层结点
 	'''

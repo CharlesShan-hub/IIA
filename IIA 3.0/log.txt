@@ -6096,3 +6096,62 @@
 2021-07-06 12:04:49,879 - logger - INFO - Got repo_id - [0]
 2021-07-06 12:04:49,880 - logger - INFO - from [0, 0] to [0]
 2021-07-06 12:04:49,880 - logger - INFO - 
+2021-07-18 00:41:46,576 - logger - INFO - Start creat new repo - RepoTest
+2021-07-18 00:41:46,577 - logger - INFO - Check repo_name valid - RepoTest
+2021-07-18 00:41:46,578 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,578 - logger - INFO - Check repo_name valid - False
+2021-07-18 00:41:46,578 - logger - WARNING - Failed to creat new repo - RepoTest
+2021-07-18 00:41:46,578 - logger - INFO - 
+2021-07-18 00:41:46,578 - logger - INFO - Start change repo config: name=RepoTest, id=[]
+2021-07-18 00:41:46,578 - logger - INFO - Getting repo_id
+2021-07-18 00:41:46,578 - logger - INFO - Getting repo_id by name (RepoTest)
+2021-07-18 00:41:46,579 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,579 - logger - INFO - Got repo_id - [0]
+2021-07-18 00:41:46,579 - logger - INFO - Getting repo property - cloud
+2021-07-18 00:41:46,579 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,579 - logger - INFO - Get config - cloud - False
+
+2021-07-18 00:41:46,579 - logger - INFO - Start change repo config: name=RepoTest, id=[]
+2021-07-18 00:41:46,579 - logger - INFO - Getting repo_id
+2021-07-18 00:41:46,579 - logger - INFO - Getting repo_id by name (RepoTest)
+2021-07-18 00:41:46,579 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,579 - logger - INFO - Got repo_id - [0]
+2021-07-18 00:41:46,579 - logger - INFO - Getting repo property - exist
+2021-07-18 00:41:46,579 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,580 - logger - INFO - Get config - exist - True
+
+2021-07-18 00:41:46,580 - logger - INFO - 
+2021-07-18 00:41:46,580 - logger - INFO - Start change repo config: name=RepoTest, id=[]
+2021-07-18 00:41:46,580 - logger - INFO - Getting repo_id
+2021-07-18 00:41:46,580 - logger - INFO - Getting repo_id by name (RepoTest)
+2021-07-18 00:41:46,580 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,580 - logger - INFO - Got repo_id - [0]
+2021-07-18 00:41:46,580 - logger - INFO - Changing/adding repo property - label1 I will be changed!
+2021-07-18 00:41:46,580 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,580 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,581 - logger - INFO - Start change repo config: name=RepoTest, id=[]
+2021-07-18 00:41:46,581 - logger - INFO - Getting repo_id
+2021-07-18 00:41:46,582 - logger - INFO - Getting repo_id by name (RepoTest)
+2021-07-18 00:41:46,582 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,582 - logger - INFO - Got repo_id - [0]
+2021-07-18 00:41:46,582 - logger - INFO - Getting repo property - label1
+2021-07-18 00:41:46,582 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,582 - logger - INFO - Get config - label1 - I will be changed!
+
+2021-07-18 00:41:46,582 - logger - INFO - Start change repo config: name=RepoTest, id=[]
+2021-07-18 00:41:46,582 - logger - INFO - Getting repo_id
+2021-07-18 00:41:46,582 - logger - INFO - Getting repo_id by name (RepoTest)
+2021-07-18 00:41:46,583 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,583 - logger - INFO - Got repo_id - [0]
+2021-07-18 00:41:46,583 - logger - INFO - Changing/adding repo property - label1 Hello!
+2021-07-18 00:41:46,583 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,583 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,583 - logger - INFO - Start change repo config: name=RepoTest, id=[]
+2021-07-18 00:41:46,583 - logger - INFO - Getting repo_id
+2021-07-18 00:41:46,583 - logger - INFO - Getting repo_id by name (RepoTest)
+2021-07-18 00:41:46,583 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,583 - logger - INFO - Got repo_id - [0]
+2021-07-18 00:41:46,584 - logger - INFO - Getting repo property - label1
+2021-07-18 00:41:46,584 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-07-18 00:41:46,584 - logger - INFO - Get config - label1 - Hello!
+

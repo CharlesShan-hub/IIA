@@ -1,0 +1,12 @@
+服务器 - 客户端 - 意义
+/ - reply - 回应(与状态码相同)
+https://www.runoob.com/http/http-status-codes.html
+100 Continue    继续。客户端应继续其请求
+400 Bad Request 客户端请求的语法错误，服务器无法理解
+403 Forbidden   服务器理解请求客户端的请求，但是拒绝执行此请求
+
+TYPY - type - 请求类型
+type == 'login': 登陆请求
+
+NAME - name - 用户名
+PASSWORD - password - 密码

@@ -161,7 +161,7 @@ def test_configure_repository():
 	# 创建非法标签
 	#storage.configure_repostory(name='RepoTest')
 	#logger.info("")
-#test_configure_repository()
+test_configure_repository()
 
 
 def test_cover_repository():
@@ -178,5 +178,5 @@ def test_cover_repository():
 	# 进行版本回退
 	storage.cover_repository(from_name='RepoTest_2021_7_6',to_name='RepoTest')
 	logger.info("")
-test_cover_repository()
+#test_cover_repository()
 

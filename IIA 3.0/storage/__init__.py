@@ -53,15 +53,14 @@ def delete_repository(repo_id=[],name=''):
 	return custom.delete_repo(repo_id=repo_id,name=name)
 
 
-def cover_repository(from_name='',to_name='',from_repo_id=[],to_repo_id=[]):
-	''' 覆盖数据库(版本回退)
-	'''
-	return custom.cover_repo(from_name,to_name,from_repo_id,to_repo_id)
-
-
 def configure_repository(repo_id=[],name='',con_name=None, con_content=None, mode='auto'):
 	''' 配置数据库(比如改名, 与自定义标签添加与内容修改与获取)
 	'''
 	return custom.configure_repo(repo_id,name,con_name, con_content, mode)
 
+
+def cover_repository(from_name='',to_name='',from_repo_id=[],to_repo_id=[]):
+	''' 覆盖数据库(版本回退)
+	'''
+	return custom.cover_repo(from_name,to_name,from_repo_id,to_repo_id)
 
