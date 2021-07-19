@@ -1949,6 +1949,8 @@ def information_control_change():# 信息修改 b1_4 按钮
             global treeview1_4_1_1
             for item in treeview1_4_1_1.selection():
                 item_text = treeview1_4_1_1.item(item,"values")
+                if len(item_text) == 0: # 空行
+                    return
                 if item_text[0][0] == '【' and item_text[0][-1] == '】':
                     print('错啦！这个是模板名！')
                 else:
