@@ -57,7 +57,7 @@
         }
     </style>
     <!--<script src="jquery-1.10.2.min.js"></script>-->
-    <script type="text/javascript" src="../server/setting.json"></script>
+    <script type="text/javascript" src="../../../server/setting.json"></script>
 
     <script type="text/javascript">
         var ip = setting.ip;
@@ -84,7 +84,7 @@
                 var data = JSON.parse(evt.data);
                 if(data.reply=='100'){
                     //alert('登陆!')
-                    window.location.href='./xixi/glxy.html';
+                    window.location.href='../main/glxy.html';
                 }else{
                     alert('禁止登陆！')
                     wsObj.close();

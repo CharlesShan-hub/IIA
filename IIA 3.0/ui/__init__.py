@@ -1,6 +1,6 @@
-import ui.web_show as web_show
+import ui.runner as runner
 
 def run():
-    web_show.run()
+    runner.run()
 
 # QUrl("file://"+os.getcwd()+"/ui/index.html")

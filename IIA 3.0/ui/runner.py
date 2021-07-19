@@ -5,7 +5,6 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtWebEngineWidgets import *
 
-
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -13,9 +12,8 @@ class MainWindow(QMainWindow):
         self.setGeometry(30,50,1000,618)
         self.browser=QWebEngineView()
         #加载外部的web界面
-        self.browser.load(QUrl("file://"+os.getcwd()+"/ui/index.html"))
+        self.browser.load(QUrl("file://"+os.getcwd()+"/ui/html/login/index.html"))
         self.setCentralWidget(self.browser)
-
 
 def run():
     app=QApplication(sys.argv)
