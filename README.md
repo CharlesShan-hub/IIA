@@ -1,5 +1,5 @@
 # IIA - Intelligent Information Assistant
-![IIA Demo](./resources/pic/IIA_logo.png)
+![IIA Demo](./resources/pic/IMG_1174.jpg)
 ## IIA 介绍
 IIA(Intelligent Information Assistant)是致力于帮助个人管理信息的软件. 
 
