@@ -4,9 +4,9 @@ import socket
 import os
 import random
 
-NAME = 'Charles'
-PASSWORD = '263513'
+import server.password as password
 
+import chardet
 # 当新的客户端连接时会提示
 def new_client(client, server):
     print("New connection:%s" % client['id'])
@@ -27,14 +27,25 @@ def message_received(client, server, message):
     except:
         server.send_message(client,'{"reply":"400"}')
         return
-    # 登陆请求
+
+    ''' 登陆
+    接收用户名与密码. 如果用户名对应的密码为传入密码则允许登陆, 否则不允许登陆
+    '''
     if message["type"] == "login":
-        if(message['name']==NAME and message['password']==PASSWORD):
-            print("认证正确!允许登陆")
-            server.send_message(client,'{"reply":"100"}')
-        else:
-            print("认证错误!不允许登陆")
-            server.send_message(client,'{"reply":"403"}')
+        code = password.login(message['password'],message['mail'])
+        server.send_message(client,reply_maker(code))
+
+    #找回密码
+    elif message["type"] == "find password":
+        pass
+    #注册新用户
+    elif message["type"] == "regist":
+        code = password.regist(message['name'],message['password'],message['mail'])
+        server.send_message(client,reply_maker(code))
+
+
+def reply_maker(code):
+    return '{"reply":"'+str(code)+'"}'
 
 
 def get_host_ip():
@@ -84,7 +95,7 @@ def write_json(path, content, encoding='UTF-8'):
     with open(path, 'w', encoding='utf-8') as f:
         f.write(json.dumps(content, indent=4, ensure_ascii=False))
 
- 
+
 def run():
     # 获取目前运行的ip与port
     ip = get_host_ip()

@@ -1,0 +1,4 @@
+2021-07-30 10:51:10,823 - logger - INFO - Getting user info - password
+2021-07-30 10:51:10,824 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-07-30 10:51:10,824 - logger - INFO - Getting user info - password
+2021-07-30 10:51:10,824 - logger - INFO - Load json - ./storage/resources/user_info.json

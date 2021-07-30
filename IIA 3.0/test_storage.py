@@ -4,6 +4,19 @@
 import storage
 import logger
 
+
+def test_add_user():
+	''' Add New User(Account)
+	'''
+	logger.info("**********************************")
+	logger.info("Creat new user info (valid type)\n")
+	storage.add_user('Charles','263513','charles.shht@gmail.com')
+	logger.info("")
+	storage.add_user('Kim','263513','1742861545@qq.com')
+	logger.info("")
+test_add_user()
+
+
 def test_creat_repository():
 	''' Creat New Reposory
 	Creat new reposory can return whether to creat successfully
@@ -161,7 +174,7 @@ def test_configure_repository():
 	# 创建非法标签
 	#storage.configure_repostory(name='RepoTest')
 	#logger.info("")
-test_configure_repository()
+#test_configure_repository()
 
 
 def test_cover_repository():

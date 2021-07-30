@@ -3,4 +3,5 @@ import ui.runner as runner
 def run():
     runner.run()
 
-# QUrl("file://"+os.getcwd()+"/ui/index.html")
+def test_run(html):
+    runner.run(html)

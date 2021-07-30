@@ -10,18 +10,18 @@
         body {
             display: flex;
             justify-content: center;
-            background-image: linear-gradient(to left, #fd79a8, #a29bfe);
+            background-image: linear-gradient(to left, #FF9999, #FFCCFF);
         }
-        .a{
+        #login_box{
             background-color: #fff;
             width: 350px;
             height: 500px;
             position: relative;
             display: flex;
-            border-radius: 10px;
+            /*border-radius: 10px;*/
             justify-content: center;
             align-items: center;
-            top: 100px;
+            top: 59px;
         }
         .b{
             width: 300px;
@@ -50,7 +50,7 @@
             padding: 12px;
             font: 900 20px '';
             border-radius: 10px;
-            background-image: linear-gradient(to left, #fd79a8, #a29bfe);
+            background-image: linear-gradient(to left, #FF99CC, #FFCCCC);
         }
         .g{
             margin: 33px;
@@ -60,6 +60,14 @@
     <script type="text/javascript" src="../../../server/setting.json"></script>
 
     <script type="text/javascript">
+        window.onresize = resize;
+        function resize(){
+            // https://www.cnblogs.com/polk6/p/5051935.html
+            // window.outerHeight //浏览器高度
+            x = document.getElementById("login_box");
+            x.style.top=(window.outerHeight-x.offsetHeight)/2+"px";
+        }
+
         var ip = setting.ip;
         var port = setting.port;
         //https://www.cnblogs.com/zjw2004112/p/11581392.html
@@ -83,7 +91,6 @@
             wsObj.onmessage = function(evt){ 
                 var data = JSON.parse(evt.data);
                 if(data.reply=='100'){
-                    //alert('登陆!')
                     window.location.href='../main/glxy.html';
                 }else{
                     alert('禁止登陆！')
@@ -99,7 +106,7 @@
     </script>
 </head>
 <body>
-    <di class="a">
+    <di id="login_box">
         <div class="b">
             <p class="c">Login</p>
             <div class="d">

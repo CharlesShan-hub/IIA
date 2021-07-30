@@ -8,6 +8,7 @@ from shutil import copyfile
 #####################################################
 ''' 底层文件操作
 	ConfigFilePath: 数据仓库配置文件路径
+	UserFilePath: 用户信息配置文件路径
 	load_csv(path,encoding='UTF-8'): 读取csv文件
 	load_json(path,encoding='UTF-8'): 读取json文件
 	write_json(path, content, encoding='UTF-8'): 写json文件
@@ -16,6 +17,7 @@ from shutil import copyfile
 	creat_database(name): 创建数据库文件
 '''
 ConfigFilePath = './storage/resources/repo_info.json'
+UserFilePath = './storage/resources/user_info.json'
 
 def load_csv(path,encoding='UTF-8'):
 	''' 获取数据
@@ -78,6 +80,87 @@ def creat_database(name):
 	path = "./storage/resources/"+name+".db"
 	conn = sqlite3.connect(path)
 	logger.info("Successfully created new database - "+name)
+
+
+#####################################################
+''' 用户信息
+	valid_user_name(name): 名称合法性检查
+	valid_mail(mail): 邮箱合法性检查
+	valid_password(password): 密码合法性检查
+	get_user_info(mail): 获取用户信息
+	save_user_info(name): 添加/保存用户信息
+	get_user_property(mail,con): 查看用户信息
+	change_user_property(mail,con_name,con_content): 修改/添加用户信息
+'''
+def valid_user_name(name):
+	''' 名称合法性检查
+	'''
+	logger.info("Check user_name valid - "+name)
+	if name.strip() == '':
+		logger.warning("wrong name type: list of space")
+		return False
+	return True
+
+def valid_mail(mail): 
+	''' 邮箱合法性检查
+	'''
+	logger.info("Check user_mail valid - "+mail)
+	all_user_info = load_json(UserFilePath)
+	if mail.strip() == '':
+		logger.warning("wrong mail type: list of space")
+		return False
+	if mail in all_user_info:
+		logger.warning("Invalid mail! (Have same mail)")
+		return False
+	return True
+
+def valid_password(password): 
+	''' 密码合法性检查
+	'''
+	logger.info("Check user_password valid")
+	return True
+
+def get_user_info(mail): 
+	''' 获取用户信息
+	''' 
+	all_user_info = load_json(UserFilePath)
+	if mail in all_user_info:
+		return all_user_info[mail]
+	else:
+		return False
+
+def save_user_info(name,password,mail): 
+	''' 添加/保存用户信息
+	'''
+	logger.info("Changing/adding user info - "+name+" "+mail)
+	all_user_info = load_json(UserFilePath)
+	all_user_info[mail] = {'name':name,'password':password}
+	write_json(UserFilePath, all_user_info)
+	return True
+
+def get_user_property(mail,con):
+	''' 查看用户信息
+	:param mail: 用户邮箱当作ID
+	:param con: 信息名称
+	'''
+	logger.info("Getting user info - "+con)
+	all_user_info = load_json(UserFilePath)
+	try:
+		return all_user_info[mail][con]
+	except:
+		return False
+
+
+def change_user_property(mail,con_name,con_content):
+	''' 修改/添加用户信息
+	:param mail: 用户邮箱当作ID
+	:param con: 信息名称
+	'''
+	logger.info("Changing/adding user info - "+con_name+" "+str(con_content))
+	all_user_info = load_json(ConfigFilePath)
+	all_user_info[mail][con_name] = con_content
+	write_json(UserFilePath, all_user_info)
+	return True
 
 
 #####################################################

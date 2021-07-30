@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>IIA - Main</title>
+	<script type="text/javascript" src="../../server/setting.json"></script>
+	<script type="text/javascript">
+        //获取参数
+        function GetUrlParam(name){
+          var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+          var r = window.location.search.substr(1).match(reg);
+          if(r!=null)return unescape(r[2]); return null;
+        }
+        var mail= GetUrlParam("mail");
+
+        // 建立连接
+        var ip = setting.ip;
+        var port = setting.port;
+        var wsObj;
+        wsObj = new WebSocket("ws://"+ip+":"+port);
+        
+
+	</script>
+</head>
+<body>
+
+	<div>
+		
+	</div>
+</body>
+</html>

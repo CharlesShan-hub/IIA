@@ -1,35 +1,46 @@
-import os
-import json
+from storage.custom import *
 
-
-# 检查路径
+# 检查必要文件夹
 if os.path.exists('./storage/resources') == False:
 	os.makedirs('./storage/resources')
 
-
-if os.path.exists('./storage/resources/repo_info.json') == False:
-	with open('./storage/resources/repo_info.json'\
-		, 'w', encoding='utf-8') as f:
+# 检查仓库信息文件
+if os.path.exists(ConfigFilePath) == False:
+	with open(ConfigFilePath, 'w', encoding='utf-8') as f:
 		content = {
 			'repo_id': []
 		}
 		f.write(json.dumps(content, indent=4, ensure_ascii=False))
 
+# 检查登录信息文件
+if os.path.exists(UserFilePath) == False:
+	with open(UserFilePath, 'w', encoding='utf-8') as f:
+		content = {}
+		f.write(json.dumps(content, indent=4, ensure_ascii=False))
 
-import storage.custom as custom
 
+#def add_user(name,password,mail):
+#	''' 新建用户
+#	'''
+#	return custom.add_user(name,password,mail)
+
+
+#def configure_user(mail,con_name=None, con_content=None, mode='auto'):
+#	'''
+#	'''
+#	return custom.configure_user(mail,con_name=con_name, con_content=con_content, mode=mode)
 
 def creat_repository(name):
 	''' 创建新数据仓库
 	'''
-	return custom.creat_repo(name)
+	return creat_repo(name)
 
 
 def copy_repository(
 	name=None,old_name='',old_repo_id=[]):
 	''' 创建数据库备份
 	''' 
-	return custom.copy_repo(old_repo_id=old_repo_id,name=name,old_name=old_name)
+	return copy_repo(old_repo_id=old_repo_id,name=name,old_name=old_name)
 
 
 def delete_repository(repo_id=[],name=''):
@@ -50,17 +61,16 @@ def delete_repository(repo_id=[],name=''):
 
 	返回值是删除删除成功与否
 	'''
-	return custom.delete_repo(repo_id=repo_id,name=name)
+	return delete_repo(repo_id=repo_id,name=name)
 
 
 def configure_repository(repo_id=[],name='',con_name=None, con_content=None, mode='auto'):
 	''' 配置数据库(比如改名, 与自定义标签添加与内容修改与获取)
 	'''
-	return custom.configure_repo(repo_id,name,con_name, con_content, mode)
+	return configure_repo(repo_id,name,con_name, con_content, mode)
 
 
 def cover_repository(from_name='',to_name='',from_repo_id=[],to_repo_id=[]):
 	''' 覆盖数据库(版本回退)
 	'''
-	return custom.cover_repo(from_name,to_name,from_repo_id,to_repo_id)
-
+	return cover_repo(from_name,to_name,from_repo_id,to_repo_id)

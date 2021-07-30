@@ -1,8 +1,7 @@
 # Storage Module Document
 ## 1. Overview
-The storage module is designed into three layers: **logic layer**, **custom layer** and **implementation layer**.  
-
  ![image](./document/structure.png)  
+The storage module is designed into three layers: **logic layer**, **custom layer** and **implementation layer**.  
 
 The storage module is designed into three layers: logic layer, custom layer and implementation layer.  
 
@@ -15,6 +14,7 @@ The implementation layer is concerned with transforming a logic-level solution i
 The implementation layer provides many small modules, and the logic layer and the custom layer call these small modules for operations, so as to achieve the separation of logic and implementation.  
 
 ## 2. Logic Layer
+ ![image](./document/API.png)  
 ### 2.1 Logic Layer Overview
 The data type currently provided: **Repository**, **Sheet**, **Relation**.  
 
@@ -23,8 +23,6 @@ Repository is a piece space for specific kind of data. In the repository, the sh
 Sheet is a unit in repository, we can input some highly structured data in the sheet.
 
 Relation, after input data in the sheet, we maybe want to improve efficiency and reduce storage space. This step we need define relationship between sheets.
-
- ![image](./document/API.png)  
 
 ### 2.2 Repository
 1. __What is Repository__  
