@@ -16,8 +16,13 @@ from shutil import copyfile
 	copy_file(path_from,path_to): 拷贝文件
 	creat_database(name): 创建数据库文件
 '''
+# Path of Config File
 ConfigFilePath = './storage/resources/repo_info.json'
+# Path of User info File
 UserFilePath = './storage/resources/user_info.json'
+# Attributes of Repo config
+RepoAtr = ['name','exist','cloud','open','visible']
+
 
 def load_csv(path,encoding='UTF-8'):
 	''' 获取数据
@@ -52,6 +57,12 @@ def write_json(path, content, encoding='UTF-8'):
 	with open(path, 'w', encoding='utf-8') as f:
 		f.write(json.dumps(content, indent=4, ensure_ascii=False))
 
+
+def add_json_config(data,name,content):
+	''' json加入内容
+	'''
+	data[name] = content
+	return data
 
 def delete_file(path):
 	''' 文件删除
@@ -101,6 +112,7 @@ def valid_user_name(name):
 		return False
 	return True
 
+
 def valid_mail(mail): 
 	''' 邮箱合法性检查
 	'''
@@ -114,11 +126,13 @@ def valid_mail(mail):
 		return False
 	return True
 
+
 def valid_password(password): 
 	''' 密码合法性检查
 	'''
 	logger.info("Check user_password valid")
 	return True
+
 
 def get_user_info(mail): 
 	''' 获取用户信息
@@ -129,6 +143,7 @@ def get_user_info(mail):
 	else:
 		return False
 
+
 def save_user_info(name,password,mail): 
 	''' 添加/保存用户信息
 	'''
@@ -137,6 +152,7 @@ def save_user_info(name,password,mail):
 	all_user_info[mail] = {'name':name,'password':password}
 	write_json(UserFilePath, all_user_info)
 	return True
+
 
 def get_user_property(mail,con):
 	''' 查看用户信息

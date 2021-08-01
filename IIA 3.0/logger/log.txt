@@ -2,3 +2,18 @@
 2021-07-30 10:51:10,824 - logger - INFO - Load json - ./storage/resources/user_info.json
 2021-07-30 10:51:10,824 - logger - INFO - Getting user info - password
 2021-07-30 10:51:10,824 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-07-31 21:19:39,006 - logger - INFO - Getting user info - password
+2021-07-31 21:19:39,007 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-07-31 21:19:39,007 - logger - INFO - Getting user info - password
+2021-07-31 21:19:39,007 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-07-31 21:20:01,066 - logger - INFO - Check user_name valid - Charles
+2021-07-31 21:20:01,067 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-07-31 21:20:01,067 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-07-31 21:20:01,067 - logger - INFO - Check user_password valid
+2021-07-31 21:20:01,067 - logger - INFO - Changing/adding user info - Charles charles.shht@gmail.com
+2021-07-31 21:20:01,067 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-07-31 21:20:01,068 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-07-31 21:24:13,647 - logger - INFO - Getting user info - password
+2021-07-31 21:24:13,648 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-07-31 21:24:13,649 - logger - INFO - Getting user info - password
+2021-07-31 21:24:13,649 - logger - INFO - Load json - ./storage/resources/user_info.json

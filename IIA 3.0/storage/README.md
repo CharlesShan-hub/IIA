@@ -81,3 +81,11 @@ Beacuse the repository can be copied. When a repository is deleted, there maybe 
 If the warehouse has been uploaded to the cloud, or the warehouse has been downloaded from the cloud, it will be marked: if_cloud = True.
 
 ## 4. Implementation Layer
+### 4.1 Repository
+1. Repository Attribute
+* __repo_id__ : 'repo_id' is the id of a repository. And record the version change of repositories.
+* __name__ : 'name' is name of a repository. Repository name cannot be identical in a devices.
+* __cloud__ : To identify if the repository have cloud copy.
+* __exist__ : Sometimes an repo_id has not a repository storaged in local PC. For example, the repository have a cloud copy but delete file in local PC. Another case, In a version tree, a node veriosn is deleted but a child node exist.
+* __open__ : If a repository is open, it can be visit for everyone.
+* __visible__ : A repository can be visit by spcific user id.

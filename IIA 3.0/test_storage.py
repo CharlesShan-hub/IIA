@@ -14,7 +14,7 @@ def test_add_user():
 	logger.info("")
 	storage.add_user('Kim','263513','1742861545@qq.com')
 	logger.info("")
-test_add_user()
+#test_add_user()
 
 
 def test_creat_repository():

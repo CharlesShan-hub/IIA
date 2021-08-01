@@ -1,10 +1,14 @@
 from storage.custom import *
 
-# 检查必要文件夹
+'''
+	Check Path and File existence
+'''
+
+# Folders
 if os.path.exists('./storage/resources') == False:
 	os.makedirs('./storage/resources')
 
-# 检查仓库信息文件
+# Repo info file
 if os.path.exists(ConfigFilePath) == False:
 	with open(ConfigFilePath, 'w', encoding='utf-8') as f:
 		content = {
@@ -12,12 +16,15 @@ if os.path.exists(ConfigFilePath) == False:
 		}
 		f.write(json.dumps(content, indent=4, ensure_ascii=False))
 
-# 检查登录信息文件
+# User info file
 if os.path.exists(UserFilePath) == False:
 	with open(UserFilePath, 'w', encoding='utf-8') as f:
 		content = {}
 		f.write(json.dumps(content, indent=4, ensure_ascii=False))
 
+'''
+	API
+'''
 
 #def add_user(name,password,mail):
 #	''' 新建用户
@@ -30,10 +37,10 @@ if os.path.exists(UserFilePath) == False:
 #	'''
 #	return custom.configure_user(mail,con_name=con_name, con_content=con_content, mode=mode)
 
-def creat_repository(name):
+def creat_repository(name,user_id):
 	''' 创建新数据仓库
 	'''
-	return creat_repo(name)
+	return creat_repo(name,user_id)
 
 
 def copy_repository(
@@ -74,3 +81,4 @@ def cover_repository(from_name='',to_name='',from_repo_id=[],to_repo_id=[]):
 	''' 覆盖数据库(版本回退)
 	'''
 	return cover_repo(from_name,to_name,from_repo_id,to_repo_id)
+

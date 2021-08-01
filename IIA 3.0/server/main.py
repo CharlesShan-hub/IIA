@@ -7,6 +7,9 @@ import random
 import server.password as password
 
 import chardet
+
+SERVER_WELCOME = True
+
 # 当新的客户端连接时会提示
 def new_client(client, server):
     print("New connection:%s" % client['id'])
@@ -76,18 +79,6 @@ def get_host_port():
         return get_host_port()
 
 
-def load_json(path,encoding='UTF-8'):
-    ''' 获取数据
-    :param path: 数据集路径
-    :param encoding(optional): 编码类型
-    :return data: 获取的数据
-    '''
-    with open(path, 'r', encoding='UTF-8') as f:
-        data = json.load(f)    #此时a是一个字典对象
-    #logger.info("Load json - "+path)
-    return data
-
-
 def write_json(path, content, encoding='UTF-8'):
     ''' json写入数据
     '''
@@ -97,11 +88,33 @@ def write_json(path, content, encoding='UTF-8'):
 
 
 def run():
+    # Server welcome info
+    if SERVER_WELCOME == True:
+        print("---------------------------------------\n")
+        print("Welcome to IIA Server!")
+        print("""
+      ___________ 
+     /  _/  _/   |
+     / / / // /| |
+   _/ /_/ // ___ |
+  /___/___/_/  |_|
+                
+""")
+        print("Author: Charles Shan")
+        print("Mail: charles.shht@gmail.com")
+        print("\n---------------------------------------\n")
+
+        #print("Input 'HELP' to see what IIA Sever can do!")
+        #print("Input 'STOP' to shut down the sever safely!")
+        #print("Input 'STOP_FORCED' to shut down the sever directly!\n")
+        
     # 获取目前运行的ip与port
     ip = get_host_ip()
     port = get_host_port()
-    print("ip =",ip)
-    print("port =",port)
+    print("The server is run at:")
+    print(" ip =",ip)
+    print(" port =",port)
+    print("\n---------------------------------------\n")
 
     # 将ip与port写入文件(ui模块需要)
     write_json('./server/setting.json',

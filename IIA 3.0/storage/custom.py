@@ -30,7 +30,7 @@ def add_user(name,password,mail):
 	if valid_password(password)==False:
 		logger.warning("Failed to add user - password:"+password+" is not valid")
 		return False
-	
+
 	return save_user_info(name,password,mail)
 
 
