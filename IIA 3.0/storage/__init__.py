@@ -3,6 +3,10 @@ from storage.custom import *
 '''
 	Check Path and File existence
 '''
+__all__ = [
+		'add_user',
+		'creat_repository'
+		]
 
 # Folders
 if os.path.exists('./storage/resources') == False:
@@ -26,21 +30,21 @@ if os.path.exists(UserFilePath) == False:
 	API
 '''
 
-#def add_user(name,password,mail):
-#	''' 新建用户
-#	'''
-#	return custom.add_user(name,password,mail)
+def add_user(name,password,mail,**kwg):
+	''' 新建用户
+	'''
+	return custom.add_u(name,password,mail,**kwg)
 
 
-#def configure_user(mail,con_name=None, con_content=None, mode='auto'):
-#	'''
-#	'''
-#	return custom.configure_user(mail,con_name=con_name, con_content=con_content, mode=mode)
+def configure_user(mail,con_name=None, con_content=None, mode='auto'):
+	'''
+	'''
+	return custom.configure_u(mail,con_name=con_name, con_content=con_content, mode=mode)
 
-def creat_repository(name,user_id):
+def creat_repository(name,**kwg):
 	''' 创建新数据仓库
 	'''
-	return creat_repo(name,user_id)
+	return creat_repo(name,**kwg)
 
 
 def copy_repository(

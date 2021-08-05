@@ -17,3 +17,416 @@
 2021-07-31 21:24:13,648 - logger - INFO - Load json - ./storage/resources/user_info.json
 2021-07-31 21:24:13,649 - logger - INFO - Getting user info - password
 2021-07-31 21:24:13,649 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 18:52:31,383 - logger - INFO - Getting user info - password
+2021-08-04 18:52:31,384 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 18:52:31,385 - logger - INFO - Getting user info - password
+2021-08-04 18:52:31,385 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 19:08:13,630 - logger - INFO - **********************************
+2021-08-04 19:08:13,630 - logger - INFO - Creat new user info (valid type)
+
+2021-08-04 19:08:13,630 - logger - INFO - Check user_name valid - Charles
+2021-08-04 19:08:13,630 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-04 19:08:13,630 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 19:08:13,630 - logger - INFO - Check user_password valid
+2021-08-04 19:08:13,630 - logger - INFO - Changing/adding user info - Charles charles.shht@gmail.com
+2021-08-04 19:08:13,631 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 19:08:13,631 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-04 19:08:13,631 - logger - INFO - 
+2021-08-04 19:08:13,631 - logger - INFO - Check user_name valid - Kim
+2021-08-04 19:08:13,631 - logger - INFO - Check user_mail valid - 1742861545@qq.com
+2021-08-04 19:08:13,631 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 19:08:13,631 - logger - INFO - Check user_password valid
+2021-08-04 19:08:13,631 - logger - INFO - Changing/adding user info - Kim 1742861545@qq.com
+2021-08-04 19:08:13,631 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 19:08:13,631 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-04 19:08:13,632 - logger - INFO - 
+2021-08-04 19:08:13,632 - logger - INFO - **********************************
+2021-08-04 19:08:13,632 - logger - INFO - Creat new repo valid type
+
+2021-08-04 19:08:13,632 - logger - INFO - Start creat new repo - RepoTest
+2021-08-04 19:08:13,632 - logger - INFO - Check repo_name valid - RepoTest
+2021-08-04 19:08:13,632 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:08:13,632 - logger - INFO - Check repo_name valid - True
+2021-08-04 19:08:13,632 - logger - INFO - Creat new database - RepoTest
+2021-08-04 19:08:13,632 - logger - INFO - Successfully created new database - RepoTest
+2021-08-04 19:08:13,632 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:08:13,632 - logger - INFO - Start creat new repo_id
+2021-08-04 19:08:13,633 - logger - INFO - New repo_id - [0]
+2021-08-04 19:08:13,633 - logger - INFO - Save repo info (repo_id = [0])
+2021-08-04 19:08:13,633 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:08:13,633 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-04 19:08:13,633 - logger - INFO - Changing/adding repo property - user_id charles.shht@gmail.com
+2021-08-04 19:08:13,633 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:08:13,633 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-04 19:08:13,633 - logger - INFO - Succeeded to creat new repo - RepoTest
+2021-08-04 19:08:13,633 - logger - INFO - 
+2021-08-04 19:08:13,633 - logger - INFO - Start creat new repo - RepoTest2
+2021-08-04 19:08:13,633 - logger - INFO - Check repo_name valid - RepoTest2
+2021-08-04 19:08:13,633 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:08:13,634 - logger - INFO - Check repo_name valid - True
+2021-08-04 19:08:13,634 - logger - INFO - Creat new database - RepoTest2
+2021-08-04 19:08:13,634 - logger - INFO - Successfully created new database - RepoTest2
+2021-08-04 19:08:13,634 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:08:13,634 - logger - INFO - Start creat new repo_id
+2021-08-04 19:08:13,634 - logger - INFO - New repo_id - [1]
+2021-08-04 19:08:13,634 - logger - INFO - Save repo info (repo_id = [1])
+2021-08-04 19:08:13,634 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:08:13,634 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-04 19:08:13,634 - logger - INFO - Changing/adding repo property - user_id charles.shht@gmail.com
+2021-08-04 19:08:13,634 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:08:13,635 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-04 19:08:13,635 - logger - INFO - Changing/adding repo property - new_label 12345
+2021-08-04 19:08:13,635 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:08:13,635 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-04 19:08:13,635 - logger - INFO - Succeeded to creat new repo - RepoTest2
+2021-08-04 19:08:13,635 - logger - INFO - 
+2021-08-04 19:14:25,614 - logger - INFO - **********************************
+2021-08-04 19:14:25,615 - logger - INFO - Creat new user info (valid type)
+
+2021-08-04 19:14:25,615 - logger - INFO - Check user_name valid - Charles
+2021-08-04 19:14:25,615 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-04 19:14:25,615 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 19:14:25,615 - logger - INFO - Check user_password valid
+2021-08-04 19:14:25,615 - logger - INFO - Changing/adding user info - Charles charles.shht@gmail.com
+2021-08-04 19:14:25,615 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 19:14:25,615 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-04 19:14:25,616 - logger - INFO - 
+2021-08-04 19:14:25,616 - logger - INFO - Check user_name valid - Kim
+2021-08-04 19:14:25,616 - logger - INFO - Check user_mail valid - 1742861545@qq.com
+2021-08-04 19:14:25,616 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 19:14:25,616 - logger - INFO - Check user_password valid
+2021-08-04 19:14:25,616 - logger - INFO - Changing/adding user info - Kim 1742861545@qq.com
+2021-08-04 19:14:25,616 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 19:14:25,616 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-04 19:14:25,616 - logger - INFO - 
+2021-08-04 19:14:25,617 - logger - INFO - **********************************
+2021-08-04 19:14:25,617 - logger - INFO - Creat new repo valid type
+
+2021-08-04 19:14:25,617 - logger - INFO - Start creat new repo - RepoTest
+2021-08-04 19:14:25,617 - logger - INFO - Check repo_name valid - RepoTest
+2021-08-04 19:14:25,617 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,617 - logger - INFO - Check repo_name valid - True
+2021-08-04 19:14:25,617 - logger - INFO - Creat new database - RepoTest
+2021-08-04 19:14:25,617 - logger - INFO - Successfully created new database - RepoTest
+2021-08-04 19:14:25,618 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,618 - logger - INFO - Start creat new repo_id
+2021-08-04 19:14:25,618 - logger - INFO - New repo_id - [0]
+2021-08-04 19:14:25,618 - logger - INFO - Save repo info (repo_id = [0])
+2021-08-04 19:14:25,618 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,618 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,619 - logger - INFO - Changing/adding repo property - user_id charles.shht@gmail.com
+2021-08-04 19:14:25,619 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,619 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,619 - logger - INFO - Succeeded to creat new repo - RepoTest
+2021-08-04 19:14:25,619 - logger - INFO - 
+2021-08-04 19:14:25,619 - logger - INFO - Start creat new repo - RepoTest2
+2021-08-04 19:14:25,619 - logger - INFO - Check repo_name valid - RepoTest2
+2021-08-04 19:14:25,620 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,620 - logger - INFO - Check repo_name valid - True
+2021-08-04 19:14:25,620 - logger - INFO - Creat new database - RepoTest2
+2021-08-04 19:14:25,620 - logger - INFO - Successfully created new database - RepoTest2
+2021-08-04 19:14:25,620 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,620 - logger - INFO - Start creat new repo_id
+2021-08-04 19:14:25,620 - logger - INFO - New repo_id - [1]
+2021-08-04 19:14:25,620 - logger - INFO - Save repo info (repo_id = [1])
+2021-08-04 19:14:25,620 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,620 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,621 - logger - INFO - Changing/adding repo property - user_id charles.shht@gmail.com
+2021-08-04 19:14:25,621 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,621 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,621 - logger - INFO - Changing/adding repo property - new_label 12345
+2021-08-04 19:14:25,622 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,622 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,622 - logger - INFO - Succeeded to creat new repo - RepoTest2
+2021-08-04 19:14:25,622 - logger - INFO - 
+2021-08-04 19:14:25,622 - logger - INFO - **********************************
+2021-08-04 19:14:25,622 - logger - INFO - Creat new repo valid type
+
+2021-08-04 19:14:25,622 - logger - INFO - Start creat new repo - RepoTest3
+2021-08-04 19:14:25,622 - logger - INFO - Check repo_name valid - RepoTest3
+2021-08-04 19:14:25,622 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 19:14:25,622 - logger - INFO - Check repo_name valid - True
+2021-08-04 19:14:25,622 - logger - WARNING - creat_repo() - need user_id
+2021-08-04 19:14:25,623 - logger - INFO - 
+2021-08-04 20:27:37,545 - logger - INFO - **********************************
+2021-08-04 20:27:37,546 - logger - INFO - Creat new user info (valid type)
+
+2021-08-04 20:27:37,546 - logger - INFO - Check user_name valid - Charles
+2021-08-04 20:27:37,546 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-04 20:27:37,546 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 20:27:37,546 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-04 20:27:37,546 - logger - WARNING - Failed to add user - mail:charles.shht@gmail.com is not valid
+2021-08-04 20:27:37,547 - logger - INFO - 
+2021-08-04 20:27:37,547 - logger - INFO - Check user_name valid - Kim
+2021-08-04 20:27:37,547 - logger - INFO - Check user_mail valid - 1742861545@qq.com
+2021-08-04 20:27:37,547 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 20:27:37,547 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-04 20:27:37,547 - logger - WARNING - Failed to add user - mail:1742861545@qq.com is not valid
+2021-08-04 20:27:37,547 - logger - INFO - 
+2021-08-04 20:27:37,547 - logger - INFO - **********************************
+2021-08-04 20:27:37,547 - logger - INFO - Creat new repo valid type
+
+2021-08-04 20:27:37,547 - logger - INFO - Start creat new repo - RepoTest
+2021-08-04 20:27:37,547 - logger - INFO - Check repo_name valid - RepoTest
+2021-08-04 20:27:37,547 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:27:37,548 - logger - INFO - Check repo_name valid - False
+2021-08-04 20:27:37,548 - logger - WARNING - Failed to creat new repo - RepoTest
+2021-08-04 20:27:37,548 - logger - INFO - 
+2021-08-04 20:27:37,548 - logger - INFO - Start creat new repo - RepoTest2
+2021-08-04 20:27:37,548 - logger - INFO - Check repo_name valid - RepoTest2
+2021-08-04 20:27:37,548 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:27:37,548 - logger - INFO - Check repo_name valid - False
+2021-08-04 20:27:37,548 - logger - WARNING - Failed to creat new repo - RepoTest2
+2021-08-04 20:27:37,548 - logger - INFO - 
+2021-08-04 20:27:37,548 - logger - INFO - **********************************
+2021-08-04 20:27:37,548 - logger - INFO - Creat new repo without user_id
+
+2021-08-04 20:27:37,548 - logger - INFO - Start creat new repo - RepoTest3
+2021-08-04 20:27:37,548 - logger - INFO - Check repo_name valid - RepoTest3
+2021-08-04 20:27:37,548 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:27:37,549 - logger - INFO - Check repo_name valid - True
+2021-08-04 20:27:37,549 - logger - WARNING - creat_repo() - need user_id
+2021-08-04 20:27:37,549 - logger - INFO - 
+2021-08-04 20:34:21,009 - logger - INFO - **********************************
+2021-08-04 20:34:21,010 - logger - INFO - Creat new user info (valid type)
+
+2021-08-04 20:34:21,010 - logger - INFO - Check user_name valid - Charles
+2021-08-04 20:34:21,010 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-04 20:34:21,011 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 20:34:21,012 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-04 20:34:21,012 - logger - WARNING - Failed to add user - mail:charles.shht@gmail.com is not valid
+2021-08-04 20:34:21,012 - logger - INFO - 
+2021-08-04 20:34:21,012 - logger - INFO - Check user_name valid - Kim
+2021-08-04 20:34:21,012 - logger - INFO - Check user_mail valid - 1742861545@qq.com
+2021-08-04 20:34:21,013 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-04 20:34:21,013 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-04 20:34:21,013 - logger - WARNING - Failed to add user - mail:1742861545@qq.com is not valid
+2021-08-04 20:34:21,013 - logger - INFO - 
+2021-08-04 20:34:21,013 - logger - INFO - **********************************
+2021-08-04 20:34:21,013 - logger - INFO - Creat new repo valid type
+
+2021-08-04 20:34:21,013 - logger - INFO - Start creat new repo - RepoTest
+2021-08-04 20:34:21,013 - logger - INFO - Check repo_name valid - RepoTest
+2021-08-04 20:34:21,013 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:34:21,013 - logger - INFO - Check repo_name valid - False
+2021-08-04 20:34:21,014 - logger - WARNING - Failed to creat new repo - RepoTest
+2021-08-04 20:34:21,014 - logger - INFO - 
+2021-08-04 20:34:21,014 - logger - INFO - Start creat new repo - RepoTest2
+2021-08-04 20:34:21,014 - logger - INFO - Check repo_name valid - RepoTest2
+2021-08-04 20:34:21,014 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:34:21,014 - logger - INFO - Check repo_name valid - False
+2021-08-04 20:34:21,014 - logger - WARNING - Failed to creat new repo - RepoTest2
+2021-08-04 20:34:21,014 - logger - INFO - 
+2021-08-04 20:34:21,014 - logger - INFO - **********************************
+2021-08-04 20:34:21,014 - logger - INFO - Creat new repo without user_id
+
+2021-08-04 20:34:21,014 - logger - INFO - Start creat new repo - RepoTest3
+2021-08-04 20:34:21,014 - logger - INFO - Check repo_name valid - RepoTest3
+2021-08-04 20:34:21,014 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:34:21,015 - logger - INFO - Check repo_name valid - True
+2021-08-04 20:34:21,015 - logger - WARNING - creat_repo() - need user_id
+2021-08-04 20:34:21,015 - logger - INFO - 
+2021-08-04 20:34:21,015 - logger - INFO - **********************************
+2021-08-04 20:34:21,015 - logger - INFO - Creat with wrong type parm (invalid)
+
+2021-08-04 20:34:21,015 - logger - WARNING - creat_repo() - name should be `str` type
+2021-08-04 20:34:21,015 - logger - INFO - creat_repo() - name should be `str` type
+2021-08-04 20:34:21,015 - logger - INFO - 
+2021-08-04 20:34:21,015 - logger - INFO - **********************************
+2021-08-04 20:34:21,015 - logger - INFO - Creat wrong format name repo (invalid)
+
+2021-08-04 20:34:21,015 - logger - INFO - Start creat new repo - /User/wrongtype
+2021-08-04 20:34:21,015 - logger - INFO - Check repo_name valid - /User/wrongtype
+2021-08-04 20:34:21,015 - logger - WARNING - wrong char '/' in name - /User/wrongtype
+2021-08-04 20:34:21,015 - logger - WARNING - Failed to creat new repo - /User/wrongtype
+2021-08-04 20:34:21,015 - logger - INFO - 
+2021-08-04 20:34:21,015 - logger - INFO - Start creat new repo - .\wrongtype
+2021-08-04 20:34:21,015 - logger - INFO - Check repo_name valid - .\wrongtype
+2021-08-04 20:34:21,015 - logger - WARNING - wrong char '\' in name - .\wrongtype
+2021-08-04 20:34:21,015 - logger - WARNING - Failed to creat new repo - .\wrongtype
+2021-08-04 20:34:21,015 - logger - INFO - 
+2021-08-04 20:34:21,015 - logger - INFO - Start creat new repo - wrongtype.txt
+2021-08-04 20:34:21,015 - logger - INFO - Check repo_name valid - wrongtype.txt
+2021-08-04 20:34:21,016 - logger - WARNING - wrong char '.' in name - wrongtype.txt
+2021-08-04 20:34:21,016 - logger - WARNING - Failed to creat new repo - wrongtype.txt
+2021-08-04 20:34:21,016 - logger - INFO - 
+2021-08-04 20:34:21,016 - logger - INFO - Start creat new repo -        
+2021-08-04 20:34:21,016 - logger - INFO - Check repo_name valid -        
+2021-08-04 20:34:21,016 - logger - WARNING - wrong name type: list of space
+2021-08-04 20:34:21,016 - logger - WARNING - Failed to creat new repo -        
+2021-08-04 20:34:21,016 - logger - INFO - **********************************
+2021-08-04 20:34:21,016 - logger - INFO - Creat repeated named repo (invalid)
+
+2021-08-04 20:34:21,016 - logger - INFO - Start creat new repo - RepoTest
+2021-08-04 20:34:21,016 - logger - INFO - Check repo_name valid - RepoTest
+2021-08-04 20:34:21,016 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:34:21,016 - logger - INFO - Check repo_name valid - False
+2021-08-04 20:34:21,016 - logger - WARNING - Failed to creat new repo - RepoTest
+2021-08-04 20:34:21,016 - logger - INFO - 
+2021-08-04 20:35:16,419 - logger - INFO - Start creat new repo - RepoTest
+2021-08-04 20:35:16,419 - logger - INFO - Check repo_name valid - RepoTest
+2021-08-04 20:35:16,419 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:35:16,420 - logger - INFO - Check repo_name valid - False
+2021-08-04 20:35:16,420 - logger - WARNING - Failed to creat new repo - RepoTest
+2021-08-04 20:35:16,420 - logger - INFO - 
+2021-08-04 20:35:16,420 - logger - INFO - Start make copy repo RepoTest_2021_7_6, id=[]
+2021-08-04 20:35:16,420 - logger - INFO - Check repo_name valid - RepoTest_2021_7_6
+2021-08-04 20:35:16,420 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:35:16,420 - logger - INFO - Check repo_name valid - True
+2021-08-04 20:35:16,420 - logger - INFO - Getting repo_id
+2021-08-04 20:35:16,420 - logger - INFO - Getting repo_id by name (RepoTest)
+2021-08-04 20:35:16,420 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:35:16,420 - logger - INFO - Got repo_id - [0]
+2021-08-04 20:35:16,420 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:35:16,420 - logger - INFO - Start creat copy repo_id
+2021-08-04 20:35:16,421 - logger - INFO - Save repo info (repo_id = [0, 0])
+2021-08-04 20:35:16,421 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:35:16,421 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-04 20:35:16,421 - logger - INFO - Start copy repo store file
+2021-08-04 20:35:16,422 - logger - INFO - Getting repo property - name
+2021-08-04 20:35:16,422 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:35:16,422 - logger - INFO - Getting repo property - name
+2021-08-04 20:35:16,422 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:35:16,422 - logger - INFO - File/Path copied - ./storage/resources/RepoTest_2021_7_6.db
+2021-08-04 20:35:16,422 - logger - INFO - Succeeded to copy repo - RepoTest_2021_7_6
+2021-08-04 20:35:16,422 - logger - INFO - 
+2021-08-04 20:35:16,422 - logger - INFO - Getting repo_id
+2021-08-04 20:35:16,422 - logger - INFO - Getting repo_id by name (RepoTest_2021_7_6)
+2021-08-04 20:35:16,423 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:35:16,423 - logger - INFO - Got repo_id - [0, 0]
+2021-08-04 20:35:16,423 - logger - INFO - Getting repo_id
+2021-08-04 20:35:16,423 - logger - INFO - Getting repo_id by name (RepoTest)
+2021-08-04 20:35:16,423 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-04 20:35:16,423 - logger - INFO - Got repo_id - [0]
+2021-08-04 20:35:16,423 - logger - INFO - Try to cover repo from [0, 0] to [0]
+2021-08-04 20:35:16,423 - logger - WARNING - Unlegal to cover repo! (Not copy relationship!)
+2021-08-04 20:35:16,423 - logger - INFO - 
+2021-08-05 10:56:04,470 - logger - INFO - **********************************
+2021-08-05 10:56:04,471 - logger - INFO - Creat new user info (valid type)
+
+2021-08-05 10:56:04,471 - logger - INFO - Check user_name valid - Charles
+2021-08-05 10:56:04,471 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-05 10:56:04,471 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 10:56:04,471 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-05 10:56:04,472 - logger - WARNING - Failed to add user - mail:charles.shht@gmail.com is not valid
+2021-08-05 10:56:04,472 - logger - INFO - 
+2021-08-05 10:56:04,472 - logger - INFO - Check user_name valid - Kim
+2021-08-05 10:56:04,472 - logger - INFO - Check user_mail valid - 1742861545@qq.com
+2021-08-05 10:56:04,472 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 10:56:04,472 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-05 10:56:04,472 - logger - WARNING - Failed to add user - mail:1742861545@qq.com is not valid
+2021-08-05 10:56:04,472 - logger - INFO - 
+2021-08-05 10:56:04,472 - logger - INFO - **********************************
+2021-08-05 10:56:04,472 - logger - INFO - Creat new user info (valid type)
+
+2021-08-05 10:56:04,472 - logger - INFO - Check user_name valid - Someone
+2021-08-05 10:56:04,472 - logger - INFO - Check user_mail valid - shanhongtian@gmail.com
+2021-08-05 10:56:04,472 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 10:56:04,472 - logger - INFO - Check user_password valid
+2021-08-05 10:56:04,472 - logger - INFO - Changing/adding user info - Someone shanhongtian@gmail.com
+2021-08-05 10:56:04,472 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 10:56:04,472 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-05 10:56:04,473 - logger - INFO - Changing/adding user info - a 1
+2021-08-05 10:56:04,473 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-05 11:02:18,389 - logger - INFO - **********************************
+2021-08-05 11:02:18,389 - logger - INFO - Creat new user info (valid type)
+
+2021-08-05 11:02:18,389 - logger - INFO - Check user_name valid - Charles
+2021-08-05 11:02:18,389 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-05 11:02:18,389 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,389 - logger - INFO - Check user_password valid
+2021-08-05 11:02:18,389 - logger - INFO - Changing/adding user info - Charles charles.shht@gmail.com
+2021-08-05 11:02:18,389 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,389 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,390 - logger - INFO - 
+2021-08-05 11:02:18,390 - logger - INFO - Check user_name valid - Kim
+2021-08-05 11:02:18,390 - logger - INFO - Check user_mail valid - 1742861545@qq.com
+2021-08-05 11:02:18,390 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,390 - logger - INFO - Check user_password valid
+2021-08-05 11:02:18,390 - logger - INFO - Changing/adding user info - Kim 1742861545@qq.com
+2021-08-05 11:02:18,390 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,390 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,390 - logger - INFO - 
+2021-08-05 11:02:18,390 - logger - INFO - **********************************
+2021-08-05 11:02:18,391 - logger - INFO - Creat new user info (valid type)
+
+2021-08-05 11:02:18,391 - logger - INFO - Check user_name valid - Someone
+2021-08-05 11:02:18,391 - logger - INFO - Check user_mail valid - shanhongtian@gmail.com
+2021-08-05 11:02:18,391 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,391 - logger - INFO - Check user_password valid
+2021-08-05 11:02:18,391 - logger - INFO - Changing/adding user info - Someone shanhongtian@gmail.com
+2021-08-05 11:02:18,391 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,391 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,391 - logger - INFO - Changing/adding user info - a 1
+2021-08-05 11:02:18,391 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,392 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,392 - logger - INFO - Changing/adding user info - b 2
+2021-08-05 11:02:18,392 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,392 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,393 - logger - INFO - Changing/adding user info - c 1
+2021-08-05 11:02:18,393 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,393 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-05 11:02:18,393 - logger - INFO - 
+2021-08-05 11:02:42,932 - logger - INFO - **********************************
+2021-08-05 11:02:42,932 - logger - INFO - Creat new user info (valid type)
+
+2021-08-05 11:02:42,932 - logger - INFO - Check user_name valid - Charles
+2021-08-05 11:02:42,932 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-05 11:02:42,932 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:42,932 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-05 11:02:42,932 - logger - WARNING - Failed to add user - mail:charles.shht@gmail.com is not valid
+2021-08-05 11:02:42,933 - logger - INFO - 
+2021-08-05 11:02:42,933 - logger - INFO - Check user_name valid - Kim
+2021-08-05 11:02:42,933 - logger - INFO - Check user_mail valid - 1742861545@qq.com
+2021-08-05 11:02:42,933 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:42,933 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-05 11:02:42,933 - logger - WARNING - Failed to add user - mail:1742861545@qq.com is not valid
+2021-08-05 11:02:42,933 - logger - INFO - 
+2021-08-05 11:02:42,933 - logger - INFO - **********************************
+2021-08-05 11:02:42,933 - logger - INFO - Creat new user info (valid type)
+
+2021-08-05 11:02:42,933 - logger - INFO - Check user_name valid - Someone
+2021-08-05 11:02:42,933 - logger - INFO - Check user_mail valid - shanhongtian@gmail.com
+2021-08-05 11:02:42,934 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:42,934 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-05 11:02:42,935 - logger - WARNING - Failed to add user - mail:shanhongtian@gmail.com is not valid
+2021-08-05 11:02:42,936 - logger - INFO - 
+2021-08-05 11:02:49,910 - logger - INFO - **********************************
+2021-08-05 11:02:49,911 - logger - INFO - Creat new user info (valid type)
+
+2021-08-05 11:02:49,911 - logger - INFO - Check user_name valid - Charles
+2021-08-05 11:02:49,911 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-05 11:02:49,911 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,911 - logger - INFO - Check user_password valid
+2021-08-05 11:02:49,911 - logger - INFO - Changing/adding user info - Charles charles.shht@gmail.com
+2021-08-05 11:02:49,911 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,911 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,911 - logger - INFO - 
+2021-08-05 11:02:49,911 - logger - INFO - Check user_name valid - Kim
+2021-08-05 11:02:49,912 - logger - INFO - Check user_mail valid - 1742861545@qq.com
+2021-08-05 11:02:49,912 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,912 - logger - INFO - Check user_password valid
+2021-08-05 11:02:49,912 - logger - INFO - Changing/adding user info - Kim 1742861545@qq.com
+2021-08-05 11:02:49,912 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,912 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,912 - logger - INFO - 
+2021-08-05 11:02:49,912 - logger - INFO - **********************************
+2021-08-05 11:02:49,912 - logger - INFO - Creat new user info (valid type)
+
+2021-08-05 11:02:49,912 - logger - INFO - Check user_name valid - Someone
+2021-08-05 11:02:49,912 - logger - INFO - Check user_mail valid - shanhongtian@gmail.com
+2021-08-05 11:02:49,913 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,913 - logger - INFO - Check user_password valid
+2021-08-05 11:02:49,913 - logger - INFO - Changing/adding user info - Someone shanhongtian@gmail.com
+2021-08-05 11:02:49,913 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,913 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,913 - logger - INFO - Changing/adding user info - a 1
+2021-08-05 11:02:49,913 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,913 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,914 - logger - INFO - Changing/adding user info - b 2
+2021-08-05 11:02:49,914 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,914 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,914 - logger - INFO - Changing/adding user info - c 1
+2021-08-05 11:02:49,914 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,914 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-05 11:02:49,914 - logger - INFO - 

@@ -1,6 +1,17 @@
 {
     "charles.shht@gmail.com": {
         "name": "Charles",
-        "password": "263513"
+        "password": "111111"
+    },
+    "1742861545@qq.com": {
+        "name": "Kim",
+        "password": "111111"
+    },
+    "shanhongtian@gmail.com": {
+        "name": "Someone",
+        "password": "111111",
+        "a": 1,
+        "b": 2,
+        "c": 1
     }
 }

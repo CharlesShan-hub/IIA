@@ -173,7 +173,7 @@ def change_user_property(mail,con_name,con_content):
 	:param con: 信息名称
 	'''
 	logger.info("Changing/adding user info - "+con_name+" "+str(con_content))
-	all_user_info = load_json(ConfigFilePath)
+	all_user_info = load_json(UserFilePath)
 	all_user_info[mail][con_name] = con_content
 	write_json(UserFilePath, all_user_info)
 	return True

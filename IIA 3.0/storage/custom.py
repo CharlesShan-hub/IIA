@@ -5,7 +5,7 @@ from storage.implement import *
 	These functions are called by functions in __init__.py
 
 	**User Info 用户信息部分**
-	add_user(): 添加新用户
+	add_u(): 添加新用户
 	get_user_info(): 获取用户信息
 
 	**Repo Part 仓库部分**
@@ -18,7 +18,7 @@ from storage.implement import *
 	cover_repo(): 仓库版本回退
 
 '''
-def add_user(name,password,mail):
+def add_u(name,password,mail,**kwg):
 	''' 新建用户
 	'''
 	if valid_user_name(name)==False:
@@ -31,10 +31,16 @@ def add_user(name,password,mail):
 		logger.warning("Failed to add user - password:"+password+" is not valid")
 		return False
 
-	return save_user_info(name,password,mail)
+	result = save_user_info(name,password,mail)
+
+	# 保存用户配置
+	for item in kwg:
+		change_user_property(mail,item,kwg[item])
+
+	return result
 
 
-def configure_user(mail,con_name=None, con_content=None, mode='auto'):
+def configure_u(mail,con_name=None, con_content=None, mode='auto'):
 	''' 配置或获取用户信息
 	'''
 	# 返回用户全部信息
@@ -106,7 +112,7 @@ def _clean_repo_info(repo_id=None):
 	return True
 
 
-def creat_repo(name):
+def creat_repo(name,**kwg):
 	''' 创建新仓库
 	'''
 	# 检查变量类型
@@ -120,13 +126,21 @@ def creat_repo(name):
 	if valid_repo_name(name)==False:
 		logger.warning("Failed to creat new repo - "+name)
 		return False
+
+	# 检查可访问性合法性
+	if 'user_id' not in kwg:
+		logger.warning("creat_repo() - need user_id")
+		return False
+
 	# 新建数据库文件
 	creat_database(name)
 	# 获取数据仓库ID - repo_id
 	repo_id = creat_repo_id()
 	# 保存仓库信息
 	save_repo_info(repo_id,name)
-
+	# 保存仓库配置
+	for item in kwg:
+		change_repo_property(repo_id,item,kwg[item])
 	logger.info("Succeeded to creat new repo - "+name)
 	return True
 

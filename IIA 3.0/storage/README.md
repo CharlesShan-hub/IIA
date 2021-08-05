@@ -37,11 +37,33 @@ For example, repository A is important to you and changes frequently in order to
  ![image](./document/versiontree.png)  
 
 ### 2.3 Repository API
-1. __Creat Repository__  
+* __Import__  
 ``` Python
 import storage
-storage.creat_repository(name='RepoTest')
 ```
+You should import `storage` module to use storage api.  
+
+* __Add User__  
+1. You should define __Name__, __Password__, __Mail__ to creat a new user.  
+``` Python
+storage.add_user('User1','111111','111111@example.com')
+```
+2. You can also define own designed tags or configures for user.  
+```Python
+storage.add_user('User1','222222','222222@example.com',tag1=1,tag2=2)
+```
+
+* __Creat Repository__  
+1. You should deline __Name__, __Owner__ for a new repository. You should define owner by mail address.  
+``` Python
+storage.creat_repository('RepoTest1','111111@example.com')
+```
+2. You can also define own designed tags or configures for repository. 
+``` Python
+storage.creat_repository('RepoTest2','111111@example.com',tag1=1,tag2=2)
+```
+
+
 2. __Copy Repository__  
 ``` Python
 import storage

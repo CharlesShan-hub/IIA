@@ -8,13 +8,20 @@ import logger
 def test_add_user():
 	''' Add New User(Account)
 	'''
+	# Creat new user
 	logger.info("**********************************")
 	logger.info("Creat new user info (valid type)\n")
-	storage.add_user('Charles','263513','charles.shht@gmail.com')
+	storage.add_user('Charles','111111','charles.shht@gmail.com')
 	logger.info("")
-	storage.add_user('Kim','263513','1742861545@qq.com')
+	storage.add_user('Kim','111111','1742861545@qq.com')
 	logger.info("")
-#test_add_user()
+
+	# Creat user with new labels
+	logger.info("**********************************")
+	logger.info("Creat new user info (valid type)\n")
+	storage.add_user('Someone','111111','shanhongtian@gmail.com',a=1,b=2,c=1)
+	logger.info("")
+test_add_user()
 
 
 def test_creat_repository():
@@ -24,16 +31,22 @@ def test_creat_repository():
 	# Creat new repo
 	logger.info("**********************************")
 	logger.info("Creat new repo valid type\n")
-	storage.creat_repository(name='RepoTest')
+	storage.creat_repository(name='RepoTest',user_id='charles.shht@gmail.com')
 	logger.info("")
-	storage.creat_repository(name='RepoTest2')
+	storage.creat_repository(name='RepoTest2',user_id='charles.shht@gmail.com',new_label='12345')
+	logger.info("")
+
+	# Creat new repo without user_id
+	logger.info("**********************************")
+	logger.info("Creat new repo without user_id\n")
+	storage.creat_repository(name='RepoTest3')
 	logger.info("")
 
 	# Creat with wrong type parm (invalid)
 	logger.info("**********************************")
 	logger.info("Creat with wrong type parm (invalid)\n")
 	try:
-		storage.creat_repository(name=0)
+		storage.creat_repository(name=0,user_id='charles.shht@gmail.com')
 	except TypeError as e:
 		logger.info(e)
 	logger.info("")
@@ -41,18 +54,18 @@ def test_creat_repository():
 	# Creat wrong format name repo (invalid)
 	logger.info("**********************************")
 	logger.info("Creat wrong format name repo (invalid)\n")
-	storage.creat_repository(name='/User/wrongtype')
+	storage.creat_repository(name='/User/wrongtype',user_id='charles.shht@gmail.com')
 	logger.info("")
-	storage.creat_repository(name='.\\wrongtype')
+	storage.creat_repository(name='.\\wrongtype',user_id='charles.shht@gmail.com')
 	logger.info("")
-	storage.creat_repository(name='wrongtype.txt')
+	storage.creat_repository(name='wrongtype.txt',user_id='charles.shht@gmail.com')
 	logger.info("")
-	storage.creat_repository(name='       ')
+	storage.creat_repository(name='       ',user_id='charles.shht@gmail.com')
 
 	# Creat repeated named repo (invalid)
 	logger.info("**********************************")
 	logger.info("Creat repeated named repo (invalid)\n")
-	storage.creat_repository(name='RepoTest')
+	storage.creat_repository(name='RepoTest',user_id='charles.shht@gmail.com')
 	logger.info("")
 #test_creat_repository()
 
