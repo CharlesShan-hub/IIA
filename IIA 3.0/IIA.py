@@ -13,10 +13,10 @@ class ServerThread(threading.Thread):
     This is the main file.
 '''
 # Local Mode - Run as a Local software
-#SERVER_MODE = 'Local'
+SERVER_MODE = 'Local'
 
 # Server Mode - Run server only
-SERVER_MODE = 'Server'
+#SERVER_MODE = 'Server'
 
 # Client Mode - Run client only
 #SERVER_MODE = 'Client'

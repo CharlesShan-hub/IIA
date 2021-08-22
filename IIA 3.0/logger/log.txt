@@ -430,3 +430,206 @@
 2021-08-05 11:02:49,914 - logger - INFO - Load json - ./storage/resources/user_info.json
 2021-08-05 11:02:49,914 - logger - INFO - Write json - ./storage/resources/user_info.json
 2021-08-05 11:02:49,914 - logger - INFO - 
+2021-08-07 19:44:06,770 - logger - INFO - Getting user info - password
+2021-08-07 19:44:06,771 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 19:44:06,772 - logger - INFO - Getting user info - password
+2021-08-07 19:44:06,772 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 19:44:26,105 - logger - INFO - Getting user info - password
+2021-08-07 19:44:26,106 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 19:44:26,106 - logger - INFO - Getting user info - password
+2021-08-07 19:44:26,106 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 19:44:31,219 - logger - INFO - Getting user info - password
+2021-08-07 19:44:31,219 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 19:44:31,220 - logger - INFO - Getting user info - password
+2021-08-07 19:44:31,220 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 19:53:09,820 - logger - INFO - Getting user info - password
+2021-08-07 19:53:09,821 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 19:53:09,821 - logger - INFO - Getting user info - password
+2021-08-07 19:53:09,821 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 20:00:36,928 - logger - INFO - Getting user info - password
+2021-08-07 20:00:36,930 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 20:00:36,930 - logger - INFO - Getting user info - password
+2021-08-07 20:00:36,930 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 20:02:10,500 - logger - INFO - Getting user info - password
+2021-08-07 20:02:10,501 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 20:02:10,501 - logger - INFO - Getting user info - password
+2021-08-07 20:02:10,502 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 20:02:13,815 - logger - INFO - Getting user info - password
+2021-08-07 20:02:13,816 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 20:02:13,816 - logger - INFO - Getting user info - password
+2021-08-07 20:02:13,816 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 20:02:19,475 - logger - INFO - Start creat new repo - happy
+2021-08-07 20:02:19,476 - logger - INFO - Check repo_name valid - happy
+2021-08-07 20:02:19,477 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 20:02:19,477 - logger - INFO - Check repo_name valid - True
+2021-08-07 20:02:19,477 - logger - INFO - Creat new database - happy
+2021-08-07 20:02:19,478 - logger - INFO - Successfully created new database - happy
+2021-08-07 20:02:19,479 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 20:02:19,479 - logger - INFO - Start creat new repo_id
+2021-08-07 20:02:19,479 - logger - INFO - New repo_id - [0]
+2021-08-07 20:02:19,479 - logger - INFO - Save repo info (repo_id = [0])
+2021-08-07 20:02:19,479 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 20:02:19,479 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-07 20:02:19,479 - logger - INFO - Changing/adding repo property - user_id charles.shht@gmail.com
+2021-08-07 20:02:19,480 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 20:02:19,480 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-07 20:02:19,481 - logger - INFO - Succeeded to creat new repo - happy
+2021-08-07 23:28:29,781 - logger - INFO - Check user_name valid - Charles
+2021-08-07 23:28:29,782 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-07 23:28:29,783 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 23:28:29,783 - logger - INFO - Check user_password valid
+2021-08-07 23:28:29,783 - logger - INFO - Changing/adding user info - Charles charles.shht@gmail.com
+2021-08-07 23:28:29,783 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 23:28:29,783 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-07 23:29:38,362 - logger - INFO - Start creat new repo - 
+2021-08-07 23:29:38,362 - logger - INFO - Check repo_name valid - 
+2021-08-07 23:29:38,362 - logger - WARNING - wrong name type: list of space
+2021-08-07 23:29:38,362 - logger - WARNING - Failed to creat new repo - 
+2021-08-07 23:29:57,589 - logger - INFO - Start creat new repo -      
+2021-08-07 23:29:57,589 - logger - INFO - Check repo_name valid -      
+2021-08-07 23:29:57,589 - logger - WARNING - wrong name type: list of space
+2021-08-07 23:29:57,589 - logger - WARNING - Failed to creat new repo -      
+2021-08-07 23:30:13,190 - logger - INFO - Start creat new repo - ///
+2021-08-07 23:30:13,190 - logger - INFO - Check repo_name valid - ///
+2021-08-07 23:30:13,190 - logger - WARNING - wrong char '/' in name - ///
+2021-08-07 23:30:13,191 - logger - WARNING - Failed to creat new repo - ///
+2021-08-07 23:30:29,334 - logger - INFO - Start creat new repo - :
+2021-08-07 23:30:29,335 - logger - INFO - Check repo_name valid - :
+2021-08-07 23:30:29,336 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 23:30:29,336 - logger - INFO - Check repo_name valid - True
+2021-08-07 23:30:29,336 - logger - INFO - Creat new database - :
+2021-08-07 23:30:29,345 - logger - INFO - Successfully created new database - :
+2021-08-07 23:30:29,347 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 23:30:29,347 - logger - INFO - Start creat new repo_id
+2021-08-07 23:30:29,347 - logger - INFO - New repo_id - [0]
+2021-08-07 23:30:29,347 - logger - INFO - Save repo info (repo_id = [0])
+2021-08-07 23:30:29,347 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 23:30:29,348 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-07 23:30:29,348 - logger - INFO - Changing/adding repo property - user_id charles.shht@gmail.com
+2021-08-07 23:30:29,348 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 23:30:29,348 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-07 23:30:29,349 - logger - INFO - Succeeded to creat new repo - :
+2021-08-07 23:31:09,728 - logger - INFO - Start creat new repo - happy
+2021-08-07 23:31:09,728 - logger - INFO - Check repo_name valid - happy
+2021-08-07 23:31:09,729 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 23:31:09,729 - logger - INFO - Check repo_name valid - True
+2021-08-07 23:31:09,729 - logger - INFO - Creat new database - happy
+2021-08-07 23:31:09,730 - logger - INFO - Successfully created new database - happy
+2021-08-07 23:31:09,730 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 23:31:09,730 - logger - INFO - Start creat new repo_id
+2021-08-07 23:31:09,730 - logger - INFO - New repo_id - [0]
+2021-08-07 23:31:09,730 - logger - INFO - Save repo info (repo_id = [0])
+2021-08-07 23:31:09,731 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 23:31:09,731 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-07 23:31:09,731 - logger - INFO - Changing/adding repo property - user_id charles.shht@gmail.com
+2021-08-07 23:31:09,732 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 23:31:09,732 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-07 23:31:09,732 - logger - INFO - Succeeded to creat new repo - happy
+2021-08-07 23:36:04,755 - logger - INFO - Check user_name valid - Charles
+2021-08-07 23:36:04,756 - logger - INFO - Check user_mail valid - charles.shht@gamil.com
+2021-08-07 23:36:04,757 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 23:36:04,757 - logger - INFO - Check user_password valid
+2021-08-07 23:36:04,757 - logger - INFO - Changing/adding user info - Charles charles.shht@gamil.com
+2021-08-07 23:36:04,757 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-07 23:36:04,757 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-08-07 23:36:45,116 - logger - INFO - Start creat new repo - ff
+2021-08-07 23:36:45,116 - logger - INFO - Check repo_name valid - ff
+2021-08-07 23:36:45,116 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 23:36:45,116 - logger - INFO - Check repo_name valid - True
+2021-08-07 23:36:45,116 - logger - INFO - Creat new database - ff
+2021-08-07 23:36:45,122 - logger - INFO - Successfully created new database - ff
+2021-08-07 23:36:45,123 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 23:36:45,123 - logger - INFO - Start creat new repo_id
+2021-08-07 23:36:45,123 - logger - INFO - New repo_id - [0]
+2021-08-07 23:36:45,123 - logger - INFO - Save repo info (repo_id = [0])
+2021-08-07 23:36:45,123 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 23:36:45,123 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-07 23:36:45,125 - logger - INFO - Changing/adding repo property - user_id charles.shht@gamil.com
+2021-08-07 23:36:45,125 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-07 23:36:45,125 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-07 23:36:45,125 - logger - INFO - Succeeded to creat new repo - ff
+2021-08-08 11:09:12,057 - logger - INFO - Start creat new repo - ff
+2021-08-08 11:09:12,060 - logger - INFO - Check repo_name valid - ff
+2021-08-08 11:09:12,061 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-08 11:09:12,061 - logger - INFO - Check repo_name valid - False
+2021-08-08 11:09:12,061 - logger - WARNING - Failed to creat new repo - ff
+2021-08-08 11:14:47,275 - logger - INFO - Getting user info - password
+2021-08-08 11:14:47,276 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-08 11:14:47,276 - logger - INFO - Getting user info - password
+2021-08-08 11:14:47,276 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-08 11:14:53,855 - logger - INFO - Getting user info - password
+2021-08-08 11:14:53,855 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-08 11:14:53,855 - logger - INFO - Getting user info - password
+2021-08-08 11:14:53,855 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-08 11:14:56,962 - logger - INFO - Getting user info - password
+2021-08-08 11:14:56,962 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-08 11:14:56,963 - logger - INFO - Getting user info - password
+2021-08-08 11:14:56,963 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-19 10:09:26,872 - logger - INFO - Getting user info - password
+2021-08-19 10:09:26,874 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-19 10:09:26,874 - logger - INFO - Getting user info - password
+2021-08-19 10:09:26,875 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-19 10:09:34,621 - logger - INFO - Getting user info - password
+2021-08-19 10:09:34,621 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-19 10:09:34,621 - logger - INFO - Getting user info - password
+2021-08-19 10:09:34,621 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-19 10:09:38,660 - logger - INFO - Getting user info - password
+2021-08-19 10:09:38,661 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-19 10:09:38,661 - logger - INFO - Getting user info - password
+2021-08-19 10:09:38,661 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-19 10:10:18,177 - logger - INFO - Getting user info - password
+2021-08-19 10:10:18,177 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-19 10:10:18,178 - logger - INFO - Getting user info - password
+2021-08-19 10:10:18,178 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-19 10:10:47,266 - logger - INFO - Getting user info - password
+2021-08-19 10:10:47,266 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-19 10:10:47,266 - logger - INFO - Getting user info - password
+2021-08-19 10:10:47,266 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-19 10:10:55,029 - logger - INFO - Start creat new repo - Test
+2021-08-19 10:10:55,029 - logger - INFO - Check repo_name valid - Test
+2021-08-19 10:10:55,030 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-19 10:10:55,030 - logger - INFO - Check repo_name valid - True
+2021-08-19 10:10:55,030 - logger - INFO - Creat new database - Test
+2021-08-19 10:10:55,030 - logger - INFO - Successfully created new database - Test
+2021-08-19 10:10:55,031 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-19 10:10:55,031 - logger - INFO - Start creat new repo_id
+2021-08-19 10:10:55,031 - logger - INFO - New repo_id - [1]
+2021-08-19 10:10:55,031 - logger - INFO - Save repo info (repo_id = [1])
+2021-08-19 10:10:55,032 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-19 10:10:55,032 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-19 10:10:55,033 - logger - INFO - Changing/adding repo property - user_id charles.shht@gmail.com
+2021-08-19 10:10:55,033 - logger - INFO - Load json - ./storage/resources/repo_info.json
+2021-08-19 10:10:55,033 - logger - INFO - Write json - ./storage/resources/repo_info.json
+2021-08-19 10:10:55,033 - logger - INFO - Succeeded to creat new repo - Test
+2021-08-22 20:45:19,832 - logger - INFO - Getting user info - password
+2021-08-22 20:45:19,834 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 20:45:19,835 - logger - INFO - Getting user info - password
+2021-08-22 20:45:19,835 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 20:45:55,436 - logger - INFO - Getting user info - password
+2021-08-22 20:45:55,437 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 20:45:55,437 - logger - INFO - Getting user info - password
+2021-08-22 20:45:55,438 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 20:45:59,601 - logger - INFO - Getting user info - password
+2021-08-22 20:45:59,601 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 20:45:59,601 - logger - INFO - Getting user info - password
+2021-08-22 20:45:59,602 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 20:46:34,016 - logger - INFO - Getting user info - password
+2021-08-22 20:46:34,017 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 20:46:34,017 - logger - INFO - Getting user info - password
+2021-08-22 20:46:34,018 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 20:46:52,669 - logger - INFO - Getting user info - password
+2021-08-22 20:46:52,670 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 20:46:52,670 - logger - INFO - Getting user info - password
+2021-08-22 20:46:52,670 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 21:31:24,090 - logger - INFO - Getting user info - password
+2021-08-22 21:31:24,092 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 21:31:24,092 - logger - INFO - Getting user info - password
+2021-08-22 21:31:24,092 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 21:31:27,569 - logger - INFO - Getting user info - password
+2021-08-22 21:31:27,570 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 21:31:27,570 - logger - INFO - Getting user info - password
+2021-08-22 21:31:27,570 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 21:31:58,266 - logger - INFO - Getting user info - password
+2021-08-22 21:31:58,266 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-22 21:31:58,267 - logger - INFO - Getting user info - password
+2021-08-22 21:31:58,267 - logger - INFO - Load json - ./storage/resources/user_info.json

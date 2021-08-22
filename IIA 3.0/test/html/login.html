@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>IIA - Login</title>
+</head>
+<body>
+	<script type="text/javascript" src="../../server/setting.json"></script>
+	<script type="text/javascript">
+		var ip = setting.ip;
+        var port = setting.port;
+        var wsObj;  
+
+        function login(){
+            // 建立连接
+            wsObj = new WebSocket("ws://"+ip+":"+port);
+
+            //发送请求
+            wsObj.onopen = function(){  
+				content = '{"type":"login","password":"';
+				content = content+document.getElementById('password').value;
+				content = content+'","mail":"';
+				content = content+document.getElementById('mail').value;
+				content = content+'"}';
+	            wsObj.send(content);
+            }
+
+            // 验证是否登陆
+            wsObj.onmessage = function(evt){ 
+                var data = JSON.parse(evt.data);
+                if(data.reply=='100'){
+                    window.location.href="./main.html?mail="+document.getElementById('mail').value;
+                }else{
+                    alert('禁止登陆！')
+                    wsObj.close();
+                }
+            }
+        }
+
+		function to_login(event){
+			var event=window.event?window.event:event;   
+			if(event.keyCode==13){
+				login();
+			}
+		}
+
+	</script>
+	<div>
+		<input type="text" id="mail" placeholder="邮箱">
+		<input type="password" id="password" placeholder="密码" onkeydown='to_login()'>
+		<div onclick="login()" id="go">GO</div>
+		<div >Find Password</div>
+		<div><a href="regist.html">Regist</a></div>
+	</div>
+</body>
+</html>

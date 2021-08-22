@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>IIA - Main</title>
+	<script type="text/javascript" src="../../server/setting.json"></script>
+	<script type="text/javascript">
+        //获取参数
+        function GetUrlParam(name){
+          var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+          var r = window.location.search.substr(1).match(reg);
+          if(r!=null)return unescape(r[2]); return null;
+        }
+        var mail= GetUrlParam("mail");
+        var ip = setting.ip;
+        var port = setting.port;
+        var wsObj;
+
+        // 创建数据仓库测试
+        function creat_repository(){
+          // 建立连接
+          wsObj = new WebSocket("ws://"+ip+":"+port);
+          // 发送创建数据仓库命令
+          wsObj.onopen = function(){  
+            content = '{"type":"creat_repository","repo_name":"';
+            content = content+document.getElementById('repo_name').value;
+            content = content+'","mail":"';
+            content = content+mail;
+            content = content+'"}';
+              wsObj.send(content);
+          }
+          // 进行结果判断
+          /*
+          wsObj.onmessage = function(evt){ 
+                var data = JSON.parse(evt.data);
+                if(data.reply=='100'){
+                    window.location.href="./main.html?mail="+document.getElementById('mail').value;
+                }else{
+                    alert('禁止登陆！')
+                    wsObj.close();
+                }
+            }
+            */
+        }
+	</script>
+</head>
+<body>
+	<div>
+    <input type="text" id="repo_name" placeholder="新数据仓库名称">
+    <button onclick="creat_repository()">Add Repository Test</button>
+	</div>
+</body>
+</html>

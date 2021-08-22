@@ -5,6 +5,7 @@ import os
 import random
 
 import server.password as password
+import storage
 
 import chardet
 
@@ -45,6 +46,10 @@ def message_received(client, server, message):
     elif message["type"] == "regist":
         code = password.regist(message['name'],message['password'],message['mail'])
         server.send_message(client,reply_maker(code))
+
+    #添加数据仓库
+    elif message["type"] == "creat_repository":
+        storage.creat_repository(name=message['repo_name'],user_id=message['mail'])
 
 
 def reply_maker(code):

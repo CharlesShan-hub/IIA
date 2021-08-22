@@ -7,4 +7,4 @@ import ui
 #ui.test_run('/ui/html/main/glxy.html')
 
 # Test page
-ui.test_run('/ui/html/login.html')
+ui.test_run('/ui/html/index.html')

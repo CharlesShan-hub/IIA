@@ -1,0 +1,4 @@
+local_setting={
+    // "default_mail":"" - 不设置默认用户
+    "default_mail":"charles.shht@gmail.com"
+}
