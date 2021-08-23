@@ -30,10 +30,10 @@ if os.path.exists(UserFilePath) == False:
 	API
 '''
 
-def add_user(name,password,mail,**kwg):
+def add_user(mail,password,**kwg):
 	''' 新建用户
 	'''
-	return custom.add_u(name,password,mail,**kwg)
+	return custom.add_u(mail,password,**kwg)
 
 
 def configure_user(mail,con_name=None, con_content=None, mode='auto'):

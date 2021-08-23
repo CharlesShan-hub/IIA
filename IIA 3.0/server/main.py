@@ -36,7 +36,7 @@ def message_received(client, server, message):
     接收用户名与密码. 如果用户名对应的密码为传入密码则允许登陆, 否则不允许登陆
     '''
     if message["type"] == "login":
-        code = password.login(message['password'],message['mail'])
+        code = password.login(message['mail'],message['password'])
         server.send_message(client,reply_maker(code))
 
     #找回密码
@@ -44,7 +44,7 @@ def message_received(client, server, message):
         pass
     #注册新用户
     elif message["type"] == "regist":
-        code = password.regist(message['name'],message['password'],message['mail'])
+        code = password.regist(message['mail'],message['password'])
         server.send_message(client,reply_maker(code))
 
     #添加数据仓库

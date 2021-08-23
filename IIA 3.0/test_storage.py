@@ -11,15 +11,15 @@ def test_add_user():
 	# Creat new user
 	logger.info("**********************************")
 	logger.info("Creat new user info (valid type)\n")
-	storage.add_user('Charles','111111','charles.shht@gmail.com')
+	storage.add_user('charles.shht@gmail.com','111111')
 	logger.info("")
-	storage.add_user('Kim','111111','1742861545@qq.com')
+	storage.add_user('1742861545@qq.com','111111')
 	logger.info("")
 
 	# Creat user with new labels
 	logger.info("**********************************")
 	logger.info("Creat new user info (valid type)\n")
-	storage.add_user('Someone','111111','shanhongtian@gmail.com',a=1,b=2,c=1)
+	storage.add_user('shanhongtian@gmail.com','111111',a=1,b=2,c=1)
 	logger.info("")
 test_add_user()
 

@@ -18,12 +18,9 @@ from storage.implement import *
 	cover_repo(): 仓库版本回退
 
 '''
-def add_u(name,password,mail,**kwg):
+def add_u(mail,password,**kwg):
 	''' 新建用户
 	'''
-	if valid_user_name(name)==False:
-		logger.warning("Failed to add user - name:"+name+" is not valid")
-		return False
 	if valid_mail(mail)==False:
 		logger.warning("Failed to add user - mail:"+mail+" is not valid")
 		return False
@@ -31,7 +28,7 @@ def add_u(name,password,mail,**kwg):
 		logger.warning("Failed to add user - password:"+password+" is not valid")
 		return False
 
-	result = save_user_info(name,password,mail)
+	result = save_user_info(mail,password)
 
 	# 保存用户配置
 	for item in kwg:

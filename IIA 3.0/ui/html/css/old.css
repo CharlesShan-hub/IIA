@@ -2183,7 +2183,7 @@ input, select, textarea {
 		position: relative;
 		margin: 0;
 		background-image: url("images/overlay.png"), url("../pic/login-title.jpg");
-		height: 100vh;
+		/*height: 100vh;*/
 		background-size: auto, cover;
 		background-position: top left, center center;
 		background-repeat: repeat, no-repeat;

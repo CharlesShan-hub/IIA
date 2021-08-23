@@ -5,35 +5,27 @@ def _password_valid(password):
 	'''
 	pass
 
-def _name_valid(name):
-	''' 名称合法判断
-	'''
-	pass
-
-def login(password,mail):
+def login(mail,password):
 	''' 登陆判断
 	'''
-	print(password)
 	print(storage.configure_user(mail,'password'))
 	if(password==storage.configure_user(mail,'password')):
 		return 100
 	else:
 		return 403
 
-def regist(name,password,mail):
+def regist(mail,password):
 	''' 增加用户
 	'''
-	if _name_valid(name)==False:
-		return 403
 	if _password_valid(password)==False:
 		return 403
 	# 写入用户名与密码
-	if storage.add_user(name,password,mail) == True:
+	if storage.add_user(mail,password) == True:
 		return 100
 	else:
 		return 403
 
-def change_password(name,password):
+def change_password(mail,password):
 	''' 修改密码
 	'''
 	pass

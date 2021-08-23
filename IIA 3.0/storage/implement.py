@@ -95,7 +95,6 @@ def creat_database(name):
 
 #####################################################
 ''' 用户信息
-	valid_user_name(name): 名称合法性检查
 	valid_mail(mail): 邮箱合法性检查
 	valid_password(password): 密码合法性检查
 	get_user_info(mail): 获取用户信息
@@ -103,15 +102,6 @@ def creat_database(name):
 	get_user_property(mail,con): 查看用户信息
 	change_user_property(mail,con_name,con_content): 修改/添加用户信息
 '''
-def valid_user_name(name):
-	''' 名称合法性检查
-	'''
-	logger.info("Check user_name valid - "+name)
-	if name.strip() == '':
-		logger.warning("wrong name type: list of space")
-		return False
-	return True
-
 
 def valid_mail(mail): 
 	''' 邮箱合法性检查
@@ -144,12 +134,12 @@ def get_user_info(mail):
 		return False
 
 
-def save_user_info(name,password,mail): 
+def save_user_info(mail,password): 
 	''' 添加/保存用户信息
 	'''
-	logger.info("Changing/adding user info - "+name+" "+mail)
+	logger.info("Changing/adding user info - "+mail)
 	all_user_info = load_json(UserFilePath)
-	all_user_info[mail] = {'name':name,'password':password}
+	all_user_info[mail] = {'password':password}
 	write_json(UserFilePath, all_user_info)
 	return True
 
