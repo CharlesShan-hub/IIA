@@ -21,11 +21,8 @@ function regist(mail,password){
     wsObj.onmessage = function(evt){ 
         var data = JSON.parse(evt.data);
         if(data.reply=='100'){
-            window.location.href="./main.html?mail="+document.getElementById('mail').value;
-        }else{
-            alert("哈哈哈哈哈哈")
+            window.location.href="./temp_main/index.html?mail="+mail;
         }
-        
     }
 }
 
@@ -48,7 +45,7 @@ function login(mail,password){
         var data = JSON.parse(evt.data);
         wsObj.close();
         if(data.reply=='100'){
-            window.location.href="./main.html?mail="+mail;
+            window.location.href="./temp_main/index.html?mail="+mail;
         }else{
             regist(mail,password);
         }

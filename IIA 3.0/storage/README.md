@@ -44,13 +44,18 @@ import storage
 You should import `storage` module to use storage api.  
 
 * __Add User__  
-1. You should define __Name__, __Password__, __Mail__ to creat a new user.  
+1. You should define __Mail__ and __Password__ to creat a new user.  
 ``` Python
-storage.add_user('User1','111111','111111@example.com')
+storage.add_user('111111@example.com','111111')
 ```
 2. You can also define own designed tags or configures for user.  
 ```Python
-storage.add_user('User1','222222','222222@example.com',tag1=1,tag2=2)
+storage.add_user('222222@example.com','222222',tag1=1,tag2=2)
+```
+
+* __Get/Set Configures for User__
+```Python
+password = storage.add_user('222222@example.com',"password")
 ```
 
 * __Creat Repository__  
