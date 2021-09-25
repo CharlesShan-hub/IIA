@@ -1,8 +1,8 @@
 #import os
 #import json
-import server.main as main
+from server.main import *
 
-def run():
+def _run():
 	''' 服务器运行
 	'''
-	main.run()
+	run()

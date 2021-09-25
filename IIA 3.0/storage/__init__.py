@@ -86,3 +86,9 @@ def cover_repository(from_name='',to_name='',from_repo_id=[],to_repo_id=[]):
 	'''
 	return cover_repo(from_name,to_name,from_repo_id,to_repo_id)
 
+
+def info_repository(repo_id=[],name='',mail=''):
+	''' 获取仓库信息
+	'''
+	return info_repo(repo_id=repo_id,name=name,mail=mail)
+

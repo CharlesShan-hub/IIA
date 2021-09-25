@@ -980,3 +980,193 @@
 2021-08-23 16:50:07,907 - logger - INFO - Load json - ./storage/resources/user_info.json
 2021-08-23 16:50:07,907 - logger - INFO - Getting user info - password
 2021-08-23 16:50:07,907 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 20:18:06,568 - logger - INFO - Getting user info - password
+2021-08-23 20:18:06,572 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 20:18:06,572 - logger - INFO - Getting user info - password
+2021-08-23 20:18:06,572 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 20:18:06,580 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-23 20:18:06,580 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 20:18:06,580 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-23 20:18:06,580 - logger - WARNING - Failed to add user - mail:charles.shht@gmail.com is not valid
+2021-08-23 20:18:12,584 - logger - INFO - Getting user info - password
+2021-08-23 20:18:12,584 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 20:18:12,584 - logger - INFO - Getting user info - password
+2021-08-23 20:18:12,584 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 21:07:35,848 - logger - INFO - Getting user info - password
+2021-08-23 21:07:35,855 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 21:07:35,855 - logger - INFO - Getting user info - password
+2021-08-23 21:07:35,855 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 21:39:54,387 - logger - INFO - Getting user info - password
+2021-08-23 21:39:54,392 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 21:39:54,392 - logger - INFO - Getting user info - password
+2021-08-23 21:39:54,392 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 21:45:07,932 - logger - INFO - Getting user info - password
+2021-08-23 21:45:07,934 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 21:45:07,934 - logger - INFO - Getting user info - password
+2021-08-23 21:45:07,934 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 21:45:54,617 - logger - INFO - Getting user info - password
+2021-08-23 21:45:54,617 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 21:45:54,618 - logger - INFO - Getting user info - password
+2021-08-23 21:45:54,618 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 21:51:41,668 - logger - INFO - Getting user info - password
+2021-08-23 21:51:41,669 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 21:51:41,669 - logger - INFO - Getting user info - password
+2021-08-23 21:51:41,669 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:27:13,081 - logger - INFO - Getting user info - password
+2021-08-23 22:27:13,084 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:27:13,084 - logger - INFO - Getting user info - password
+2021-08-23 22:27:13,084 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:02,165 - logger - INFO - Getting user info - password
+2021-08-23 22:28:02,166 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:02,166 - logger - INFO - Getting user info - password
+2021-08-23 22:28:02,166 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:02,183 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-23 22:28:02,184 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:02,184 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-23 22:28:02,184 - logger - WARNING - Failed to add user - mail:charles.shht@gmail.com is not valid
+2021-08-23 22:28:12,126 - logger - INFO - Getting user info - password
+2021-08-23 22:28:12,126 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:12,126 - logger - INFO - Getting user info - password
+2021-08-23 22:28:12,126 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:12,142 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-23 22:28:12,142 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:12,142 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-23 22:28:12,142 - logger - WARNING - Failed to add user - mail:charles.shht@gmail.com is not valid
+2021-08-23 22:28:13,179 - logger - INFO - Getting user info - password
+2021-08-23 22:28:13,179 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:13,179 - logger - INFO - Getting user info - password
+2021-08-23 22:28:13,180 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:13,196 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-23 22:28:13,196 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:13,196 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-23 22:28:13,196 - logger - WARNING - Failed to add user - mail:charles.shht@gmail.com is not valid
+2021-08-23 22:28:13,937 - logger - INFO - Getting user info - password
+2021-08-23 22:28:13,938 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:13,938 - logger - INFO - Getting user info - password
+2021-08-23 22:28:13,938 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:13,959 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-23 22:28:13,959 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:13,960 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-23 22:28:13,960 - logger - WARNING - Failed to add user - mail:charles.shht@gmail.com is not valid
+2021-08-23 22:28:14,561 - logger - INFO - Getting user info - password
+2021-08-23 22:28:14,562 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:14,562 - logger - INFO - Getting user info - password
+2021-08-23 22:28:14,562 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:14,579 - logger - INFO - Check user_mail valid - charles.shht@gmail.com
+2021-08-23 22:28:14,580 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:14,580 - logger - WARNING - Invalid mail! (Have same mail)
+2021-08-23 22:28:14,580 - logger - WARNING - Failed to add user - mail:charles.shht@gmail.com is not valid
+2021-08-23 22:28:30,347 - logger - INFO - Getting user info - password
+2021-08-23 22:28:30,347 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:28:30,347 - logger - INFO - Getting user info - password
+2021-08-23 22:28:30,348 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:32:07,722 - logger - INFO - Getting user info - password
+2021-08-23 22:32:07,723 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:32:07,723 - logger - INFO - Getting user info - password
+2021-08-23 22:32:07,723 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:42:27,767 - logger - INFO - Getting user info - password
+2021-08-23 22:42:27,770 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-23 22:42:27,770 - logger - INFO - Getting user info - password
+2021-08-23 22:42:27,770 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-24 11:03:56,843 - logger - INFO - Getting user info - password
+2021-08-24 11:03:56,845 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-24 11:03:56,845 - logger - INFO - Getting user info - password
+2021-08-24 11:03:56,845 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-24 15:06:50,532 - logger - INFO - Getting user info - password
+2021-08-24 15:06:50,537 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-24 15:06:50,537 - logger - INFO - Getting user info - password
+2021-08-24 15:06:50,537 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-24 15:10:55,081 - logger - INFO - Getting user info - password
+2021-08-24 15:10:55,083 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-24 15:10:55,083 - logger - INFO - Getting user info - password
+2021-08-24 15:10:55,083 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-24 15:24:48,105 - logger - INFO - Getting user info - password
+2021-08-24 15:24:48,109 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-24 15:24:48,110 - logger - INFO - Getting user info - password
+2021-08-24 15:24:48,110 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-24 15:38:59,729 - logger - INFO - Getting user info - password
+2021-08-24 15:38:59,731 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-24 15:38:59,731 - logger - INFO - Getting user info - password
+2021-08-24 15:38:59,732 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-24 21:00:37,162 - logger - INFO - Getting user info - password
+2021-08-24 21:00:37,164 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-24 21:00:37,164 - logger - INFO - Getting user info - password
+2021-08-24 21:00:37,164 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-24 21:00:43,804 - logger - INFO - Getting user info - password
+2021-08-24 21:00:43,805 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-24 21:00:43,805 - logger - INFO - Getting user info - password
+2021-08-24 21:00:43,805 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-25 18:38:16,228 - logger - INFO - Getting user info - password
+2021-08-25 18:38:16,231 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-25 18:38:16,231 - logger - INFO - Getting user info - password
+2021-08-25 18:38:16,231 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-25 18:40:06,639 - logger - INFO - Getting user info - password
+2021-08-25 18:40:06,642 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-08-25 18:40:06,642 - logger - INFO - Getting user info - password
+2021-08-25 18:40:06,642 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-07 15:34:09,099 - logger - INFO - Getting user info - password
+2021-09-07 15:34:09,103 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-07 15:34:09,103 - logger - INFO - Getting user info - password
+2021-09-07 15:34:09,103 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-07 15:35:27,375 - logger - INFO - Getting user info - password
+2021-09-07 15:35:27,376 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-07 15:35:27,376 - logger - INFO - Getting user info - password
+2021-09-07 15:35:27,376 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-07 15:36:12,922 - logger - INFO - Getting user info - password
+2021-09-07 15:36:12,923 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-07 15:36:12,923 - logger - INFO - Getting user info - password
+2021-09-07 15:36:12,923 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-07 15:36:12,933 - logger - INFO - Check user_mail valid - 1742861545@qq.com
+2021-09-07 15:36:12,933 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-07 15:36:12,933 - logger - INFO - Check user_password valid
+2021-09-07 15:36:12,933 - logger - INFO - Changing/adding user info - 1742861545@qq.com
+2021-09-07 15:36:12,934 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-07 15:36:12,934 - logger - INFO - Write json - ./storage/resources/user_info.json
+2021-09-07 15:49:30,215 - logger - INFO - Getting user info - password
+2021-09-07 15:49:30,218 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-07 15:49:30,218 - logger - INFO - Getting user info - password
+2021-09-07 15:49:30,218 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-07 15:49:44,413 - logger - INFO - Getting user info - password
+2021-09-07 15:49:44,418 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-07 15:49:44,418 - logger - INFO - Getting user info - password
+2021-09-07 15:49:44,419 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 09:18:42,303 - logger - INFO - Getting user info - password
+2021-09-23 09:18:42,306 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 09:18:42,306 - logger - INFO - Getting user info - password
+2021-09-23 09:18:42,306 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 09:19:58,161 - logger - INFO - Getting user info - password
+2021-09-23 09:19:58,162 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 09:19:58,162 - logger - INFO - Getting user info - password
+2021-09-23 09:19:58,163 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 13:45:10,066 - logger - INFO - Getting user info - password
+2021-09-23 13:45:10,068 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 13:45:10,068 - logger - INFO - Getting user info - password
+2021-09-23 13:45:10,068 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 13:45:10,079 - logger - INFO - Check user_mail valid - 1742861545@qq.com
+2021-09-23 13:45:10,080 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 13:45:10,080 - logger - WARNING - Invalid mail! (Have same mail)
+2021-09-23 13:45:10,080 - logger - WARNING - Failed to add user - mail:1742861545@qq.com is not valid
+2021-09-23 13:45:33,248 - logger - INFO - Getting user info - password
+2021-09-23 13:45:33,249 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 13:45:33,249 - logger - INFO - Getting user info - password
+2021-09-23 13:45:33,249 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 13:51:42,295 - logger - INFO - Getting user info - password
+2021-09-23 13:51:42,297 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 13:51:42,297 - logger - INFO - Getting user info - password
+2021-09-23 13:51:42,298 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 13:52:32,355 - logger - INFO - Getting user info - password
+2021-09-23 13:52:32,355 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 13:52:32,356 - logger - INFO - Getting user info - password
+2021-09-23 13:52:32,356 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 14:02:04,463 - logger - INFO - Getting user info - password
+2021-09-23 14:02:04,466 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 14:02:04,466 - logger - INFO - Getting user info - password
+2021-09-23 14:02:04,466 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 14:04:16,124 - logger - INFO - Getting user info - password
+2021-09-23 14:04:16,124 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 14:04:16,124 - logger - INFO - Getting user info - password
+2021-09-23 14:04:16,124 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 14:32:07,546 - logger - INFO - Getting user info - password
+2021-09-23 14:32:07,547 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-23 14:32:07,547 - logger - INFO - Getting user info - password
+2021-09-23 14:32:07,548 - logger - INFO - Load json - ./storage/resources/user_info.json

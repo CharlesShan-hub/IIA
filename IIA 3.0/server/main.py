@@ -10,6 +10,7 @@ import storage
 import chardet
 
 SERVER_WELCOME = True
+IP = '0.0.0.0'
 
 # 当新的客户端连接时会提示
 def new_client(client, server):
@@ -114,16 +115,17 @@ def run():
         #print("Input 'STOP_FORCED' to shut down the sever directly!\n")
         
     # 获取目前运行的ip与port
-    ip = get_host_ip()
+    global IP
+    IP = get_host_ip()
     port = get_host_port()
-    print("The server is run at:")
-    print(" ip =",ip)
+    print("Node Server is running at:")
+    print(" ip =",IP)
     print(" port =",port)
     print("\n---------------------------------------\n")
 
     # 将ip与port写入文件(ui模块需要)
     write_json('./server/setting.json',
-        {'ip': ip,
+        {'ip': IP,
         'port': port})
     f = open("./server/setting.json","r")
     setting = f.read()
@@ -133,8 +135,9 @@ def run():
     f.close()
 
     # 启动服务器
-    server = WebsocketServer(port, ip)
+    server = WebsocketServer(port, IP)
     server.set_fn_new_client(new_client)
     server.set_fn_client_left(client_left)
     server.set_fn_message_received(message_received)
+    print("The Node Server log:")
     server.run_forever()

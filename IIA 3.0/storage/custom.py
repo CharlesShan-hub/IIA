@@ -288,6 +288,15 @@ def cover_repo(from_name='',to_name='',from_repo_id=[],to_repo_id=[]):
 	return True
 
 
+def info_repo(repo_id=[],name="",mail=""):
+	# 获取单个仓库信息
+	if(name!=""):
+		pass
+
+	# 获取所有仓库信息
+	if(name==""):
+		pass
+
 ###########################################################
 ''' Design Region 
 	You can write your own functions in this place. Change

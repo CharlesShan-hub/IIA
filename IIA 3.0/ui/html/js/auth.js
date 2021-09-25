@@ -6,6 +6,8 @@ function load(){
 function auth(){
 	mail = document.getElementById('mail').value;
 	password = document.getElementById('password').value;
+	if(mail==""||password=="")
+		return;
 	login(mail,password);
 }
 
