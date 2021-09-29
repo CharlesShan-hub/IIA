@@ -1170,3 +1170,19 @@
 2021-09-23 14:32:07,547 - logger - INFO - Load json - ./storage/resources/user_info.json
 2021-09-23 14:32:07,547 - logger - INFO - Getting user info - password
 2021-09-23 14:32:07,548 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-29 07:34:56,746 - logger - INFO - Getting user info - password
+2021-09-29 07:34:56,748 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-29 07:34:56,748 - logger - INFO - Getting user info - password
+2021-09-29 07:34:56,748 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-29 07:35:55,416 - logger - INFO - Getting user info - password
+2021-09-29 07:35:55,416 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-29 07:35:55,416 - logger - INFO - Getting user info - password
+2021-09-29 07:35:55,416 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-29 07:36:08,390 - logger - INFO - Getting user info - password
+2021-09-29 07:36:08,391 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-29 07:36:08,391 - logger - INFO - Getting user info - password
+2021-09-29 07:36:08,391 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-29 07:39:25,973 - logger - INFO - Getting user info - password
+2021-09-29 07:39:25,973 - logger - INFO - Load json - ./storage/resources/user_info.json
+2021-09-29 07:39:25,973 - logger - INFO - Getting user info - password
+2021-09-29 07:39:25,974 - logger - INFO - Load json - ./storage/resources/user_info.json

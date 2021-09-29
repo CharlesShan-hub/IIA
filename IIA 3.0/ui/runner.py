@@ -15,8 +15,7 @@ class MainWindow(QMainWindow):
         self.browser.load(QUrl(path))
         self.setCentralWidget(self.browser)
 
-#def run(html="/ui/html/login/index.html"):
-def run(html="/ui/html/index.html"):
+def run(html="/ui/html/pages-login-2.html"):
     path="file://"+os.getcwd()+html
     app=QApplication(sys.argv)
     win=MainWindow(path)
