@@ -19,6 +19,24 @@ os  (标准库)
 random  (标准库)  
 websocket_server (第三方库)  
 
+## IIA项目架构
+### 顶层模块
+* server - 服务器模块
+* ui - 界面模块
+### 功能模块
+* mission - 任务模块
+* reminder - 提醒事项模块
+* warehouse - 数据仓库模块
+* mapping - 导图模块
+* process - 数据处理模块
+* template - 模板模块
+* show - 展示模块
+* auxiliary - 辅助模块
+### 底层模块
+* storage - 存储模块
+* logger - 记录模块
+
+
 ## IIA系统逻辑
 ### 运行模式
 __本地运行__: 设备单机运行, 需要在本机注册账户, 账户只在本机可用。  

@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Register 2 | Veltrix - Responsive Bootstrap 4 Admin Dashboard</title>
+        <title>Authentication(Register) -IIA</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
@@ -34,17 +34,18 @@
                         <div class="card-box shadow-none p-4">
                             <div class="p-2">
                                 <div class="text-center mt-4">
-                                    <a href="index.html"><img src="assets/images/logo-dark.png" height="22" alt="logo"></a>
+                                    <!--<a href="index.html"><img src="assets/images/logo-dark.png" height="22" alt="logo"></a>-->
+                                    <img src="assets/images/logo-dark.png" height="40" alt="logo">
                                 </div>
 
                                 <h4 class="font-size-18 mt-5 text-center">Free Register</h4>
-                                <p class="text-muted text-center">Get your free Veltrix account now.</p>
+                                <p class="text-muted text-center">Get your free IIA account now.</p>
 
                               <form class="mt-4" action="#">
 
                                 <div class="form-group">
                                     <label for="useremail">Email</label>
-                                    <input type="email" class="form-control" id="useremail" placeholder="Enter email">
+                                    <input type="email" class="form-control" id="mail" placeholder="Enter email">
                                 </div>
 
                                 <div class="form-group">
@@ -55,26 +56,26 @@
 
                                 <div class="form-group">
                                     <label for="userpassword">Password</label>
-                                    <input type="password" class="form-control" id="userpassword" placeholder="Enter password">
+                                    <input type="password" class="form-control" id="password" placeholder="Enter password">
                                 </div>
 
                                 <div class="form-group row">
                                     <div class="col-12 text-right">
-                                        <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Register</button>
+                                        <button class="btn btn-primary w-md waves-effect waves-light" type="submit" onclick='regist()'>Register</button>
                                     </div>
                                 </div>
 
-                                <div class="form-group mt-2 mb-0 row">
+                                <!--<div class="form-group mt-2 mb-0 row">
                                     <div class="col-12 mt-3">
                                         <p class="mb-0">By registering you agree to the Veltrix <a href="#" class="text-primary">Terms of Use</a></p>
                                     </div>
-                                </div>
+                                </div>-->
 
                             </form>
 
-                            <div class="mt-5 pt-4 text-center">
+                            <div class="mt-4 pt-4 text-center">
                                 <p>Already have an account ? <a href="pages-login-2.html" class="font-weight-medium text-primary"> Login </a> </p>
-                                <p>© <script>document.write(new Date().getFullYear())</script> Veltrix. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                                <p>© <script>document.write(new Date().getFullYear())</script> IIA. Crafted with <i class="mdi mdi-heart text-danger"></i> by CharlesShan</p>
                             </div>
 
                         </div>
@@ -95,6 +96,10 @@
         <script src="assets/libs/node-waves/waves.min.js"></script>
 
         <script src="assets/js/app.js"></script>
+
+        <script type="text/javascript" src="../../server/setting.json"></script>
+        <script type="text/javascript" src="../setting.json"></script>
+        <script type="text/javascript" src="assets/js/auth.js"></script>
 
     </body>
 </html>

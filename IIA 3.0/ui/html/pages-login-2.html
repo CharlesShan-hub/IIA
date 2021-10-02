@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Login 2 | Veltrix - Responsive Bootstrap 4 Admin Dashboard</title>
+        <title>Authentication(Login) -IIA</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
@@ -34,11 +34,12 @@
                         <div class="card-box shadow-none p-4">
                             <div class="p-2">
                                 <div class="text-center mt-4">
-                                    <a href="index.html"><img src="assets/images/logo-dark.png" height="22" alt="logo"></a>
+                                    <!--<a href="index.html"><img src="assets/images/logo-dark.png" height="22" alt="logo"></a>-->
+									<img src="assets/images/logo-dark.png" height="40" alt="logo">
                                 </div>
 
                                 <h4 class="font-size-18 mt-5 text-center">Welcome Back !</h4>
-                                <p class="text-muted text-center">Sign in to continue to Veltrix.</p>
+                                <p class="text-muted text-center">Sign in to continue to IIA.</p>
 
                               <form class="mt-4" action="#">
 
@@ -50,7 +51,7 @@
 
                                 <div class="form-group">
                                     <label for="userpassword">Password</label>
-                                    <input type="password" class="form-control" id="password" value="" placeholder="Password" onkeydown='do_auth()'>
+                                    <input type="password" class="form-control" id="password" value="" placeholder="Password">
                                 </div>
     
                                 <div class="form-group row">
@@ -61,7 +62,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-6 text-right">
-                                        <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Log In</button>
+                                        <button class="btn btn-primary w-md waves-effect waves-light" type="submit" onclick='login()'>Log In</button>
                                     </div>
                                 </div>
 
@@ -75,7 +76,7 @@
 
                             <div class="mt-5 pt-4 text-center">
                                 <p>Don't have an account ? <a href="pages-register-2.html" class="font-weight-medium text-primary"> Signup now </a> </p>
-                                <p>© <script>document.write(new Date().getFullYear())</script> Veltrix. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                                <p>© <script>document.write(new Date().getFullYear())</script> IIA. Crafted with <i class="mdi mdi-heart text-danger"></i> by CharlesShan</p>
                             </div>
 
                         </div>
@@ -99,7 +100,6 @@
 
         <script type="text/javascript" src="../../server/setting.json"></script>
         <script type="text/javascript" src="../setting.json"></script>
-        <script type="text/javascript" src="assets/js/connect.js"></script>
         <script type="text/javascript" src="assets/js/auth.js"></script>
     </body>
 </html>

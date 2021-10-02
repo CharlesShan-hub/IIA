@@ -1,9 +1,6 @@
 import threading
 import server
 import ui
-import os
-import time
-
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 class ServerThread(threading.Thread):
@@ -65,8 +62,8 @@ if __name__ == "__main__":
     if SERVER_MODE == 'Server':
         server_thread = ServerThread()
         server_thread.start()
-        #http_thread = HTTPThread()
-        #http_thread.start()
+        http_thread = HTTPThread()
+        http_thread.start()
         
     # Client Mode - Run client only
     if SERVER_MODE == 'Client':
