@@ -11,10 +11,13 @@ class ServerThread(threading.Thread):
         server.run()
 
 class HTTPThread(threading.Thread):
-    def __init__(self,ip,daemon=False):
+    def __init__(self,ip,port=None,daemon=False):
         print("Preparing HTTP Server...")
         self.ip=ip
-        self.port=server.get_host_port()
+        if port==None:
+            self.port=server.get_host_port()
+        else:
+            self.port = port
         threading.Thread.__init__(self,daemon=daemon)
     def run(self):
         try:
@@ -54,7 +57,7 @@ if __name__ == "__main__":
     if SERVER_MODE == 'Local':
         server_thread = ServerThread(daemon=True)
         server_thread.start()
-        http_thread = HTTPThread(ip=server.get_host_ip(),daemon=True)
+        http_thread = HTTPThread(ip=server.get_host_ip(),port=80,daemon=True)
         http_thread.start()
         ui.run()
 

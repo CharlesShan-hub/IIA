@@ -1,7 +1,6 @@
 // 用于建立与服务器的联系
 var ip = setting.ip;
 var port = setting.port;
-var wsObj; 
 
 
 function load(){
@@ -12,7 +11,7 @@ function load(){
 
 function _login(mail,password){
     // 建立连接
-    wsObj = new WebSocket("ws://"+ip+":"+port);
+    var wsObj = new WebSocket("ws://"+ip+":"+port);
 
     //发送请求
     wsObj.onopen = function(){  
@@ -39,7 +38,7 @@ function _login(mail,password){
 
 function _regist(mail,password,username){
     // 建立连接
-    wsObj = new WebSocket("ws://"+ip+":"+port);
+    var wsObj = new WebSocket("ws://"+ip+":"+port);
 
     //发送请求
     wsObj.onopen = function(){  
@@ -67,7 +66,7 @@ function _regist(mail,password,username){
 
 function _find_password(mail,code){
     // 建立连接
-    wsObj = new WebSocket("ws://"+ip+":"+port);
+    var wsObj = new WebSocket("ws://"+ip+":"+port);
 
     //发送请求
     wsObj.onopen = function(){  

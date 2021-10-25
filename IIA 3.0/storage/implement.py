@@ -5,6 +5,8 @@ import logger
 import os
 from shutil import copyfile
 
+LOG_MODULE = 'Storage'
+
 #####################################################
 ''' 底层文件操作
 	ConfigFilePath: 数据仓库配置文件路径
@@ -34,7 +36,7 @@ def load_csv(path,encoding='UTF-8'):
 	with open(path, 'r', encoding=encoding) as f:
 		for line in csv.reader(f):
 			data.append(line)
-	logger.info("Load csv - "+path)
+	logger.debug("Load csv - "+path,LOG_MODULE)
 	return data
 
 
@@ -46,14 +48,14 @@ def load_json(path,encoding='UTF-8'):
 	'''
 	with open(path, 'r', encoding='UTF-8') as f:
 		data = json.load(f)    #此时a是一个字典对象
-	logger.info("Load json - "+path)
+	logger.debug("Load json - "+path,LOG_MODULE)
 	return data
 
 
 def write_json(path, content, encoding='UTF-8'):
 	''' json写入数据
 	'''
-	logger.info("Write json - "+path)
+	logger.debug("Write json - "+path,LOG_MODULE)
 	with open(path, 'w', encoding='utf-8') as f:
 		f.write(json.dumps(content, indent=4, ensure_ascii=False))
 
@@ -69,9 +71,9 @@ def delete_file(path):
 	'''
 	if(os.path.exists(path)):
 		os.remove(path)
-		logger.info("File/Path deleted - "+path)
+		logger.info("File/Path deleted - "+path,LOG_MODULE)
 	else:
-		logger.info("File/Path failed delete - "+path)
+		logger.info("File/Path failed delete - "+path,LOG_MODULE)
 
 
 def copy_file(path_from,path_to):
@@ -79,18 +81,18 @@ def copy_file(path_from,path_to):
 	'''
 	if(os.path.exists(path_from)):
 		copyfile(path_from, path_to)
-		logger.info("File/Path copied - "+path_to)
+		logger.info("File/Path copied - "+path_to,LOG_MODULE)
 	else:
-		logger.info("File/Path failed copied - "+path_to)
+		logger.info("File/Path failed copied - "+path_to,LOG_MODULE)
 
 
 def creat_database(name):
 	''' 数据库文件的创建
 	'''
-	logger.info("Creat new database - "+name)
+	logger.info("Creat new database - "+name,LOG_MODULE)
 	path = "./storage/resources/"+name+".db"
 	conn = sqlite3.connect(path)
-	logger.info("Successfully created new database - "+name)
+	logger.info("Successfully created new database - "+name,LOG_MODULE)
 
 
 #####################################################
@@ -106,13 +108,16 @@ def creat_database(name):
 def valid_mail(mail): 
 	''' 邮箱合法性检查
 	'''
-	logger.info("Check user_mail valid - "+mail)
+	logger.info("Check user_mail valid - "+mail,LOG_MODULE)
 	all_user_info = load_json(UserFilePath)
 	if mail.strip() == '':
-		logger.warning("wrong mail type: list of space")
+		logger.warning("wrong mail type: list of space",LOG_MODULE)
 		return False
 	if mail in all_user_info:
-		logger.warning("Invalid mail! (Have same mail)")
+		logger.warning("Invalid mail! (Have same mail)",LOG_MODULE)
+		return False
+	if mail == "System":
+		logger.warning("Invalid mail! (Use reserved word)",LOG_MODULE)
 		return False
 	return True
 
@@ -120,7 +125,7 @@ def valid_mail(mail):
 def valid_password(password): 
 	''' 密码合法性检查
 	'''
-	logger.info("Check user_password valid")
+	logger.info("Check user_password valid",LOG_MODULE)
 	return True
 
 
@@ -137,7 +142,7 @@ def get_user_info(mail):
 def save_user_info(mail,password): 
 	''' 添加/保存用户信息
 	'''
-	logger.info("Changing/adding user info - "+mail)
+	logger.info("Changing/adding user info - "+mail,LOG_MODULE)
 	all_user_info = load_json(UserFilePath)
 	all_user_info[mail] = {'password':password}
 	write_json(UserFilePath, all_user_info)
@@ -149,7 +154,7 @@ def get_user_property(mail,con):
 	:param mail: 用户邮箱当作ID
 	:param con: 信息名称
 	'''
-	logger.info("Getting user info - "+con)
+	logger.info("Getting user info - "+con,LOG_MODULE)
 	all_user_info = load_json(UserFilePath)
 	try:
 		return all_user_info[mail][con]
@@ -162,7 +167,7 @@ def change_user_property(mail,con_name,con_content):
 	:param mail: 用户邮箱当作ID
 	:param con: 信息名称
 	'''
-	logger.info("Changing/adding user info - "+con_name+" "+str(con_content))
+	logger.info("Changing/adding user info - "+con_name+" "+str(con_content),LOG_MODULE)
 	all_user_info = load_json(UserFilePath)
 	all_user_info[mail][con_name] = con_content
 	write_json(UserFilePath, all_user_info)
@@ -213,22 +218,22 @@ def valid_repo_name(name):
 	:param name: 数据仓库名称
 	:return : 是否合法
 	'''
-	logger.info("Check repo_name valid - "+name)
+	logger.info("Check repo_name valid - "+name,LOG_MODULE)
 	# 检查名称是否符合命名规范
 	for item in ['\\','/','.']:
 		if item in name:
-			logger.warning("wrong char '"+item+"' in name - "+name)
+			logger.warning("wrong char '"+item+"' in name - "+name,LOG_MODULE)
 			return False
 	if name.strip() == '':
-		logger.warning("wrong name type: list of space")
+		logger.warning("wrong name type: list of space",LOG_MODULE)
 		return False
 	# 检查名称是否重复
 	all_repo_info = load_json(ConfigFilePath)
 	for item in all_repo_info['repo_id']:
 		if name == all_repo_info[str(item)]["name"]:
-			logger.info("Check repo_name valid - False")
+			logger.info("Check repo_name valid - False",LOG_MODULE)
 			return False
-	logger.info("Check repo_name valid - True")
+	logger.info("Check repo_name valid - True",LOG_MODULE)
 	return True
 
 
@@ -242,17 +247,17 @@ def creat_repo_id(mode='new',old_repo_id=None):
 	'''
 	all_repo_info = load_json(ConfigFilePath)
 	if mode=='new':
-		logger.info("Start creat new repo_id")
+		logger.info("Start creat new repo_id",LOG_MODULE)
 		new_id = 0
 		for item in all_repo_info['repo_id']:
 			if new_id <= item[0]:
 				new_id = new_id+1
-		logger.info("New repo_id - "+str([new_id]))
+		logger.info("New repo_id - "+str([new_id]),LOG_MODULE)
 		return [new_id]
 	elif mode=='copy':
-		logger.info("Start creat copy repo_id")
+		logger.info("Start creat copy repo_id",LOG_MODULE)
 		#if exist_repo_id(old_repo_id) == False:
-		#	logger.warning("Failed to creat repo_id!")
+		#	logger.warning("Failed to creat repo_id!",LOG_MODULE)
 		#	return False
 		repo_id = list(old_repo_id)
 		repo_id.append(0)
@@ -268,7 +273,7 @@ def creat_repo_id(mode='new',old_repo_id=None):
 		except ValueError:
 			return repo_id 
 	else:
-		logger.warning("Failed to creat repo_id!")
+		logger.warning("Failed to creat repo_id!",LOG_MODULE)
 		raise TypeError("Wrong type of mode (should be 'new' or 'copy' only!)")
 		return False
 
@@ -278,7 +283,7 @@ def exist_repo_id(repo_id):
 	:param repo_id: 数据仓库ID
 	:return : 是否存在
 	'''
-	logger.info("Verifing ID exists - "+str(repo_id))
+	logger.info("Verifing ID exists - "+str(repo_id),LOG_MODULE)
 	all_repo_info = load_json(ConfigFilePath)
 	return repo_id in all_repo_info['repo_id']
 
@@ -288,17 +293,17 @@ def get_repo_id(name):
 	:param name: 数据仓库名称
 	:return :成功返回repo_id, 失败返回false
 	'''
-	logger.info("Getting repo_id by name ("+name+")")
+	logger.info("Getting repo_id by name ("+name+")",LOG_MODULE)
 	all_repo_info = load_json(ConfigFilePath)
 	try:
 		for one_repo_id in all_repo_info["repo_id"]:
 			if all_repo_info[str(one_repo_id)]['name'] == name:
-				logger.info("Got repo_id - "+str(one_repo_id))
+				logger.info("Got repo_id - "+str(one_repo_id),LOG_MODULE)
 				return one_repo_id
-		logger.warning("Failed to get repo_id by name - "+name)
+		logger.warning("Failed to get repo_id by name - "+name,LOG_MODULE)
 		return False
 	except:
-		logger.warning("Unexpected thing happened")
+		logger.warning("Unexpected thing happened",LOG_MODULE)
 		return False
 
 
@@ -326,7 +331,7 @@ def get_repo_property(repo_id,con):
 	:param repo_id: 数据仓库ID
 	:param con: 属性名称
 	'''
-	logger.info("Getting repo property - "+con)
+	logger.info("Getting repo property - "+con,LOG_MODULE)
 	all_repo_info = load_json(ConfigFilePath)
 	return all_repo_info[str(repo_id)][con]
 
@@ -336,7 +341,7 @@ def change_repo_property(repo_id,con_name,con_content):
 	:param repo_id: 数据仓库ID
 	:param con: 属性名称
 	'''
-	logger.info("Changing/adding repo property - "+con_name+" "+str(con_content))
+	logger.info("Changing/adding repo property - "+con_name+" "+str(con_content),LOG_MODULE)
 	all_repo_info = load_json(ConfigFilePath)
 	all_repo_info[str(repo_id)][con_name] = con_content
 	write_json(ConfigFilePath, all_repo_info)
@@ -350,7 +355,7 @@ def save_repo_info(repo_id,repo_name,exist=True,cloud=False):
 	:param exist(optional): 仓库是否存在(占位信息不存在数据库文件)
 	:param cloud(optional): 仓库是否存在云端备份
 	'''
-	logger.info("Save repo info (repo_id = "+str(repo_id)+")")
+	logger.info("Save repo info (repo_id = "+str(repo_id)+")",LOG_MODULE)
 	all_repo_info = load_json(ConfigFilePath)
 	all_repo_info['repo_id'].insert(
 		_get_sub_repo_id(repo_id,all_repo_info['repo_id']),repo_id)
@@ -367,7 +372,7 @@ def copy_repo_file(old_repo_id,repo_id):
 	:param lod_repo_id: 被复制仓库ID
 	:param repo_id: 新仓库ID
 	'''
-	logger.info("Start copy repo store file")
+	logger.info("Start copy repo store file",LOG_MODULE)
 	path_from = './storage/resources/'+get_repo_property(old_repo_id,'name')+'.db'
 	path_to = './storage/resources/'+get_repo_property(repo_id,'name')+'.db'
 	copy_file(path_from,path_to)
@@ -377,7 +382,7 @@ def delete_repo_file(repo_id):
 	''' 删除仓库文件
 	:param repo_id: 仓库ID
 	'''
-	logger.info("Start delete repo store file")
+	logger.info("Start delete repo store file",LOG_MODULE)
 	path = './storage/resources/'+get_repo_property(repo_id,'name')+'.db'
 	delete_file(path)
 
@@ -387,13 +392,13 @@ def delete_repo_info(repo_id,placeholder):
 	:param repo_id: 仓库ID
 	:param placeholder: 是否保留占位符
 	'''
-	logger.info("Start delete repo info, placeholder - "+str(placeholder))
+	logger.info("Start delete repo info, placeholder - "+str(placeholder),LOG_MODULE)
 	if placeholder == False:
 		all_repo_info = load_json(ConfigFilePath)
 		all_repo_info['repo_id'].remove(repo_id)
 		del all_repo_info[str(repo_id)]
 		write_json(ConfigFilePath, all_repo_info)
-		logger.info("Successfully delete repo info - "+str(repo_id))
+		logger.info("Successfully delete repo info - "+str(repo_id),LOG_MODULE)
 		return True
 	else:
 		change_repo_property(repo_id,'name','')
@@ -409,17 +414,17 @@ def is_end_point_repo(repo_id):
 	:param repo_id: 查询的仓库ID
 	:return :是否是某一层的尾结点
 	'''
-	logger.info("Checking if end point of a layer - "+str(repo_id))
+	logger.info("Checking if end point of a layer - "+str(repo_id),LOG_MODULE)
 	all_repo_info = load_json(ConfigFilePath)
 	if repo_id not in all_repo_info['repo_id']:
-		logger.warning("repo_id is unexpected")
+		logger.warning("repo_id is unexpected",LOG_MODULE)
 		raise ValueError("repo_id is unexpected")
 		return False
 	# 是否有子结点
 	child_repo_id = repo_id.copy()
 	child_repo_id.append(0)
 	have_child_node = child_repo_id in all_repo_info['repo_id']
-	logger.info("Checking if have child node - "+str(have_child_node))
+	logger.info("Checking if have child node - "+str(have_child_node),LOG_MODULE)
 	# 是否有后继结点
 	next_repo_id = repo_id.copy()
 	next_repo_id[-1] = next_repo_id[-1]+1
@@ -429,10 +434,10 @@ def is_end_point_repo(repo_id):
 		if all_repo_info[str(next_repo_id)]['exist'] == True:
 			have_next_node = True
 			break
-	logger.info("Checking if have next node - "+str(have_next_node))
+	logger.info("Checking if have next node - "+str(have_next_node),LOG_MODULE)
 	# 是否某一层的尾结点
 	is_end_node = have_next_node==False and have_child_node==False
-	logger.info("If end node - "+str(is_end_node))
+	logger.info("If end node - "+str(is_end_node),LOG_MODULE)
 	return is_end_node
 
 	

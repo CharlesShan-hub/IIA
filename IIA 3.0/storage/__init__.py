@@ -20,11 +20,6 @@ if os.path.exists(ConfigFilePath) == False:
 		}
 		f.write(json.dumps(content, indent=4, ensure_ascii=False))
 
-# User info file
-if os.path.exists(UserFilePath) == False:
-	with open(UserFilePath, 'w', encoding='utf-8') as f:
-		content = {}
-		f.write(json.dumps(content, indent=4, ensure_ascii=False))
 
 '''
 	API
@@ -40,6 +35,12 @@ def configure_user(mail,con_name=None, con_content=None, mode='auto'):
 	'''
 	'''
 	return custom.configure_u(mail,con_name=con_name, con_content=con_content, mode=mode)
+
+
+def exist_repository(name,**kwg):
+	''' 检查某数据仓库是否存在
+	'''
+	return exist_repo(name,**kwg)
 
 def creat_repository(name,**kwg):
 	''' 创建新数据仓库
@@ -91,4 +92,12 @@ def info_repository(repo_id=[],name='',mail=''):
 	''' 获取仓库信息
 	'''
 	return info_repo(repo_id=repo_id,name=name,mail=mail)
+
+
+def add_info(repo_id=[],name='',con=""):
+	return t_add_info(repo_id=repo_id,name=name,con=con)
+
+
+def test_add_info(repo_id=[],name='',con=""):
+	return t_add_info(repo_id=repo_id,name=name,con=con)
 
