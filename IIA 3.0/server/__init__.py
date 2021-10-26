@@ -69,7 +69,7 @@ def do_auth(message,client,server):
         server.send_message(client,reply_maker(code))
     # 注册
     elif message["operate"] == "regist":
-        code = auth.regist(message['mail'],message['password'],message['name'])
+        code = auth.regist(message['mail'],message['password'],message['name'],message['code'])
         server.send_message(client,reply_maker(code))
     # 找回密码
     elif message["operate"] == "find password":

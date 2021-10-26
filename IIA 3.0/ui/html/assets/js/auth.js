@@ -20,23 +20,24 @@ function _login(mail,password){
 		content = content+'","mail":"';
 		content = content+mail;
 		content = content+'"}';
-        wsObj.send(content);
     }
 
     // 验证是否登陆
     wsObj.onmessage = function(evt){ 
         var data = JSON.parse(evt.data);
-        wsObj.close();
         if(data.reply=='100'){
+            alert("Close!")
+            wsObj.close();
             window.location.href="./index.html?mail="+mail;
         }else{
         	alert("Wrong password/mail or you are new to this computer!");
         }
+        wsObj.close();
     }
 }
 
 
-function _regist(mail,password,username){
+function _regist(mail,password,username,code){
     // 建立连接
     var wsObj = new WebSocket("ws://"+ip+":"+port);
 
@@ -48,6 +49,8 @@ function _regist(mail,password,username){
         content = content+mail;
         content = content+'","name":"';
         content = content+username;
+        content = content+'","code":"';
+        content = content+code;
         content = content+'"}';
         wsObj.send(content);
     }
@@ -56,10 +59,14 @@ function _regist(mail,password,username){
     wsObj.onmessage = function(evt){ 
         var data = JSON.parse(evt.data);
         if(data.reply=='100'){
+            wsObj.close();
             window.location.href="./index.html?mail="+mail;
+        }else if(data.reply=='200'){
+            alert("Have send Code to your email!");
         }else{
             alert("Failed to Register.");
         }
+        wsObj.close();
     }
 }
 
@@ -82,6 +89,8 @@ function _find_password(mail,code){
     wsObj.onmessage = function(evt){ 
         var data = JSON.parse(evt.data);
         if(data.reply=='100'){
+            alert("Close!")
+            wsObj.close();
             window.location.href="./index.html?mail="+mail;
         }
     }
@@ -98,12 +107,22 @@ function login(){
 
 
 function regist(){
-	mail = document.getElementById('mail').value;
-	password = document.getElementById('password').value;
+    mail = document.getElementById('mail').value;
+    password = document.getElementById('password').value;
     username = document.getElementById('username').value;
-	if(mail==""||password==""||username=="")
-		return;
-	_regist(mail,password,username);
+    code = document.getElementById('code').value;
+    if(mail==""||password==""||username=="")
+        return;
+    _regist(mail,password,username,code);
+}
+
+function request_regist(){
+    mail = document.getElementById('mail').value;
+    password = document.getElementById('password').value;
+    username = document.getElementById('username').value;
+    if(mail=="")
+        return;
+    _regist(mail,password,username,"request");
 }
 
 

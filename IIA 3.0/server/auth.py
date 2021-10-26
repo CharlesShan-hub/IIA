@@ -20,16 +20,24 @@ def login(mail,password):
 	else:
 		return 403
 
-def regist(mail,password,name):
+def regist(mail,password,name,code):
 	''' 增加用户
 	'''
 	#if _password_valid(password)==False:
 	#	return 403
-	# 写入用户名与密码
-	if auth.add_user(mail=mail,password=password,name=name) == True:
-		return 100
-	else:
+	# 请求建立新用户
+	if code=="request":
+		code_=auth.generate_validation_code(mail)
+		auth.send_check_mail(mail,code_)
+		return 200
+	# 收到验证码(验证码错误)
+	if auth.check_validation_code(mail,code)==False:
+		logger.warning("Wrong validation code",LOG_MODULE)
 		return 403
+	# 写入用户名与密码
+	if auth.add_user(mail=mail,password=password,name=name,code=code) == True:
+		return 100
+
 
 def find_password(mail,code):
 	''' 找回密码

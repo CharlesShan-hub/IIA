@@ -90,9 +90,21 @@ def send_find_password(mail,code):
 	''' 发送找回密码验证码
 	'''
 	logger.info("Constructing mail",LOG_MODULE)
-	with open("./auth/resources/find.html") as f:
+	with open("./auth/resources/mail.html") as f:
 		word = f.read()
-		word=word.replace("IIA-FLAG",code)
+		word=word.replace("IIA-Flag-Code",code)
+		word=word.replace("IIA-Flag-Content","【IIA】您正在使用找回密码功能, 验证码可能导致IIA账号被盗, 请勿转发或泄漏。")
+	sent_message(mail,word)
+
+
+def send_check_mail(mail,code):
+	''' 发送验证邮箱验证码
+	'''
+	logger.info("Constructing mail",LOG_MODULE)
+	with open("./auth/resources/mail.html") as f:
+		word = f.read()
+		word=word.replace("IIA-Flag-Code",code)
+		word=word.replace("IIA-Flag-Content","【IIA】您正在注册成为新用户，感谢您的支持！")
 	sent_message(mail,word)
 
 
