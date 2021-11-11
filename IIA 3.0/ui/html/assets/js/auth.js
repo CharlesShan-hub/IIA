@@ -20,13 +20,13 @@ function _login(mail,password){
 		content = content+'","mail":"';
 		content = content+mail;
 		content = content+'"}';
+        wsObj.send(content);
     }
 
     // 验证是否登陆
     wsObj.onmessage = function(evt){ 
         var data = JSON.parse(evt.data);
         if(data.reply=='100'){
-            alert("Close!")
             wsObj.close();
             window.location.href="./index.html?mail="+mail;
         }else{
@@ -89,10 +89,11 @@ function _find_password(mail,code){
     wsObj.onmessage = function(evt){ 
         var data = JSON.parse(evt.data);
         if(data.reply=='100'){
-            alert("Close!")
+            alert("Don't Forget Your Password: xxxx")
             wsObj.close();
             window.location.href="./index.html?mail="+mail;
         }
+        wsObj.close();
     }
 }
 
@@ -130,6 +131,7 @@ function find_password(){
 	mail = document.getElementById('mail').value;
 	code = document.getElementById('code').value;
 	if(mail=="")
+        alert("Please Input Mail Address!");
 		return;
 	if(code==""){
 		_find_password(mail,"request");

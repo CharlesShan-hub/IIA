@@ -15,8 +15,11 @@ class MainWindow(QMainWindow):
         self.browser.load(QUrl(path))
         self.setCentralWidget(self.browser)
 
-def run(html="/ui/html/pages-login-2.html"):
-    path="file://"+os.getcwd()+html
+def run(html,TEST_MODE):
+    if TEST_MODE==True:
+        path="file://"+os.getcwd()+"/ui/html/test.html"
+    else:
+        path="file://"+os.getcwd()+html
     app=QApplication(sys.argv)
     win=MainWindow(path)
     win.show()

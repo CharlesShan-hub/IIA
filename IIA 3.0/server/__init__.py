@@ -5,6 +5,7 @@ import os
 import random
 
 import server.auth as auth
+import server.test as test
 import storage
 
 import chardet
@@ -45,6 +46,11 @@ def message_received(client, server, message):
         '''
         pass
 
+    elif message["type"] == "test":
+        ''' 测试部分
+        '''
+        do_test(message,client,server)
+
     #添加数据仓库
     #elif message["type"] == "creat_repository":
     #    storage.creat_repository(name=message['repo_name'],user_id=message['mail'])
@@ -76,6 +82,14 @@ def do_auth(message,client,server):
         code = auth.find_password(message['mail'],message['code'])
         server.send_message(client,reply_maker(code))
 
+
+def do_test(message,client,server):
+    """ 进行测试相关操作
+    """
+    # ping
+    if message["operate"] == "ping":
+        code = test.ping(int(message["param"]))
+        server.send_message(client,reply_maker(code))
 
 def reply_maker(code):
     return '{"reply":"'+str(code)+'"}'

@@ -1,4 +1,5 @@
 import threading
+import sys
 import server
 import ui
 from http.server import HTTPServer, SimpleHTTPRequestHandler
@@ -37,6 +38,12 @@ class HTTPThread(threading.Thread):
 ''' IIA - Intelligent Information Assistant
     This is the main file.
 '''
+# Related HTML file entry path
+HTML = "/ui/html/pages-login-2.html"
+
+# Test Mode - Run in test mode
+TEST_MODE = False
+
 # Local Mode - Run as a Local software
 SERVER_MODE = 'Local'
 
@@ -50,6 +57,11 @@ SERVER_MODE = 'Local'
 #SERVER_MODE = 'Community'
 
 if __name__ == "__main__":
+    if(len(sys.argv)>1 and sys.argv[1]=='test'):
+        print("Open Test Mode!")
+        TEST_MODE = True
+
+
     if SERVER_MODE not in ['Local','Server','Client','Community']:
         exit()
 
@@ -59,7 +71,7 @@ if __name__ == "__main__":
         server_thread.start()
         http_thread = HTTPThread(ip=server.get_host_ip(),port=80,daemon=True)
         http_thread.start()
-        ui.run()
+        ui.run(HTML,TEST_MODE)
 
     # Server Mode - Run server only
     if SERVER_MODE == 'Server':
@@ -70,7 +82,7 @@ if __name__ == "__main__":
         
     # Client Mode - Run client only
     if SERVER_MODE == 'Client':
-        ui.run()
+        ui.run(HTML,TEST_MODE)
 
     # Community Mode - Run as a community server 
     if SERVER_MODE == 'Community':
