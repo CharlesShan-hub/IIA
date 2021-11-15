@@ -15,11 +15,11 @@ function _login(mail,password){
 
     //发送请求
     wsObj.onopen = function(){  
-		content = '{"type":"auth","operate":"login","password":"';
-		content = content+password;
-		content = content+'","mail":"';
-		content = content+mail;
-		content = content+'"}';
+        content = '{"type":"auth","operate":"login","password":"';
+        content = content+password;
+        content = content+'","mail":"';
+        content = content+mail;
+        content = content+'"}';
         wsObj.send(content);
     }
 
@@ -29,8 +29,9 @@ function _login(mail,password){
         if(data.reply=='100'){
             wsObj.close();
             window.location.href="./index.html?mail="+mail;
+            //alert("Successed to login!");
         }else{
-        	alert("Wrong password/mail or you are new to this computer!");
+            alert("Wrong password/mail or you are new to this computer!");
         }
         wsObj.close();
     }
@@ -139,19 +140,3 @@ function find_password(){
 		_find_password(mail,code);
 	}
 }
-
-
-/*
-function do_auth(event){
-	var event=window.event?window.event:event;   
-		if(event.keyCode==13){
-			auth();
-	}
-}*/
-
-/*function do_find_password(event){
-	var event=window.event?window.event:event;   
-		if(event.keyCode==13){
-			find_password();
-	}
-}*/

@@ -3,12 +3,7 @@ from storage.implement import *
 ###########################################################
 ''' Core Region 
 	These functions are called by functions in __init__.py
-
-	**User Info 用户信息部分**
-	add_u(): 添加新用户
-	get_user_info(): 获取用户信息
-
-	**Repo Part 仓库部分**
+	
 	_get_operat_repo_id(): 获取正在被操作的数据仓库的repo_id,错误返回false
 	_clean_repo_info(): 删除多余占位仓库信息
 	creat_repo(): 创建新仓库
@@ -18,39 +13,6 @@ from storage.implement import *
 	cover_repo(): 仓库版本回退
 
 '''
-def add_u(mail,password,**kwg):
-	''' 新建用户
-	'''
-	if valid_mail(mail)==False:
-		logger.warning("Failed to add user - mail:"+mail+" is not valid",LOG_MODULE)
-		return False
-	if valid_password(password)==False:
-		logger.warning("Failed to add user - password:"+password+" is not valid",LOG_MODULE)
-		return False
-
-	result = save_user_info(mail,password)
-
-	# 保存用户配置
-	for item in kwg:
-		change_user_property(mail,item,kwg[item])
-
-	return result
-
-
-def configure_u(mail,con_name=None, con_content=None, mode='auto'):
-	''' 配置或获取用户信息
-	'''
-	# 返回用户全部信息
-	if con_name == None:
-		return get_user_info(mail)
-	# 返回用户信息
-	if (mode=='get') or (mode=='auto' and con_content==None):
-		return get_user_property(mail,con_name)
-	# 设置仓库信息(没有标签则创建)
-	change_user_property(mail,con_name,con_content)
-	return True
-
-
 def _get_operat_repo_id(repo_id=[],name=''):
 	''' 获取正在被操作的数据仓库的repo_id,错误返回false
 	'''

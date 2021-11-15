@@ -1,0 +1,1294 @@
+2021-11-11 18:45:24,814 - INFO - Storage - Start creat new repo - Auth
+2021-11-11 18:45:24,815 - INFO - Storage - Check repo_name valid - Auth
+2021-11-11 18:45:24,815 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-11 18:45:24,815 - INFO - Storage - Check repo_name valid - True
+2021-11-11 18:45:24,815 - INFO - Storage - Creat new database - Auth
+2021-11-11 18:45:24,815 - INFO - Storage - Successfully created new database - Auth
+2021-11-11 18:45:24,816 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-11 18:45:24,816 - INFO - Storage - Start creat new repo_id
+2021-11-11 18:45:24,816 - INFO - Storage - New repo_id - [0]
+2021-11-11 18:45:24,816 - INFO - Storage - Save repo info (repo_id = [0])
+2021-11-11 18:45:24,816 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-11 18:45:24,816 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-11 18:45:24,816 - INFO - Storage - Changing/adding repo property - user_id System
+2021-11-11 18:45:24,816 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-11 18:45:24,816 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-11 18:45:24,817 - INFO - Storage - Succeeded to creat new repo - Auth
+2021-11-11 18:45:24,817 - INFO - Storage - Getting repo_id
+2021-11-11 18:45:24,817 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-11 18:45:24,817 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-11 18:45:24,817 - INFO - Storage - Got repo_id - [0]
+2021-11-11 18:45:24,817 - INFO - Storage - Opened database successfully
+2021-11-11 18:45:24,819 - INFO - Storage - Do executes
+2021-11-11 18:45:24,819 - INFO - Storage - Database closed
+2021-11-11 18:45:34,892 - INFO - Auth - Generate validation code
+2021-11-11 18:45:34,892 - INFO - Auth - Constructing mail
+2021-11-11 18:46:08,695 - INFO - Auth - Check validation code
+2021-11-11 18:46:08,695 - INFO - Storage - Getting repo_id
+2021-11-11 18:46:08,695 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-11 18:46:08,695 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-11 18:46:08,696 - INFO - Storage - Got repo_id - [0]
+2021-11-11 18:46:08,696 - INFO - Storage - Opened database successfully
+2021-11-11 18:46:08,698 - INFO - Storage - Do executes
+2021-11-11 18:46:08,699 - INFO - Storage - Database closed
+2021-11-11 18:46:08,700 - INFO - Auth - Sucessed to add user
+2021-11-11 18:46:15,033 - INFO - Auth - Start check mail ~ password
+2021-11-11 18:46:15,033 - INFO - Storage - Getting repo_id
+2021-11-11 18:46:15,033 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-11 18:46:15,034 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-11 18:46:15,034 - INFO - Storage - Got repo_id - [0]
+2021-11-11 18:46:15,034 - INFO - Storage - Opened database successfully
+2021-11-11 18:46:15,035 - INFO - Storage - Do executes
+2021-11-11 18:46:15,035 - INFO - Storage - Do select
+2021-11-11 18:46:42,580 - INFO - Auth - Start check mail ~ password
+2021-11-11 18:46:42,580 - INFO - Storage - Getting repo_id
+2021-11-11 18:46:42,581 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-11 18:46:42,582 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-11 18:46:42,582 - INFO - Storage - Got repo_id - [0]
+2021-11-11 18:46:42,583 - INFO - Storage - Opened database successfully
+2021-11-11 18:46:42,584 - INFO - Storage - Do executes
+2021-11-11 18:46:42,584 - INFO - Storage - Do select
+2021-11-12 00:06:57,452 - INFO - Auth - Start check mail ~ password
+2021-11-12 00:06:57,453 - INFO - Storage - Getting repo_id
+2021-11-12 00:06:57,453 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-12 00:06:57,458 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 00:06:57,458 - INFO - Storage - Got repo_id - [0]
+2021-11-12 00:06:57,460 - INFO - Storage - Opened database successfully
+2021-11-12 00:06:57,461 - INFO - Storage - Do executes
+2021-11-12 00:06:57,461 - INFO - Storage - Do select
+2021-11-12 00:07:16,353 - INFO - Server - Get ping request
+2021-11-12 00:07:18,967 - INFO - Server - Get ping request - return a random word
+2021-11-12 00:07:23,815 - INFO - Auth - Start check mail ~ password
+2021-11-12 00:07:23,816 - INFO - Storage - Getting repo_id
+2021-11-12 00:07:23,816 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-12 00:07:23,816 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 00:07:23,816 - INFO - Storage - Got repo_id - [0]
+2021-11-12 00:07:23,817 - INFO - Storage - Opened database successfully
+2021-11-12 00:07:23,817 - INFO - Storage - Do executes
+2021-11-12 00:07:23,817 - INFO - Storage - Do select
+2021-11-12 21:48:46,990 - INFO - Warehouse - Creat new SheetWarehouse
+2021-11-12 21:48:54,832 - INFO - Warehouse - Creat new SheetWarehouse
+2021-11-12 21:49:23,493 - INFO - Warehouse - Creat new SheetWarehouse - MySheetWarehouse
+2021-11-12 21:49:58,832 - INFO - Warehouse - Creat new SheetWarehouse - MySheetWarehouse
+2021-11-12 21:49:58,832 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:01:24,456 - INFO - Storage - Start creat new repo - Warehouse
+2021-11-12 22:01:24,456 - INFO - Storage - Check repo_name valid - Warehouse
+2021-11-12 22:01:24,457 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:01:24,457 - INFO - Storage - Check repo_name valid - True
+2021-11-12 22:01:24,457 - INFO - Storage - Creat new database - Warehouse
+2021-11-12 22:02:26,373 - INFO - Storage - Start creat new repo - Warehouse
+2021-11-12 22:02:26,373 - INFO - Storage - Check repo_name valid - Warehouse
+2021-11-12 22:02:26,373 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:02:26,373 - INFO - Storage - Check repo_name valid - True
+2021-11-12 22:02:26,373 - INFO - Storage - Creat new database - Warehouse
+2021-11-12 22:04:16,082 - INFO - Storage - Start creat new repo - Warehouse
+2021-11-12 22:04:16,082 - INFO - Storage - Check repo_name valid - Warehouse
+2021-11-12 22:04:16,082 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:04:16,082 - INFO - Storage - Check repo_name valid - True
+2021-11-12 22:04:16,082 - INFO - Storage - Creat new database - Warehouse
+2021-11-12 22:07:22,138 - INFO - Test Auth - 打印所有个人信息
+2021-11-12 22:07:22,139 - INFO - Auth - Getting all user info!
+2021-11-12 22:07:22,139 - INFO - Storage - Getting repo_id
+2021-11-12 22:07:22,139 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-12 22:07:22,139 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:07:22,140 - INFO - Storage - Got repo_id - [0]
+2021-11-12 22:07:22,140 - INFO - Storage - Opened database successfully
+2021-11-12 22:07:22,141 - INFO - Storage - Do executes
+2021-11-12 22:07:22,141 - INFO - Storage - Do select
+2021-11-12 22:08:12,198 - INFO - Storage - Start creat new repo - Auth
+2021-11-12 22:08:12,199 - INFO - Storage - Check repo_name valid - Auth
+2021-11-12 22:08:12,199 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:08:12,199 - INFO - Storage - Check repo_name valid - True
+2021-11-12 22:08:12,199 - INFO - Storage - Creat new database - Auth
+2021-11-12 22:08:12,200 - INFO - Storage - Successfully created new database - Auth
+2021-11-12 22:08:12,200 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:08:12,201 - INFO - Storage - Start creat new repo_id
+2021-11-12 22:08:12,201 - INFO - Storage - New repo_id - [0]
+2021-11-12 22:08:12,201 - INFO - Storage - Save repo info (repo_id = [0])
+2021-11-12 22:08:12,201 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:08:12,201 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:08:12,202 - INFO - Storage - Changing/adding repo property - user_id System
+2021-11-12 22:08:12,202 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:08:12,202 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:08:12,203 - INFO - Storage - Succeeded to creat new repo - Auth
+2021-11-12 22:08:12,203 - INFO - Storage - Getting repo_id
+2021-11-12 22:08:12,203 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-12 22:08:12,203 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:08:12,203 - INFO - Storage - Got repo_id - [0]
+2021-11-12 22:08:12,204 - INFO - Storage - Opened database successfully
+2021-11-12 22:08:12,207 - INFO - Storage - Do executes
+2021-11-12 22:08:12,207 - INFO - Storage - Database closed
+2021-11-12 22:08:12,207 - INFO - Test Auth - 打印所有个人信息
+2021-11-12 22:08:12,207 - INFO - Auth - Getting all user info!
+2021-11-12 22:08:12,207 - INFO - Storage - Getting repo_id
+2021-11-12 22:08:12,207 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-12 22:08:12,208 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:08:12,208 - INFO - Storage - Got repo_id - [0]
+2021-11-12 22:08:12,208 - INFO - Storage - Opened database successfully
+2021-11-12 22:08:12,208 - INFO - Storage - Do executes
+2021-11-12 22:08:12,208 - INFO - Storage - Do select
+2021-11-12 22:08:27,733 - INFO - Storage - Start creat new repo - Warehouse
+2021-11-12 22:08:27,734 - INFO - Storage - Check repo_name valid - Warehouse
+2021-11-12 22:08:27,734 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:08:27,734 - INFO - Storage - Check repo_name valid - True
+2021-11-12 22:08:27,734 - INFO - Storage - Creat new database - Warehouse
+2021-11-12 22:08:27,734 - INFO - Storage - Successfully created new database - Warehouse
+2021-11-12 22:08:27,735 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:08:27,735 - INFO - Storage - Start creat new repo_id
+2021-11-12 22:08:27,735 - INFO - Storage - New repo_id - [1]
+2021-11-12 22:08:27,735 - INFO - Storage - Save repo info (repo_id = [1])
+2021-11-12 22:08:27,735 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:08:27,735 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:08:27,736 - INFO - Storage - Changing/adding repo property - user_id System
+2021-11-12 22:08:27,736 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:08:27,736 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:08:27,737 - INFO - Storage - Succeeded to creat new repo - Warehouse
+2021-11-12 22:08:27,737 - INFO - Storage - Getting repo_id
+2021-11-12 22:08:27,737 - INFO - Storage - Getting repo_id by name (Warehouse)
+2021-11-12 22:08:27,737 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:08:27,737 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:08:27,737 - INFO - Storage - Opened database successfully
+2021-11-12 22:08:27,739 - INFO - Storage - Do executes
+2021-11-12 22:08:27,739 - INFO - Storage - Database closed
+2021-11-12 22:08:27,739 - INFO - Warehouse - Creat new SheetWarehouse - MySheetWarehouse
+2021-11-12 22:09:27,502 - INFO - Warehouse - Creat new SheetWarehouse - MySheetWarehouse
+2021-11-12 22:09:33,244 - INFO - Warehouse - Creat new SheetWarehouse - MySheetWarehouse
+2021-11-12 22:09:33,244 - WARNING - Warehouse - Execute - MySheetWarehouse - Not Exist
+2021-11-12 22:09:33,244 - INFO - Storage - Getting repo_id
+2021-11-12 22:09:33,244 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:09:33,245 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:09:33,245 - WARNING - Storage - Failed to get repo_id by name - MySheetWarehouse
+2021-11-12 22:09:33,245 - WARNING - Storage - Failed to match(get) repo - MySheetWarehouse, id=False
+2021-11-12 22:09:33,245 - WARNING - Storage - Failed to delete repo - MySheetWarehouse
+2021-11-12 22:09:33,245 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:10:13,907 - INFO - Warehouse - Creat new SheetWarehouse - MySheetWarehouse
+2021-11-12 22:10:13,907 - WARNING - Warehouse - Execute - MySheetWarehouse - Not Exist
+2021-11-12 22:12:24,310 - INFO - Storage - Start creat new repo - MySheetWarehouse
+2021-11-12 22:12:24,310 - INFO - Storage - Check repo_name valid - MySheetWarehouse
+2021-11-12 22:12:24,314 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:12:24,314 - INFO - Storage - Check repo_name valid - True
+2021-11-12 22:12:24,314 - INFO - Storage - Creat new database - MySheetWarehouse
+2021-11-12 22:12:24,315 - INFO - Storage - Successfully created new database - MySheetWarehouse
+2021-11-12 22:12:24,316 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:12:24,316 - INFO - Storage - Start creat new repo_id
+2021-11-12 22:12:24,316 - INFO - Storage - New repo_id - [2]
+2021-11-12 22:12:24,316 - INFO - Storage - Save repo info (repo_id = [2])
+2021-11-12 22:12:24,317 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:12:24,317 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:12:24,317 - INFO - Storage - Changing/adding repo property - user_id 1742861545@qq.com
+2021-11-12 22:12:24,318 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:12:24,318 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:12:24,318 - INFO - Storage - Succeeded to creat new repo - MySheetWarehouse
+2021-11-12 22:12:24,318 - INFO - Warehouse - Creat new SheetWarehouse - MySheetWarehouse
+2021-11-12 22:12:24,318 - INFO - Storage - Getting repo_id
+2021-11-12 22:12:24,318 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:12:24,319 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:12:24,319 - INFO - Storage - Got repo_id - [2]
+2021-11-12 22:12:24,319 - INFO - Storage - Opened database successfully
+2021-11-12 22:12:24,319 - INFO - Storage - Do executes
+2021-11-12 22:12:24,319 - INFO - Storage - Database closed
+2021-11-12 22:12:24,319 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:17:17,417 - WARNING - Warehouse - Creat - MySheetWarehouse - Has Created
+2021-11-12 22:17:17,418 - INFO - Storage - Getting repo_id
+2021-11-12 22:17:17,418 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:17:17,418 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:17:17,418 - INFO - Storage - Got repo_id - [2]
+2021-11-12 22:17:17,418 - INFO - Storage - Opened database successfully
+2021-11-12 22:19:23,051 - WARNING - Warehouse - Creat - MySheetWarehouse - Has Created
+2021-11-12 22:19:29,645 - WARNING - Warehouse - Creat - MySheetWarehouse - Has Created
+2021-11-12 22:20:10,723 - INFO - Storage - Start creat new repo - MySheetWarehouse
+2021-11-12 22:20:10,724 - INFO - Storage - Check repo_name valid - MySheetWarehouse
+2021-11-12 22:20:10,724 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:20:10,724 - INFO - Storage - Check repo_name valid - False
+2021-11-12 22:20:10,724 - WARNING - Storage - Failed to creat new repo - MySheetWarehouse
+2021-11-12 22:20:38,713 - INFO - Storage - Start creat new repo - MySheetWarehouse
+2021-11-12 22:20:38,713 - INFO - Storage - Check repo_name valid - MySheetWarehouse
+2021-11-12 22:20:38,714 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:20:38,714 - INFO - Storage - Check repo_name valid - False
+2021-11-12 22:20:38,714 - WARNING - Storage - Failed to creat new repo - MySheetWarehouse
+2021-11-12 22:20:38,714 - INFO - Storage - Getting repo_id
+2021-11-12 22:20:38,714 - INFO - Storage - Getting repo_id by name (Warehouse)
+2021-11-12 22:20:38,714 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:20:38,714 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:20:38,715 - INFO - Storage - Opened database successfully
+2021-11-12 22:20:38,716 - INFO - Storage - Do executes
+2021-11-12 22:20:38,717 - INFO - Storage - Database closed
+2021-11-12 22:20:38,717 - INFO - Warehouse - Creat new SheetWarehouse - MySheetWarehouse
+2021-11-12 22:21:11,849 - INFO - Storage - Start creat new repo - MySheetWarehouse
+2021-11-12 22:21:11,850 - INFO - Storage - Check repo_name valid - MySheetWarehouse
+2021-11-12 22:21:11,853 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:21:11,854 - INFO - Storage - Check repo_name valid - False
+2021-11-12 22:21:11,854 - WARNING - Storage - Failed to creat new repo - MySheetWarehouse
+2021-11-12 22:21:11,854 - INFO - Storage - Getting repo_id
+2021-11-12 22:21:11,854 - INFO - Storage - Getting repo_id by name (Warehouse)
+2021-11-12 22:21:11,854 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:21:11,854 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:21:11,855 - INFO - Storage - Opened database successfully
+2021-11-12 22:21:38,647 - INFO - Storage - Start creat new repo - Warehouse
+2021-11-12 22:21:38,647 - INFO - Storage - Check repo_name valid - Warehouse
+2021-11-12 22:21:38,647 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:21:38,647 - INFO - Storage - Check repo_name valid - True
+2021-11-12 22:21:38,648 - INFO - Storage - Creat new database - Warehouse
+2021-11-12 22:21:38,648 - INFO - Storage - Successfully created new database - Warehouse
+2021-11-12 22:21:38,648 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:21:38,648 - INFO - Storage - Start creat new repo_id
+2021-11-12 22:21:38,648 - INFO - Storage - New repo_id - [0]
+2021-11-12 22:21:38,648 - INFO - Storage - Save repo info (repo_id = [0])
+2021-11-12 22:21:38,649 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:21:38,649 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:21:38,649 - INFO - Storage - Changing/adding repo property - user_id System
+2021-11-12 22:21:38,649 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:21:38,649 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:21:38,650 - INFO - Storage - Succeeded to creat new repo - Warehouse
+2021-11-12 22:21:38,650 - INFO - Storage - Getting repo_id
+2021-11-12 22:21:38,650 - INFO - Storage - Getting repo_id by name (Warehouse)
+2021-11-12 22:21:38,650 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:21:38,650 - INFO - Storage - Got repo_id - [0]
+2021-11-12 22:21:38,650 - INFO - Storage - Opened database successfully
+2021-11-12 22:21:38,652 - INFO - Storage - Do executes
+2021-11-12 22:21:38,652 - INFO - Storage - Database closed
+2021-11-12 22:21:38,653 - INFO - Storage - Start creat new repo - MySheetWarehouse
+2021-11-12 22:21:38,653 - INFO - Storage - Check repo_name valid - MySheetWarehouse
+2021-11-12 22:21:38,653 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:21:38,653 - INFO - Storage - Check repo_name valid - True
+2021-11-12 22:21:38,653 - INFO - Storage - Creat new database - MySheetWarehouse
+2021-11-12 22:21:38,653 - INFO - Storage - Successfully created new database - MySheetWarehouse
+2021-11-12 22:21:38,653 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:21:38,654 - INFO - Storage - Start creat new repo_id
+2021-11-12 22:21:38,654 - INFO - Storage - New repo_id - [1]
+2021-11-12 22:21:38,654 - INFO - Storage - Save repo info (repo_id = [1])
+2021-11-12 22:21:38,654 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:21:38,654 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:21:38,655 - INFO - Storage - Changing/adding repo property - user_id 1742861545@qq.com
+2021-11-12 22:21:38,655 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:21:38,655 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:21:38,655 - INFO - Storage - Succeeded to creat new repo - MySheetWarehouse
+2021-11-12 22:21:38,655 - INFO - Storage - Getting repo_id
+2021-11-12 22:21:38,655 - INFO - Storage - Getting repo_id by name (Warehouse)
+2021-11-12 22:21:38,656 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:21:38,656 - INFO - Storage - Got repo_id - [0]
+2021-11-12 22:21:38,656 - INFO - Storage - Opened database successfully
+2021-11-12 22:21:38,657 - INFO - Storage - Do executes
+2021-11-12 22:21:38,658 - INFO - Storage - Database closed
+2021-11-12 22:21:38,658 - INFO - Warehouse - Creat new SheetWarehouse - MySheetWarehouse
+2021-11-12 22:22:15,316 - WARNING - Warehouse - Creat - MySheetWarehouse - Has Created
+2021-11-12 22:23:02,395 - INFO - Storage - Start creat new repo - Warehouse
+2021-11-12 22:23:02,395 - INFO - Storage - Check repo_name valid - Warehouse
+2021-11-12 22:23:02,396 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:23:02,396 - INFO - Storage - Check repo_name valid - True
+2021-11-12 22:23:02,396 - INFO - Storage - Creat new database - Warehouse
+2021-11-12 22:23:02,396 - INFO - Storage - Successfully created new database - Warehouse
+2021-11-12 22:23:02,396 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:23:02,396 - INFO - Storage - Start creat new repo_id
+2021-11-12 22:23:02,396 - INFO - Storage - New repo_id - [0]
+2021-11-12 22:23:02,396 - INFO - Storage - Save repo info (repo_id = [0])
+2021-11-12 22:23:02,397 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:23:02,397 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:23:02,397 - INFO - Storage - Changing/adding repo property - user_id System
+2021-11-12 22:23:02,397 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:23:02,397 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:23:02,397 - INFO - Storage - Succeeded to creat new repo - Warehouse
+2021-11-12 22:23:02,397 - INFO - Storage - Getting repo_id
+2021-11-12 22:23:02,397 - INFO - Storage - Getting repo_id by name (Warehouse)
+2021-11-12 22:23:02,397 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:23:02,397 - INFO - Storage - Got repo_id - [0]
+2021-11-12 22:23:02,398 - INFO - Storage - Opened database successfully
+2021-11-12 22:23:02,399 - INFO - Storage - Do executes
+2021-11-12 22:23:02,399 - INFO - Storage - Database closed
+2021-11-12 22:23:02,399 - INFO - Storage - Start creat new repo - MySheetWarehouse
+2021-11-12 22:23:02,399 - INFO - Storage - Check repo_name valid - MySheetWarehouse
+2021-11-12 22:23:02,399 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:23:02,399 - INFO - Storage - Check repo_name valid - True
+2021-11-12 22:23:02,400 - INFO - Storage - Creat new database - MySheetWarehouse
+2021-11-12 22:23:02,400 - INFO - Storage - Successfully created new database - MySheetWarehouse
+2021-11-12 22:23:02,400 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:23:02,400 - INFO - Storage - Start creat new repo_id
+2021-11-12 22:23:02,400 - INFO - Storage - New repo_id - [1]
+2021-11-12 22:23:02,400 - INFO - Storage - Save repo info (repo_id = [1])
+2021-11-12 22:23:02,400 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:23:02,400 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:23:02,401 - INFO - Storage - Changing/adding repo property - user_id 1742861545@qq.com
+2021-11-12 22:23:02,401 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:23:02,401 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:23:02,401 - INFO - Storage - Succeeded to creat new repo - MySheetWarehouse
+2021-11-12 22:23:02,401 - INFO - Storage - Getting repo_id
+2021-11-12 22:23:02,401 - INFO - Storage - Getting repo_id by name (Warehouse)
+2021-11-12 22:23:02,401 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:23:02,401 - INFO - Storage - Got repo_id - [0]
+2021-11-12 22:23:02,401 - INFO - Storage - Opened database successfully
+2021-11-12 22:23:02,402 - INFO - Storage - Do executes
+2021-11-12 22:23:02,403 - INFO - Storage - Database closed
+2021-11-12 22:23:02,403 - INFO - Warehouse - Creat new SheetWarehouse - MySheetWarehouse
+2021-11-12 22:23:17,717 - WARNING - Warehouse - Creat - MySheetWarehouse - Has Created
+2021-11-12 22:34:37,282 - WARNING - Warehouse - Creat - MySheetWarehouse - Has Created
+2021-11-12 22:34:37,283 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:37,283 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:37,283 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:37,283 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:37,284 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:37,285 - INFO - Storage - Do executes
+2021-11-12 22:34:37,285 - INFO - Storage - Database closed
+2021-11-12 22:34:37,285 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:37,285 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:37,285 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:37,286 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:37,286 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:37,286 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,627 - WARNING - Warehouse - Creat - MySheetWarehouse - Has Created
+2021-11-12 22:34:47,627 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,627 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,627 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,627 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,627 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,628 - INFO - Storage - Do executes
+2021-11-12 22:34:47,629 - INFO - Storage - Database closed
+2021-11-12 22:34:47,629 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,629 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,629 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,629 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,629 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,629 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,630 - INFO - Storage - Do executes
+2021-11-12 22:34:47,630 - INFO - Storage - Database closed
+2021-11-12 22:34:47,630 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,630 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,630 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,631 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,631 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,631 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,631 - INFO - Storage - Do executes
+2021-11-12 22:34:47,632 - INFO - Storage - Database closed
+2021-11-12 22:34:47,632 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,632 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,632 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,632 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,632 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,632 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,633 - INFO - Storage - Do executes
+2021-11-12 22:34:47,634 - INFO - Storage - Database closed
+2021-11-12 22:34:47,634 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,634 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,634 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,634 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,634 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,634 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,636 - INFO - Storage - Do executes
+2021-11-12 22:34:47,637 - INFO - Storage - Database closed
+2021-11-12 22:34:47,637 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,637 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,637 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,638 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,638 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,638 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,638 - INFO - Storage - Do executes
+2021-11-12 22:34:47,640 - INFO - Storage - Database closed
+2021-11-12 22:34:47,640 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,640 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,640 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,640 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,640 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,640 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,641 - INFO - Storage - Do executes
+2021-11-12 22:34:47,642 - INFO - Storage - Database closed
+2021-11-12 22:34:47,642 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,642 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,642 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,642 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,642 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,642 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,643 - INFO - Storage - Do executes
+2021-11-12 22:34:47,645 - INFO - Storage - Database closed
+2021-11-12 22:34:47,645 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,645 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,645 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,645 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,645 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,646 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,646 - INFO - Storage - Do executes
+2021-11-12 22:34:47,647 - INFO - Storage - Database closed
+2021-11-12 22:34:47,647 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,647 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,647 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,647 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,647 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,648 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,648 - INFO - Storage - Do executes
+2021-11-12 22:34:47,649 - INFO - Storage - Database closed
+2021-11-12 22:34:47,649 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,650 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,650 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,650 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,650 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,650 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,651 - INFO - Storage - Do executes
+2021-11-12 22:34:47,651 - INFO - Storage - Database closed
+2021-11-12 22:34:47,651 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,652 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,652 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,652 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,652 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,652 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,652 - INFO - Storage - Do executes
+2021-11-12 22:34:47,653 - INFO - Storage - Database closed
+2021-11-12 22:34:47,653 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,653 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,653 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,654 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,654 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,654 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,654 - INFO - Storage - Do executes
+2021-11-12 22:34:47,655 - INFO - Storage - Database closed
+2021-11-12 22:34:47,655 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,655 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,655 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,655 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,655 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,655 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,656 - INFO - Storage - Do executes
+2021-11-12 22:34:47,656 - INFO - Storage - Database closed
+2021-11-12 22:34:47,657 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,657 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,657 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,657 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,657 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,657 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,657 - INFO - Storage - Do executes
+2021-11-12 22:34:47,658 - INFO - Storage - Database closed
+2021-11-12 22:34:47,658 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,658 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,658 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,659 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,659 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,659 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,659 - INFO - Storage - Do executes
+2021-11-12 22:34:47,660 - INFO - Storage - Database closed
+2021-11-12 22:34:47,660 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,660 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,660 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,660 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,660 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,660 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,661 - INFO - Storage - Do executes
+2021-11-12 22:34:47,662 - INFO - Storage - Database closed
+2021-11-12 22:34:47,662 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,662 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,662 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,662 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,662 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,662 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,662 - INFO - Storage - Do executes
+2021-11-12 22:34:47,663 - INFO - Storage - Database closed
+2021-11-12 22:34:47,663 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,663 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,663 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,664 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,664 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,664 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,664 - INFO - Storage - Do executes
+2021-11-12 22:34:47,665 - INFO - Storage - Database closed
+2021-11-12 22:34:47,665 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,665 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,665 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,665 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,665 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,665 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,666 - INFO - Storage - Do executes
+2021-11-12 22:34:47,666 - INFO - Storage - Database closed
+2021-11-12 22:34:47,666 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,666 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,667 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,667 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,667 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,667 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,667 - INFO - Storage - Do executes
+2021-11-12 22:34:47,668 - INFO - Storage - Database closed
+2021-11-12 22:34:47,668 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,668 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,668 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,668 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,668 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,669 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,669 - INFO - Storage - Do executes
+2021-11-12 22:34:47,669 - INFO - Storage - Database closed
+2021-11-12 22:34:47,670 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,670 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,670 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,670 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,670 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,670 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,670 - INFO - Storage - Do executes
+2021-11-12 22:34:47,671 - INFO - Storage - Database closed
+2021-11-12 22:34:47,671 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,671 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,671 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,671 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,671 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,672 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,672 - INFO - Storage - Do executes
+2021-11-12 22:34:47,673 - INFO - Storage - Database closed
+2021-11-12 22:34:47,673 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,673 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,673 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,673 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,673 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,673 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,674 - INFO - Storage - Do executes
+2021-11-12 22:34:47,674 - INFO - Storage - Database closed
+2021-11-12 22:34:47,674 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,674 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,674 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,674 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,674 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,675 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,675 - INFO - Storage - Do executes
+2021-11-12 22:34:47,676 - INFO - Storage - Database closed
+2021-11-12 22:34:47,676 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,676 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,676 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,676 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,676 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,676 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,676 - INFO - Storage - Do executes
+2021-11-12 22:34:47,677 - INFO - Storage - Database closed
+2021-11-12 22:34:47,677 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,677 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,677 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,677 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,677 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,678 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,678 - INFO - Storage - Do executes
+2021-11-12 22:34:47,679 - INFO - Storage - Database closed
+2021-11-12 22:34:47,679 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,679 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,679 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,679 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,679 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,679 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,680 - INFO - Storage - Do executes
+2021-11-12 22:34:47,681 - INFO - Storage - Database closed
+2021-11-12 22:34:47,681 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,681 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,681 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,681 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,681 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,681 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,682 - INFO - Storage - Do executes
+2021-11-12 22:34:47,682 - INFO - Storage - Database closed
+2021-11-12 22:34:47,683 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,683 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,683 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,683 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,683 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,683 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,683 - INFO - Storage - Do executes
+2021-11-12 22:34:47,684 - INFO - Storage - Database closed
+2021-11-12 22:34:47,684 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,684 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,684 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,684 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,684 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,685 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,685 - INFO - Storage - Do executes
+2021-11-12 22:34:47,685 - INFO - Storage - Database closed
+2021-11-12 22:34:47,686 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,686 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,686 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,686 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,686 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,686 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,686 - INFO - Storage - Do executes
+2021-11-12 22:34:47,687 - INFO - Storage - Database closed
+2021-11-12 22:34:47,687 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,687 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,687 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,687 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,687 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,688 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,688 - INFO - Storage - Do executes
+2021-11-12 22:34:47,688 - INFO - Storage - Database closed
+2021-11-12 22:34:47,689 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,689 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,689 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,689 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,689 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,689 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,689 - INFO - Storage - Do executes
+2021-11-12 22:34:47,690 - INFO - Storage - Database closed
+2021-11-12 22:34:47,690 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,690 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,690 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,690 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,690 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,690 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,691 - INFO - Storage - Do executes
+2021-11-12 22:34:47,691 - INFO - Storage - Database closed
+2021-11-12 22:34:47,691 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,692 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,692 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,692 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,692 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,692 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,692 - INFO - Storage - Do executes
+2021-11-12 22:34:47,693 - INFO - Storage - Database closed
+2021-11-12 22:34:47,693 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,693 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,693 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,693 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,693 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,693 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,694 - INFO - Storage - Do executes
+2021-11-12 22:34:47,694 - INFO - Storage - Database closed
+2021-11-12 22:34:47,694 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,694 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,694 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,695 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,695 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,695 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,695 - INFO - Storage - Do executes
+2021-11-12 22:34:47,696 - INFO - Storage - Database closed
+2021-11-12 22:34:47,696 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,696 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,696 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,696 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,696 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,696 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,697 - INFO - Storage - Do executes
+2021-11-12 22:34:47,697 - INFO - Storage - Database closed
+2021-11-12 22:34:47,697 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,697 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,697 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,697 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,697 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,698 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,698 - INFO - Storage - Do executes
+2021-11-12 22:34:47,699 - INFO - Storage - Database closed
+2021-11-12 22:34:47,699 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,699 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,699 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,699 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,699 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,699 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,700 - INFO - Storage - Do executes
+2021-11-12 22:34:47,700 - INFO - Storage - Database closed
+2021-11-12 22:34:47,700 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,700 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,700 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,700 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,700 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,701 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,701 - INFO - Storage - Do executes
+2021-11-12 22:34:47,701 - INFO - Storage - Database closed
+2021-11-12 22:34:47,702 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,702 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,702 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,702 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,702 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,702 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,702 - INFO - Storage - Do executes
+2021-11-12 22:34:47,703 - INFO - Storage - Database closed
+2021-11-12 22:34:47,703 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,703 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,703 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,703 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,703 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,704 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,704 - INFO - Storage - Do executes
+2021-11-12 22:34:47,705 - INFO - Storage - Database closed
+2021-11-12 22:34:47,705 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,705 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,705 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,705 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,705 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,705 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,705 - INFO - Storage - Do executes
+2021-11-12 22:34:47,706 - INFO - Storage - Database closed
+2021-11-12 22:34:47,706 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,706 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,706 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,706 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,706 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,707 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,707 - INFO - Storage - Do executes
+2021-11-12 22:34:47,707 - INFO - Storage - Database closed
+2021-11-12 22:34:47,708 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,708 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,708 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,708 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,708 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,708 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,708 - INFO - Storage - Do executes
+2021-11-12 22:34:47,709 - INFO - Storage - Database closed
+2021-11-12 22:34:47,709 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,709 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,709 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,709 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,709 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,709 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,710 - INFO - Storage - Do executes
+2021-11-12 22:34:47,710 - INFO - Storage - Database closed
+2021-11-12 22:34:47,710 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:34:47,711 - INFO - Storage - Getting repo_id
+2021-11-12 22:34:47,711 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:34:47,711 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:34:47,711 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:34:47,711 - INFO - Storage - Opened database successfully
+2021-11-12 22:34:47,711 - INFO - Storage - Do executes
+2021-11-12 22:34:47,712 - INFO - Storage - Database closed
+2021-11-12 22:34:47,712 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:36:16,914 - WARNING - Warehouse - Creat - MySheetWarehouse - Has Created
+2021-11-12 22:38:22,203 - WARNING - Warehouse - Creat - MySheetWarehouse - Has Created
+2021-11-12 22:38:33,030 - WARNING - Warehouse - Creat - MySheetWarehouse - Has Created
+2021-11-12 22:38:33,031 - INFO - Warehouse - Getting all user info!
+2021-11-12 22:38:33,031 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:33,031 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:33,031 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:33,032 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:33,033 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:33,034 - INFO - Storage - Do executes
+2021-11-12 22:38:33,034 - INFO - Storage - Do select
+2021-11-12 22:38:51,330 - INFO - Storage - Start creat new repo - Warehouse
+2021-11-12 22:38:51,331 - INFO - Storage - Check repo_name valid - Warehouse
+2021-11-12 22:38:51,331 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,331 - INFO - Storage - Check repo_name valid - True
+2021-11-12 22:38:51,331 - INFO - Storage - Creat new database - Warehouse
+2021-11-12 22:38:51,332 - INFO - Storage - Successfully created new database - Warehouse
+2021-11-12 22:38:51,332 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,332 - INFO - Storage - Start creat new repo_id
+2021-11-12 22:38:51,332 - INFO - Storage - New repo_id - [0]
+2021-11-12 22:38:51,332 - INFO - Storage - Save repo info (repo_id = [0])
+2021-11-12 22:38:51,332 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,333 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,333 - INFO - Storage - Changing/adding repo property - user_id System
+2021-11-12 22:38:51,333 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,333 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,334 - INFO - Storage - Succeeded to creat new repo - Warehouse
+2021-11-12 22:38:51,334 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,334 - INFO - Storage - Getting repo_id by name (Warehouse)
+2021-11-12 22:38:51,334 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,334 - INFO - Storage - Got repo_id - [0]
+2021-11-12 22:38:51,334 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,336 - INFO - Storage - Do executes
+2021-11-12 22:38:51,336 - INFO - Storage - Database closed
+2021-11-12 22:38:51,345 - INFO - Storage - Start creat new repo - MySheetWarehouse
+2021-11-12 22:38:51,345 - INFO - Storage - Check repo_name valid - MySheetWarehouse
+2021-11-12 22:38:51,346 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,346 - INFO - Storage - Check repo_name valid - True
+2021-11-12 22:38:51,346 - INFO - Storage - Creat new database - MySheetWarehouse
+2021-11-12 22:38:51,346 - INFO - Storage - Successfully created new database - MySheetWarehouse
+2021-11-12 22:38:51,346 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,346 - INFO - Storage - Start creat new repo_id
+2021-11-12 22:38:51,346 - INFO - Storage - New repo_id - [1]
+2021-11-12 22:38:51,346 - INFO - Storage - Save repo info (repo_id = [1])
+2021-11-12 22:38:51,347 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,347 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,347 - INFO - Storage - Changing/adding repo property - user_id 1742861545@qq.com
+2021-11-12 22:38:51,347 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,347 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,347 - INFO - Storage - Succeeded to creat new repo - MySheetWarehouse
+2021-11-12 22:38:51,348 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,348 - INFO - Storage - Getting repo_id by name (Warehouse)
+2021-11-12 22:38:51,348 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,348 - INFO - Storage - Got repo_id - [0]
+2021-11-12 22:38:51,348 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,349 - INFO - Storage - Do executes
+2021-11-12 22:38:51,350 - INFO - Storage - Database closed
+2021-11-12 22:38:51,350 - INFO - Warehouse - Creat new SheetWarehouse - MySheetWarehouse
+2021-11-12 22:38:51,350 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,350 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,350 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,350 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,350 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,352 - INFO - Storage - Do executes
+2021-11-12 22:38:51,352 - INFO - Storage - Database closed
+2021-11-12 22:38:51,352 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,352 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,352 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,352 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,352 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,353 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,353 - INFO - Storage - Do executes
+2021-11-12 22:38:51,354 - INFO - Storage - Database closed
+2021-11-12 22:38:51,354 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,355 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,355 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,355 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,355 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,355 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,356 - INFO - Storage - Do executes
+2021-11-12 22:38:51,358 - INFO - Storage - Database closed
+2021-11-12 22:38:51,358 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,359 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,359 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,359 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,359 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,359 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,360 - INFO - Storage - Do executes
+2021-11-12 22:38:51,360 - INFO - Storage - Database closed
+2021-11-12 22:38:51,361 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,361 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,361 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,361 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,361 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,361 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,362 - INFO - Storage - Do executes
+2021-11-12 22:38:51,362 - INFO - Storage - Database closed
+2021-11-12 22:38:51,362 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,363 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,363 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,363 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,363 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,363 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,363 - INFO - Storage - Do executes
+2021-11-12 22:38:51,365 - INFO - Storage - Database closed
+2021-11-12 22:38:51,365 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,365 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,365 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,365 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,365 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,366 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,368 - INFO - Storage - Do executes
+2021-11-12 22:38:51,369 - INFO - Storage - Database closed
+2021-11-12 22:38:51,369 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,369 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,369 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,369 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,369 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,369 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,370 - INFO - Storage - Do executes
+2021-11-12 22:38:51,371 - INFO - Storage - Database closed
+2021-11-12 22:38:51,371 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,371 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,371 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,371 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,371 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,371 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,372 - INFO - Storage - Do executes
+2021-11-12 22:38:51,373 - INFO - Storage - Database closed
+2021-11-12 22:38:51,373 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,373 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,373 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,373 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,373 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,373 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,374 - INFO - Storage - Do executes
+2021-11-12 22:38:51,374 - INFO - Storage - Database closed
+2021-11-12 22:38:51,374 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,375 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,375 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,375 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,375 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,375 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,375 - INFO - Storage - Do executes
+2021-11-12 22:38:51,376 - INFO - Storage - Database closed
+2021-11-12 22:38:51,376 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,376 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,376 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,377 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,377 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,377 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,377 - INFO - Storage - Do executes
+2021-11-12 22:38:51,378 - INFO - Storage - Database closed
+2021-11-12 22:38:51,378 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,378 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,378 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,378 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,378 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,379 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,379 - INFO - Storage - Do executes
+2021-11-12 22:38:51,380 - INFO - Storage - Database closed
+2021-11-12 22:38:51,380 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,380 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,380 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,380 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,380 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,380 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,381 - INFO - Storage - Do executes
+2021-11-12 22:38:51,381 - INFO - Storage - Database closed
+2021-11-12 22:38:51,381 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,381 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,382 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,382 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,382 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,382 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,382 - INFO - Storage - Do executes
+2021-11-12 22:38:51,383 - INFO - Storage - Database closed
+2021-11-12 22:38:51,383 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,383 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,383 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,383 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,383 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,384 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,384 - INFO - Storage - Do executes
+2021-11-12 22:38:51,385 - INFO - Storage - Database closed
+2021-11-12 22:38:51,385 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,385 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,385 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,385 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,385 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,385 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,386 - INFO - Storage - Do executes
+2021-11-12 22:38:51,386 - INFO - Storage - Database closed
+2021-11-12 22:38:51,386 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,387 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,387 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,387 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,387 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,387 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,387 - INFO - Storage - Do executes
+2021-11-12 22:38:51,388 - INFO - Storage - Database closed
+2021-11-12 22:38:51,388 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,388 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,388 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,388 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,388 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,389 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,389 - INFO - Storage - Do executes
+2021-11-12 22:38:51,390 - INFO - Storage - Database closed
+2021-11-12 22:38:51,390 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,390 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,390 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,390 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,390 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,391 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,391 - INFO - Storage - Do executes
+2021-11-12 22:38:51,392 - INFO - Storage - Database closed
+2021-11-12 22:38:51,392 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,392 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,392 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,392 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,392 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,392 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,393 - INFO - Storage - Do executes
+2021-11-12 22:38:51,393 - INFO - Storage - Database closed
+2021-11-12 22:38:51,394 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,394 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,394 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,395 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,395 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,396 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,396 - INFO - Storage - Do executes
+2021-11-12 22:38:51,397 - INFO - Storage - Database closed
+2021-11-12 22:38:51,397 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,397 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,397 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,397 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,398 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,398 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,398 - INFO - Storage - Do executes
+2021-11-12 22:38:51,399 - INFO - Storage - Database closed
+2021-11-12 22:38:51,399 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,399 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,399 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,400 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,400 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,400 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,400 - INFO - Storage - Do executes
+2021-11-12 22:38:51,401 - INFO - Storage - Database closed
+2021-11-12 22:38:51,401 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,401 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,401 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,402 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,402 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,402 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,402 - INFO - Storage - Do executes
+2021-11-12 22:38:51,403 - INFO - Storage - Database closed
+2021-11-12 22:38:51,403 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,403 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,403 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,403 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,403 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,404 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,404 - INFO - Storage - Do executes
+2021-11-12 22:38:51,405 - INFO - Storage - Database closed
+2021-11-12 22:38:51,405 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,405 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,405 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,406 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,406 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,406 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,406 - INFO - Storage - Do executes
+2021-11-12 22:38:51,407 - INFO - Storage - Database closed
+2021-11-12 22:38:51,407 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,407 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,407 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,407 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,407 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,408 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,409 - INFO - Storage - Do executes
+2021-11-12 22:38:51,411 - INFO - Storage - Database closed
+2021-11-12 22:38:51,411 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,411 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,412 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,412 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,412 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,412 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,412 - INFO - Storage - Do executes
+2021-11-12 22:38:51,413 - INFO - Storage - Database closed
+2021-11-12 22:38:51,413 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,414 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,414 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,414 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,414 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,414 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,415 - INFO - Storage - Do executes
+2021-11-12 22:38:51,416 - INFO - Storage - Database closed
+2021-11-12 22:38:51,416 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,416 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,416 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,416 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,416 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,416 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,417 - INFO - Storage - Do executes
+2021-11-12 22:38:51,417 - INFO - Storage - Database closed
+2021-11-12 22:38:51,418 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,418 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,418 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,418 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,418 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,418 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,419 - INFO - Storage - Do executes
+2021-11-12 22:38:51,419 - INFO - Storage - Database closed
+2021-11-12 22:38:51,420 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,420 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,420 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,420 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,420 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,420 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,421 - INFO - Storage - Do executes
+2021-11-12 22:38:51,422 - INFO - Storage - Database closed
+2021-11-12 22:38:51,422 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,422 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,422 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,422 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,422 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,423 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,424 - INFO - Storage - Do executes
+2021-11-12 22:38:51,426 - INFO - Storage - Database closed
+2021-11-12 22:38:51,426 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,426 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,426 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,426 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,427 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,427 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,427 - INFO - Storage - Do executes
+2021-11-12 22:38:51,428 - INFO - Storage - Database closed
+2021-11-12 22:38:51,428 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,428 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,428 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,429 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,429 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,429 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,430 - INFO - Storage - Do executes
+2021-11-12 22:38:51,430 - INFO - Storage - Database closed
+2021-11-12 22:38:51,430 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,430 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,431 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,431 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,431 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,432 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,433 - INFO - Storage - Do executes
+2021-11-12 22:38:51,435 - INFO - Storage - Database closed
+2021-11-12 22:38:51,435 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,435 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,435 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,435 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,435 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,435 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,436 - INFO - Storage - Do executes
+2021-11-12 22:38:51,437 - INFO - Storage - Database closed
+2021-11-12 22:38:51,437 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,437 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,437 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,437 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,437 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,438 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,438 - INFO - Storage - Do executes
+2021-11-12 22:38:51,439 - INFO - Storage - Database closed
+2021-11-12 22:38:51,439 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,439 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,439 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,439 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,439 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,439 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,441 - INFO - Storage - Do executes
+2021-11-12 22:38:51,442 - INFO - Storage - Database closed
+2021-11-12 22:38:51,442 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,443 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,443 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,443 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,443 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,443 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,444 - INFO - Storage - Do executes
+2021-11-12 22:38:51,444 - INFO - Storage - Database closed
+2021-11-12 22:38:51,445 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,445 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,445 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,445 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,445 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,445 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,446 - INFO - Storage - Do executes
+2021-11-12 22:38:51,447 - INFO - Storage - Database closed
+2021-11-12 22:38:51,447 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,448 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,448 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,448 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,448 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,448 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,449 - INFO - Storage - Do executes
+2021-11-12 22:38:51,449 - INFO - Storage - Database closed
+2021-11-12 22:38:51,450 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,450 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,450 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,450 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,450 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,450 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,451 - INFO - Storage - Do executes
+2021-11-12 22:38:51,452 - INFO - Storage - Database closed
+2021-11-12 22:38:51,452 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,452 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,452 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,452 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,452 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,453 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,453 - INFO - Storage - Do executes
+2021-11-12 22:38:51,454 - INFO - Storage - Database closed
+2021-11-12 22:38:51,454 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,454 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,454 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,455 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,455 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,455 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,456 - INFO - Storage - Do executes
+2021-11-12 22:38:51,456 - INFO - Storage - Database closed
+2021-11-12 22:38:51,456 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,456 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,456 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,457 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,457 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,457 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,457 - INFO - Storage - Do executes
+2021-11-12 22:38:51,458 - INFO - Storage - Database closed
+2021-11-12 22:38:51,458 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,458 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,458 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,459 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,459 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,459 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,459 - INFO - Storage - Do executes
+2021-11-12 22:38:51,460 - INFO - Storage - Database closed
+2021-11-12 22:38:51,460 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,460 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,460 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,460 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,460 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,460 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,461 - INFO - Storage - Do executes
+2021-11-12 22:38:51,461 - INFO - Storage - Database closed
+2021-11-12 22:38:51,462 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,462 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,462 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,462 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,462 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,462 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,462 - INFO - Storage - Do executes
+2021-11-12 22:38:51,463 - INFO - Storage - Database closed
+2021-11-12 22:38:51,463 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,463 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,463 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,463 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,463 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,463 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,464 - INFO - Storage - Do executes
+2021-11-12 22:38:51,464 - INFO - Storage - Database closed
+2021-11-12 22:38:51,464 - INFO - Warehouse - Execute - MySheetWarehouse
+2021-11-12 22:38:51,465 - INFO - Warehouse - Getting all user info!
+2021-11-12 22:38:51,465 - INFO - Storage - Getting repo_id
+2021-11-12 22:38:51,465 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:38:51,465 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:38:51,465 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:38:51,465 - INFO - Storage - Opened database successfully
+2021-11-12 22:38:51,465 - INFO - Storage - Do executes
+2021-11-12 22:38:51,465 - INFO - Storage - Do select
+2021-11-12 22:46:33,330 - INFO - Warehouse - Getting all user info!
+2021-11-12 22:46:33,330 - INFO - Storage - Getting repo_id
+2021-11-12 22:46:33,331 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:46:33,331 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:46:33,331 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:46:33,331 - INFO - Storage - Opened database successfully
+2021-11-12 22:46:33,332 - INFO - Storage - Do executes
+2021-11-12 22:46:33,332 - INFO - Storage - Do select
+2021-11-12 22:46:55,759 - INFO - Warehouse - Getting all user info!
+2021-11-12 22:46:55,759 - INFO - Storage - Getting repo_id
+2021-11-12 22:46:55,759 - INFO - Storage - Getting repo_id by name (MySheetWarehouse)
+2021-11-12 22:46:55,760 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-12 22:46:55,760 - INFO - Storage - Got repo_id - [1]
+2021-11-12 22:46:55,760 - INFO - Storage - Opened database successfully
+2021-11-12 22:46:55,761 - INFO - Storage - Do executes
+2021-11-12 22:46:55,761 - INFO - Storage - Do select
+2021-11-14 21:13:44,475 - INFO - Storage - Start creat new repo - Auth
+2021-11-14 21:13:44,476 - INFO - Storage - Check repo_name valid - Auth
+2021-11-14 21:13:44,478 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-14 21:13:44,478 - INFO - Storage - Check repo_name valid - True
+2021-11-14 21:13:44,478 - INFO - Storage - Creat new database - Auth
+2021-11-14 21:13:44,479 - INFO - Storage - Successfully created new database - Auth
+2021-11-14 21:13:44,479 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-14 21:13:44,480 - INFO - Storage - Start creat new repo_id
+2021-11-14 21:13:44,480 - INFO - Storage - New repo_id - [2]
+2021-11-14 21:13:44,480 - INFO - Storage - Save repo info (repo_id = [2])
+2021-11-14 21:13:44,480 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-14 21:13:44,480 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-14 21:13:44,481 - INFO - Storage - Changing/adding repo property - user_id System
+2021-11-14 21:13:44,481 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-14 21:13:44,481 - DEBUG - Storage - Write json - ./storage/resources/repo_info.json
+2021-11-14 21:13:44,481 - INFO - Storage - Succeeded to creat new repo - Auth
+2021-11-14 21:13:44,481 - INFO - Storage - Getting repo_id
+2021-11-14 21:13:44,481 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-14 21:13:44,482 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-14 21:13:44,482 - INFO - Storage - Got repo_id - [2]
+2021-11-14 21:13:44,482 - INFO - Storage - Opened database successfully
+2021-11-14 21:13:44,483 - INFO - Storage - Do executes
+2021-11-14 21:13:44,484 - INFO - Storage - Database closed
+2021-11-14 21:13:50,105 - INFO - Auth - Start check mail ~ password
+2021-11-14 21:13:50,105 - INFO - Storage - Getting repo_id
+2021-11-14 21:13:50,105 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-14 21:13:50,105 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-14 21:13:50,105 - INFO - Storage - Got repo_id - [2]
+2021-11-14 21:13:50,106 - INFO - Storage - Opened database successfully
+2021-11-14 21:13:50,107 - INFO - Storage - Do executes
+2021-11-14 21:13:50,107 - INFO - Storage - Do select
+2021-11-14 21:13:55,329 - INFO - Auth - Start check mail ~ password
+2021-11-14 21:13:55,329 - INFO - Storage - Getting repo_id
+2021-11-14 21:13:55,329 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-14 21:13:55,330 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-14 21:13:55,330 - INFO - Storage - Got repo_id - [2]
+2021-11-14 21:13:55,331 - INFO - Storage - Opened database successfully
+2021-11-14 21:13:55,331 - INFO - Storage - Do executes
+2021-11-14 21:13:55,332 - INFO - Storage - Do select
+2021-11-14 21:14:08,060 - INFO - Auth - Generate validation code
+2021-11-14 21:14:08,060 - INFO - Auth - Constructing mail
+2021-11-14 21:14:40,738 - INFO - Auth - Check validation code
+2021-11-14 21:14:40,738 - INFO - Storage - Getting repo_id
+2021-11-14 21:14:40,738 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-14 21:14:40,738 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-14 21:14:40,738 - INFO - Storage - Got repo_id - [2]
+2021-11-14 21:14:40,739 - INFO - Storage - Opened database successfully
+2021-11-14 21:14:40,740 - INFO - Storage - Do executes
+2021-11-14 21:14:40,741 - INFO - Storage - Database closed
+2021-11-14 21:14:40,741 - INFO - Auth - Sucessed to add user
+2021-11-14 21:14:48,223 - INFO - Auth - Start check mail ~ password
+2021-11-14 21:14:48,224 - INFO - Storage - Getting repo_id
+2021-11-14 21:14:48,224 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-14 21:14:48,224 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-14 21:14:48,224 - INFO - Storage - Got repo_id - [2]
+2021-11-14 21:14:48,224 - INFO - Storage - Opened database successfully
+2021-11-14 21:14:48,225 - INFO - Storage - Do executes
+2021-11-14 21:14:48,225 - INFO - Storage - Do select
+2021-11-14 21:17:39,257 - INFO - Server - Get ping request
+2021-11-14 21:17:47,252 - INFO - Auth - Start check mail ~ password
+2021-11-14 21:17:47,252 - INFO - Storage - Getting repo_id
+2021-11-14 21:17:47,253 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-14 21:17:47,253 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-14 21:17:47,253 - INFO - Storage - Got repo_id - [2]
+2021-11-14 21:17:47,254 - INFO - Storage - Opened database successfully
+2021-11-14 21:17:47,255 - INFO - Storage - Do executes
+2021-11-14 21:17:47,255 - INFO - Storage - Do select

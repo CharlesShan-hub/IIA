@@ -12,7 +12,7 @@ def test_add_user():
 	logger.info("添加个人信息状态"+str(result),LOG_MODULE)
 	result=auth.add_user(mail='1742861545@qq.com',password='111111',name='Charles')
 	logger.info("添加个人信息状态"+str(result),LOG_MODULE)
-test_add_user()
+#test_add_user()
 
 def test_config_user():
 	''' 打印所有个人信息
@@ -29,5 +29,5 @@ def test_check_password():
 	logger.info("邮箱密码匹配状态"+str(result),LOG_MODULE)
 	result=auth.check_password('charles.shht@gmail.com','111111')
 	logger.info("邮箱密码匹配状态"+str(result),LOG_MODULE)
-test_check_password()
+#test_check_password()
 

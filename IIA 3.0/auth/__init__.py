@@ -48,6 +48,7 @@ def add_user(mail,password,**kwg):
 		logger.warning("Fail to add user",LOG_MODULE)
 		return False
 
+
 def config_user():
 	''' 查改成员信息
 	*没有添加各种容错
@@ -56,6 +57,7 @@ def config_user():
 	con = '''SELECT mail,password,name from AUTH'''
 	info=storage.add_info(name='Auth',con=con)
 	return info
+
 
 def check_password(mail,password):
 	''' 验证邮箱与密码
