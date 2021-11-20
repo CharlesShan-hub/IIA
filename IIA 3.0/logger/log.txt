@@ -1292,3 +1292,42 @@
 2021-11-14 21:17:47,254 - INFO - Storage - Opened database successfully
 2021-11-14 21:17:47,255 - INFO - Storage - Do executes
 2021-11-14 21:17:47,255 - INFO - Storage - Do select
+2021-11-18 20:57:29,893 - INFO - Auth - Start check mail ~ password
+2021-11-18 20:57:29,895 - INFO - Storage - Getting repo_id
+2021-11-18 20:57:29,895 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-18 20:57:29,896 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-18 20:57:29,896 - INFO - Storage - Got repo_id - [2]
+2021-11-18 20:57:29,897 - INFO - Storage - Opened database successfully
+2021-11-18 20:57:29,898 - INFO - Storage - Do executes
+2021-11-18 20:57:29,898 - INFO - Storage - Do select
+2021-11-18 20:58:10,143 - INFO - Server - Get ping request
+2021-11-18 20:58:14,476 - INFO - Auth - Start check mail ~ password
+2021-11-18 20:58:14,477 - INFO - Storage - Getting repo_id
+2021-11-18 20:58:14,477 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-18 20:58:14,480 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-18 20:58:14,480 - INFO - Storage - Got repo_id - [2]
+2021-11-18 20:58:14,480 - INFO - Storage - Opened database successfully
+2021-11-18 20:58:14,481 - INFO - Storage - Do executes
+2021-11-18 20:58:14,481 - INFO - Storage - Do select
+2021-11-18 20:58:29,135 - INFO - Server - Get ping request - return a random word
+2021-11-18 20:58:30,650 - INFO - Server - Get ping request - return a random word
+2021-11-18 20:58:32,189 - INFO - Server - Get ping request
+2021-11-18 20:58:33,522 - INFO - Server - Get ping request
+2021-11-19 11:31:08,812 - INFO - Server - Get ping request
+2021-11-19 11:31:10,217 - INFO - Server - Get ping request - return a random word
+2021-11-19 11:31:19,950 - INFO - Auth - Start check mail ~ password
+2021-11-19 11:31:19,950 - INFO - Storage - Getting repo_id
+2021-11-19 11:31:19,950 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-19 11:31:19,953 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-19 11:31:19,953 - INFO - Storage - Got repo_id - [2]
+2021-11-19 11:31:19,961 - INFO - Storage - Opened database successfully
+2021-11-19 11:31:19,965 - INFO - Storage - Do executes
+2021-11-19 11:31:19,965 - INFO - Storage - Do select
+2021-11-20 09:18:47,235 - INFO - Auth - Start check mail ~ password
+2021-11-20 09:18:47,237 - INFO - Storage - Getting repo_id
+2021-11-20 09:18:47,237 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-20 09:18:47,238 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-20 09:18:47,238 - INFO - Storage - Got repo_id - [2]
+2021-11-20 09:18:47,239 - INFO - Storage - Opened database successfully
+2021-11-20 09:18:47,240 - INFO - Storage - Do executes
+2021-11-20 09:18:47,241 - INFO - Storage - Do select

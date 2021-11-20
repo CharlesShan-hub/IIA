@@ -3,8 +3,6 @@
  ![image](./document/structure.png)  
 The storage module is designed into three layers: **logic layer**, **custom layer** and **implementation layer**.  
 
-The storage module is designed into three layers: logic layer, custom layer and implementation layer.  
-
 The logical layer is mainly responsible for constructing the logical representation of the data, providing the basic necessary operations, and does not pay attention to the concrete implementation.  
 
 The customization layer is responsible for implementing specific, concrete, highly variable content and allowing users to add their own plug-ins. The custom layer is the implementation scheme of logical layer.  

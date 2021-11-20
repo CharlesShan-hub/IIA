@@ -39,7 +39,7 @@ class HTTPThread(threading.Thread):
     This is the main file.
 '''
 # Related HTML file entry path
-HTML = "/ui/html/pages-login-2.html"
+HTML = "/ui/html/login.html"
 
 # Test Mode - Run in test mode
 TEST_MODE = False

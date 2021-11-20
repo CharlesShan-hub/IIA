@@ -17,6 +17,7 @@ class Warehouse(object):
         self.arg = arg
         # 检查仓库信息
         #...
+        self.init_info_repo()
 
     def init_info_repo(self):
         pass
