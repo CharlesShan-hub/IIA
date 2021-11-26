@@ -1,0 +1,16 @@
+2021-11-26 13:01:47,795 - INFO - Auth - Start check mail ~ password
+2021-11-26 13:01:47,796 - INFO - Storage - Getting repo_id
+2021-11-26 13:01:47,796 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-26 13:01:47,796 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-26 13:01:47,796 - INFO - Storage - Got repo_id - [2]
+2021-11-26 13:01:47,796 - INFO - Storage - Opened database successfully
+2021-11-26 13:01:47,797 - INFO - Storage - Do executes
+2021-11-26 13:01:47,797 - INFO - Storage - Do select
+2021-11-26 13:03:27,482 - INFO - Auth - Start check mail ~ password
+2021-11-26 13:03:27,482 - INFO - Storage - Getting repo_id
+2021-11-26 13:03:27,483 - INFO - Storage - Getting repo_id by name (Auth)
+2021-11-26 13:03:27,483 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2021-11-26 13:03:27,483 - INFO - Storage - Got repo_id - [2]
+2021-11-26 13:03:27,483 - INFO - Storage - Opened database successfully
+2021-11-26 13:03:27,483 - INFO - Storage - Do executes
+2021-11-26 13:03:27,483 - INFO - Storage - Do select

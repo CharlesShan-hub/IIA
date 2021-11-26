@@ -22,6 +22,7 @@ __all__ = [
 
 LOG_MODULE = 'Auth'
 CODE = [] #验证码
+INVALID_MAIL = ['System'] #保留邮箱字段
 
 # 构建用户信息仓库
 if storage.exist_repository("Auth")==False:
@@ -35,8 +36,10 @@ def add_user(mail,password,**kwg):
 	''' 添加成员
 	*没有写邮箱(ID)重复的情况
 	'''
+	global INVALID_MAIL
+	global LOG_MODULE
 	name=kwg['name']
-	if mail=='System': 
+	if mail in INVALID_MAIL: 
 		logger.warning("Fail to add user(Auth Not Valid)",LOG_MODULE)
 		return False
 	con = 'INSERT INTO AUTH (MAIL,PASSWORD,NAME) VALUES (\''+mail+'\',\''+password+'\',\''+name+'\')'

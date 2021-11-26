@@ -1,3 +1,32 @@
+""" 测试前端运行环境
+"""
+
+try:
+    from PyQt5.QtCore import *
+    from PyQt5.QtGui import *
+    from PyQt5.QtWidgets import *
+except:
+    print("* UI - 第三方库pyqt5导入\npip install pyqt5")
+
+try:
+    from PyQt5.QtWebEngineWidgets import *
+except:
+    print("* UI - 第三方库pyqt5导入\npip install PyQtWebEngine")
+
+
+def test_ui():
+    pass
+
+
+def test():
+    ''' IIA-运行环境测试
+    '''
+    pass
+
+if __name__ == '__main__':
+    test()
+
+"""
 import threading
 import sys
 import server
@@ -11,37 +40,28 @@ class ServerThread(threading.Thread):
         server.run()
 
 class HTTPThread(threading.Thread):
-    def __init__(self,ip,port=None,daemon=False,auto=False):
+    def __init__(self,ip,port=None,daemon=False):
         print("Preparing HTTP Server...")
         self.ip=ip
-        self.auto=auto
         if port==None:
             self.port=server.get_host_port()
         else:
             self.port = port
         threading.Thread.__init__(self,daemon=daemon)
     def run(self):
-        #try:
-        server_ = HTTPServer((self.ip, self.port), SimpleHTTPRequestHandler)
-        self.server = server_
-        print("HTTP Server is running at:")
-        web_path = "http://"+self.ip+":"+str(self.port)
-        print(web_path)
-        import webbrowser
-        webbrowser.open(web_path)
-        print("\n---------------------------------------\n")
-        server_.serve_forever()
-        '''
-        except:
-            server.get_host_port()
-            server_ = HTTPServer((self.ip, self.port), SimpleHTTPRequestHandler)
+        try:
+            server = HTTPServer((self.ip, self.port), SimpleHTTPRequestHandler)
             print("HTTP Server is running at:")
             print("http://"+self.ip+":"+str(self.port))
             print("\n---------------------------------------\n")
-            server_.serve_forever()
-        '''
-    def exit(self):
-        self.server.shutdown()
+            server.serve_forever()
+        except:
+            server.get_host_port()
+            server = HTTPServer((self.ip, self.port), SimpleHTTPRequestHandler)
+            print("HTTP Server is running at:")
+            print("http://"+self.ip+":"+str(self.port))
+            print("\n---------------------------------------\n")
+            server.serve_forever()
 
 ''' IIA - Intelligent Information Assistant
     This is the main file.
@@ -66,9 +86,8 @@ SERVER_MODE = 'Server'
 
 if __name__ == "__main__":
     if(len(sys.argv)>1 and sys.argv[1]=='clear'):
-        #server.os.remove("./logger/log.txt")
-        with open("./logger/log.txt",'w'):
-            print("Clear log and caches!")
+        print("Clear log and caches!")
+        server.os.remove("./logger/log.txt")
         sys.exit()
 
     if(len(sys.argv)>1 and sys.argv[1]=='test'):
@@ -83,24 +102,17 @@ if __name__ == "__main__":
     if SERVER_MODE == 'Local':
         server_thread = ServerThread(daemon=True)
         server_thread.start()
-        http_thread = HTTPThread(ip=server.get_host_ip(),port=80,daemon=True,auto=False)
+        http_thread = HTTPThread(ip=server.get_host_ip(),port=80,daemon=True)
         http_thread.start()
         import ui
         ui.run(HTML,TEST_MODE)
 
     # Server Mode - Run server only
     if SERVER_MODE == 'Server':
-        server_thread = ServerThread(daemon=True)
+        server_thread = ServerThread()
         server_thread.start()
-        http_thread = HTTPThread(ip=server.get_host_ip(),port=80,daemon=True,auto=True)
+        http_thread = HTTPThread(ip=server.get_host_ip(),port=80,daemon=True)
         http_thread.start()
-        print("【INPUT `quit` to stop the server!】")
-        while(1):
-            ans = input()
-            if ans == 'quit':
-                break
-        sys.exit()
-        #http_thread.exit()
         
     # Client Mode - Run client only
     if SERVER_MODE == 'Client':
@@ -110,4 +122,5 @@ if __name__ == "__main__":
     # Community Mode - Run as a community server 
     if SERVER_MODE == 'Community':
         pass
-    
+
+"""
