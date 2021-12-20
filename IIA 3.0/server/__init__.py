@@ -173,6 +173,7 @@ def run():
     f.close()
 
     # 启动服务器
+    #print(type(port),type(IP))
     server = WebsocketServer(port, IP)
     server.set_fn_new_client(new_client)
     server.set_fn_client_left(client_left)

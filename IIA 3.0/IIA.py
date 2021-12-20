@@ -21,25 +21,29 @@ class HTTPThread(threading.Thread):
             self.port = port
         threading.Thread.__init__(self,daemon=daemon)
     def run(self):
-        #try:
-        server_ = HTTPServer((self.ip, self.port), SimpleHTTPRequestHandler)
-        self.server = server_
-        print("HTTP Server is running at:")
-        web_path = "http://"+self.ip+":"+str(self.port)
-        print(web_path)
-        import webbrowser
-        webbrowser.open(web_path)
-        print("\n---------------------------------------\n")
-        server_.serve_forever()
-        '''
-        except:
-            server.get_host_port()
+        try:
             server_ = HTTPServer((self.ip, self.port), SimpleHTTPRequestHandler)
+            self.server = server_
             print("HTTP Server is running at:")
-            print("http://"+self.ip+":"+str(self.port))
+            web_path = "http://"+self.ip+":"+str(self.port)
+            print(web_path)
+            import webbrowser
+            webbrowser.open(web_path)
             print("\n---------------------------------------\n")
             server_.serve_forever()
-        '''
+
+        except:
+            self.port = server.get_host_port()
+            server_ = HTTPServer((self.ip, self.port), SimpleHTTPRequestHandler)
+            self.server = server_
+            print("HTTP Server is running at:")
+            web_path = "http://"+self.ip+":"+str(self.port)
+            print(web_path)
+            import webbrowser
+            webbrowser.open(web_path)
+            print("\n---------------------------------------\n")
+            server_.serve_forever()
+            
     def exit(self):
         self.server.shutdown()
 
