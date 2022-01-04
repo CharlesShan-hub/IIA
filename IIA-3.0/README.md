@@ -1,29 +1,84 @@
 # IIA3.0  
-## 需要的环境  
+## 环境
 
-### Running
-threading (标准库)  
+### UI
 
-### System
-os (标准库)  
+拥有pyqt框架与wxpython框架其中之一即可
 
-### UI  
-os (标准库)  
-sys (标准库)  
-__PyQt5__ (第三方库)  
+```bash
+# 选项一：安装pyqt
+pip3 install pyqt5
+pip3 install PyQtWebEngine
 
-### Socket  
-json  (标准库)  
-socket  (标准库)  
-os  (标准库)  
-random  (标准库)  
-__websocket_server__ (第三方库)  
+# 选项二：（M1 Mac推荐采用本方案）
+pip3 install wxpython
+```
+
+### Socket
+
+IIA通过websocket进行程序内通信
+
+```bash
+pip3 install websocket-server
+```
+
+## 运行
+
+* **IIA Start**
+
+  即使运行时的目录不在IIA.py，程序在运行时也会自动切换到IIA.py所在的目录。
+
+```bash
+sudo python3 IIA.py
+sudo python3 /Users/kimshan/workplace/IIA/IIA-3.0/IIA.py
+```
+
+* **IIA test mode**
+
+```bash
+sudo python3 IIA.py test
+```
+
+* **clear cache(log.txt)**
+
+```bash
+sudo python3 IIA.py clear
+```
+
+* **运行成功时显示内容**
+
+```bash
+---------------------------------------
+
+Welcome to IIA Server!
+
+      ___________ 
+     /  _/  _/   |
+     / / / // /| |
+   _/ /_/ // ___ |
+  /___/___/_/  |_|
+                
+
+Author: Charles Shan
+Mail: charles.shht@gmail.com
+
+---------------------------------------
+
+HTTP Server is running at:
+ http://192.168.110.114:80 
+
+---------------------------------------
+
+The Node Server log:
+Listening on port 3092 for clients..
+```
+
+
 
 ## IIA项目架构
-### 顶层模块
+* [ui - 界面模块](./ui/README.md)
+* [setting - 设置模块](./setting/README.md)
 * server - 服务器模块
-* ui - 界面模块
-### 功能模块
 * mission - 任务模块
 * reminder - 提醒事项模块
 * warehouse - 高级仓库模块
@@ -32,7 +87,6 @@ __websocket_server__ (第三方库)
 * template - 模板模块
 * show - 展示模块
 * auxiliary - 辅助模块
-### 底层模块
 * storage - 底层仓库模块
 * logger - 记录模块
 
@@ -149,7 +203,7 @@ IIA可以进行用户区分，存储为本地存储。
 - ✅客户端可以选择**是否开放局域网**，开放局域网后同一局域网可以通过账号密码登陆到开放局域网的主机中。
 - ❌客户端可以选择**连接其他主机**，连接成功后可以访问其他主机的共享数据。
 - ❌客户端可以选择**禁止其他主机访问**，设置后其他主机将无法访问您的共享数据。
-- ❌客户端可以选择**本地默认打开位置**，可以选择在生成应用窗口或者直接在浏览器中打开。
+- ✅客户端可以选择**本地默认打开位置**，可以选择在生成应用窗口或者直接在浏览器中打开。
 - ✅浏览器可以通过**访问IP地址**连接到指定的客户端
 
 #### 纠错检错

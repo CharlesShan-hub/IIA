@@ -8,7 +8,8 @@ CON_SHARE = True # other computer can log in by LAN
 CON_TEST_MODE = False # Run in test mode
 CON_80_PORT = True # Default run on 80 port
 # Related HTML file entry path
-HTML = "/ui/html/login.html"
+HTML_PATH = "/ui/html/login.html"
+TEST_PATH = "/ui/html/test.html"
 
 ''' Operation Mode
     `sudo python3 IIA.py` - IIA Start
@@ -36,21 +37,9 @@ if __name__ == "__main__":
     # Open Server and ShareThread
     import server
     import ui
-    
-    if CON_SHARE==False:
-        http_server_ip = '127.0.0.1'
-    else:
-        http_server_ip = server.get_host_ip()
-    if CON_80_PORT:
-        http_server_port=80
-    else:
-        http_server_port = server.get_host_port()
-    import setting
-    setting.set(['Server','ip'],http_server_ip)
-    setting.set(['Server','port'],http_server_port)
 
     server_thread = server.ServerThread(daemon=True)
     server_thread.start()
-    http_thread = server.HTTPThread(ip=http_server_ip,port=http_server_port,daemon=True,auto=False,CON_OPEN_WEB=CON_OPEN_WEB)
-    http_thread.start()
-    ui.run(HTML,CON_TEST_MODE,CON_OPEN_WIN)
+    
+    ui.run(HTML_PATH,TEST_PATH,CON_TEST_MODE,CON_OPEN_WIN,\
+        CON_OPEN_WEB, CON_SHARE, CON_80_PORT)

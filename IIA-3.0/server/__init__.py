@@ -1,5 +1,4 @@
 from websocket_server import WebsocketServer
-from http.server import HTTPServer, SimpleHTTPRequestHandler
 import threading
 import json
 import socket
@@ -20,34 +19,6 @@ class ServerThread(threading.Thread):
         threading.Thread.__init__(self,daemon=daemon)
     def run(self):
         _run()
-
-class HTTPThread(threading.Thread):
-    def __init__(self,ip,port=None,daemon=False,auto=False,CON_OPEN_WEB=False):
-        self.ip=ip
-        self.auto=auto
-        self.web=CON_OPEN_WEB
-        if port==None:
-            self.port=server.get_host_port()
-        else:
-            self.port = port
-        threading.Thread.__init__(self,daemon=daemon)
-    def run(self):
-        try:
-            server_ = HTTPServer((self.ip, self.port), SimpleHTTPRequestHandler)
-            self.server = server_
-            web_path = "http://"+self.ip+":"+str(self.port)
-            line = "\n---------------------------------------\n"
-            print("HTTP Server is running at:",web_path,line)
-            if self.web:
-                import webbrowser
-                webbrowser.open(web_path)
-            server_.serve_forever()
-
-        except KeyboardInterrupt:
-            print("Good Bye!")
-            
-    def exit(self):
-        self.server.shutdown()
 
 # 当新的客户端连接时会提示
 def new_client(client, server):
@@ -192,10 +163,10 @@ def _run():
     global IP
     IP = get_host_ip()
     port = get_host_port()
-    print("Node Server is running at:")
-    print(" ip =",IP)
-    print(" port =",port)
-    print("\n---------------------------------------\n")
+    #print("Node Server is running at:")
+    #print(" ip =",IP)
+    #print(" port =",port)
+    #print("\n---------------------------------------\n")
 
     # 将ip与port写入文件(ui模块需要)
     write_json('./server/setting.json',
