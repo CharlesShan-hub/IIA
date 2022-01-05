@@ -3,6 +3,7 @@ import threading
 import json
 import socket
 import os
+import sys
 import random
 
 import server.auth as auth
@@ -12,13 +13,19 @@ import storage
 import chardet
 
 SERVER_WELCOME = True
-IP = '127.0.0.1'
 
 class ServerThread(threading.Thread):
     def __init__(self,daemon=False):
         threading.Thread.__init__(self,daemon=daemon)
     def run(self):
         _run()
+
+
+class ServerProcessThread(threading.Thread):
+    def __init__(self,daemon=False):
+        threading.Thread.__init__(self,daemon=daemon)
+    def run(self):
+        process()
 
 # 当新的客户端连接时会提示
 def new_client(client, server):
@@ -138,11 +145,22 @@ def write_json(path, content, encoding='UTF-8'):
         f.write(json.dumps(content, indent=4, ensure_ascii=False))
 
 
+def process():
+    while(1):
+        command = input()
+        if command == 'HELP':
+            print(""" IIA Server Help\
+                \n STOP: Stop server(all clients lose connection)""")
+        elif command == 'STOP':
+            print("Stop server. Input `YES` to continue stopping server.")
+            if input() == 'YES':
+                print("请点击窗口左上角红色按钮")
+
 def _run():
     # Server welcome info
     if SERVER_WELCOME == True:
-        print("---------------------------------------\n")
-        print("Welcome to IIA Server!")
+        print(" ---------------------------------------\n")
+        print(" Welcome to IIA Server!")
         print("""
       ___________ 
      /  _/  _/   |
@@ -151,23 +169,18 @@ def _run():
   /___/___/_/  |_|
                 
 """)
-        print("Author: Charles Shan")
-        print("Mail: charles.shht@gmail.com")
+        print(" Author: Charles Shan")
+        print(" Mail: charles.shht@gmail.com")
         print("\n---------------------------------------\n")
 
-        #print("Input 'HELP' to see what IIA Sever can do!")
+        print(" Input 'HELP' to see what IIA Sever can do!\n")
         #print("Input 'STOP' to shut down the sever safely!")
         #print("Input 'STOP_FORCED' to shut down the sever directly!\n")
         
     # 获取目前运行的ip与port
-    global IP
     IP = get_host_ip()
     port = get_host_port()
-    #print("Node Server is running at:")
-    #print(" ip =",IP)
-    #print(" port =",port)
-    #print("\n---------------------------------------\n")
-
+    
     # 将ip与port写入文件(ui模块需要)
     write_json('./server/setting.json',
         {'ip': IP,
@@ -179,7 +192,11 @@ def _run():
     f.write("setting="+setting)
     f.close()
 
-    # 启动服务器
+    # 启动服务器处理进程 - ServerProcess
+    server_process_thread = ServerProcessThread(daemon=True)
+    server_process_thread.start()
+
+    # 启动连接服务器 - WebsocketServer
     #print(type(port),type(IP))
     server = WebsocketServer(port, IP)
     server.set_fn_new_client(new_client)

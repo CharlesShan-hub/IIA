@@ -4,7 +4,7 @@ from storage.custom import *
 	Check Path and File existence
 '''
 __all__ = [
-		'add_user',
+		'exist_repository',
 		'creat_repository'
 		]
 
@@ -25,22 +25,11 @@ if os.path.exists(ConfigFilePath) == False:
 	API
 '''
 
-def add_user(mail,password,**kwg):
-	''' 新建用户
-	'''
-	return custom.add_u(mail,password,**kwg)
-
-
-def configure_user(mail,con_name=None, con_content=None, mode='auto'):
-	'''
-	'''
-	return custom.configure_u(mail,con_name=con_name, con_content=con_content, mode=mode)
-
-
 def exist_repository(name,**kwg):
 	''' 检查某数据仓库是否存在
 	'''
 	return exist_repo(name,**kwg)
+
 
 def creat_repository(name,**kwg):
 	''' 创建新数据仓库

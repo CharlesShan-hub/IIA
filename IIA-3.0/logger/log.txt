@@ -1,13 +1,18 @@
-2022-01-04 11:34:53,474 - DEBUG - UI - Generated QT Engine
-2022-01-04 11:34:53,475 - DEBUG - Setting - setting setting
-2022-01-04 11:34:53,476 - DEBUG - Setting - set setting
-2022-01-04 11:34:53,476 - DEBUG - Setting - setting setting
-2022-01-04 11:34:53,480 - DEBUG - Setting - set setting
-2022-01-04 11:34:58,225 - INFO - Auth - Start check mail ~ password
-2022-01-04 11:34:58,225 - INFO - Storage - Getting repo_id
-2022-01-04 11:34:58,226 - INFO - Storage - Getting repo_id by name (Auth)
-2022-01-04 11:34:58,226 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
-2022-01-04 11:34:58,226 - INFO - Storage - Got repo_id - [2]
-2022-01-04 11:34:58,227 - INFO - Storage - Opened database successfully
-2022-01-04 11:34:58,227 - INFO - Storage - Do executes
-2022-01-04 11:34:58,227 - INFO - Storage - Do select
+2022-01-05 11:48:18,091 - INFO - Test Auth - 打印所有个人信息
+2022-01-05 11:48:18,092 - INFO - Auth - Getting all user info!
+2022-01-05 11:48:18,092 - INFO - Storage - Getting repo_id
+2022-01-05 11:48:18,092 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-05 11:48:18,092 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-05 11:48:18,092 - INFO - Storage - Got repo_id - [2]
+2022-01-05 11:48:18,092 - INFO - Storage - Opened database successfully
+2022-01-05 11:48:18,093 - INFO - Storage - Do executes
+2022-01-05 11:48:18,093 - INFO - Storage - Do select
+2022-01-05 11:50:49,245 - INFO - Test Auth - 打印所有个人信息
+2022-01-05 11:50:49,245 - CRITICAL - Auth - Getting all user info!
+2022-01-05 11:50:49,245 - INFO - Storage - Getting repo_id
+2022-01-05 11:50:49,245 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-05 11:50:49,245 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-05 11:50:49,246 - INFO - Storage - Got repo_id - [2]
+2022-01-05 11:50:49,246 - INFO - Storage - Opened database successfully
+2022-01-05 11:50:49,246 - INFO - Storage - Do executes
+2022-01-05 11:50:49,247 - INFO - Storage - Do select

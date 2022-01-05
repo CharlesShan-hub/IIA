@@ -3,7 +3,7 @@
 # Connect Local Server
 #CON_CONNECT_LOCAL = True
 CON_OPEN_WIN = True # open IIA in a window
-CON_OPEN_WEB = True # open IIA in web browser
+CON_OPEN_WEB = False # open IIA in web browser
 CON_SHARE = True # other computer can log in by LAN
 CON_TEST_MODE = False # Run in test mode
 CON_80_PORT = True # Default run on 80 port
@@ -25,7 +25,8 @@ if __name__ == "__main__":
     if path_cd != "":
         os.chdir(os.path.split(sys.argv[0])[0])
     if(len(sys.argv)>1 and sys.argv[1]=='clear'):
-        with open("./logger/log.txt",'w'):
+        from logger import LOG_PATH
+        with open(LOG_PATH,'w'):
             print("Clear log and caches!")
         sys.exit()
 

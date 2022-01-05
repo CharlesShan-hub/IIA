@@ -8,16 +8,16 @@ from email.utils import formataddr
 import random
 
 __all__ = [
-	'add_user', #添加用户
-	'config_user', #获取全部用户信息
-	'config_user', #查改用户信息
-	'check_password',#验证用户名与密码匹配 
+	'add_user',                #添加用户
+	'config_user',             #获取全部用户信息
+	'config_user',             #查改用户信息
+	'check_password',          #验证用户名与密码匹配 
 	'generate_validation_code',#生成验证码
-	'check_validation_code',#检查验证码
-	'send_find_password',#发送找回密码邮件
+	'check_validation_code',   #检查验证码
+	'send_find_password',      #发送找回密码邮件
 	]
 
-""" 初始化
+""" Init
 """
 
 LOG_MODULE = 'Auth'
@@ -27,7 +27,12 @@ INVALID_MAIL = ['System'] #保留邮箱字段
 # 构建用户信息仓库
 if storage.exist_repository("Auth")==False:
 	storage.creat_repository(name='Auth',user_id='System')
-	con_table = '''CREATE TABLE AUTH (MAIL TEXT PRIMARY KEY NOT NULL, PASSWORD TEXT, NAME TEXT)'''
+	con_table = '''
+		CREATE TABLE AUTH (
+			MAIL     TEXT PRIMARY KEY NOT NULL, 
+			PASSWORD TEXT, 
+			NAME     TEXT
+		)'''
 	storage.add_info(name='Auth',con=con_table)
 
 """ API
@@ -56,7 +61,7 @@ def config_user():
 	''' 查改成员信息
 	*没有添加各种容错
 	'''
-	logger.info("Getting all user info!",LOG_MODULE)
+	logger.critical("Getting all user info!",LOG_MODULE)
 	con = '''SELECT mail,password,name from AUTH'''
 	info=storage.add_info(name='Auth',con=con)
 	return info

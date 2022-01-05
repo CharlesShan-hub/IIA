@@ -1,8 +1,20 @@
 import logging
 
+__all__ = [
+	'debug',
+	'info',
+	'warning',
+	'error',
+	'critical'
+]
+
+""" Init
+"""
+LOG_PATH = "./logger/log.txt"
+
 logger = logging.getLogger(__name__)
 logger.setLevel(level = logging.DEBUG)
-handler = logging.FileHandler("./logger/log.txt")
+handler = logging.FileHandler(LOG_PATH)
 handler.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
@@ -12,6 +24,10 @@ console.setLevel(logging.INFO)
 
 logger.addHandler(handler)
 logger.addHandler(console)
+
+
+""" API
+"""
 
 def console_level(con):
 	'''con: DEBUG,INFO,WARNING,ERROR,CRITICAL

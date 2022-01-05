@@ -23,7 +23,7 @@ UI展示框架有两种，PyQt5框架与wxpython框架，另外用户也可以�
 import ui
 ```
 
-You should import `ui` module to use storage api.  
+You should import `ui` module to use ui api.  
 
 * **Run**
 
