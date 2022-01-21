@@ -5,7 +5,13 @@ from storage.custom import *
 '''
 __all__ = [
 		'exist_repository',
-		'creat_repository'
+		'creat_repository',
+		'copy_repository',
+		'delete_repository',
+		'configure_repository',
+		'cover_repository',
+		'operation',
+		'operations'
 		]
 
 # Folders
@@ -77,10 +83,12 @@ def cover_repository(from_name='',to_name='',from_repo_id=[],to_repo_id=[]):
 	return cover_repo(from_name,to_name,from_repo_id,to_repo_id)
 
 
-def info_repository(repo_id=[],name='',mail=''):
-	''' 获取仓库信息
-	'''
-	return info_repo(repo_id=repo_id,name=name,mail=mail)
+def operation(repo_id=[],name='',con=""):
+	return operation_(repo_id=repo_id,name=name,con=con)
+
+
+def operations(repo_id=[],name='',con=""):
+	return operations_(repo_id=repo_id,name=name,con=con)
 
 
 def add_info(repo_id=[],name='',con=""):

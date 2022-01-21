@@ -1,13 +1,25 @@
 import logger
 import storage
 
+""" Init
+"""
+
 LOG_MODULE = 'Warehouse'
 
 if storage.exist_repository("Warehouse")==False:
     storage.creat_repository(name='Warehouse',user_id='System')
     # 高结构数据仓库存储信息表：数据仓库名称(数据仓库名称与仓库名称相同)-用户
-    con_table = '''CREATE TABLE SheetWarehouse (NAME TEXT PRIMARY KEY NOT NULL, MAIL TEXT)'''
+    con_table = '''
+        CREATE TABLE SheetWarehouse 
+        (
+            NAME TEXT PRIMARY KEY NOT NULL, 
+            MAIL TEXT
+        )'''
     storage.add_info(name='Warehouse',con=con_table)
+
+
+""" Class
+"""
 
 class Warehouse(object):
     """面向具体功能的存储模块

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AirPortGlobalDebug</key>
+	<integer>0</integer>
+	<key>AirPortUserLandDebug</key>
+	<integer>0</integer>
+	<key>AutoHotspotMode</key>
+	<string>AskToJoin</string>
+	<key>AwdlDebugFlags</key>
+	<integer>0</integer>
+	<key>CoreCaptureDebugFlags</key>
+	<integer>0</integer>
+	<key>Counter</key>
+	<integer>8</integer>
+	<key>DeviceUUID</key>
+	<string>8372EA3E-A620-4EC9-9D48-BE001E9BDA9C</string>
+	<key>Version</key>
+	<integer>4000</integer>
+</dict>
+</plist>

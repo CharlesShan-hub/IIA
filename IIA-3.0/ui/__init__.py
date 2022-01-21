@@ -70,6 +70,7 @@ class HTTPThread(threading.Thread):
             if self.web:
                 import webbrowser
                 webbrowser.open(web_path)
+                logger.debug("Opened WebView Page",LOG_MODULE)
             server_.serve_forever()
 
         except KeyboardInterrupt:
@@ -131,7 +132,7 @@ def run(HTML_PATH,TEST_PATH,TEST_MODE,CON_OPEN_WIN,\
     setting.set(['Server','ip'],http_server_ip)
     setting.set(['Server','port'],http_server_port)
 
-    if CON_OPEN_WEB==True:
+    if CON_SHARE==True:
         http_thread = HTTPThread(\
             ip=http_server_ip,port=http_server_port,\
             daemon=True,auto=False,CON_OPEN_WEB=CON_OPEN_WEB)

@@ -2,7 +2,8 @@
 ''' 
 # Connect Local Server
 #CON_CONNECT_LOCAL = True
-CON_OPEN_WIN = True # open IIA in a window
+CON_OPEN_WIN = True
+ # open IIA in a window
 CON_OPEN_WEB = False # open IIA in web browser
 CON_SHARE = True # other computer can log in by LAN
 CON_TEST_MODE = False # Run in test mode

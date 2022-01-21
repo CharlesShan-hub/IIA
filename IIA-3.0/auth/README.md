@@ -52,3 +52,21 @@ auth.add_user('charles@example.com','******',name='Chalres',birth='2000,2,26',ge
 print(auth.config_user())
 ```
 
+* **Check Password**
+
+```python
+# in server threading, you can write like this
+if(auth.check_password(mail,password)):
+  	# check_password return True is password match with mail
+		return 100
+else:
+  	# check_password return False is password is wrong
+		return 403
+```
+
+* **Send Check Mail**
+
+```
+该功能目前使用有故障，正在修复...
+```
+

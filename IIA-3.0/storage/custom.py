@@ -258,26 +258,13 @@ def cover_repo(from_name='',to_name='',from_repo_id=[],to_repo_id=[]):
 	return True
 
 
-def info_repo(repo_id=[],name="",mail="",exec=""):
-	# 获取单个仓库信息
-	if(name!=""):
-		# 获取或验证被复制的仓库的repo_id - 当名称与id冲突时, 以id为主
-		repo_id = _get_operat_repo_id(repo_id=repo_id,name=name)
-		if repo_id == False:
-			logger.warning("Failed to delete repo - "+name,LOG_MODULE)
-		
-
-	# 获取所有仓库信息 - 还没开发
-	if(name==""):
-		pass
-
 def t_add_info(repo_id=[],name="",mail="",con=[]):
 	# 获取单个仓库信息
 	if(name!=""):
 		# 获取或验证被复制的仓库的repo_id - 当名称与id冲突时, 以id为主
 		repo_id = _get_operat_repo_id(repo_id=repo_id,name=name)
 		if repo_id == False:
-			logger.warning("Failed to delete repo - "+name,LOG_MODULE)
+			logger.warning("Failed to add info - "+name,LOG_MODULE)
 			return
 
 	# 进行操作
@@ -287,6 +274,35 @@ def t_add_info(repo_id=[],name="",mail="",con=[]):
 	logger.info("Opened database successfully",LOG_MODULE)
 	cursor=c.execute(con)
 	logger.info("Do executes",LOG_MODULE)
+	if(con.split(" ")[0]=='SELECT'):
+		temp = []
+		logger.info("Do select",LOG_MODULE)
+		for row in cursor:
+			temp.append(row)
+		return temp# 这里应该有bug，但不知道怎么改
+
+	conn.commit()
+	conn.close()
+	logger.info("Database closed",LOG_MODULE)
+	return None
+
+
+def operation_(repo_id=[],name="",mail="",con=[]):
+	# 获取单个仓库信息
+	if(name!=""):
+		# 获取或验证被复制的仓库的repo_id - 当名称与id冲突时, 以id为主
+		repo_id = _get_operat_repo_id(repo_id=repo_id,name=name)
+		if repo_id == False:
+			logger.warning("Failed to do operation - "+name,LOG_MODULE)
+			return
+
+	# 进行操作
+	path = "./storage/resources/"+name+".db"
+	conn = sqlite3.connect(path)
+	c = conn.cursor()
+	logger.info("Opened database successfully",LOG_MODULE)
+	cursor=c.execute(con)
+	logger.info("Do operation",LOG_MODULE)
 	if(con.split(" ")[0]=='SELECT'):
 		temp = []
 		logger.info("Do select",LOG_MODULE)

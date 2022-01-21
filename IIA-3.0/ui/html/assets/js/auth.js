@@ -9,7 +9,7 @@ function load(){
 }
 
 
-function _login(mail,password){
+function _login(mail,password,remember){
     // 建立连接
     var wsObj = new WebSocket("ws://"+ip+":"+port);
 
@@ -27,6 +27,12 @@ function _login(mail,password){
     wsObj.onmessage = function(evt){ 
         var data = JSON.parse(evt.data);
         if(data.reply=='100'){
+            if(remember==true){
+                content = '{"type":"auth","operate":"remember","mail":"';
+                content = content+mail;
+                content = content+'"}';
+                wsObj.send(content);
+            }
             wsObj.close();
             window.location.href="./index.html?mail="+mail;
             //alert("Successed to login!");
@@ -104,7 +110,8 @@ function login(){
 	password = document.getElementById('password').value;
 	if(mail==""||password=="")
 		return;
-	_login(mail,password);
+    remember = document.getElementById('remember').checked;
+	_login(mail,password,remember);
 }
 
 
@@ -131,9 +138,10 @@ function request_regist(){
 function find_password(){
 	mail = document.getElementById('mail').value;
 	code = document.getElementById('code').value;
-	if(mail=="")
+	if(mail==""){
         alert("Please Input Mail Address!");
-		return;
+        return;
+    }
 	if(code==""){
 		_find_password(mail,"request");
 	}else{

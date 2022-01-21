@@ -5,14 +5,15 @@ import socket
 import os
 import sys
 import random
+import chardet
 
 import server.auth as auth
 import server.test as test
 import storage
 
-import chardet
 
 SERVER_WELCOME = True
+
 
 class ServerThread(threading.Thread):
     def __init__(self,daemon=False):
@@ -26,6 +27,7 @@ class ServerProcessThread(threading.Thread):
         threading.Thread.__init__(self,daemon=daemon)
     def run(self):
         process()
+
 
 # 当新的客户端连接时会提示
 def new_client(client, server):
@@ -95,6 +97,10 @@ def do_auth(message,client,server):
     elif message["operate"] == "find password":
         code = auth.find_password(message['mail'],message['code'])
         server.send_message(client,reply_maker(code))
+    # 记住身份
+    elif message["operate"] == "remember":
+        auth.remember_user(message['mail'])
+
 
 
 def do_test(message,client,server):

@@ -77,10 +77,12 @@ Listening on port 3092 for clients..
 
 ## IIA项目架构
 * [ui - 界面模块](./ui/README.md)
-* [auth - 认证模块][./auth/README.md] 
+* [auth - 认证模块](./auth/README.md)
 * [setting - 设置模块](./setting/README.md)
 * [logger - 记录模块](./logger/README.md)
-* server - 服务器模块
+* [server - 服务器模块](./server/README.md)
+* [storage - 底层仓库模块](./storage/README.md)
+* system - 系统功能模块
 * mission - 任务模块
 * reminder - 提醒事项模块
 * warehouse - 高级仓库模块
@@ -89,7 +91,6 @@ Listening on port 3092 for clients..
 * template - 模板模块
 * show - 展示模块
 * auxiliary - 辅助模块
-* storage - 底层仓库模块
 
 ## IIA系统使用说明
 
@@ -272,5 +273,3 @@ IIA可以进行用户区分，存储为本地存储。
 * __记录具体信息__：展示程序运行时的状态或发生的事情。
 * __记录产生时间__：运行记录产生的时间。
 * __展示记录信息__：在调试模块中筛选，监测，分析已有记录。 
-
-[./auth/README.md]: 

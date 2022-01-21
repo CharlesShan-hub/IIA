@@ -27,8 +27,7 @@ def regist(mail,password,name,code):
 	#	return 403
 	# 请求建立新用户
 	if code=="request":
-		code_=auth.generate_validation_code(mail)
-		auth.send_check_mail(mail,code_)
+		auth.send_check_mail(mail)
 		return 200
 	# 收到验证码(验证码错误)
 	if auth.check_validation_code(mail,code)==False:
@@ -44,8 +43,7 @@ def find_password(mail,code):
 	'''
 	# 请求找回密码
 	if code=="request":
-		code_=auth.generate_validation_code(mail)
-		auth.send_find_password(mail,code_)
+		auth.send_find_password(mail)
 		return 200
 	# 收到验证码(验证码错误)
 	if auth.check_validation_code(mail,code)==False:
@@ -58,3 +56,6 @@ def change_password(mail,password):
 	''' 修改密码
 	'''
 	pass
+
+def remember_user(mail):
+	auth.remember_user(mail)

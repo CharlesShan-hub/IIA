@@ -1,4 +1,3 @@
 local_setting={
-    // "default_mail":"" - 不设置默认用户
-    "default_mail":"1742861545@qq.com"
+    "default_mail": "shanhongtian@bupt.edu.cn"
 }
