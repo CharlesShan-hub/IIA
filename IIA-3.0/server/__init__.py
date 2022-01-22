@@ -53,6 +53,7 @@ def message_received(client, server, message):
         * 登陆: 输入邮箱与密码, 判断是否对应
         * 注册: 输入邮箱与密码, 如果已有邮箱, 则注册失败
         * 找回密码: 第一次输入邮箱,验证码填"request"; 第二次输入邮箱与验证码
+        * 修改密码: 第一次输入邮箱,验证码填"request"; 第二次输入邮箱与验证码与新密码
         '''
         do_auth(message,client,server)
 
@@ -96,6 +97,10 @@ def do_auth(message,client,server):
     # 找回密码
     elif message["operate"] == "find password":
         code = auth.find_password(message['mail'],message['code'])
+        server.send_message(client,reply_maker(code))
+    # 修改密码
+    elif message["operate"] == "change password":
+        code = auth.change_password(message['mail'],message['code'],message['password'])
         server.send_message(client,reply_maker(code))
     # 记住身份
     elif message["operate"] == "remember":

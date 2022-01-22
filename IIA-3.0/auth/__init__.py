@@ -6,12 +6,14 @@ import random
 __all__ = [
 	# 构建表
 	'add_user',                #添加用户
+	'change_info',             #修改信息
 	# 验证
 	'check_password',          #验证用户名与密码匹配 
 	'check_validation_code',   #检查验证码
 	# 邮件
 	'send_check_mail',         #发送验证邮箱验证码邮件
 	'send_find_password',      #发送找回密码邮件
+	'send_change_password',    #发送修改密码邮件
 	# 服务
 	'remember_user',           #记住账户(邮箱)
 	# 测试
@@ -62,6 +64,19 @@ def add_user(mail,password,**kwg):
 	except:
 		logger.warning("Fail to add user",LOG_MODULE)
 		return False
+
+
+def change_info(mail,**kwg):
+	''' 修改信息
+	'''
+	#print(kwg)
+	for item in kwg:
+		if item not in ['password']:
+			logger.error("Wrong tag to change user info",LOG_MODULE)
+			return False
+		con = """UPDATE AUTH SET {} = {}""".format(item,kwg[item])
+		storage.operation(name='Auth',con=con)
+	return True
 
 
 def config_user():
@@ -127,15 +142,25 @@ def send_find_password(mail):
 	logger.info("Constructing mail",LOG_MODULE)
 	with open(AUTH_MAIL_PATH) as f:
 		word = f.read()
-		code=_generate_validation_code(mail)
-		word=word.replace("IIA-Flag-Code",code)
+		word=word.replace("IIA-Flag-Code",_generate_validation_code(mail))
 		word=word.replace("IIA-Flag-Content","【IIA】您正在使用找回密码功能, 验证码可能导致IIA账号被盗, 请勿转发或泄漏。")
+	system_mail.send_message(mail,word)
+
+
+def send_change_password(mail):
+	''' 发送修改密码验证码
+	'''
+	from system import mail as system_mail
+	logger.info("Constructing mail",LOG_MODULE)
+	with open(AUTH_MAIL_PATH) as f:
+		word = f.read()
+		word=word.replace("IIA-Flag-Code",_generate_validation_code(mail))
+		word=word.replace("IIA-Flag-Content","【IIA】您正在使用修改密码功能, 验证码可能导致IIA账号被盗, 请勿转发或泄漏。")
 	system_mail.send_message(mail,word)
 
 
 def remember_user(mail):
 	''' 记住账户(邮箱)
 	'''
-	print(111111)
 	import setting
 	setting.set(['default_mail'],mail,file="./ui/setting.json",js_read=True)

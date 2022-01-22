@@ -19,7 +19,7 @@ def test_config_user():
 	'''
 	logger.info("打印所有个人信息",LOG_MODULE)
 	print(auth.config_user())
-test_config_user()
+#test_config_user()
 
 def test_check_password():
 	''' 检查密码
@@ -31,3 +31,10 @@ def test_check_password():
 	logger.info("邮箱密码匹配状态"+str(result),LOG_MODULE)
 #test_check_password()
 
+def test_change_info():
+	''' 修改信息
+	'''
+	logger.info("测试修改密码",LOG_MODULE)
+	auth.change_info('1742861545@qq.com',password='111111')
+	#auth.change_info('1742861545@qq.com',password='222222')
+test_change_info()

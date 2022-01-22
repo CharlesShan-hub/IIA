@@ -78,7 +78,36 @@ function _regist(mail,password,username,code){
 }
 
 
-function _find_password(mail,code){
+function _change_password(mail,code){
+    // 建立连接
+    var wsObj = new WebSocket("ws://"+ip+":"+port);
+
+    //发送请求
+    wsObj.onopen = function(){  
+        var content = '{"type":"auth","operate":"change password","code":"';
+        content = content+code;
+        content = content+'","mail":"';
+        content = content+mail;
+        content = content+'","password":"';
+        content = content+password;
+        content = content+'"}';
+        wsObj.send(content);
+    }
+
+    // 验证是否登陆
+    wsObj.onmessage = function(evt){ 
+        var data = JSON.parse(evt.data);
+        if(data.reply=='100'){
+            alert("Reset Password Successfully!")
+            wsObj.close();
+            window.location.href="./index.html?mail="+mail;
+        }
+        wsObj.close();
+    }
+}
+
+
+function _find_password(mail,code,password){
     // 建立连接
     var wsObj = new WebSocket("ws://"+ip+":"+port);
 
@@ -147,4 +176,25 @@ function find_password(){
 	}else{
 		_find_password(mail,code);
 	}
+}
+
+
+function change_password(){
+    mail = document.getElementById('mail').value;
+    code = document.getElementById('code').value;
+    password = document.getElementById('password').value;
+    password2 = document.getElementById('password2').value;
+    if(mail==""){
+        alert("Please Input Mail Address!");
+        return;
+    }
+    if(password!=password2){
+        alert("Two password are not identical!");
+        return;
+    }
+    if(code==""){
+        _change_password(mail,"request",password);
+    }else{
+        _change_password(mail,code,password);
+    }
 }
