@@ -1,0 +1,162 @@
+2022-01-22 18:59:10,841 - DEBUG - UI - Generated QT Engine
+2022-01-22 18:59:10,842 - DEBUG - Setting - setting setting
+2022-01-22 18:59:10,843 - DEBUG - Setting - set setting
+2022-01-22 18:59:10,843 - DEBUG - Setting - setting setting
+2022-01-22 18:59:10,848 - DEBUG - Setting - set setting
+2022-01-22 18:59:35,725 - INFO - Auth - Start check mail ~ password
+2022-01-22 18:59:35,725 - INFO - Storage - Getting repo_id
+2022-01-22 18:59:35,725 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-22 18:59:35,726 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-22 18:59:35,726 - INFO - Storage - Got repo_id - [2]
+2022-01-22 18:59:35,731 - INFO - Storage - Opened database successfully
+2022-01-22 18:59:35,741 - INFO - Storage - Do operation
+2022-01-22 18:59:35,741 - INFO - Storage - Do select
+2022-01-22 18:59:42,625 - INFO - Auth - Start check mail ~ password
+2022-01-22 18:59:42,626 - INFO - Storage - Getting repo_id
+2022-01-22 18:59:42,626 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-22 18:59:42,626 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-22 18:59:42,626 - INFO - Storage - Got repo_id - [2]
+2022-01-22 18:59:42,626 - INFO - Storage - Opened database successfully
+2022-01-22 18:59:42,626 - INFO - Storage - Do operation
+2022-01-22 18:59:42,627 - INFO - Storage - Do select
+2022-01-22 18:59:42,627 - DEBUG - Setting - setting setting
+2022-01-22 18:59:42,628 - DEBUG - Setting - set setting
+2022-01-22 19:00:03,131 - INFO - Auth - Constructing mail
+2022-01-22 19:00:03,134 - INFO - Auth - Generate validation code
+2022-01-22 19:00:03,134 - INFO - System - Start sending mail
+2022-01-22 19:00:04,510 - INFO - System - Failed to send mail
+2022-01-22 19:00:28,219 - INFO - Auth - Check validation code
+2022-01-22 19:00:28,219 - INFO - Storage - Getting repo_id
+2022-01-22 19:00:28,219 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-22 19:00:28,220 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-22 19:00:28,220 - INFO - Storage - Got repo_id - [2]
+2022-01-22 19:00:28,220 - INFO - Storage - Opened database successfully
+2022-01-22 19:00:28,224 - INFO - Storage - Do operation
+2022-01-22 19:00:28,225 - INFO - Storage - Database closed
+2022-01-22 19:02:04,050 - INFO - Auth - Start check mail ~ password
+2022-01-22 19:02:04,052 - INFO - Storage - Getting repo_id
+2022-01-22 19:02:04,052 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-22 19:02:04,053 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-22 19:02:04,053 - INFO - Storage - Got repo_id - [2]
+2022-01-22 19:02:04,054 - INFO - Storage - Opened database successfully
+2022-01-22 19:02:04,054 - INFO - Storage - Do operation
+2022-01-22 19:02:04,054 - INFO - Storage - Do select
+2022-01-22 20:55:24,316 - DEBUG - UI - Generated QT Engine
+2022-01-22 20:55:24,317 - DEBUG - Setting - setting setting
+2022-01-22 20:55:24,318 - DEBUG - Setting - set setting
+2022-01-22 20:55:24,318 - DEBUG - Setting - setting setting
+2022-01-22 20:55:24,319 - DEBUG - Setting - set setting
+2022-01-22 20:55:55,932 - DEBUG - UI - Generated QT Engine
+2022-01-22 20:55:55,933 - DEBUG - Setting - setting setting
+2022-01-22 20:55:55,935 - DEBUG - Setting - set setting
+2022-01-22 20:55:55,935 - DEBUG - Setting - setting setting
+2022-01-22 20:55:55,938 - DEBUG - Setting - set setting
+2022-01-22 20:56:11,131 - DEBUG - UI - Generated QT Engine
+2022-01-22 20:56:11,132 - DEBUG - Setting - setting setting
+2022-01-22 20:56:11,137 - DEBUG - Setting - set setting
+2022-01-22 20:56:11,138 - DEBUG - Setting - setting setting
+2022-01-22 20:56:11,139 - DEBUG - Setting - set setting
+2022-01-22 20:56:45,556 - DEBUG - UI - Generated QT Engine
+2022-01-22 20:56:45,557 - DEBUG - Setting - setting setting
+2022-01-22 20:56:45,558 - DEBUG - Setting - set setting
+2022-01-22 20:56:45,558 - DEBUG - Setting - setting setting
+2022-01-22 20:56:45,560 - DEBUG - Setting - set setting
+2022-01-22 20:57:08,284 - DEBUG - UI - Generated QT Engine
+2022-01-22 20:57:08,284 - DEBUG - Setting - setting setting
+2022-01-22 20:57:08,286 - DEBUG - Setting - set setting
+2022-01-22 20:57:08,287 - DEBUG - Setting - setting setting
+2022-01-22 20:57:08,291 - DEBUG - Setting - set setting
+2022-01-22 20:57:30,115 - DEBUG - UI - Generated QT Engine
+2022-01-22 20:57:30,268 - DEBUG - UI - Generated WX Engine
+2022-01-22 20:57:30,269 - DEBUG - Setting - setting setting
+2022-01-22 20:57:30,273 - DEBUG - Setting - set setting
+2022-01-22 20:57:30,273 - DEBUG - Setting - setting setting
+2022-01-22 20:57:30,277 - DEBUG - Setting - set setting
+2022-01-22 20:57:42,939 - DEBUG - UI - Generated QT Engine
+2022-01-22 20:57:43,000 - DEBUG - UI - Generated WX Engine
+2022-01-22 20:57:43,001 - DEBUG - Setting - setting setting
+2022-01-22 20:57:43,003 - DEBUG - Setting - set setting
+2022-01-22 20:57:43,003 - DEBUG - Setting - setting setting
+2022-01-22 20:57:43,005 - DEBUG - Setting - set setting
+2022-01-22 20:58:52,515 - DEBUG - UI - Generated QT Engine
+2022-01-22 20:58:52,568 - DEBUG - UI - Generated WX Engine
+2022-01-22 20:58:52,568 - DEBUG - Setting - setting setting
+2022-01-22 20:58:52,571 - DEBUG - Setting - set setting
+2022-01-22 20:58:52,572 - DEBUG - Setting - setting setting
+2022-01-22 20:58:52,576 - DEBUG - Setting - set setting
+2022-01-22 21:02:56,985 - DEBUG - UI - Generated QT Engine
+2022-01-22 21:02:57,040 - DEBUG - UI - Generated WX Engine
+2022-01-22 21:02:57,041 - DEBUG - Setting - setting setting
+2022-01-22 21:02:57,043 - DEBUG - Setting - set setting
+2022-01-22 21:02:57,044 - DEBUG - Setting - setting setting
+2022-01-22 21:02:57,048 - DEBUG - Setting - set setting
+2022-01-22 21:03:14,451 - DEBUG - UI - Generated QT Engine
+2022-01-22 21:03:14,505 - DEBUG - UI - Generated WX Engine
+2022-01-22 21:03:14,506 - DEBUG - Setting - setting setting
+2022-01-22 21:03:14,508 - DEBUG - Setting - set setting
+2022-01-22 21:03:14,508 - DEBUG - Setting - setting setting
+2022-01-22 21:03:14,512 - DEBUG - Setting - set setting
+2022-01-22 21:12:55,226 - DEBUG - UI - Generated QT Engine
+2022-01-22 21:12:55,400 - DEBUG - UI - Generated WX Engine
+2022-01-22 21:12:55,401 - DEBUG - Setting - setting setting
+2022-01-22 21:12:55,403 - DEBUG - Setting - set setting
+2022-01-22 21:12:55,403 - DEBUG - Setting - setting setting
+2022-01-22 21:12:55,407 - DEBUG - Setting - set setting
+2022-01-22 21:13:12,600 - DEBUG - UI - Generated QT Engine
+2022-01-22 21:13:12,654 - DEBUG - UI - Generated WX Engine
+2022-01-22 21:13:12,655 - DEBUG - Setting - setting setting
+2022-01-22 21:13:12,656 - DEBUG - Setting - set setting
+2022-01-22 21:13:12,656 - DEBUG - Setting - setting setting
+2022-01-22 21:13:12,658 - DEBUG - Setting - set setting
+2022-01-22 21:18:36,710 - DEBUG - UI - Generated QT Engine
+2022-01-22 21:18:36,711 - DEBUG - Setting - setting setting
+2022-01-22 21:18:36,713 - DEBUG - Setting - set setting
+2022-01-22 21:18:36,713 - DEBUG - Setting - setting setting
+2022-01-22 21:18:36,713 - DEBUG - Setting - set setting
+2022-01-22 21:24:04,583 - DEBUG - UI - Generated QT Engine
+2022-01-22 21:24:04,583 - DEBUG - Setting - setting setting
+2022-01-22 21:24:04,585 - DEBUG - Setting - set setting
+2022-01-22 21:24:04,586 - DEBUG - Setting - setting setting
+2022-01-22 21:24:04,591 - DEBUG - Setting - set setting
+2022-01-22 23:15:28,732 - DEBUG - UI - Generated QT Engine
+2022-01-22 23:15:28,733 - DEBUG - Setting - setting setting
+2022-01-22 23:15:28,734 - DEBUG - Setting - set setting
+2022-01-22 23:15:28,734 - DEBUG - Setting - setting setting
+2022-01-22 23:15:28,736 - DEBUG - Setting - set setting
+2022-01-22 23:15:32,974 - INFO - Auth - Start check mail ~ password
+2022-01-22 23:15:32,974 - INFO - Storage - Getting repo_id
+2022-01-22 23:15:32,974 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-22 23:15:32,975 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-22 23:15:32,975 - INFO - Storage - Got repo_id - [2]
+2022-01-22 23:15:32,979 - INFO - Storage - Opened database successfully
+2022-01-22 23:15:32,984 - INFO - Storage - Do operation
+2022-01-22 23:15:32,984 - INFO - Storage - Do select
+2022-01-22 23:23:37,238 - DEBUG - UI - Generated QT Engine
+2022-01-22 23:23:37,239 - DEBUG - Setting - setting setting
+2022-01-22 23:23:37,240 - DEBUG - Setting - set setting
+2022-01-22 23:23:37,240 - DEBUG - Setting - setting setting
+2022-01-22 23:23:37,241 - DEBUG - Setting - set setting
+2022-01-22 23:23:40,613 - INFO - Auth - Start check mail ~ password
+2022-01-22 23:23:40,614 - INFO - Storage - Getting repo_id
+2022-01-22 23:23:40,614 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-22 23:23:40,614 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-22 23:23:40,614 - INFO - Storage - Got repo_id - [2]
+2022-01-22 23:23:40,615 - INFO - Storage - Opened database successfully
+2022-01-22 23:23:40,615 - INFO - Storage - Do operation
+2022-01-22 23:23:40,615 - INFO - Storage - Do select
+2022-01-23 11:35:24,735 - INFO - Auth - Start check mail ~ password
+2022-01-23 11:35:24,737 - INFO - Storage - Getting repo_id
+2022-01-23 11:35:24,737 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-23 11:35:24,739 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-23 11:35:24,739 - INFO - Storage - Got repo_id - [2]
+2022-01-23 11:35:24,745 - INFO - Storage - Opened database successfully
+2022-01-23 11:35:24,749 - INFO - Storage - Do operation
+2022-01-23 11:35:24,750 - INFO - Storage - Do select
+2022-01-23 15:16:09,975 - INFO - Auth - Start check mail ~ password
+2022-01-23 15:16:09,976 - INFO - Storage - Getting repo_id
+2022-01-23 15:16:09,976 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-23 15:16:09,977 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-23 15:16:09,978 - INFO - Storage - Got repo_id - [2]
+2022-01-23 15:16:09,979 - INFO - Storage - Opened database successfully
+2022-01-23 15:16:09,981 - INFO - Storage - Do operation
+2022-01-23 15:16:09,981 - INFO - Storage - Do select

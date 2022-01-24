@@ -82,13 +82,16 @@ class HTTPThread(threading.Thread):
 
 def run_qt_engine(path):
     app=QApplication(sys.argv)
+    app.setWindowIcon(QIcon('./ui/html/assets/images/favicon.ico'))
     win=MainWindow(path)
     win.show()
     app.exit(app.exec_())
 
 def run_wx_engine(path):
     app = wx.App()
+    icon = wx.Icon(name="./ui/html/assets/images/favicon.ico",type=wx.BITMAP_TYPE_ICO)
     win = MyHtmlFrame(None, 'IIA',path)
+    win.SetIcon(icon)
     win.Show()
     app.MainLoop()
 
