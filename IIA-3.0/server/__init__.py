@@ -6,6 +6,7 @@ import os
 import sys
 import random
 import chardet
+import base64
 
 import server.auth as auth
 import server.test as test
@@ -13,13 +14,7 @@ import storage
 
 
 SERVER_WELCOME = True
-
-
-class ServerThread(threading.Thread):
-    def __init__(self,daemon=False):
-        threading.Thread.__init__(self,daemon=daemon)
-    def run(self):
-        _run()
+FILE_CLIENT_DICT = {}
 
 
 class ServerProcessThread(threading.Thread):
@@ -27,6 +22,32 @@ class ServerProcessThread(threading.Thread):
         threading.Thread.__init__(self,daemon=daemon)
     def run(self):
         process()
+
+
+def process():
+    while(1):
+        command = input()
+        if command == 'HELP':
+            print(""" IIA Server Help\
+                \n STOP: Stop server(all clients lose connection)\
+                \n clear: Clear Console Log""")
+        elif command == 'STOP':
+            print("Stop server. Input `YES` to continue stopping server:")
+            if input() == 'YES':
+                print("请点击窗口左上角红色按钮")
+        elif command == 'clear':
+            import os
+            import sys
+            if sys.platform == 'darwin' or sys.platform == 'linux':
+                os.system("clear")
+            else:
+                os.system("cls")
+
+class ServerThread(threading.Thread):
+    def __init__(self,daemon=False):
+        threading.Thread.__init__(self,daemon=daemon)
+    def run(self):
+        _run()
 
 
 # 当新的客户端连接时会提示
@@ -42,11 +63,45 @@ def client_left(client, server):
 
 # 接收客户端的信息
 def message_received(client, server, message):
-    # 获取正确格式信息
-    if message_received_valid(message,client,server)!=True:
+    print(message)
+    # 判断消息类型(文件,命令,错误)
+    try:
+        if("type" not in json.loads(message)):
+            return # 错误格式的命令
+    except:
+        key = client['address'][0]+str(client['address'][1])
+        if(key in FILE_CLIENT_DICT):
+            receive_file(message,client,server) # 文件接收
+        else:
+            server.send_message(client,'{"reply":"400"}') # 错误信息
         return
 
-    message = json.loads(message)
+    message = json.loads(message) # 命令解析
+    receive_command(message,client,server)
+
+
+def receive_file(message,client,server):
+    """ 接收文件
+    """
+    key = client['address'][0]+str(client['address'][1])
+    message = message.split(',',1)[1]
+    print(type(message))
+    message = str.encode(message)
+    print(type(message))
+    message = base64.b64decode(message,altchars=None, validate=False)
+    print(type(message))
+    #message = bytes.decode(message)
+    #print(type(message))
+
+    if FILE_CLIENT_DICT[key]!=None:
+        FILE_CLIENT_DICT[key]+=message
+    else:
+        FILE_CLIENT_DICT[key]=message
+
+
+def receive_command(message,client,server):
+    """ 接受命令
+    """
 
     if message["type"] == "auth":
         ''' 身份验证部分
@@ -71,17 +126,7 @@ def message_received(client, server, message):
     #添加数据仓库
     #elif message["type"] == "creat_repository":
     #    storage.creat_repository(name=message['repo_name'],user_id=message['mail'])
-
-
-def message_received_valid(message,client,server):
-    """ 验证消息格式
-    """
-    try:
-        if("type" in json.loads(message)):pass
-        return True
-    except:
-        server.send_message(client,'{"reply":"400"}')
-        return False
+    
 
 def do_auth(message,client,server):
     """ 进行身份验证相关操作
@@ -115,6 +160,25 @@ def do_test(message,client,server):
     if message["operate"] == "ping":
         code = test.ping(int(message["param"]))
         server.send_message(client,reply_maker(code))
+    # 接收上传文件 - 客户端:请求发送文件,文件内容,报告发送完毕
+    if message["operate"] == "upload file":
+        if message["state"] == "start":
+            key = client['address'][0]+str(client['address'][1])
+            if(key in FILE_CLIENT_DICT):
+                server.send_message(client,reply_maker(403))
+            else:
+                FILE_CLIENT_DICT[key]=None
+        elif message["state"] == "end":
+            key = client['address'][0]+str(client['address'][1])
+            with open("./test/"+message['name'],'wb') as f1:
+                f1.write(FILE_CLIENT_DICT[key])
+            del FILE_CLIENT_DICT[key]
+    # 发送下载文件
+    if message["operate"] == "download file":
+        pass
+
+        #server.send_message(client,reply_maker(code))
+
 
 def reply_maker(code):
     return '{"reply":"'+str(code)+'"}'
@@ -155,17 +219,6 @@ def write_json(path, content, encoding='UTF-8'):
     with open(path, 'w', encoding='utf-8') as f:
         f.write(json.dumps(content, indent=4, ensure_ascii=False))
 
-
-def process():
-    while(1):
-        command = input()
-        if command == 'HELP':
-            print(""" IIA Server Help\
-                \n STOP: Stop server(all clients lose connection)""")
-        elif command == 'STOP':
-            print("Stop server. Input `YES` to continue stopping server.")
-            if input() == 'YES':
-                print("请点击窗口左上角红色按钮")
 
 def _run():
     # Server welcome info

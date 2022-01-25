@@ -21,12 +21,19 @@ LOG_MODULE = 'Setting'
 # Repo info file
 ConfigFilePath = "./setting/setting.json"
 def initialize():
+	import sys
 	logger.info("setting.json reinit",LOG_MODULE)
 	with open(ConfigFilePath, 'w', encoding='utf-8') as f:
 		content = {
 			'Server':{
 				'ip':'127.0.0.1',
 				'port':80
+			},
+			'General':{
+				'1742861545@qq.com':{
+					'languange':'Chinese',#English
+					'layout':'Horizantal'
+				}
 			}
 		}
 		f.write(json.dumps(content, indent=4, ensure_ascii=False))

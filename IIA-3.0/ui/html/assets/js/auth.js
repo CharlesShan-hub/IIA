@@ -198,3 +198,21 @@ function change_password(){
         _change_password(mail,code,password);
     }
 }
+
+
+
+function send_file(){
+    // 建立连接
+    var wsObj = new WebSocket("ws://"+ip+":"+port);
+
+    var inputElement = document.getElementById("file");
+    var file = inputElement.files;
+    var reader = new FileReader();
+    //以二进制形式读取文件reader.readAsArrayBuffer(file);
+    //文件读取完毕后该函数响应
+    reader.onload = function loaded(evt) {
+        var binaryString = evt.target.result;
+        //发送文件        
+        ws.send(binaryString);
+    }
+}

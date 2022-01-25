@@ -160,3 +160,522 @@
 2022-01-23 15:16:09,979 - INFO - Storage - Opened database successfully
 2022-01-23 15:16:09,981 - INFO - Storage - Do operation
 2022-01-23 15:16:09,981 - INFO - Storage - Do select
+2022-01-24 11:24:53,999 - DEBUG - UI - Generated QT Engine
+2022-01-24 11:24:54,001 - DEBUG - Setting - setting setting
+2022-01-24 11:24:54,003 - DEBUG - Setting - set setting
+2022-01-24 11:24:54,003 - DEBUG - Setting - setting setting
+2022-01-24 11:24:54,005 - DEBUG - Setting - set setting
+2022-01-24 11:25:00,925 - INFO - Auth - Start check mail ~ password
+2022-01-24 11:25:00,925 - INFO - Storage - Getting repo_id
+2022-01-24 11:25:00,925 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-24 11:25:00,926 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-24 11:25:00,926 - INFO - Storage - Got repo_id - [2]
+2022-01-24 11:25:00,932 - INFO - Storage - Opened database successfully
+2022-01-24 11:25:00,936 - INFO - Storage - Do operation
+2022-01-24 11:25:00,936 - INFO - Storage - Do select
+2022-01-24 11:25:05,241 - INFO - Auth - Start check mail ~ password
+2022-01-24 11:25:05,241 - INFO - Storage - Getting repo_id
+2022-01-24 11:25:05,241 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-24 11:25:05,241 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-24 11:25:05,242 - INFO - Storage - Got repo_id - [2]
+2022-01-24 11:25:05,242 - INFO - Storage - Opened database successfully
+2022-01-24 11:25:05,242 - INFO - Storage - Do operation
+2022-01-24 11:25:05,242 - INFO - Storage - Do select
+2022-01-24 11:30:02,803 - DEBUG - UI - Generated QT Engine
+2022-01-24 11:30:02,804 - DEBUG - Setting - setting setting
+2022-01-24 11:30:02,806 - DEBUG - Setting - set setting
+2022-01-24 11:30:02,806 - DEBUG - Setting - setting setting
+2022-01-24 11:30:02,808 - DEBUG - Setting - set setting
+2022-01-24 11:30:07,134 - INFO - Auth - Start check mail ~ password
+2022-01-24 11:30:07,135 - INFO - Storage - Getting repo_id
+2022-01-24 11:30:07,136 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-24 11:30:07,138 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-24 11:30:07,139 - INFO - Storage - Got repo_id - [2]
+2022-01-24 11:30:07,153 - INFO - Storage - Opened database successfully
+2022-01-24 11:30:07,167 - INFO - Storage - Do operation
+2022-01-24 11:30:07,167 - INFO - Storage - Do select
+2022-01-24 11:30:18,854 - INFO - Auth - Constructing mail
+2022-01-24 11:30:18,856 - INFO - Auth - Generate validation code
+2022-01-24 11:30:18,857 - INFO - System - Start sending mail
+2022-01-24 11:30:21,420 - INFO - System - Failed to send mail
+2022-01-24 11:30:40,595 - INFO - Auth - Check validation code
+2022-01-24 11:30:40,595 - INFO - Storage - Getting repo_id
+2022-01-24 11:30:40,596 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-24 11:30:40,606 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-24 11:30:40,607 - INFO - Storage - Got repo_id - [2]
+2022-01-24 11:30:40,609 - INFO - Storage - Opened database successfully
+2022-01-24 11:30:40,621 - INFO - Storage - Do operation
+2022-01-24 11:30:40,629 - INFO - Storage - Database closed
+2022-01-24 11:31:19,117 - INFO - Auth - Start check mail ~ password
+2022-01-24 11:31:19,118 - INFO - Storage - Getting repo_id
+2022-01-24 11:31:19,118 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-24 11:31:19,119 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-24 11:31:19,119 - INFO - Storage - Got repo_id - [2]
+2022-01-24 11:31:19,120 - INFO - Storage - Opened database successfully
+2022-01-24 11:31:19,122 - INFO - Storage - Do operation
+2022-01-24 11:31:19,123 - INFO - Storage - Do select
+2022-01-24 11:31:26,839 - INFO - Auth - Start check mail ~ password
+2022-01-24 11:31:26,840 - INFO - Storage - Getting repo_id
+2022-01-24 11:31:26,840 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-24 11:31:26,840 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-24 11:31:26,840 - INFO - Storage - Got repo_id - [2]
+2022-01-24 11:31:26,841 - INFO - Storage - Opened database successfully
+2022-01-24 11:31:26,841 - INFO - Storage - Do operation
+2022-01-24 11:31:26,841 - INFO - Storage - Do select
+2022-01-24 11:31:31,842 - INFO - Auth - Start check mail ~ password
+2022-01-24 11:31:31,843 - INFO - Storage - Getting repo_id
+2022-01-24 11:31:31,843 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-24 11:31:31,843 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-24 11:31:31,843 - INFO - Storage - Got repo_id - [2]
+2022-01-24 11:31:31,843 - INFO - Storage - Opened database successfully
+2022-01-24 11:31:31,843 - INFO - Storage - Do operation
+2022-01-24 11:31:31,843 - INFO - Storage - Do select
+2022-01-24 11:31:45,576 - INFO - Auth - Constructing mail
+2022-01-24 11:31:45,577 - INFO - Auth - Generate validation code
+2022-01-24 11:31:45,578 - INFO - System - Start sending mail
+2022-01-24 11:31:47,650 - INFO - System - Failed to send mail
+2022-01-24 11:32:02,684 - INFO - Auth - Check validation code
+2022-01-24 11:32:02,684 - INFO - Storage - Getting repo_id
+2022-01-24 11:32:02,684 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-24 11:32:02,688 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-24 11:32:02,688 - INFO - Storage - Got repo_id - [2]
+2022-01-24 11:32:02,690 - INFO - Storage - Opened database successfully
+2022-01-24 11:32:02,694 - INFO - Storage - Do operation
+2022-01-24 11:32:02,697 - INFO - Storage - Database closed
+2022-01-24 11:32:15,322 - INFO - Auth - Start check mail ~ password
+2022-01-24 11:32:15,322 - INFO - Storage - Getting repo_id
+2022-01-24 11:32:15,322 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-24 11:32:15,323 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-24 11:32:15,323 - INFO - Storage - Got repo_id - [2]
+2022-01-24 11:32:15,323 - INFO - Storage - Opened database successfully
+2022-01-24 11:32:15,324 - INFO - Storage - Do operation
+2022-01-24 11:32:15,324 - INFO - Storage - Do select
+2022-01-24 11:32:15,324 - DEBUG - Setting - setting setting
+2022-01-24 11:32:15,325 - DEBUG - Setting - set setting
+2022-01-24 15:21:55,968 - INFO - Auth - Start check mail ~ password
+2022-01-24 15:21:55,970 - INFO - Storage - Getting repo_id
+2022-01-24 15:21:55,970 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-24 15:21:55,971 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-24 15:21:55,971 - INFO - Storage - Got repo_id - [2]
+2022-01-24 15:21:55,972 - INFO - Storage - Opened database successfully
+2022-01-24 15:21:55,973 - INFO - Storage - Do operation
+2022-01-24 15:21:55,974 - INFO - Storage - Do select
+2022-01-24 15:21:55,976 - DEBUG - Setting - setting setting
+2022-01-24 15:21:55,978 - DEBUG - Setting - set setting
+2022-01-24 15:48:52,446 - DEBUG - UI - Generated QT Engine
+2022-01-24 15:48:52,448 - DEBUG - Setting - setting setting
+2022-01-24 15:48:52,451 - DEBUG - Setting - set setting
+2022-01-24 15:48:52,451 - DEBUG - Setting - setting setting
+2022-01-24 15:48:52,459 - DEBUG - Setting - set setting
+2022-01-24 15:48:56,009 - INFO - Auth - Start check mail ~ password
+2022-01-24 15:48:56,010 - INFO - Storage - Getting repo_id
+2022-01-24 15:48:56,010 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-24 15:48:56,010 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-24 15:48:56,011 - INFO - Storage - Got repo_id - [2]
+2022-01-24 15:48:56,016 - INFO - Storage - Opened database successfully
+2022-01-24 15:48:56,020 - INFO - Storage - Do operation
+2022-01-24 15:48:56,020 - INFO - Storage - Do select
+2022-01-24 16:02:45,907 - DEBUG - UI - Generated QT Engine
+2022-01-24 16:02:45,908 - DEBUG - Setting - setting setting
+2022-01-24 16:02:45,909 - DEBUG - Setting - set setting
+2022-01-24 16:02:45,909 - DEBUG - Setting - setting setting
+2022-01-24 16:02:45,910 - DEBUG - Setting - set setting
+2022-01-24 16:03:15,579 - INFO - Server - Get ping request
+2022-01-24 16:07:32,012 - DEBUG - UI - Generated QT Engine
+2022-01-24 16:07:32,013 - DEBUG - Setting - setting setting
+2022-01-24 16:07:32,015 - DEBUG - Setting - set setting
+2022-01-24 16:07:32,015 - DEBUG - Setting - setting setting
+2022-01-24 16:07:32,018 - DEBUG - Setting - set setting
+2022-01-24 16:26:26,889 - DEBUG - UI - Generated QT Engine
+2022-01-24 16:26:26,890 - DEBUG - Setting - setting setting
+2022-01-24 16:26:26,891 - DEBUG - Setting - set setting
+2022-01-24 16:26:26,891 - DEBUG - Setting - setting setting
+2022-01-24 16:26:26,892 - DEBUG - Setting - set setting
+2022-01-24 16:27:27,144 - INFO - Server - Get ping request
+2022-01-24 16:30:03,089 - DEBUG - UI - Generated QT Engine
+2022-01-24 16:30:03,090 - DEBUG - Setting - setting setting
+2022-01-24 16:30:03,091 - DEBUG - Setting - set setting
+2022-01-24 16:30:03,091 - DEBUG - Setting - setting setting
+2022-01-24 16:30:03,095 - DEBUG - Setting - set setting
+2022-01-24 16:30:05,449 - INFO - Server - Get ping request
+2022-01-24 16:31:29,076 - DEBUG - UI - Generated QT Engine
+2022-01-24 16:31:29,077 - DEBUG - Setting - setting setting
+2022-01-24 16:31:29,078 - DEBUG - Setting - set setting
+2022-01-24 16:31:29,078 - DEBUG - Setting - setting setting
+2022-01-24 16:31:29,083 - DEBUG - Setting - set setting
+2022-01-24 16:31:31,765 - INFO - Server - Get ping request
+2022-01-24 16:36:03,043 - DEBUG - UI - Generated QT Engine
+2022-01-24 16:36:03,044 - DEBUG - Setting - setting setting
+2022-01-24 16:36:03,046 - DEBUG - Setting - set setting
+2022-01-24 16:36:03,046 - DEBUG - Setting - setting setting
+2022-01-24 16:36:03,049 - DEBUG - Setting - set setting
+2022-01-24 16:36:06,489 - INFO - Server - Get ping request
+2022-01-24 16:48:39,119 - DEBUG - UI - Generated QT Engine
+2022-01-24 16:48:39,120 - DEBUG - Setting - setting setting
+2022-01-24 16:48:39,122 - DEBUG - Setting - set setting
+2022-01-24 16:48:39,122 - DEBUG - Setting - setting setting
+2022-01-24 16:48:39,126 - DEBUG - Setting - set setting
+2022-01-24 16:54:40,303 - DEBUG - UI - Generated QT Engine
+2022-01-24 16:54:40,304 - DEBUG - Setting - setting setting
+2022-01-24 16:54:40,305 - DEBUG - Setting - set setting
+2022-01-24 16:54:40,305 - DEBUG - Setting - setting setting
+2022-01-24 16:54:40,310 - DEBUG - Setting - set setting
+2022-01-24 16:54:43,185 - INFO - Server - Get ping request
+2022-01-24 16:57:08,396 - DEBUG - UI - Generated QT Engine
+2022-01-24 16:57:08,397 - DEBUG - Setting - setting setting
+2022-01-24 16:57:08,401 - DEBUG - Setting - set setting
+2022-01-24 16:57:08,403 - DEBUG - Setting - setting setting
+2022-01-24 16:57:08,403 - DEBUG - Setting - set setting
+2022-01-24 16:58:54,364 - DEBUG - UI - Generated QT Engine
+2022-01-24 16:58:54,365 - DEBUG - Setting - setting setting
+2022-01-24 16:58:54,369 - DEBUG - Setting - set setting
+2022-01-24 16:58:54,370 - DEBUG - Setting - setting setting
+2022-01-24 16:58:54,371 - DEBUG - Setting - set setting
+2022-01-24 16:58:56,396 - INFO - Server - Get ping request
+2022-01-24 16:59:03,920 - INFO - Auth - Start check mail ~ password
+2022-01-24 16:59:03,920 - INFO - Storage - Getting repo_id
+2022-01-24 16:59:03,920 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-24 16:59:03,921 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-24 16:59:03,921 - INFO - Storage - Got repo_id - [2]
+2022-01-24 16:59:03,930 - INFO - Storage - Opened database successfully
+2022-01-24 16:59:03,937 - INFO - Storage - Do operation
+2022-01-24 16:59:03,938 - INFO - Storage - Do select
+2022-01-24 17:01:07,609 - DEBUG - UI - Generated QT Engine
+2022-01-24 17:01:07,609 - DEBUG - Setting - setting setting
+2022-01-24 17:01:07,613 - DEBUG - Setting - set setting
+2022-01-24 17:01:07,614 - DEBUG - Setting - setting setting
+2022-01-24 17:01:07,616 - DEBUG - Setting - set setting
+2022-01-24 17:02:52,795 - DEBUG - UI - Generated QT Engine
+2022-01-24 17:02:52,795 - DEBUG - Setting - setting setting
+2022-01-24 17:02:52,798 - DEBUG - Setting - set setting
+2022-01-24 17:02:52,798 - DEBUG - Setting - setting setting
+2022-01-24 17:02:52,802 - DEBUG - Setting - set setting
+2022-01-24 17:02:55,262 - INFO - Server - Get ping request
+2022-01-24 17:23:33,019 - DEBUG - UI - Generated QT Engine
+2022-01-24 17:23:33,020 - DEBUG - Setting - setting setting
+2022-01-24 17:23:33,022 - DEBUG - Setting - set setting
+2022-01-24 17:23:33,022 - DEBUG - Setting - setting setting
+2022-01-24 17:23:33,025 - DEBUG - Setting - set setting
+2022-01-24 17:42:41,822 - DEBUG - UI - Generated QT Engine
+2022-01-24 17:42:41,823 - DEBUG - Setting - setting setting
+2022-01-24 17:42:41,824 - DEBUG - Setting - set setting
+2022-01-24 17:42:41,824 - DEBUG - Setting - setting setting
+2022-01-24 17:42:41,825 - DEBUG - Setting - set setting
+2022-01-24 17:42:46,851 - INFO - Server - Get ping request
+2022-01-24 17:43:41,952 - DEBUG - UI - Generated QT Engine
+2022-01-24 17:43:41,953 - DEBUG - Setting - setting setting
+2022-01-24 17:43:41,955 - DEBUG - Setting - set setting
+2022-01-24 17:43:41,956 - DEBUG - Setting - setting setting
+2022-01-24 17:43:41,960 - DEBUG - Setting - set setting
+2022-01-24 17:46:26,058 - DEBUG - UI - Generated QT Engine
+2022-01-24 17:46:26,060 - DEBUG - Setting - setting setting
+2022-01-24 17:46:26,063 - DEBUG - Setting - set setting
+2022-01-24 17:46:26,063 - DEBUG - Setting - setting setting
+2022-01-24 17:46:26,066 - DEBUG - Setting - set setting
+2022-01-24 17:49:42,501 - DEBUG - UI - Generated QT Engine
+2022-01-24 17:49:42,502 - DEBUG - Setting - setting setting
+2022-01-24 17:49:42,504 - DEBUG - Setting - set setting
+2022-01-24 17:49:42,504 - DEBUG - Setting - setting setting
+2022-01-24 17:49:42,508 - DEBUG - Setting - set setting
+2022-01-24 17:50:44,608 - DEBUG - UI - Generated QT Engine
+2022-01-24 17:50:44,609 - DEBUG - Setting - setting setting
+2022-01-24 17:50:44,613 - DEBUG - Setting - set setting
+2022-01-24 17:50:44,613 - DEBUG - Setting - setting setting
+2022-01-24 17:50:44,616 - DEBUG - Setting - set setting
+2022-01-24 17:53:04,331 - DEBUG - UI - Generated QT Engine
+2022-01-24 17:53:04,332 - DEBUG - Setting - setting setting
+2022-01-24 17:53:04,333 - DEBUG - Setting - set setting
+2022-01-24 17:53:04,333 - DEBUG - Setting - setting setting
+2022-01-24 17:53:04,338 - DEBUG - Setting - set setting
+2022-01-24 17:54:24,267 - DEBUG - UI - Generated QT Engine
+2022-01-24 17:54:24,268 - DEBUG - Setting - setting setting
+2022-01-24 17:54:24,270 - DEBUG - Setting - set setting
+2022-01-24 17:54:24,270 - DEBUG - Setting - setting setting
+2022-01-24 17:54:24,273 - DEBUG - Setting - set setting
+2022-01-24 17:55:16,722 - DEBUG - UI - Generated QT Engine
+2022-01-24 17:55:16,722 - DEBUG - Setting - setting setting
+2022-01-24 17:55:16,726 - DEBUG - Setting - set setting
+2022-01-24 17:55:16,727 - DEBUG - Setting - setting setting
+2022-01-24 17:55:16,729 - DEBUG - Setting - set setting
+2022-01-24 17:56:45,503 - DEBUG - UI - Generated QT Engine
+2022-01-24 17:56:45,505 - DEBUG - Setting - setting setting
+2022-01-24 17:56:45,507 - DEBUG - Setting - set setting
+2022-01-24 17:56:45,507 - DEBUG - Setting - setting setting
+2022-01-24 17:56:45,512 - DEBUG - Setting - set setting
+2022-01-24 17:57:17,521 - DEBUG - UI - Generated QT Engine
+2022-01-24 17:57:17,524 - DEBUG - Setting - setting setting
+2022-01-24 17:57:17,525 - DEBUG - Setting - set setting
+2022-01-24 17:57:17,525 - DEBUG - Setting - setting setting
+2022-01-24 17:57:17,527 - DEBUG - Setting - set setting
+2022-01-24 17:58:51,824 - DEBUG - UI - Generated QT Engine
+2022-01-24 17:58:51,825 - DEBUG - Setting - setting setting
+2022-01-24 17:58:51,826 - DEBUG - Setting - set setting
+2022-01-24 17:58:51,826 - DEBUG - Setting - setting setting
+2022-01-24 17:58:51,827 - DEBUG - Setting - set setting
+2022-01-24 18:00:38,575 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:00:38,577 - DEBUG - Setting - setting setting
+2022-01-24 18:00:38,579 - DEBUG - Setting - set setting
+2022-01-24 18:00:38,580 - DEBUG - Setting - setting setting
+2022-01-24 18:00:38,581 - DEBUG - Setting - set setting
+2022-01-24 18:02:11,771 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:02:11,772 - DEBUG - Setting - setting setting
+2022-01-24 18:02:11,774 - DEBUG - Setting - set setting
+2022-01-24 18:02:11,774 - DEBUG - Setting - setting setting
+2022-01-24 18:02:11,780 - DEBUG - Setting - set setting
+2022-01-24 18:06:31,468 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:06:31,468 - DEBUG - Setting - setting setting
+2022-01-24 18:06:31,470 - DEBUG - Setting - set setting
+2022-01-24 18:06:31,470 - DEBUG - Setting - setting setting
+2022-01-24 18:06:31,470 - DEBUG - Setting - set setting
+2022-01-24 18:07:53,446 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:07:53,448 - DEBUG - Setting - setting setting
+2022-01-24 18:07:53,450 - DEBUG - Setting - set setting
+2022-01-24 18:07:53,450 - DEBUG - Setting - setting setting
+2022-01-24 18:07:53,450 - DEBUG - Setting - set setting
+2022-01-24 18:09:35,822 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:09:35,823 - DEBUG - Setting - setting setting
+2022-01-24 18:09:35,825 - DEBUG - Setting - set setting
+2022-01-24 18:09:35,825 - DEBUG - Setting - setting setting
+2022-01-24 18:09:35,826 - DEBUG - Setting - set setting
+2022-01-24 18:12:05,427 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:12:05,428 - DEBUG - Setting - setting setting
+2022-01-24 18:12:05,430 - DEBUG - Setting - set setting
+2022-01-24 18:12:05,430 - DEBUG - Setting - setting setting
+2022-01-24 18:12:05,432 - DEBUG - Setting - set setting
+2022-01-24 18:12:45,126 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:12:45,127 - DEBUG - Setting - setting setting
+2022-01-24 18:12:45,130 - DEBUG - Setting - set setting
+2022-01-24 18:12:45,132 - DEBUG - Setting - setting setting
+2022-01-24 18:12:45,134 - DEBUG - Setting - set setting
+2022-01-24 18:13:17,923 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:13:17,925 - DEBUG - Setting - setting setting
+2022-01-24 18:13:17,926 - DEBUG - Setting - set setting
+2022-01-24 18:13:17,926 - DEBUG - Setting - setting setting
+2022-01-24 18:13:17,929 - DEBUG - Setting - set setting
+2022-01-24 18:13:40,544 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:13:40,545 - DEBUG - Setting - setting setting
+2022-01-24 18:13:40,546 - DEBUG - Setting - set setting
+2022-01-24 18:13:40,547 - DEBUG - Setting - setting setting
+2022-01-24 18:13:40,550 - DEBUG - Setting - set setting
+2022-01-24 18:14:21,006 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:14:21,006 - DEBUG - Setting - setting setting
+2022-01-24 18:14:21,007 - DEBUG - Setting - set setting
+2022-01-24 18:14:21,007 - DEBUG - Setting - setting setting
+2022-01-24 18:14:21,008 - DEBUG - Setting - set setting
+2022-01-24 18:21:49,248 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:21:49,250 - DEBUG - Setting - setting setting
+2022-01-24 18:21:49,253 - DEBUG - Setting - set setting
+2022-01-24 18:21:49,253 - DEBUG - Setting - setting setting
+2022-01-24 18:21:49,258 - DEBUG - Setting - set setting
+2022-01-24 18:25:27,919 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:25:27,920 - DEBUG - Setting - setting setting
+2022-01-24 18:25:27,922 - DEBUG - Setting - set setting
+2022-01-24 18:25:27,922 - DEBUG - Setting - setting setting
+2022-01-24 18:25:27,925 - DEBUG - Setting - set setting
+2022-01-24 18:25:33,419 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:25:33,420 - DEBUG - Setting - setting setting
+2022-01-24 18:25:33,422 - DEBUG - Setting - set setting
+2022-01-24 18:25:33,422 - DEBUG - Setting - setting setting
+2022-01-24 18:25:33,425 - DEBUG - Setting - set setting
+2022-01-24 18:29:00,220 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:29:00,221 - DEBUG - Setting - setting setting
+2022-01-24 18:29:00,221 - DEBUG - Setting - set setting
+2022-01-24 18:29:00,221 - DEBUG - Setting - setting setting
+2022-01-24 18:29:00,222 - DEBUG - Setting - set setting
+2022-01-24 18:33:48,475 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:33:48,477 - DEBUG - Setting - setting setting
+2022-01-24 18:33:48,478 - DEBUG - Setting - set setting
+2022-01-24 18:33:48,479 - DEBUG - Setting - setting setting
+2022-01-24 18:33:48,482 - DEBUG - Setting - set setting
+2022-01-24 18:37:09,066 - DEBUG - UI - Generated QT Engine
+2022-01-24 18:37:09,067 - DEBUG - Setting - setting setting
+2022-01-24 18:37:09,069 - DEBUG - Setting - set setting
+2022-01-24 18:37:09,069 - DEBUG - Setting - setting setting
+2022-01-24 18:37:09,070 - DEBUG - Setting - set setting
+2022-01-24 18:37:17,573 - INFO - Auth - Start check mail ~ password
+2022-01-24 18:37:17,574 - INFO - Storage - Getting repo_id
+2022-01-24 18:37:17,574 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-24 18:37:17,575 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-24 18:37:17,575 - INFO - Storage - Got repo_id - [2]
+2022-01-24 18:37:17,576 - INFO - Storage - Opened database successfully
+2022-01-24 18:37:17,577 - INFO - Storage - Do operation
+2022-01-24 18:37:17,577 - INFO - Storage - Do select
+2022-01-25 10:47:57,470 - DEBUG - UI - Generated QT Engine
+2022-01-25 10:47:57,473 - DEBUG - Setting - setting setting
+2022-01-25 10:47:57,475 - DEBUG - Setting - set setting
+2022-01-25 10:47:57,475 - DEBUG - Setting - setting setting
+2022-01-25 10:47:57,476 - DEBUG - Setting - set setting
+2022-01-25 10:50:12,408 - DEBUG - UI - Generated QT Engine
+2022-01-25 10:50:12,409 - DEBUG - Setting - setting setting
+2022-01-25 10:50:12,411 - DEBUG - Setting - set setting
+2022-01-25 10:50:12,411 - DEBUG - Setting - setting setting
+2022-01-25 10:50:12,415 - DEBUG - Setting - set setting
+2022-01-25 10:51:32,964 - INFO - Auth - Start check mail ~ password
+2022-01-25 10:51:32,964 - INFO - Storage - Getting repo_id
+2022-01-25 10:51:32,964 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-25 10:51:32,965 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-25 10:51:32,965 - INFO - Storage - Got repo_id - [2]
+2022-01-25 10:51:32,969 - INFO - Storage - Opened database successfully
+2022-01-25 10:51:32,973 - INFO - Storage - Do operation
+2022-01-25 10:51:32,973 - INFO - Storage - Do select
+2022-01-25 10:51:49,262 - DEBUG - UI - Generated QT Engine
+2022-01-25 10:51:49,263 - DEBUG - Setting - setting setting
+2022-01-25 10:51:49,264 - DEBUG - Setting - set setting
+2022-01-25 10:51:49,264 - DEBUG - Setting - setting setting
+2022-01-25 10:51:49,268 - DEBUG - Setting - set setting
+2022-01-25 10:51:58,402 - INFO - Auth - Start check mail ~ password
+2022-01-25 10:51:58,402 - INFO - Storage - Getting repo_id
+2022-01-25 10:51:58,402 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-25 10:51:58,403 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-25 10:51:58,403 - INFO - Storage - Got repo_id - [2]
+2022-01-25 10:51:58,404 - INFO - Storage - Opened database successfully
+2022-01-25 10:51:58,405 - INFO - Storage - Do operation
+2022-01-25 10:51:58,405 - INFO - Storage - Do select
+2022-01-25 10:52:16,649 - INFO - Server - Get ping request
+2022-01-25 10:52:18,259 - INFO - Server - Get ping request - return a random word
+2022-01-25 11:13:03,371 - DEBUG - UI - Generated QT Engine
+2022-01-25 11:13:03,372 - DEBUG - Setting - setting setting
+2022-01-25 11:13:03,374 - DEBUG - Setting - set setting
+2022-01-25 11:13:03,374 - DEBUG - Setting - setting setting
+2022-01-25 11:13:03,376 - DEBUG - Setting - set setting
+2022-01-25 11:13:07,555 - INFO - Auth - Start check mail ~ password
+2022-01-25 11:13:07,556 - INFO - Storage - Getting repo_id
+2022-01-25 11:13:07,556 - INFO - Storage - Getting repo_id by name (Auth)
+2022-01-25 11:13:07,558 - DEBUG - Storage - Load json - ./storage/resources/repo_info.json
+2022-01-25 11:13:07,560 - INFO - Storage - Got repo_id - [2]
+2022-01-25 11:13:07,568 - INFO - Storage - Opened database successfully
+2022-01-25 11:13:07,576 - INFO - Storage - Do operation
+2022-01-25 11:13:07,577 - INFO - Storage - Do select
+2022-01-25 11:13:20,454 - INFO - Auth - Constructing mail
+2022-01-25 11:13:20,455 - INFO - Auth - Generate validation code
+2022-01-25 11:13:20,456 - INFO - System - Start sending mail
+2022-01-25 11:13:22,073 - INFO - System - Failed to send mail
+2022-01-25 11:25:55,933 - DEBUG - UI - Generated QT Engine
+2022-01-25 11:25:55,935 - DEBUG - Setting - setting setting
+2022-01-25 11:25:55,938 - DEBUG - Setting - set setting
+2022-01-25 11:25:55,939 - DEBUG - Setting - setting setting
+2022-01-25 11:25:55,941 - DEBUG - Setting - set setting
+2022-01-25 11:26:00,920 - INFO - Server - Get ping request
+2022-01-25 11:46:30,943 - DEBUG - UI - Generated QT Engine
+2022-01-25 11:46:30,945 - DEBUG - Setting - setting setting
+2022-01-25 11:46:30,946 - DEBUG - Setting - set setting
+2022-01-25 11:46:30,947 - DEBUG - Setting - setting setting
+2022-01-25 11:46:30,951 - DEBUG - Setting - set setting
+2022-01-25 11:46:48,559 - DEBUG - UI - Generated QT Engine
+2022-01-25 11:46:48,560 - DEBUG - Setting - setting setting
+2022-01-25 11:46:48,564 - DEBUG - Setting - set setting
+2022-01-25 11:46:48,566 - DEBUG - Setting - setting setting
+2022-01-25 11:46:48,566 - DEBUG - Setting - set setting
+2022-01-25 11:47:46,217 - DEBUG - UI - Generated QT Engine
+2022-01-25 11:47:46,218 - DEBUG - Setting - setting setting
+2022-01-25 11:47:46,221 - DEBUG - Setting - set setting
+2022-01-25 11:47:46,222 - DEBUG - Setting - setting setting
+2022-01-25 11:47:46,224 - DEBUG - Setting - set setting
+2022-01-25 11:48:37,039 - DEBUG - UI - Generated QT Engine
+2022-01-25 11:48:37,040 - DEBUG - Setting - setting setting
+2022-01-25 11:48:37,041 - DEBUG - Setting - set setting
+2022-01-25 11:48:37,041 - DEBUG - Setting - setting setting
+2022-01-25 11:48:37,045 - DEBUG - Setting - set setting
+2022-01-25 11:58:41,689 - DEBUG - UI - Generated QT Engine
+2022-01-25 11:58:41,690 - DEBUG - Setting - setting setting
+2022-01-25 11:58:41,691 - DEBUG - Setting - set setting
+2022-01-25 11:58:41,691 - DEBUG - Setting - setting setting
+2022-01-25 11:58:41,696 - DEBUG - Setting - set setting
+2022-01-25 12:11:04,968 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:11:04,969 - DEBUG - Setting - setting setting
+2022-01-25 12:11:04,970 - DEBUG - Setting - set setting
+2022-01-25 12:11:04,970 - DEBUG - Setting - setting setting
+2022-01-25 12:11:04,974 - DEBUG - Setting - set setting
+2022-01-25 12:18:49,801 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:18:49,803 - DEBUG - Setting - setting setting
+2022-01-25 12:18:49,806 - DEBUG - Setting - set setting
+2022-01-25 12:18:49,806 - DEBUG - Setting - setting setting
+2022-01-25 12:18:49,811 - DEBUG - Setting - set setting
+2022-01-25 12:19:39,255 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:19:39,256 - DEBUG - Setting - setting setting
+2022-01-25 12:19:39,258 - DEBUG - Setting - set setting
+2022-01-25 12:19:39,258 - DEBUG - Setting - setting setting
+2022-01-25 12:19:39,263 - DEBUG - Setting - set setting
+2022-01-25 12:21:28,844 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:21:28,846 - DEBUG - Setting - setting setting
+2022-01-25 12:21:28,847 - DEBUG - Setting - set setting
+2022-01-25 12:21:28,847 - DEBUG - Setting - setting setting
+2022-01-25 12:21:28,851 - DEBUG - Setting - set setting
+2022-01-25 12:22:42,230 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:22:42,231 - DEBUG - Setting - setting setting
+2022-01-25 12:22:42,234 - DEBUG - Setting - set setting
+2022-01-25 12:22:42,236 - DEBUG - Setting - setting setting
+2022-01-25 12:22:42,237 - DEBUG - Setting - set setting
+2022-01-25 12:23:15,841 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:23:15,842 - DEBUG - Setting - setting setting
+2022-01-25 12:23:15,844 - DEBUG - Setting - set setting
+2022-01-25 12:23:15,844 - DEBUG - Setting - setting setting
+2022-01-25 12:23:15,847 - DEBUG - Setting - set setting
+2022-01-25 12:24:42,479 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:24:42,480 - DEBUG - Setting - setting setting
+2022-01-25 12:24:42,481 - DEBUG - Setting - set setting
+2022-01-25 12:24:42,481 - DEBUG - Setting - setting setting
+2022-01-25 12:24:42,485 - DEBUG - Setting - set setting
+2022-01-25 12:24:46,820 - INFO - Server - Get ping request
+2022-01-25 12:25:10,495 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:25:10,496 - DEBUG - Setting - setting setting
+2022-01-25 12:25:10,498 - DEBUG - Setting - set setting
+2022-01-25 12:25:10,498 - DEBUG - Setting - setting setting
+2022-01-25 12:25:10,503 - DEBUG - Setting - set setting
+2022-01-25 12:25:12,498 - INFO - Server - Get ping request
+2022-01-25 12:25:29,760 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:25:29,761 - DEBUG - Setting - setting setting
+2022-01-25 12:25:29,763 - DEBUG - Setting - set setting
+2022-01-25 12:25:29,763 - DEBUG - Setting - setting setting
+2022-01-25 12:25:29,769 - DEBUG - Setting - set setting
+2022-01-25 12:25:31,683 - INFO - Server - Get ping request
+2022-01-25 12:27:43,285 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:27:43,286 - DEBUG - Setting - setting setting
+2022-01-25 12:27:43,287 - DEBUG - Setting - set setting
+2022-01-25 12:27:43,287 - DEBUG - Setting - setting setting
+2022-01-25 12:27:43,291 - DEBUG - Setting - set setting
+2022-01-25 12:27:45,457 - INFO - Server - Get ping request
+2022-01-25 12:28:30,097 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:28:30,097 - DEBUG - Setting - setting setting
+2022-01-25 12:28:30,099 - DEBUG - Setting - set setting
+2022-01-25 12:28:30,099 - DEBUG - Setting - setting setting
+2022-01-25 12:28:30,100 - DEBUG - Setting - set setting
+2022-01-25 12:28:32,149 - INFO - Server - Get ping request
+2022-01-25 12:32:00,925 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:32:00,926 - DEBUG - Setting - setting setting
+2022-01-25 12:32:00,927 - DEBUG - Setting - set setting
+2022-01-25 12:32:00,927 - DEBUG - Setting - setting setting
+2022-01-25 12:32:00,931 - DEBUG - Setting - set setting
+2022-01-25 12:32:51,358 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:32:51,359 - DEBUG - Setting - setting setting
+2022-01-25 12:32:51,361 - DEBUG - Setting - set setting
+2022-01-25 12:32:51,361 - DEBUG - Setting - setting setting
+2022-01-25 12:32:51,362 - DEBUG - Setting - set setting
+2022-01-25 12:32:53,733 - INFO - Server - Get ping request
+2022-01-25 12:35:55,551 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:35:55,552 - DEBUG - Setting - setting setting
+2022-01-25 12:35:55,554 - DEBUG - Setting - set setting
+2022-01-25 12:35:55,554 - DEBUG - Setting - setting setting
+2022-01-25 12:35:55,558 - DEBUG - Setting - set setting
+2022-01-25 12:37:27,925 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:37:27,925 - DEBUG - Setting - setting setting
+2022-01-25 12:37:27,928 - DEBUG - Setting - set setting
+2022-01-25 12:37:27,931 - DEBUG - Setting - setting setting
+2022-01-25 12:37:27,933 - DEBUG - Setting - set setting
+2022-01-25 12:37:53,050 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:37:53,051 - DEBUG - Setting - setting setting
+2022-01-25 12:37:53,054 - DEBUG - Setting - set setting
+2022-01-25 12:37:53,054 - DEBUG - Setting - setting setting
+2022-01-25 12:37:53,056 - DEBUG - Setting - set setting
+2022-01-25 12:37:54,984 - INFO - Server - Get ping request
+2022-01-25 12:38:21,864 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:38:21,865 - DEBUG - Setting - setting setting
+2022-01-25 12:38:21,867 - DEBUG - Setting - set setting
+2022-01-25 12:38:21,868 - DEBUG - Setting - setting setting
+2022-01-25 12:38:21,872 - DEBUG - Setting - set setting
+2022-01-25 12:46:24,311 - DEBUG - UI - Generated QT Engine
+2022-01-25 12:46:24,313 - DEBUG - Setting - setting setting
+2022-01-25 12:46:24,315 - DEBUG - Setting - set setting
+2022-01-25 12:46:24,315 - DEBUG - Setting - setting setting
+2022-01-25 12:46:24,320 - DEBUG - Setting - set setting
+2022-01-25 12:46:27,131 - INFO - Server - Get ping request

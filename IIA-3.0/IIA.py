@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 ''' Parameter Settings
 ''' 
 # Connect Local Server

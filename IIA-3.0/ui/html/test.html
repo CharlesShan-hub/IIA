@@ -10,6 +10,11 @@
         <!-- App favicon -->
         <link rel="shortcut icon" href="assets/images/favicon.ico">
 
+        <link href="assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+        <link href="assets/libs/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+        <link href="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+
         <!-- Bootstrap Css -->
         <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
@@ -615,6 +620,33 @@
                                     </div>
                                     </div>
                                 </div>
+                            </div>  
+                        </div>
+                        <!-- end row -->
+                        <!-- Tag: File upload-->
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-body">
+        
+                                        <h4 class="card-title">Bootstrap FileStyle</h4>
+                                        <p class="card-title-desc">Examples of bootstrap fileStyle.</p>
+        
+                                        <form action="#">
+                                            <div class="form-group">
+                                                <label>Default file input</label>
+                                                <input type="file" class="filestyle" id="file">
+                                            </div>
+                                            <button type="button" class="btn btn-outline-success waves-effect waves-light" onclick="test_upload_file()">Submit</button>
+        
+                                            <!--<div class="form-group mb-0">
+                                                <label>File style without input</label>
+                                                <input type="file" class="filestyle" data-input="false">
+                                            </div>-->
+        
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- end row -->
@@ -798,6 +830,8 @@
         <script src="assets/libs/node-waves/waves.min.js"></script>
 
         <script src="assets/js/app.js"></script>
+
+        <script src="assets/libs/admin-resources/bootstrap-filestyle/bootstrap-filestyle.min.js"></script>
 
         <script type="text/javascript" src="../../server/setting.json"></script>
         <script type="text/javascript" src="../setting.json"></script>
