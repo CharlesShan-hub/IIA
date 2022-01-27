@@ -10,11 +10,14 @@ import base64
 
 import server.auth as auth
 import server.test as test
+import server.dashboard as dashboard
+from server.tool import *
 import storage
 
 
 SERVER_WELCOME = True
 FILE_CLIENT_DICT = {}
+Amazing_Phenomenon_Tag = 0
 
 
 class ServerProcessThread(threading.Thread):
@@ -61,42 +64,32 @@ def client_left(client, server):
     print("Connection %s interrupt" % client['id'])
 
 
+def change_unicode_to_str(message):
+    temp=''
+    for item in message.split(','):
+        temp+=(chr(eval(item)))
+    return temp
+
 # 接收客户端的信息
 def message_received(client, server, message):
-    print(message)
     # 判断消息类型(文件,命令,错误)
-    try:
+    #print(type(message))
+    if(type(message)!=str):
+        return
+    if(message[0]!='{'):
+        try:
+            message=change_unicode_to_str(message)
+        except:
+            return
+
+    try:#试试能不能找到type选项
         if("type" not in json.loads(message)):
             return # 错误格式的命令
     except:
-        key = client['address'][0]+str(client['address'][1])
-        if(key in FILE_CLIENT_DICT):
-            receive_file(message,client,server) # 文件接收
-        else:
-            server.send_message(client,'{"reply":"400"}') # 错误信息
         return
 
-    message = json.loads(message) # 命令解析
+    message = json.loads(message)
     receive_command(message,client,server)
-
-
-def receive_file(message,client,server):
-    """ 接收文件
-    """
-    key = client['address'][0]+str(client['address'][1])
-    message = message.split(',',1)[1]
-    print(type(message))
-    message = str.encode(message)
-    print(type(message))
-    message = base64.b64decode(message,altchars=None, validate=False)
-    print(type(message))
-    #message = bytes.decode(message)
-    #print(type(message))
-
-    if FILE_CLIENT_DICT[key]!=None:
-        FILE_CLIENT_DICT[key]+=message
-    else:
-        FILE_CLIENT_DICT[key]=message
 
 
 def receive_command(message,client,server):
@@ -167,57 +160,64 @@ def do_test(message,client,server):
             if(key in FILE_CLIENT_DICT):
                 server.send_message(client,reply_maker(403))
             else:
-                FILE_CLIENT_DICT[key]=None
+                file = open("./test/"+message['name'],'wb')
+                FILE_CLIENT_DICT[key]={
+                    'temp':"",
+                    'content':b"",
+                    'len':message['len'],
+                    'file':file
+                }
         elif message["state"] == "end":
             key = client['address'][0]+str(client['address'][1])
-            with open("./test/"+message['name'],'wb') as f1:
-                f1.write(FILE_CLIENT_DICT[key])
+            print("CLOSE!!!!")
+            FILE_CLIENT_DICT[key]['file'].close()
             del FILE_CLIENT_DICT[key]
+        elif message["state"] == "send":
+            key = client['address'][0]+str(client['address'][1])
+            try:
+                message["content"] = message["content"].split(',',1)[1]
+            except:
+                pass
+            if("tag" in message):# 分片不完整
+                if(message["tag"]==0): # 不是最后一片
+                    FILE_CLIENT_DICT[key]['temp']+=message["content"]
+                elif(message["tag"]==1): # 是最后一片
+                    temp=bytes.decode(str.encode(FILE_CLIENT_DICT[key]['temp']))
+                    print(temp[-50:],len(temp))
+                    try:
+                        content = base64.b64decode(str.encode(temp))
+                    except:
+                        #print(temp)
+                        #print("1Wrong!!!!!!")
+                        FILE_CLIENT_DICT[key]['file'].close()
+                        return
+                    FILE_CLIENT_DICT[key]['file'].write(content)
+            else: # 分片完整
+                temp=bytes.decode(str.encode(message["content"]))
+                #print(message["sequence"],'/',FILE_CLIENT_DICT[key]['len'],temp[-50:],len(temp))
+                try:
+                    content = base64.b64decode(str.encode(temp))
+                except:
+                    print(temp)
+                    print("2Wrong!!!!!!")
+                    FILE_CLIENT_DICT[key]['file'].close()
+                    content = base64.b64decode(str.encode(temp))
+                    return
+                FILE_CLIENT_DICT[key]['file'].write(content)
+                #FILE_CLIENT_DICT[key]['content']+=content
+
     # 发送下载文件
-    if message["operate"] == "download file":
-        pass
-
-        #server.send_message(client,reply_maker(code))
-
-
-def reply_maker(code):
-    return '{"reply":"'+str(code)+'"}'
+    #if message["operate"] == "download file":
+    #    pass
+    #server.send_message(client,reply_maker(code))
 
 
-def get_host_ip():
+def do_dashboard(message,client,server):
+    """ 进行数据展板相关操作
     """
-    get host ip
-    :return: ip
-    """
-    try:
-        s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-        s.connect(('8.8.8.8',80))
-        ip=s.getsockname()[0]
-    except:
-        ip='127.0.0.1'
-    finally:
-        s.close()
-
-    return ip
-
-def get_host_port():
-    pscmd = "netstat -ntl |grep -v Active| grep -v Proto|awk '{print $4}'|awk -F: '{print $NF}'"
-    procs = os.popen(pscmd).read()
-    procarr = procs.split("\n")
-    tt= random.randint(1024,49151)#服务端口号
-    #tt = 12345
-    if tt not in procarr:
-        return tt
-    else:
-        return get_host_port()
-
-
-def write_json(path, content, encoding='UTF-8'):
-    ''' json写入数据
-    '''
-    #logger.info("Write json - "+path)
-    with open(path, 'w', encoding='utf-8') as f:
-        f.write(json.dumps(content, indent=4, ensure_ascii=False))
+    # 获取数据展板模板
+    if message["operate"] == "init":
+        dashboard.get_layout()
 
 
 def _run():

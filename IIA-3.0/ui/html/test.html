@@ -629,20 +629,83 @@
                                 <div class="card">
                                     <div class="card-body">
         
-                                        <h4 class="card-title">Bootstrap FileStyle</h4>
-                                        <p class="card-title-desc">Examples of bootstrap fileStyle.</p>
+                                        <h4 class="card-title">Upload Small File</h4>
+                                        <p class="card-title-desc">Uploading file at once.</p>
+        
+                                        <form action="#">
+                                            <div class="form-group">
+                                                <label>Default file input</label>
+                                                <input type="file" class="filestyle" id="small_file">
+                                            </div>
+                                            <button type="button" class="btn btn-outline-success waves-effect waves-light" onclick="test_upload_small_file()">Submit</button>
+        
+                                            <!--<div class="form-group mb-0">
+                                                <label>File style without input</label>
+                                                <input type="file" class="filestyle" data-input="false">
+                                            </div>-->
+        
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-body">
+        
+                                        <h4 class="card-title">Upload Large File</h4>
+                                        <p class="card-title-desc">Split large files into multiple uploads.</p>
+        
+                                        <form action="#">
+                                            <div class="form-group">
+                                                <label>Default file input</label>
+                                                <input type="file" class="filestyle" id="large_file">
+                                            </div>
+                                            <button type="button" class="btn btn-outline-success waves-effect waves-light" onclick="test_upload_large_file()">Submit</button>
+        
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                        <!-- Tag: -->
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-body">
+        
+                                        <h4 class="card-title">Test File</h4>
+                                        <p class="card-title-desc">Detecting file fragments.</p>
         
                                         <form action="#">
                                             <div class="form-group">
                                                 <label>Default file input</label>
                                                 <input type="file" class="filestyle" id="file">
                                             </div>
-                                            <button type="button" class="btn btn-outline-success waves-effect waves-light" onclick="test_upload_file()">Submit</button>
+                                            <button type="button" class="btn btn-outline-success waves-effect waves-light" onclick="test_file()">Submit</button>
         
                                             <!--<div class="form-group mb-0">
                                                 <label>File style without input</label>
                                                 <input type="file" class="filestyle" data-input="false">
                                             </div>-->
+        
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-body">
+        
+                                        <h4 class="card-title">Test File2</h4>
+                                        <p class="card-title-desc">The file fragment is tested again.</p>
+        
+                                        <form action="#">
+                                            <div class="form-group">
+                                                <label>Default file input</label>
+                                                <input type="file" class="filestyle" id="file2">
+                                            </div>
+                                            <button type="button" class="btn btn-outline-success waves-effect waves-light" onclick="test_file2()">Submit</button>
         
                                         </form>
                                     </div>
@@ -836,6 +899,7 @@
         <script type="text/javascript" src="../../server/setting.json"></script>
         <script type="text/javascript" src="../setting.json"></script>
         <script type="text/javascript" src="assets/js/test.js"></script>
+        <script type="text/javascript" language="JavaScript" src="assets/js/test.js" charset="utf-8"></script>
 
     </body>
 </html>

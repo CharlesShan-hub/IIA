@@ -384,6 +384,7 @@ function adjust_or_save(){
 	}
 }
 
+
 var bbb;
 //var element;
 function test_alert(){
@@ -392,3 +393,31 @@ function test_alert(){
 	//var element = document.getElementById("dashboard_list").childNodes.item(index_y+1).childNodes.item(index_x+1);
 	//alert(element.offsetWidth);
 }
+
+
+window.onload = function(){
+    //alert(getQueryVariable("mail"));
+    //add_display_element(1);
+    // 建立连接
+    var wsObj = new WebSocket("ws://"+ip+":"+port);
+
+    //发送请求
+    wsObj.onopen = function(){  
+        content = '{"type":"dashboard","operate":"init","mail":"';
+        content = content+mail;
+        content = content+'"}';
+        wsObj.send(content);
+    }
+
+    // 验证是否登陆
+    wsObj.onmessage = function(evt){
+        var data = JSON.parse(evt.data);
+        
+    }
+
+}
+
+
+
+
+

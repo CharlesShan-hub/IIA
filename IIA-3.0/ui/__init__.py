@@ -124,12 +124,12 @@ def run(HTML_PATH,TEST_PATH,TEST_MODE,CON_OPEN_WIN,\
     if CON_SHARE==False:
         http_server_ip = '127.0.0.1'
     else:
-        from server import get_host_ip
+        from system.network import get_host_ip
         http_server_ip = get_host_ip()
     if CON_80_PORT:
         http_server_port=80
     else:
-        from server import get_host_port
+        from system.network import get_host_port
         http_server_port = get_host_port()
     import setting
     setting.set(['Server','ip'],http_server_ip)
