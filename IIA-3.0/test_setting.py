@@ -6,7 +6,17 @@ import setting
 #print(setting.get(['Server','port']))
 
 #print(setting.get(file="./ui/setting.json",js_read=True))
-setting.set(['default_mail'],'shanhongtian@bupt.edu.cn',file="./ui/setting.json",js_read=True)
+#setting.set(['default_mail'],'shanhongtian@bupt.edu.cn',file="./ui/setting.json",js_read=True)
+
+setting.set(['shanhongtian@bupt.edu.cn','dashboard'],{
+	'obj1':{'class':1},
+	'obj2':{'class':1},
+	'obj3':{'class':1},
+	'obj4':{'class':1},
+	'obj5':{'class':3},
+	'obj6':{'class':4},
+})
+print(setting.get(['shanhongtian@bupt.edu.cn']))
 #print(setting.get(file="./ui/setting.json",js_read=True))
 
 #setting.set(['Server','test'],'1')

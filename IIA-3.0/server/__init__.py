@@ -73,7 +73,6 @@ def change_unicode_to_str(message):
 # 接收客户端的信息
 def message_received(client, server, message):
     # 判断消息类型(文件,命令,错误)
-    #print(type(message))
     if(type(message)!=str):
         return
     if(message[0]!='{'):
@@ -95,7 +94,6 @@ def message_received(client, server, message):
 def receive_command(message,client,server):
     """ 接受命令
     """
-
     if message["type"] == "auth":
         ''' 身份验证部分
         * 登陆: 输入邮箱与密码, 判断是否对应
@@ -104,6 +102,11 @@ def receive_command(message,client,server):
         * 修改密码: 第一次输入邮箱,验证码填"request"; 第二次输入邮箱与验证码与新密码
         '''
         do_auth(message,client,server)
+
+    elif message["type"] == "dashboard":
+        '''
+        '''
+        do_dashboard(message,client,server)
 
     elif message["type"] == "mission":
         ''' 任务部分
@@ -217,7 +220,9 @@ def do_dashboard(message,client,server):
     """
     # 获取数据展板模板
     if message["operate"] == "init":
-        dashboard.get_layout()
+        server.send_message(client,str(dashboard.get_layout(message["mail"])))
+    elif message["operate"] == "set":
+        dashboard.set_layout(message["mail"],message["layout"])
 
 
 def _run():

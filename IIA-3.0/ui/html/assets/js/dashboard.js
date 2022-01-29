@@ -226,7 +226,7 @@ function add_display_element(element_type){
 			var element_width=1;
 			row_element[current][0]-=element_width;
 			// 元素信息
-			row_element[current][2].push({width:1});
+			row_element[current][2].push({width:1,type:1});
 			// 获取元素
 			element = init_display_box1();
 			// 生成元素id
@@ -240,7 +240,7 @@ function add_display_element(element_type){
 			var element_width=1;
 			row_element[current][0]-=element_width;
 			// 元素信息
-			row_element[current][2].push({width:1});
+			row_element[current][2].push({width:1,type:2});
 			// 获取元素
 			element = init_display_box2();
 			// 生成元素id
@@ -254,7 +254,7 @@ function add_display_element(element_type){
 			var element_width=2;
 			row_element[current][0]-=element_width;
 			// 元素信息
-			row_element[current][2].push({width:1});
+			row_element[current][2].push({width:1,type:3});
 			// 获取元素
 			element = add_display_video();
 			// 生成元素id
@@ -268,7 +268,7 @@ function add_display_element(element_type){
 			var element_width=2;
 			row_element[current][0]-=element_width;
 			// 元素信息
-			row_element[current][2].push({width:1});
+			row_element[current][2].push({width:1,type:4});
 			// 获取元素
 			element = add_display_card();
 			// 生成元素id
@@ -350,6 +350,7 @@ function init_element_position(row,index){
 
 //var aaa;
 //var bbb;
+var bbb;
 function to_adjust_mode(){
 	//alert(row_element.length);
 	//alert(row_element[0][2].length);
@@ -370,6 +371,34 @@ function to_save_mode(){
 			element.childNodes.item(0).style.display="none";
 		}
 	}
+
+
+	var mail = getQueryVariable("mail");
+    //add_display_element(1);
+    // 建立连接
+    var wsObj = new WebSocket("ws://"+ip+":"+port);
+
+    //发送请求
+    wsObj.onopen = function(){  
+		var count=1;
+		var is_empty = true;
+		layout = '{' 
+		for(var x=1;x<=row_element.length;x++){
+			for(var y=1;y<=row_element[x-1][2].length;y++){
+				//alert(row_element[x-1][2][y-1]["type"]);
+				is_empty = false;
+				layout+='"obj'+count.toString()+'":{"class":'+row_element[x-1][2][y-1]["type"]+'},'
+				count++;
+			}
+		}
+		if(is_empty==false){
+			layout=layout.slice(0,-1)
+		}
+
+        content = '{"type":"dashboard","operate":"set","mail":"'+mail+'","layout":'+layout+'}}'
+        wsObj.send(content);
+        wsObj.close();
+    }
 }
 
 function adjust_or_save(){
@@ -385,7 +414,6 @@ function adjust_or_save(){
 }
 
 
-var bbb;
 //var element;
 function test_alert(){
 	init_all_element_position();
@@ -395,8 +423,8 @@ function test_alert(){
 }
 
 
-window.onload = function(){
-    //alert(getQueryVariable("mail"));
+window.onload = function init(){
+    var mail = getQueryVariable("mail");
     //add_display_element(1);
     // 建立连接
     var wsObj = new WebSocket("ws://"+ip+":"+port);
@@ -409,12 +437,15 @@ window.onload = function(){
         wsObj.send(content);
     }
 
-    // 验证是否登陆
+    // 进行布局
     wsObj.onmessage = function(evt){
-        var data = JSON.parse(evt.data);
-        
+    	var data=evt.data.replace(/'/g, '"')  // 将字符串中单引号转换为双引号
+        data = JSON.parse(data);
+        for(var p in data){
+        	add_display_element(data[p].class)
+        }
+        wsObj.close();
     }
-
 }
 
 

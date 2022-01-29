@@ -1,15 +1,18 @@
 import setting
+import logger
 
 LOG_MODULE = "Server"
 
 def get_layout(mail):
 	'''
 	'''
-	
-	return 
+	logger.info("Get Layout",LOG_MODULE)
+	return setting.get([mail,'dashboard'])
 
 
 def set_layout(mail,layout):
 	'''
 	'''
+	logger.info("Set Layout",LOG_MODULE)
+	setting.set([mail,'dashboard'],layout)
 	return 

@@ -49,21 +49,29 @@ def add_user(mail,password,**kwg):
 	''' 添加成员
 	*没有写邮箱(ID)重复的情况
 	'''
+	# 验证邮箱合法性
 	global INVALID_MAIL
 	global LOG_MODULE
 	name=kwg['name']
 	if mail in INVALID_MAIL: 
 		logger.warning("Fail to add user(Auth Not Valid)",LOG_MODULE)
 		return False
+
+	# 尝试添加账户密码
 	con = '''INSERT INTO AUTH (MAIL,PASSWORD,NAME) 
 		VALUES (\'{}\',\'{}\',\'{}\')'''.format(mail, password, name)
 	try:
 		storage.operation(name='Auth',con=con)
-		logger.info("Sucessed to add user",LOG_MODULE)
-		return True
 	except:
 		logger.warning("Fail to add user",LOG_MODULE)
 		return False
+
+	# 添加用户数据面板数据
+	import setting
+	setting.set([mail,'dashboard'],{})
+
+	logger.info("Sucessed to add user",LOG_MODULE)
+	return True
 
 
 def change_info(mail,**kwg):
