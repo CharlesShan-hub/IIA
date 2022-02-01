@@ -104,7 +104,9 @@ def receive_command(message,client,server):
         do_auth(message,client,server)
 
     elif message["type"] == "dashboard":
-        '''
+        ''' 数据看板部分
+        * 获取看板布局
+        * 设置看板布局
         '''
         do_dashboard(message,client,server)
 
@@ -147,6 +149,15 @@ def do_auth(message,client,server):
     elif message["operate"] == "remember":
         auth.remember_user(message['mail'])
 
+
+def do_dashboard(message,client,server):
+    """ 进行数据展板相关操作
+    """
+    # 获取数据展板模板
+    if message["operate"] == "init":
+        server.send_message(client,str(dashboard.get_layout(message["mail"])))
+    elif message["operate"] == "set":
+        dashboard.set_layout(message["mail"],message["layout"])
 
 
 def do_test(message,client,server):
@@ -213,16 +224,6 @@ def do_test(message,client,server):
     #if message["operate"] == "download file":
     #    pass
     #server.send_message(client,reply_maker(code))
-
-
-def do_dashboard(message,client,server):
-    """ 进行数据展板相关操作
-    """
-    # 获取数据展板模板
-    if message["operate"] == "init":
-        server.send_message(client,str(dashboard.get_layout(message["mail"])))
-    elif message["operate"] == "set":
-        dashboard.set_layout(message["mail"],message["layout"])
 
 
 def _run():

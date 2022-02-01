@@ -280,6 +280,8 @@ function add_display_element(element_type){
 		default:
 			alert("Wrong Type of Element");
 	}
+
+	save_layout();
 }
 
 //var aaa;
@@ -362,17 +364,7 @@ function to_adjust_mode(){
 	}
 }
 
-function to_save_mode(){
-	//alert(row_element.length);
-	//alert(row_element[0][2].length);
-	for(var index_y=0;index_y<row_element.length;index_y++){
-		for(var index_x=0;index_x<row_element[index_y][2].length;index_x++){
-			var element = document.getElementById("dashboard_list").childNodes.item(index_y+1).childNodes.item(index_x);
-			element.childNodes.item(0).style.display="none";
-		}
-	}
-
-
+function save_layout(){
 	var mail = getQueryVariable("mail");
     //add_display_element(1);
     // 建立连接
@@ -399,6 +391,18 @@ function to_save_mode(){
         wsObj.send(content);
         wsObj.close();
     }
+}
+
+function to_save_mode(){
+	//alert(row_element.length);
+	//alert(row_element[0][2].length);
+	for(var index_y=0;index_y<row_element.length;index_y++){
+		for(var index_x=0;index_x<row_element[index_y][2].length;index_x++){
+			var element = document.getElementById("dashboard_list").childNodes.item(index_y+1).childNodes.item(index_x);
+			element.childNodes.item(0).style.display="none";
+		}
+	}
+	save_layout();
 }
 
 function adjust_or_save(){

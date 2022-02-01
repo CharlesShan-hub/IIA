@@ -2,6 +2,7 @@
 
 ''' Parameter Settings
 ''' 
+#import setting
 # Connect Local Server
 #CON_CONNECT_LOCAL = True
 CON_OPEN_WIN = True

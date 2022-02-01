@@ -7,7 +7,7 @@ def get_layout(mail):
 	'''
 	'''
 	logger.info("Get Layout",LOG_MODULE)
-	return setting.get([mail,'dashboard'])
+	return setting.get([mail,'dashboard'],default={})
 
 
 def set_layout(mail,layout):

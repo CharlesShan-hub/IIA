@@ -97,7 +97,11 @@ def get(param=[],default=None,file=ConfigFilePath,js_read=False):
 				+str(item),LOG_MODULE)
 			return default
 		else:
-			content = content[item]
+			try:
+				content = content[item]
+			except:
+				logger.warning("Fail to get setting, return default",LOG_MODULE)
+				return default
 	logger.debug("got setting",LOG_MODULE)
 	return content
 

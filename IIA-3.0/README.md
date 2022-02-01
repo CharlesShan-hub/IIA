@@ -77,21 +77,42 @@ Listening on port 3092 for clients..
 
 
 ## IIA项目架构
-* [ui - 界面模块](./ui/README.md)
-* [auth - 认证模块](./auth/README.md)
-* [setting - 设置模块](./setting/README.md)
-* [logger - 记录模块](./logger/README.md)
-* [server - 服务器模块](./server/README.md)
-* [storage - 底层仓库模块](./storage/README.md)
-* system - 系统功能模块
-* mission - 任务模块
-* reminder - 提醒事项模块
-* warehouse - 高级仓库模块
-* mapping - 导图模块
-* process - 数据处理模块
-* template - 模板模块
-* show - 展示模块
-* auxiliary - 辅助模块
+
+* 前后端主进程
+
+  * [server - 服务器模块](./server/README.md)
+  * [ui - 界面模块](./ui/README.md)
+
+* 运行功能支持
+
+  * [auth - 认证模块](./auth/README.md)
+  * [warehouse - 高级仓库模块](./warehouse/README.md)
+  * [storage - 底层仓库模块](./storage/README.md)
+
+* 辅助工具支持
+
+  * [setting - 设置模块](./setting/README.md)
+  * [system - 系统模块](./system/README.md)
+
+  * [logger - 记录模块](./logger/README.md)
+
+* 未开发模块
+
+  * system - 系统功能模块
+
+  * mission - 任务模块
+
+  * reminder - 提醒事项模块
+
+  * mapping - 导图模块
+
+  * process - 数据处理模块
+
+  * template - 模板模块
+
+  * show - 展示模块
+
+  * auxiliary - 辅助模块
 
 ## IIA系统使用说明
 
