@@ -18,13 +18,24 @@ LOG_MODULE = 'Setting'
 '''
 	Check Path and File existence
 '''
-# Repo info file
+# Folder
+if os.path.exists('./setting') == False:
+    os.makedirs('./setting')
+
+# File
 ConfigFilePath = "./setting/setting.json"
-def initialize():
-	import sys
-	logger.info("setting.json reinit",LOG_MODULE)
-	with open(ConfigFilePath, 'w', encoding='utf-8') as f:
-		content = {
+def initialize(path=ConfigFilePath,content="",js_head=""):
+	logger.info("reinit "+path,LOG_MODULE)
+	with open(path, 'w', encoding='utf-8') as f:
+		if js_head=="":
+			f.write(json.dumps(content, indent=4, ensure_ascii=False))
+		else:
+			f.write(js_head+"="+json.dumps(content, indent=4, ensure_ascii=False))
+
+
+if os.path.exists(ConfigFilePath) == False:
+	logger.warning("setting.json is missing",LOG_MODULE)
+	content = {
 			'Server':{
 				'ip':'127.0.0.1',
 				'port':80
@@ -36,11 +47,7 @@ def initialize():
 				}
 			}
 		}
-		f.write(json.dumps(content, indent=4, ensure_ascii=False))
-
-if os.path.exists(ConfigFilePath) == False:
-	logger.warning("setting.json is missing",LOG_MODULE)
-	initialize()
+	initialize(content=content)
 
 
 def load_dict(file=ConfigFilePath,js_read=False):

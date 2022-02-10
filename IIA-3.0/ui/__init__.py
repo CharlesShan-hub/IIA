@@ -1,10 +1,23 @@
 from http.server import HTTPServer, SimpleHTTPRequestHandler
+import cgi
 import threading
 import sys
 import os
 
 import setting
 import logger
+
+'''
+    Check Path and File existence
+'''
+# Folders
+if os.path.exists('./ui') == False:
+    os.makedirs('./ui')
+# Files
+if os.path.exists("./ui/setting.json") == False:
+    import setting
+    setting.initialize("./ui/setting.json",{"default_mail":""},"local_setting")
+
 
 __all__ = [
         'run',
@@ -14,6 +27,7 @@ __all__ = [
 """ Init
 """
 LOG_MODULE = "UI"
+
 
 try:
     UI_ENGINE = 'QT'
@@ -53,6 +67,29 @@ except:
         sys.exit()
 
 
+class FormDataReader():
+    def __init__(self,data):
+        temp = data.split(b'------WebKitFormBoundary')[1:-1]
+        self.file=temp[-1].split(b'\r\n')[-2]
+
+class ServerHandler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        SimpleHTTPRequestHandler.do_GET(self)
+ 
+    def do_POST(self):
+        content_length = int(self.headers.get('Content-Length'))
+        reader = FormDataReader(self.rfile.read(content_length))
+        #print(reader.file)
+        with open('./test/temp','wb') as f:
+            f.write(reader.file)
+    #    #datas = self.rfile.read(int(self.headers['content-length']))
+
+    #    #print('headers', self.headers)
+    #    #print("do post:", self.path, self.client_address, datas)
+    #    print("Do Post!!!")
+    #    SimpleHTTPRequestHandler.do_POST(self)
+
+
 class HTTPThread(threading.Thread):
     def __init__(self,ip,port,daemon=False,auto=False,CON_OPEN_WEB=False):
         self.ip=ip
@@ -65,7 +102,7 @@ class HTTPThread(threading.Thread):
             web_path = "http://"+self.ip+":"+str(self.port)
             line = "\n\n---------------------------------------\n"
             print("HTTP Server is running at:\n",web_path,line)
-            server_ = HTTPServer((self.ip, self.port), SimpleHTTPRequestHandler)
+            server_ = HTTPServer((self.ip, self.port), ServerHandler)#SimpleHTTPRequestHandler)
             self.server = server_
             if self.web:
                 import webbrowser

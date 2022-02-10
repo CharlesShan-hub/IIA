@@ -17,7 +17,8 @@ import setting
 	'obj6':{'class':4},
 })'''
 
-print(setting.get(['1742861545@qq.com'],default={}))
+#print(setting.get(['1742861545@qq.com'],default={}))
+setting.initialize("./ui/setting.json",{"default_mail":""},"local_setting")
 #print(setting.get(file="./ui/setting.json",js_read=True))
 
 #setting.set(['Server','test'],'1')

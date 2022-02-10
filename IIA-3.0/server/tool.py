@@ -40,3 +40,10 @@ def write_json(path, content, encoding='UTF-8'):
     #logger.info("Write json - "+path)
     with open(path, 'w', encoding='utf-8') as f:
         f.write(json.dumps(content, indent=4, ensure_ascii=False))
+
+
+def change_unicode_to_str(message):
+    temp=''
+    for item in message.split(','):
+        temp+=(chr(eval(item)))
+    return temp

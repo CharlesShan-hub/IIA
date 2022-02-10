@@ -1,5 +1,7 @@
 import logging
 
+LOG_PATH = "./logger/log.txt"
+
 __all__ = [
 	'debug',
 	'info',
@@ -8,9 +10,21 @@ __all__ = [
 	'critical'
 ]
 
+'''
+    Check Path and File existence
+'''
+import os
+# Folders
+if os.path.exists('./logger') == False:
+    os.makedirs('./logger')
+# Files
+if os.path.exists("./logger/log.txt") == False:
+    with open("./logger/log.txt","w") as f:
+    	f.write("")
+
+
 """ Init
 """
-LOG_PATH = "./logger/log.txt"
 
 logger = logging.getLogger(__name__)
 logger.setLevel(level = logging.DEBUG)

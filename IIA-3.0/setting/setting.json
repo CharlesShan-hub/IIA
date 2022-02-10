@@ -1,47 +1,12 @@
 {
     "Server": {
-        "ip": "192.168.1.103",
+        "ip": "192.168.110.114",
         "port": 80
     },
-    "shanhongtian@bupt.edu.cn": {
-        "dashboard": {
-            "obj1": {
-                "class": 1
-            },
-            "obj2": {
-                "class": 1
-            },
-            "obj3": {
-                "class": 1
-            },
-            "obj4": {
-                "class": 1
-            },
-            "obj5": {
-                "class": 4
-            },
-            "obj6": {
-                "class": 4
-            }
-        }
-    },
-    "1742861545@qq.com": {
-        "dashboard": {}
-    },
-    "false": {
-        "dashboard": {
-            "obj1": {
-                "class": 1
-            },
-            "obj2": {
-                "class": 1
-            },
-            "obj3": {
-                "class": 1
-            },
-            "obj4": {
-                "class": 1
-            }
+    "General": {
+        "1742861545@qq.com": {
+            "languange": "Chinese",
+            "layout": "Horizantal"
         }
     }
 }

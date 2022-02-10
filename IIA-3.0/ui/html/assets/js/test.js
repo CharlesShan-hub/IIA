@@ -114,7 +114,24 @@ function charCodeAt(str){
 //charCodeAt('𢈢');//['0xD848', '0xDE22']
 
 
+var ccc
 function test_upload_small_file(){
+    // 获取文件
+    var file = document.getElementById("small_file").files[0];
+    //ccc = file;
+
+    // 上传文件
+    var xhr = new XMLHttpRequest();
+    xhr.open('post','./assets/js/upload.php',true);
+    var form_content = new FormData();
+    form_content.append("name", file.name);
+    form_content.append("file", file);
+    console.log(form_content.get("name"));//laotie
+    console.log(form_content.get("file"));//laotie
+    xhr.send(form_content);
+
+    /*
+
     // 判断文件大小
     var MaxSize = 1024*64;
     var file    = document.getElementById("small_file").files[0];
@@ -142,9 +159,9 @@ function test_upload_small_file(){
             wsObj.close();
         }
     }
+    */
 }
 
-var ccc;
 function test_upload_large_file(){
     // 判断文件大小
     var MaxSize = 1024*32;
@@ -236,7 +253,6 @@ function test_file(){
     }
 }
 
-var ccc
 function test_file2(){
     // 判断文件大小
     var MaxSize = 1024*64;

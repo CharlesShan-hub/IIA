@@ -1,3 +1,15 @@
+'''
+    Check Path and File existence
+'''
+# Folders
+if os.path.exists('./show') == False:
+    os.makedirs('./show')
+# Files
+#if os.path.exists("./show/setting.json") == False:
+#    import setting
+#    setting.initialize("./show/setting.json",content)
+
+
 class Block():
 	def __init__(self):
 		# 展示框长度与高度

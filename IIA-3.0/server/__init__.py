@@ -18,6 +18,28 @@ import storage
 SERVER_WELCOME = True
 FILE_CLIENT_DICT = {}
 Amazing_Phenomenon_Tag = 0
+ConfigFilePath="./server/setting.json"
+
+
+'''
+    Check Path and File existence
+'''
+__all__ = [
+    'ServerThread'  #服务器进程
+    ]
+
+# Folders
+if os.path.exists('./server') == False:
+    os.makedirs('./server')
+
+# Files
+if os.path.exists(ConfigFilePath) == False:
+    import setting
+    content={
+        "ip": "127.0.0.1",
+        "port": 8080
+    }
+    setting.initialize("./server/setting.json",content,"setting")
 
 
 class ServerProcessThread(threading.Thread):
@@ -50,7 +72,7 @@ class ServerThread(threading.Thread):
     def __init__(self,daemon=False):
         threading.Thread.__init__(self,daemon=daemon)
     def run(self):
-        _run()
+        start()
 
 
 # 当新的客户端连接时会提示
@@ -69,6 +91,7 @@ def change_unicode_to_str(message):
     for item in message.split(','):
         temp+=(chr(eval(item)))
     return temp
+
 
 # 接收客户端的信息
 def message_received(client, server, message):
@@ -226,7 +249,7 @@ def do_test(message,client,server):
     #server.send_message(client,reply_maker(code))
 
 
-def _run():
+def start():
     # Server welcome info
     if SERVER_WELCOME == True:
         print(" ---------------------------------------\n")
@@ -252,13 +275,14 @@ def _run():
     port = get_host_port()
     
     # 将ip与port写入文件(ui模块需要)
-    write_json('./server/setting.json',
+    #import setting
+    write_json(ConfigFilePath,
         {'ip': IP,
         'port': port})
-    f = open("./server/setting.json","r")
+    f = open(ConfigFilePath,"r")
     setting = f.read()
     f.close()
-    f = open("./server/setting.json","w")
+    f = open(ConfigFilePath,"w")
     f.write("setting="+setting)
     f.close()
 

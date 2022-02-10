@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<input type="file" name="" ></input>
+	<button onclick="trans_file()">上传</button>
+</body>
+
+<script type="text/javascript">
+	function trans_file(){
+		var reader = new FileReader();
+		var AllowImgFileSize = 2100000; //上传图片最大值(单位字节)（ 2 M = 2097152 B ）超过2M上传失败
+		var file = $("#fujian")[0].files[0];
+		var imgUrlBase64;
+		if (file) {
+		//将文件以Data URL形式读入页面  
+			imgUrlBase64 = reader.readAsDataURL(file);
+			console.log(imgUrlBase64);
+
+			reader.onload = function (e) {
+			//var ImgFileSize = reader.result.substring(reader.result.indexOf(",") + 1).length;//截取base64码部分（可选可不选，需要与后台沟通）
+			if (AllowImgFileSize != 0 && AllowImgFileSize < reader.result.length) {
+				alert( '上传失败，请上传不大于2M的图片！');
+				return;
+				}else{
+				//执行上传操作
+					console.log(reader.result);
+					ip="192.168.1.108";
+					port="8080";
+					var ws = new WebSocket("ws://"+ip+":"+port);
+					ws.onopen = function(evt) { 
+					alert(11);
+					var img = canvas_context.getImageData(0, 0, 400, 320);
+					var binary = new Uint8Array(img.data.length);
+					for (var i = 0; i < img.data.length; i++) {
+						binary[i] = img.data[i];
+					}
+					ws.send(binary.buffer);
+					};
+
+					ws.onmessage = function(evt) {
+					  console.log( "Received Message: " + evt.data);
+					  ws.close();
+					};
+
+					ws.onclose = function(evt) {
+					  console.log("Connection closed.");
+					}; 
+				}
+			}
+		} 
+	}
+	     
+</script>
+</html>
