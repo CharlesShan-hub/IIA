@@ -1,6 +1,85 @@
 from storage.implement import *
 
 ###########################################################
+''' Auxiliary Region 目前仅进行功能实现 2023.2.10
+	
+	_get_id_by_mail(): 根据邮箱获取用户id
+
+'''
+def _get_id_by_mail(mail):
+	''' 根据邮箱获取用户id
+	'''
+	if mail=="System":
+		return mail
+	else:
+		import setting
+		return str(setting.get(["General",mail,"id"]))
+
+
+###########################################################
+''' Core Region 目前仅进行功能实现 2023.2.10
+	These functions are called by functions in __init__.py
+	
+	exist_repo():      查看仓库是否存在
+	creat_repo():      创建新仓库
+	configure_repo():  保存仓库配置
+	do_operation():    操作制定数据库
+'''
+
+
+def exist_repo(name,mail):
+	''' 检查仓库是否存在
+	'''
+	logger.info("Start check repo exist - "+mail+" - "+name,LOG_MODULE)
+	return os.path.exists("./storage/resources/"+\
+		_get_id_by_mail(mail)+"/"+name+".db")
+
+
+def creat_repo(name,mail,**kwg):
+	''' 创建新仓库
+	'''
+	logger.info("Start creat new repo - "+name,LOG_MODULE)
+	# 新建数据库文件
+	path = "./storage/resources/"+_get_id_by_mail(mail)+"/"+name+".db"
+	creat_database(path)
+	# 保存仓库配置
+	return configure_repo(name,mail,**kwg)
+
+
+def configure_repo(name,mail,**kwg):
+	# 保存仓库配置
+	logger.info("Start configure repo - "+name,LOG_MODULE)
+	import setting
+	setting.add(["General",mail,"repository","base"],{name:{"visit_list":[mail]}})
+	for item in kwg:
+		setting.set(["General",mail,"repository","base",name,item],kwg[item])
+	logger.info("Succeeded - "+name,LOG_MODULE)
+	return True
+
+
+def do_operation(name,mail,con):
+	# 进行操作
+	path = "./storage/resources/"+_get_id_by_mail(mail)+'/'+name+".db"
+	conn = sqlite3.connect(path)
+	c = conn.cursor()
+	logger.info("Opened database successfully",LOG_MODULE)
+	cursor=c.execute(con)
+	logger.info("Do operation",LOG_MODULE)
+	if(con.split(" ")[0]=='SELECT'):
+		temp = []
+		logger.info("Do select",LOG_MODULE)
+		for row in cursor:
+			temp.append(row)
+		return temp# 这里应该有bug，但不知道怎么改
+
+	conn.commit()
+	conn.close()
+	logger.info("Database closed",LOG_MODULE)
+	return None
+
+
+"""
+###########################################################
 ''' Core Region 
 	These functions are called by functions in __init__.py
 	
@@ -71,12 +150,14 @@ def _clean_repo_info(repo_id=None):
 	return True
 
 
-def exist_repo(name,**kwg):
+def exist_repo(name,mail):
 	''' 检查仓库是否存在
 	仅功能实现;
 	仅检查名称;
 	'''
-	return os.path.exists("./storage/resources/"+name+".db")
+	import setting
+	user_id = setting.get(["General",mail,"id"])
+	return os.path.exists("./storage/resources/"+str(user_id)+name+".db")
 
 
 def creat_repo(name,**kwg):
@@ -315,7 +396,7 @@ def operation_(repo_id=[],name="",mail="",con=[]):
 	logger.info("Database closed",LOG_MODULE)
 	return None
 
-
+"""
 ###########################################################
 ''' Design Region 
 	You can write your own functions in this place. Change

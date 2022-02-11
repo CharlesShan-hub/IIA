@@ -6,43 +6,52 @@ from storage.custom import *
 __all__ = [
 		'exist_repository',
 		'creat_repository',
-		'copy_repository',
-		'delete_repository',
 		'configure_repository',
-		'cover_repository',
-		'operation',
-		'operations'
+		'operation'
 		]
 
 # Folders
-if os.path.exists('./storage/resources') == False:
-	os.makedirs('./storage/resources')
+if os.path.exists('./storage/resources/System') == False:
+	os.makedirs('./storage/resources/System')
 
 # Repo info file
+"""
 if os.path.exists(ConfigFilePath) == False:
 	with open(ConfigFilePath, 'w', encoding='utf-8') as f:
 		content = {
 			'repo_id': []
 		}
 		f.write(json.dumps(content, indent=4, ensure_ascii=False))
+"""
 
 
 '''
 	API
 '''
 
-def exist_repository(name,**kwg):
+def exist_repository(name,mail):
 	''' 检查某数据仓库是否存在
 	'''
-	return exist_repo(name,**kwg)
+	return exist_repo(name,mail)
 
 
-def creat_repository(name,**kwg):
+def creat_repository(name,mail,**kwg):
 	''' 创建新数据仓库
 	'''
-	return creat_repo(name,**kwg)
+	return creat_repo(name,mail,**kwg)
 
 
+def configure_repository(name,mail,**kwg):
+	''' 配置数据库(比如改名, 与自定义标签添加与内容修改与获取)
+	'''
+	return configure_repo(name,mail,**kwg)
+
+
+def operation(name,mail,con):
+	return do_operation(name,mail,con)
+
+
+"""
 def copy_repository(
 	name=None,old_name='',old_repo_id=[]):
 	''' 创建数据库备份
@@ -97,4 +106,4 @@ def add_info(repo_id=[],name='',con=""):
 
 def test_add_info(repo_id=[],name='',con=""):
 	return t_add_info(repo_id=repo_id,name=name,con=con)
-
+"""

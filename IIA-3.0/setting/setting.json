@@ -1,12 +1,58 @@
 {
     "Server": {
         "ip": "192.168.110.114",
-        "port": 80
+        "port": 42556,
+        "user_id": [
+            13670
+        ]
     },
     "General": {
+        "System": {
+            "repository": {
+                "base": {
+                    "Auth": {
+                        "visit_list": [
+                            "System"
+                        ]
+                    }
+                }
+            }
+        },
         "1742861545@qq.com": {
-            "languange": "Chinese",
-            "layout": "Horizantal"
+            "dashboard": {
+                "obj1": {
+                    "class": 1
+                },
+                "obj2": {
+                    "class": 1
+                }
+            },
+            "id": 13670,
+            "repository": {
+                "base": {
+                    "TestRepo1": {
+                        "visit_list": [
+                            "1742861545@qq.com"
+                        ]
+                    },
+                    "TestRepo2": {
+                        "visit_list": [
+                            "1742861545@qq.com"
+                        ]
+                    }
+                },
+                "high": {
+                    "my_high_repo": {
+                        "visit_list": [
+                            "1742861545@qq.com"
+                        ],
+                        "base": [
+                            "TestRepo1"
+                        ]
+                    }
+                }
+            },
+            "app": {}
         }
     }
 }

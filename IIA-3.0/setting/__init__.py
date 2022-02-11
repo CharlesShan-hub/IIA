@@ -38,13 +38,10 @@ if os.path.exists(ConfigFilePath) == False:
 	content = {
 			'Server':{
 				'ip':'127.0.0.1',
-				'port':80
+				'port':80,
+				'user_id':[]
 			},
 			'General':{
-				'1742861545@qq.com':{
-					'languange':'Chinese',#English
-					'layout':'Horizantal'
-				}
 			}
 		}
 	initialize(content=content)
@@ -145,6 +142,25 @@ def set(path,con=None,file=ConfigFilePath,js_read=False):
 	last[last_id]=con
 	write_dict(content,file,js_read)
 	logger.debug("set setting",LOG_MODULE)
+	return True
+
+def add(path=[],con=None,file=ConfigFilePath,js_read=False):
+	''' 添加设置
+	path: `list`, 设置内容在setting.json的包含关系
+	con: (optional), 设置成的内容
+	file: (optional), `str`, 设置文件的路径
+	js_read: (optional), `bool`, 是否会有js文件直接引用设置
+
+	return: 设置成功(True)或失败(False)
+	'''
+	logger.debug("adding setting",LOG_MODULE)
+	temp = get(param=path,file=file,js_read=js_read)
+	if type(temp)==list:
+		temp.append(con)
+	elif type(temp)==dict:
+		temp.update(con)
+	set(path=path,con=temp,file=file,js_read=js_read)
+	logger.debug("added setting",LOG_MODULE)
 	return True
 
 def del_s(path,file=ConfigFilePath,js_read=False):

@@ -1,5 +1,9 @@
 # -*- coding: UTF-8 -*-
-
+''' 打包方法
+1. python3_8 -m PyInstaller --windowed --onefile --clean --noconfirm IIA.py
+2. python3_8 -m PyInstaller -F -i favicon.ico IIA.py
+3. 把temp文件夹的东西放到IIA可执行文件同级目录
+'''
 ''' Parameter Settings
 ''' 
 #import setting
@@ -10,7 +14,7 @@ CON_OPEN_WIN = True
 CON_OPEN_WEB = False # open IIA in web browser
 CON_SHARE = True # other computer can log in by LAN
 CON_TEST_MODE = False # Run in test mode
-CON_80_PORT = True # Default run on 80 port
+CON_80_PORT = False # Default run on 80 port
 # Related HTML file entry path
 HTML_PATH = "/ui/html/login.html"
 TEST_PATH = "/ui/html/test.html"
@@ -26,8 +30,10 @@ if __name__ == "__main__":
     import os
     # Clear Cache Option
     path_cd = os.path.split(sys.argv[0])[0]
+    print(path_cd)
     if path_cd != "":
         os.chdir(os.path.split(sys.argv[0])[0])
+    print(os.getcwd())
     if(len(sys.argv)>1 and sys.argv[1]=='clear'):
         from logger import LOG_PATH
         with open(LOG_PATH,'w'):

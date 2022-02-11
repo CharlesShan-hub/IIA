@@ -6,33 +6,75 @@ import storage
 
 LOG_MODULE = 'Warehouse'
 
-if storage.exist_repository("Warehouse")==False:
-    storage.creat_repository(name='Warehouse',user_id='System')
-    # 高结构数据仓库存储信息表：数据仓库名称(数据仓库名称与仓库名称相同)-用户
-    con_table = '''
-        CREATE TABLE SheetWarehouse 
-        (
-            NAME TEXT PRIMARY KEY NOT NULL, 
-            MAIL TEXT
-        )'''
-    storage.add_info(name='Warehouse',con=con_table)
-
 
 """ Class
 """
 
-class Warehouse(object):
-    """面向具体功能的存储模块
+class Warehouse():
+    """高级仓库
+    exist_warehouse:     高级仓库是否被创建
+    creat_warehouse:     创建高级仓库
+    creat_base_repo:     创建子低级仓库
+    exist_base_repo:     是否拥有(可访问)子低级仓库
+    add_base_repo:       添加子低级仓库(允许访问已经有的某低级仓库)
+    operation_base_repo: 对某子低级仓库进行操作
     """
-    def __init__(self, *arg):
-        super(Warehouse, self).__init__()
-        self.arg = arg
-        # 检查仓库信息
-        #...
-        self.init_info_repo()
+    def __init__(self, **kwg):
+        # 保存初始化变量 # 需要有 name,mail
+        self.kwg = kwg
+        # 状态变量
+        self.real=self.exist_warehouse()
+        # 高级仓库的低级仓库包含表
+        self.base_list=[]
+        # 高级仓库的附加函数包含表
+        self.addition_function={}
 
-    def init_info_repo(self):
-        pass
+    def exist_warehouse(self):
+        import setting
+        return self.kwg['name'] in setting.get(["General",self.kwg['mail'],"repository","high"])
+
+    def creat_warehouse(self):
+        if self.real==True:
+            return False
+        import setting
+        setting.add(["General",self.kwg['mail'],"repository","high"],\
+            {self.kwg['name']:{
+                "visit_list":[self.kwg['mail']],
+                "base":[]
+            }})
+        self.real=True
+
+    def exist_base_repo(self,name):
+        if self.real==False: return False
+        import setting
+        return name in setting.get(["General",self.kwg['mail'],"repository","high",self.kwg['name'],"base"])
+
+    def creat_base_repo(self,name):
+        if self.real==False: return False
+        storage.creat_repository(name=name,mail=self.kwg['mail'])
+        import setting
+        setting.add(["General",self.kwg['mail'],"repository","high",self.kwg['name'],"base"],name)
+        return True
+
+    def add_base_repo(self,name):
+        if self.real==False: return False
+        if storage.exist_repository(name=name,mail=self.kwg['mail'])==False:
+            return False
+        import setting
+        setting.add(["General",self.kwg['mail'],"repository","high",self.kwg['name'],"base"],name)
+        return True
+
+    def operation_base_repo(self,name,con):
+        if self.real==False: return False
+        if storage.exist_repository(name=name,mail=self.kwg['mail'])==False:
+            return False
+        return storage.operation(name=name,mail=self.kwg['mail'],con=con)
+
+    def set_fun(self,fun):
+        self.addition_function[fun.__name__]=fun
+
+    def run_fun(self,fun_name,**kwg):
+        self.addition_function[fun_name](self,**kwg)
 
 class SheetWarehouse(Warehouse):
     """ 表格仓库
@@ -93,6 +135,7 @@ class PictureWareHouse(Warehouse):
         super(PictureWareHouse, self).__init__()
         #self.arg = arg
 
+
 class TimeWarehouse(Warehouse):
     """ 时间数据仓库
     用于与时间相关的数据表
@@ -101,6 +144,7 @@ class TimeWarehouse(Warehouse):
     def __init__(self, *arg):
         super(TimeWarehouse, self).__init__()
         #self.arg = arg
+
 
 def _test_show_info(name,con):
     ''' 查改成员信息

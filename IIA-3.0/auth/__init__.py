@@ -2,6 +2,7 @@ import storage
 import logger
 
 import random
+import os
 
 __all__ = [
 	# 构建表
@@ -29,17 +30,21 @@ AUTH_MAIL_PATH = "./auth/resources/mail.html"
 CODE = [] #验证码
 INVALID_MAIL = ['System'] #邮箱保留字
 
+# Folders
+if os.path.exists('./auth/resources') == False:
+	os.makedirs('./auth/resources')
+
 
 # 构建用户信息仓库
-if storage.exist_repository("Auth")==False:
-	storage.creat_repository(name='Auth',user_id='System')
+if storage.exist_repository("Auth","System")==False:
+	storage.creat_repository(name='Auth',mail='System')
 	con_table = '''
 		CREATE TABLE AUTH (
 			MAIL     TEXT PRIMARY KEY NOT NULL, 
 			PASSWORD TEXT, 
 			NAME     TEXT
 		)'''
-	storage.add_info(name='Auth',con=con_table)
+	storage.operation(name='Auth',mail='System',con=con_table)
 
 
 """ API
@@ -61,14 +66,33 @@ def add_user(mail,password,**kwg):
 	con = '''INSERT INTO AUTH (MAIL,PASSWORD,NAME) 
 		VALUES (\'{}\',\'{}\',\'{}\')'''.format(mail, password, name)
 	try:
-		storage.operation(name='Auth',con=con)
+		storage.operation(name='Auth',mail='System',con=con)
 	except:
 		logger.warning("Fail to add user",LOG_MODULE)
 		return False
 
-	# 添加用户数据面板数据
+	# 添加用户数据数据
 	import setting
-	setting.set([mail,'dashboard'],{})
+	setting.set(["General",mail,'dashboard'],{}) # 数据看板
+
+	# 添加用户ID
+	def _get_id(_id):
+		if _id not in setting.get(["Server","user_id"]):
+			return _id
+		else:
+			return _get_id(_id+1)
+	user_id = _get_id(hash(mail)%100000)
+	setting.set(["General",mail,'id'],user_id) # 用户ID
+	setting.add(["Server",'user_id'],user_id) # 用户ID
+
+	# 生成用户存储区
+	os.makedirs('./storage/resources/'+str(user_id))
+
+	# 用户拥有仓库记录区
+	setting.set(["General",mail,'repository'],{'base':{},'high':{}})
+
+	# 用户添加的app
+	setting.set(["General",mail,'app'],{})
 
 	logger.info("Sucessed to add user",LOG_MODULE)
 	return True
@@ -83,7 +107,7 @@ def change_info(mail,**kwg):
 			logger.error("Wrong tag to change user info",LOG_MODULE)
 			return False
 		con = """UPDATE AUTH SET {} = {}""".format(item,kwg[item])
-		storage.operation(name='Auth',con=con)
+		storage.operation(name='Auth',mail='System',con=con)
 	return True
 
 
@@ -93,7 +117,7 @@ def config_user():
 	'''
 	logger.critical("Getting all user info!",LOG_MODULE)
 	con = '''SELECT mail,password,name from AUTH'''
-	info=storage.operation(name='Auth',con=con)
+	info=storage.operation(name='Auth',mail='System',con=con)
 	return info
 
 
@@ -102,7 +126,7 @@ def check_password(mail,password):
 	'''
 	logger.info("Start check mail ~ password",LOG_MODULE)
 	con = "SELECT mail,password from AUTH where mail=\'"+mail+"\'"
-	info=storage.operation(name='Auth',con=con)
+	info=storage.operation(name='Auth',mail='System',con=con)
 	if info==[]:return False
 	return info[0][1]==password
 

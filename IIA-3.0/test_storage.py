@@ -7,6 +7,9 @@ import logger
 LOG_MODULE = 'Test Storage'
 
 
+storage.creat_repository(name='RepoTest',mail='1742861545@qq.com')
+
+
 def test_add_info():
 	''' Add info 
 	'''
@@ -18,7 +21,7 @@ def test_add_info():
 	#storage.creat_repository(name='RepoTest',user_id='charles.shht@gmail.com')
 	storage.test_add_info(name='RepoTest',con=[con_select1])
 
-test_add_info()
+#test_add_info()
 
 def test_add_user():
 	''' Add New User(Account)

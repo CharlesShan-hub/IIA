@@ -292,7 +292,8 @@ def start():
 
     # 启动连接服务器 - WebsocketServer
     #print(type(port),type(IP))
-    server = WebsocketServer(port, IP)
+    #server = WebsocketServer(IP, port) # python3.8
+    server = WebsocketServer(port,IP) # python3.7
     server.set_fn_new_client(new_client)
     server.set_fn_client_left(client_left)
     server.set_fn_message_received(message_received)

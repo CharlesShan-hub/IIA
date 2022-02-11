@@ -1,0 +1,564 @@
+2022-02-11 10:57:54,003 - INFO - Auth - Constructing mail
+2022-02-11 10:57:54,004 - INFO - Auth - Generate validation code
+2022-02-11 10:57:54,005 - INFO - System - Start sending mail
+2022-02-11 10:57:55,386 - INFO - System - Failed to send mail
+2022-02-11 10:58:46,588 - INFO - Auth - Check validation code
+2022-02-11 10:58:46,588 - INFO - Storage - Opened database successfully
+2022-02-11 10:58:46,589 - INFO - Storage - Do operation
+2022-02-11 10:58:46,591 - INFO - Storage - Database closed
+2022-02-11 10:58:46,591 - DEBUG - Setting - setting setting
+2022-02-11 10:58:46,591 - DEBUG - Setting - set setting
+2022-02-11 10:58:46,592 - DEBUG - Setting - getting setting
+2022-02-11 10:58:46,592 - DEBUG - Setting - got setting
+2022-02-11 10:58:46,592 - DEBUG - Setting - getting setting
+2022-02-11 10:58:46,592 - DEBUG - Setting - got setting
+2022-02-11 10:58:46,592 - DEBUG - Setting - setting setting
+2022-02-11 10:58:46,593 - DEBUG - Setting - set setting
+2022-02-11 10:58:46,593 - DEBUG - Setting - setting setting
+2022-02-11 10:58:46,594 - DEBUG - Setting - set setting
+2022-02-11 10:58:46,594 - DEBUG - Setting - setting setting
+2022-02-11 10:58:46,594 - DEBUG - Setting - set setting
+2022-02-11 10:58:46,594 - DEBUG - Setting - setting setting
+2022-02-11 10:58:46,595 - DEBUG - Setting - set setting
+2022-02-11 10:58:46,595 - INFO - Auth - Sucessed to add user
+2022-02-11 10:58:46,813 - INFO - Server - Get Layout
+2022-02-11 10:58:46,813 - DEBUG - Setting - getting setting
+2022-02-11 10:58:46,814 - DEBUG - Setting - got setting
+2022-02-11 10:58:49,021 - INFO - Server - Set Layout
+2022-02-11 10:58:49,022 - DEBUG - Setting - setting setting
+2022-02-11 10:58:49,022 - DEBUG - Setting - set setting
+2022-02-11 10:58:49,786 - INFO - Server - Set Layout
+2022-02-11 10:58:49,786 - DEBUG - Setting - setting setting
+2022-02-11 10:58:49,787 - DEBUG - Setting - set setting
+2022-02-11 10:59:33,462 - INFO - Storage - Start creat new repo - RepoTest
+2022-02-11 10:59:33,463 - DEBUG - Setting - getting setting
+2022-02-11 10:59:33,463 - DEBUG - Setting - got setting
+2022-02-11 10:59:52,465 - INFO - Storage - Start creat new repo - RepoTest
+2022-02-11 10:59:52,466 - DEBUG - Setting - getting setting
+2022-02-11 10:59:52,466 - DEBUG - Setting - got setting
+2022-02-11 11:01:22,464 - INFO - Storage - Start creat new repo - RepoTest
+2022-02-11 11:01:22,465 - DEBUG - Setting - getting setting
+2022-02-11 11:01:22,465 - DEBUG - Setting - got setting
+2022-02-11 11:04:56,741 - INFO - Storage - Start check repo exist - System - Auth
+2022-02-11 11:04:56,742 - INFO - Storage - Start creat new repo - Auth
+2022-02-11 11:04:56,742 - INFO - Storage - Start configure repo - Auth
+2022-02-11 11:04:56,742 - WARNING - Setting - setting.json is missing
+2022-02-11 11:04:56,743 - INFO - Setting - reinit ./setting/setting.json
+2022-02-11 11:04:56,743 - DEBUG - Setting - setting setting
+2022-02-11 11:04:56,744 - DEBUG - Setting - set setting
+2022-02-11 11:04:56,744 - INFO - Storage - Succeeded - Auth
+2022-02-11 11:04:56,744 - INFO - Storage - Opened database successfully
+2022-02-11 11:04:56,746 - INFO - Storage - Do operation
+2022-02-11 11:04:56,746 - INFO - Storage - Database closed
+2022-02-11 11:04:56,881 - DEBUG - UI - Generated QT Engine
+2022-02-11 11:04:56,912 - DEBUG - Setting - setting setting
+2022-02-11 11:04:56,912 - DEBUG - Setting - set setting
+2022-02-11 11:04:56,913 - DEBUG - Setting - setting setting
+2022-02-11 11:04:56,913 - DEBUG - Setting - set setting
+2022-02-11 11:05:02,809 - INFO - Auth - Constructing mail
+2022-02-11 11:05:02,809 - INFO - Auth - Generate validation code
+2022-02-11 11:05:02,810 - INFO - System - Start sending mail
+2022-02-11 11:05:04,594 - INFO - System - Failed to send mail
+2022-02-11 11:05:15,229 - INFO - Auth - Check validation code
+2022-02-11 11:05:15,230 - INFO - Storage - Opened database successfully
+2022-02-11 11:05:15,231 - INFO - Storage - Do operation
+2022-02-11 11:05:15,232 - INFO - Storage - Database closed
+2022-02-11 11:05:15,233 - DEBUG - Setting - setting setting
+2022-02-11 11:05:15,233 - DEBUG - Setting - set setting
+2022-02-11 11:05:15,233 - DEBUG - Setting - getting setting
+2022-02-11 11:05:15,233 - DEBUG - Setting - got setting
+2022-02-11 11:05:15,233 - DEBUG - Setting - getting setting
+2022-02-11 11:05:15,233 - DEBUG - Setting - got setting
+2022-02-11 11:05:15,233 - DEBUG - Setting - setting setting
+2022-02-11 11:05:15,234 - DEBUG - Setting - set setting
+2022-02-11 11:05:15,234 - DEBUG - Setting - setting setting
+2022-02-11 11:05:15,235 - DEBUG - Setting - set setting
+2022-02-11 11:05:15,235 - DEBUG - Setting - setting setting
+2022-02-11 11:05:15,236 - DEBUG - Setting - set setting
+2022-02-11 11:05:15,236 - DEBUG - Setting - setting setting
+2022-02-11 11:05:15,238 - DEBUG - Setting - set setting
+2022-02-11 11:05:15,238 - INFO - Auth - Sucessed to add user
+2022-02-11 11:05:15,481 - INFO - Server - Get Layout
+2022-02-11 11:05:15,481 - DEBUG - Setting - getting setting
+2022-02-11 11:05:15,482 - DEBUG - Setting - got setting
+2022-02-11 11:05:21,596 - INFO - Server - Set Layout
+2022-02-11 11:05:21,596 - DEBUG - Setting - setting setting
+2022-02-11 11:05:21,597 - DEBUG - Setting - set setting
+2022-02-11 11:05:22,745 - INFO - Server - Set Layout
+2022-02-11 11:05:22,746 - DEBUG - Setting - setting setting
+2022-02-11 11:05:22,746 - DEBUG - Setting - set setting
+2022-02-11 11:05:52,299 - INFO - Storage - Start creat new repo - RepoTest
+2022-02-11 11:05:52,299 - DEBUG - Setting - getting setting
+2022-02-11 11:05:52,299 - DEBUG - Setting - got setting
+2022-02-11 11:10:00,660 - INFO - Storage - Start creat new repo - RepoTest
+2022-02-11 11:10:00,660 - DEBUG - Setting - getting setting
+2022-02-11 11:10:00,660 - DEBUG - Setting - got setting
+2022-02-11 11:10:00,661 - INFO - Storage - Start configure repo - RepoTest
+2022-02-11 11:10:00,661 - DEBUG - Setting - setting setting
+2022-02-11 11:10:00,662 - DEBUG - Setting - set setting
+2022-02-11 11:10:00,662 - INFO - Storage - Succeeded - RepoTest
+2022-02-11 11:30:23,635 - INFO - Storage - Start creat new repo - TestRepo2
+2022-02-11 11:30:23,636 - DEBUG - Setting - getting setting
+2022-02-11 11:30:23,636 - DEBUG - Setting - got setting
+2022-02-11 11:30:23,636 - INFO - Storage - Start configure repo - TestRepo2
+2022-02-11 11:30:23,636 - DEBUG - Setting - setting setting
+2022-02-11 11:30:23,637 - DEBUG - Setting - set setting
+2022-02-11 11:30:23,637 - INFO - Storage - Succeeded - TestRepo2
+2022-02-11 11:42:25,172 - INFO - Storage - Start creat new repo - TestRepo1
+2022-02-11 11:42:25,174 - DEBUG - Setting - getting setting
+2022-02-11 11:42:25,174 - DEBUG - Setting - got setting
+2022-02-11 11:42:33,743 - INFO - Storage - Start creat new repo - TestRepo1
+2022-02-11 11:42:33,743 - DEBUG - Setting - getting setting
+2022-02-11 11:42:33,743 - DEBUG - Setting - got setting
+2022-02-11 11:42:33,744 - INFO - Storage - Start configure repo - TestRepo1
+2022-02-11 11:42:33,744 - DEBUG - Setting - adding setting
+2022-02-11 11:45:02,820 - INFO - Storage - Start creat new repo - TestRepo1
+2022-02-11 11:45:02,824 - DEBUG - Setting - getting setting
+2022-02-11 11:45:02,824 - DEBUG - Setting - got setting
+2022-02-11 11:45:02,825 - INFO - Storage - Start configure repo - TestRepo1
+2022-02-11 11:45:02,825 - DEBUG - Setting - adding setting
+2022-02-11 11:45:02,825 - DEBUG - Setting - getting setting
+2022-02-11 11:45:02,825 - DEBUG - Setting - got setting
+2022-02-11 11:45:02,825 - DEBUG - Setting - setting setting
+2022-02-11 11:45:02,825 - DEBUG - Setting - set setting
+2022-02-11 11:45:02,825 - DEBUG - Setting - added setting
+2022-02-11 11:45:02,825 - INFO - Storage - Succeeded - TestRepo1
+2022-02-11 11:45:02,825 - INFO - Storage - Start creat new repo - TestRepo2
+2022-02-11 11:45:02,825 - DEBUG - Setting - getting setting
+2022-02-11 11:45:02,826 - DEBUG - Setting - got setting
+2022-02-11 11:45:02,826 - INFO - Storage - Start configure repo - TestRepo2
+2022-02-11 11:45:02,826 - DEBUG - Setting - adding setting
+2022-02-11 11:45:02,826 - DEBUG - Setting - getting setting
+2022-02-11 11:45:02,826 - DEBUG - Setting - got setting
+2022-02-11 11:45:02,826 - DEBUG - Setting - setting setting
+2022-02-11 11:45:02,827 - DEBUG - Setting - set setting
+2022-02-11 11:45:02,827 - DEBUG - Setting - added setting
+2022-02-11 11:45:02,827 - INFO - Storage - Succeeded - TestRepo2
+2022-02-11 12:07:28,388 - DEBUG - Setting - getting setting
+2022-02-11 12:07:28,388 - DEBUG - Setting - got setting
+2022-02-11 12:08:35,197 - DEBUG - Setting - getting setting
+2022-02-11 12:08:35,198 - DEBUG - Setting - got setting
+2022-02-11 12:08:35,199 - DEBUG - Setting - adding setting
+2022-02-11 12:08:35,199 - DEBUG - Setting - getting setting
+2022-02-11 12:08:35,200 - DEBUG - Setting - got setting
+2022-02-11 12:08:35,200 - DEBUG - Setting - setting setting
+2022-02-11 12:08:41,681 - DEBUG - Setting - getting setting
+2022-02-11 12:08:41,682 - DEBUG - Setting - got setting
+2022-02-11 12:08:41,682 - DEBUG - Setting - adding setting
+2022-02-11 12:08:41,682 - DEBUG - Setting - getting setting
+2022-02-11 12:08:41,682 - DEBUG - Setting - got setting
+2022-02-11 12:08:41,682 - DEBUG - Setting - setting setting
+2022-02-11 12:08:41,682 - DEBUG - Setting - set setting
+2022-02-11 12:08:41,683 - DEBUG - Setting - added setting
+2022-02-11 12:10:44,584 - DEBUG - Setting - getting setting
+2022-02-11 12:10:44,584 - DEBUG - Setting - got setting
+2022-02-11 12:12:22,837 - DEBUG - Setting - getting setting
+2022-02-11 12:12:22,838 - DEBUG - Setting - got setting
+2022-02-11 12:12:22,838 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:12:22,838 - DEBUG - Setting - getting setting
+2022-02-11 12:12:22,838 - DEBUG - Setting - got setting
+2022-02-11 12:13:36,384 - DEBUG - Setting - getting setting
+2022-02-11 12:13:36,384 - DEBUG - Setting - got setting
+2022-02-11 12:13:36,385 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:13:36,385 - DEBUG - Setting - getting setting
+2022-02-11 12:13:36,385 - DEBUG - Setting - got setting
+2022-02-11 12:14:00,041 - DEBUG - Setting - getting setting
+2022-02-11 12:14:00,041 - DEBUG - Setting - got setting
+2022-02-11 12:14:00,041 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:14:00,041 - DEBUG - Setting - getting setting
+2022-02-11 12:14:00,041 - DEBUG - Setting - got setting
+2022-02-11 12:14:06,776 - DEBUG - Setting - getting setting
+2022-02-11 12:14:06,777 - DEBUG - Setting - got setting
+2022-02-11 12:14:06,777 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:14:06,777 - DEBUG - Setting - getting setting
+2022-02-11 12:14:06,777 - DEBUG - Setting - got setting
+2022-02-11 12:14:20,116 - DEBUG - Setting - getting setting
+2022-02-11 12:14:20,116 - DEBUG - Setting - got setting
+2022-02-11 12:14:20,116 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:14:20,116 - DEBUG - Setting - getting setting
+2022-02-11 12:14:20,116 - DEBUG - Setting - got setting
+2022-02-11 12:15:39,947 - DEBUG - Setting - getting setting
+2022-02-11 12:15:39,947 - DEBUG - Setting - got setting
+2022-02-11 12:15:39,947 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:15:39,947 - DEBUG - Setting - getting setting
+2022-02-11 12:15:39,947 - DEBUG - Setting - got setting
+2022-02-11 12:15:39,947 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:15:39,947 - DEBUG - Setting - getting setting
+2022-02-11 12:15:39,947 - DEBUG - Setting - got setting
+2022-02-11 12:15:48,295 - DEBUG - Setting - getting setting
+2022-02-11 12:15:48,295 - DEBUG - Setting - got setting
+2022-02-11 12:15:48,295 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:15:48,295 - DEBUG - Setting - getting setting
+2022-02-11 12:15:48,295 - DEBUG - Setting - got setting
+2022-02-11 12:15:48,295 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:15:48,295 - DEBUG - Setting - getting setting
+2022-02-11 12:15:48,296 - DEBUG - Setting - got setting
+2022-02-11 12:16:56,602 - DEBUG - Setting - getting setting
+2022-02-11 12:16:56,602 - DEBUG - Setting - got setting
+2022-02-11 12:16:56,602 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:16:56,602 - DEBUG - Setting - getting setting
+2022-02-11 12:16:56,602 - DEBUG - Setting - got setting
+2022-02-11 12:17:54,218 - DEBUG - Setting - getting setting
+2022-02-11 12:17:54,218 - DEBUG - Setting - got setting
+2022-02-11 12:17:54,218 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:17:54,218 - DEBUG - Setting - getting setting
+2022-02-11 12:17:54,219 - DEBUG - Setting - got setting
+2022-02-11 12:17:54,219 - DEBUG - Setting - adding setting
+2022-02-11 12:17:54,219 - DEBUG - Setting - getting setting
+2022-02-11 12:17:54,219 - DEBUG - Setting - got setting
+2022-02-11 12:17:54,219 - DEBUG - Setting - setting setting
+2022-02-11 12:17:54,219 - DEBUG - Setting - set setting
+2022-02-11 12:17:54,219 - DEBUG - Setting - added setting
+2022-02-11 12:17:54,219 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:17:54,220 - DEBUG - Setting - getting setting
+2022-02-11 12:17:54,220 - DEBUG - Setting - got setting
+2022-02-11 12:24:43,785 - DEBUG - Setting - getting setting
+2022-02-11 12:24:43,785 - DEBUG - Setting - got setting
+2022-02-11 12:24:43,785 - DEBUG - Setting - getting setting
+2022-02-11 12:24:43,785 - DEBUG - Setting - got setting
+2022-02-11 12:24:43,785 - DEBUG - Setting - getting setting
+2022-02-11 12:24:43,786 - DEBUG - Setting - got setting
+2022-02-11 12:24:47,065 - DEBUG - Setting - getting setting
+2022-02-11 12:24:47,066 - DEBUG - Setting - got setting
+2022-02-11 12:24:47,066 - DEBUG - Setting - getting setting
+2022-02-11 12:24:47,066 - DEBUG - Setting - got setting
+2022-02-11 12:24:47,066 - DEBUG - Setting - getting setting
+2022-02-11 12:24:47,066 - DEBUG - Setting - got setting
+2022-02-11 12:32:53,473 - DEBUG - Setting - getting setting
+2022-02-11 12:32:53,473 - DEBUG - Setting - got setting
+2022-02-11 12:32:53,473 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:32:53,473 - DEBUG - Setting - getting setting
+2022-02-11 12:32:53,474 - DEBUG - Setting - got setting
+2022-02-11 12:32:53,474 - DEBUG - Setting - getting setting
+2022-02-11 12:32:53,474 - DEBUG - Setting - got setting
+2022-02-11 12:32:53,474 - INFO - Storage - Opened database successfully
+2022-02-11 12:32:53,476 - INFO - Storage - Do operation
+2022-02-11 12:32:53,476 - INFO - Storage - Database closed
+2022-02-11 12:36:48,335 - DEBUG - Setting - getting setting
+2022-02-11 12:36:48,335 - DEBUG - Setting - got setting
+2022-02-11 12:36:48,335 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:36:48,335 - DEBUG - Setting - getting setting
+2022-02-11 12:36:48,335 - DEBUG - Setting - got setting
+2022-02-11 12:36:48,335 - DEBUG - Setting - getting setting
+2022-02-11 12:36:48,335 - DEBUG - Setting - got setting
+2022-02-11 12:36:48,336 - INFO - Storage - Opened database successfully
+2022-02-11 12:37:09,474 - DEBUG - Setting - getting setting
+2022-02-11 12:37:09,475 - DEBUG - Setting - got setting
+2022-02-11 12:37:09,475 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:37:09,475 - DEBUG - Setting - getting setting
+2022-02-11 12:37:09,475 - DEBUG - Setting - got setting
+2022-02-11 12:37:09,475 - DEBUG - Setting - getting setting
+2022-02-11 12:37:09,475 - DEBUG - Setting - got setting
+2022-02-11 12:37:09,475 - INFO - Storage - Opened database successfully
+2022-02-11 12:37:54,668 - DEBUG - Setting - getting setting
+2022-02-11 12:37:54,669 - DEBUG - Setting - got setting
+2022-02-11 12:37:54,669 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:37:54,669 - DEBUG - Setting - getting setting
+2022-02-11 12:37:54,669 - DEBUG - Setting - got setting
+2022-02-11 12:37:54,669 - DEBUG - Setting - getting setting
+2022-02-11 12:37:54,669 - DEBUG - Setting - got setting
+2022-02-11 12:37:54,669 - INFO - Storage - Opened database successfully
+2022-02-11 12:37:54,670 - INFO - Storage - Do operation
+2022-02-11 12:37:54,671 - INFO - Storage - Database closed
+2022-02-11 12:37:54,671 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:37:54,671 - DEBUG - Setting - getting setting
+2022-02-11 12:37:54,671 - DEBUG - Setting - got setting
+2022-02-11 12:37:54,671 - DEBUG - Setting - getting setting
+2022-02-11 12:37:54,671 - DEBUG - Setting - got setting
+2022-02-11 12:37:54,672 - INFO - Storage - Opened database successfully
+2022-02-11 12:37:54,672 - INFO - Storage - Do operation
+2022-02-11 12:37:54,672 - INFO - Storage - Do select
+2022-02-11 12:38:01,873 - DEBUG - Setting - getting setting
+2022-02-11 12:38:01,874 - DEBUG - Setting - got setting
+2022-02-11 12:38:01,874 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:38:01,874 - DEBUG - Setting - getting setting
+2022-02-11 12:38:01,874 - DEBUG - Setting - got setting
+2022-02-11 12:38:01,874 - DEBUG - Setting - getting setting
+2022-02-11 12:38:01,874 - DEBUG - Setting - got setting
+2022-02-11 12:38:01,874 - INFO - Storage - Opened database successfully
+2022-02-11 12:38:01,875 - INFO - Storage - Do operation
+2022-02-11 12:38:01,876 - INFO - Storage - Database closed
+2022-02-11 12:38:01,876 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:38:01,876 - DEBUG - Setting - getting setting
+2022-02-11 12:38:01,876 - DEBUG - Setting - got setting
+2022-02-11 12:38:01,876 - DEBUG - Setting - getting setting
+2022-02-11 12:38:01,876 - DEBUG - Setting - got setting
+2022-02-11 12:38:01,877 - INFO - Storage - Opened database successfully
+2022-02-11 12:38:01,877 - INFO - Storage - Do operation
+2022-02-11 12:38:01,877 - INFO - Storage - Do select
+2022-02-11 12:40:42,679 - DEBUG - Setting - getting setting
+2022-02-11 12:40:42,679 - DEBUG - Setting - got setting
+2022-02-11 12:40:42,679 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:40:42,679 - DEBUG - Setting - getting setting
+2022-02-11 12:40:42,679 - DEBUG - Setting - got setting
+2022-02-11 12:40:42,679 - DEBUG - Setting - getting setting
+2022-02-11 12:40:42,679 - DEBUG - Setting - got setting
+2022-02-11 12:40:42,680 - INFO - Storage - Opened database successfully
+2022-02-11 12:40:48,364 - DEBUG - Setting - getting setting
+2022-02-11 12:40:48,364 - DEBUG - Setting - got setting
+2022-02-11 12:40:48,364 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:40:48,364 - DEBUG - Setting - getting setting
+2022-02-11 12:40:48,364 - DEBUG - Setting - got setting
+2022-02-11 12:40:48,364 - DEBUG - Setting - getting setting
+2022-02-11 12:40:48,365 - DEBUG - Setting - got setting
+2022-02-11 12:40:48,365 - INFO - Storage - Opened database successfully
+2022-02-11 12:40:48,365 - INFO - Storage - Do operation
+2022-02-11 12:40:48,367 - INFO - Storage - Database closed
+2022-02-11 12:40:48,368 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:40:48,368 - DEBUG - Setting - getting setting
+2022-02-11 12:40:48,368 - DEBUG - Setting - got setting
+2022-02-11 12:40:48,368 - DEBUG - Setting - getting setting
+2022-02-11 12:40:48,368 - DEBUG - Setting - got setting
+2022-02-11 12:40:48,369 - INFO - Storage - Opened database successfully
+2022-02-11 12:40:48,369 - INFO - Storage - Do operation
+2022-02-11 12:40:48,369 - INFO - Storage - Do select
+2022-02-11 12:41:37,431 - DEBUG - Setting - getting setting
+2022-02-11 12:41:37,431 - DEBUG - Setting - got setting
+2022-02-11 12:41:37,431 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:41:37,431 - DEBUG - Setting - getting setting
+2022-02-11 12:41:37,431 - DEBUG - Setting - got setting
+2022-02-11 12:41:37,431 - DEBUG - Setting - getting setting
+2022-02-11 12:41:37,431 - DEBUG - Setting - got setting
+2022-02-11 12:41:37,432 - INFO - Storage - Opened database successfully
+2022-02-11 12:41:40,748 - DEBUG - Setting - getting setting
+2022-02-11 12:41:40,748 - DEBUG - Setting - got setting
+2022-02-11 12:41:40,748 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:41:40,748 - DEBUG - Setting - getting setting
+2022-02-11 12:41:40,748 - DEBUG - Setting - got setting
+2022-02-11 12:41:40,748 - DEBUG - Setting - getting setting
+2022-02-11 12:41:40,748 - DEBUG - Setting - got setting
+2022-02-11 12:41:40,749 - INFO - Storage - Opened database successfully
+2022-02-11 12:41:40,749 - INFO - Storage - Do operation
+2022-02-11 12:41:40,750 - INFO - Storage - Database closed
+2022-02-11 12:41:40,751 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:41:40,751 - DEBUG - Setting - getting setting
+2022-02-11 12:41:40,751 - DEBUG - Setting - got setting
+2022-02-11 12:41:40,751 - DEBUG - Setting - getting setting
+2022-02-11 12:41:40,751 - DEBUG - Setting - got setting
+2022-02-11 12:41:40,751 - INFO - Storage - Opened database successfully
+2022-02-11 12:41:40,751 - INFO - Storage - Do operation
+2022-02-11 12:41:40,751 - INFO - Storage - Do select
+2022-02-11 12:41:40,751 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:41:40,752 - DEBUG - Setting - getting setting
+2022-02-11 12:41:40,752 - DEBUG - Setting - got setting
+2022-02-11 12:41:40,752 - DEBUG - Setting - getting setting
+2022-02-11 12:41:40,752 - DEBUG - Setting - got setting
+2022-02-11 12:41:40,752 - INFO - Storage - Opened database successfully
+2022-02-11 12:41:47,445 - DEBUG - Setting - getting setting
+2022-02-11 12:41:47,446 - DEBUG - Setting - got setting
+2022-02-11 12:41:47,446 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:41:47,446 - DEBUG - Setting - getting setting
+2022-02-11 12:41:47,446 - DEBUG - Setting - got setting
+2022-02-11 12:41:47,446 - DEBUG - Setting - getting setting
+2022-02-11 12:41:47,446 - DEBUG - Setting - got setting
+2022-02-11 12:41:47,446 - INFO - Storage - Opened database successfully
+2022-02-11 12:41:47,447 - INFO - Storage - Do operation
+2022-02-11 12:41:47,448 - INFO - Storage - Database closed
+2022-02-11 12:41:47,449 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:41:47,449 - DEBUG - Setting - getting setting
+2022-02-11 12:41:47,449 - DEBUG - Setting - got setting
+2022-02-11 12:41:47,449 - DEBUG - Setting - getting setting
+2022-02-11 12:41:47,449 - DEBUG - Setting - got setting
+2022-02-11 12:41:47,450 - INFO - Storage - Opened database successfully
+2022-02-11 12:41:47,450 - INFO - Storage - Do operation
+2022-02-11 12:41:47,450 - INFO - Storage - Do select
+2022-02-11 12:41:47,450 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:41:47,450 - DEBUG - Setting - getting setting
+2022-02-11 12:41:47,450 - DEBUG - Setting - got setting
+2022-02-11 12:41:47,450 - DEBUG - Setting - getting setting
+2022-02-11 12:41:47,450 - DEBUG - Setting - got setting
+2022-02-11 12:41:47,450 - INFO - Storage - Opened database successfully
+2022-02-11 12:41:47,451 - INFO - Storage - Do operation
+2022-02-11 12:41:47,452 - INFO - Storage - Database closed
+2022-02-11 12:44:03,176 - DEBUG - Setting - getting setting
+2022-02-11 12:44:03,176 - DEBUG - Setting - got setting
+2022-02-11 12:44:03,176 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:44:03,176 - DEBUG - Setting - getting setting
+2022-02-11 12:44:03,176 - DEBUG - Setting - got setting
+2022-02-11 12:44:03,177 - DEBUG - Setting - getting setting
+2022-02-11 12:44:03,177 - DEBUG - Setting - got setting
+2022-02-11 12:44:03,177 - INFO - Storage - Opened database successfully
+2022-02-11 12:44:03,177 - INFO - Storage - Do operation
+2022-02-11 12:44:03,177 - INFO - Storage - Do select
+2022-02-11 12:44:40,430 - DEBUG - Setting - getting setting
+2022-02-11 12:44:40,431 - DEBUG - Setting - got setting
+2022-02-11 12:44:40,431 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:44:40,431 - DEBUG - Setting - getting setting
+2022-02-11 12:44:40,431 - DEBUG - Setting - got setting
+2022-02-11 12:44:40,431 - DEBUG - Setting - getting setting
+2022-02-11 12:44:40,431 - DEBUG - Setting - got setting
+2022-02-11 12:44:40,431 - INFO - Storage - Opened database successfully
+2022-02-11 12:44:40,432 - INFO - Storage - Do operation
+2022-02-11 12:44:40,432 - INFO - Storage - Do select
+2022-02-11 12:45:21,091 - DEBUG - Setting - getting setting
+2022-02-11 12:45:21,091 - DEBUG - Setting - got setting
+2022-02-11 12:45:21,091 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:45:21,091 - DEBUG - Setting - getting setting
+2022-02-11 12:45:21,091 - DEBUG - Setting - got setting
+2022-02-11 12:45:21,092 - DEBUG - Setting - getting setting
+2022-02-11 12:45:21,092 - DEBUG - Setting - got setting
+2022-02-11 12:45:21,092 - INFO - Storage - Opened database successfully
+2022-02-11 12:45:21,092 - INFO - Storage - Do operation
+2022-02-11 12:45:21,093 - INFO - Storage - Do select
+2022-02-11 12:45:34,225 - DEBUG - Setting - getting setting
+2022-02-11 12:45:34,225 - DEBUG - Setting - got setting
+2022-02-11 12:45:34,225 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:45:34,225 - DEBUG - Setting - getting setting
+2022-02-11 12:45:34,225 - DEBUG - Setting - got setting
+2022-02-11 12:45:34,225 - DEBUG - Setting - getting setting
+2022-02-11 12:45:34,225 - DEBUG - Setting - got setting
+2022-02-11 12:45:34,226 - INFO - Storage - Opened database successfully
+2022-02-11 12:45:34,226 - INFO - Storage - Do operation
+2022-02-11 12:45:34,226 - INFO - Storage - Do select
+2022-02-11 12:46:06,839 - DEBUG - Setting - getting setting
+2022-02-11 12:46:06,839 - DEBUG - Setting - got setting
+2022-02-11 12:46:06,839 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:46:06,839 - DEBUG - Setting - getting setting
+2022-02-11 12:46:06,839 - DEBUG - Setting - got setting
+2022-02-11 12:46:06,839 - DEBUG - Setting - getting setting
+2022-02-11 12:46:06,840 - DEBUG - Setting - got setting
+2022-02-11 12:46:06,840 - INFO - Storage - Opened database successfully
+2022-02-11 12:46:06,840 - INFO - Storage - Do operation
+2022-02-11 12:46:06,840 - INFO - Storage - Do select
+2022-02-11 12:46:06,840 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:46:06,840 - DEBUG - Setting - getting setting
+2022-02-11 12:46:06,841 - DEBUG - Setting - got setting
+2022-02-11 12:46:06,841 - DEBUG - Setting - getting setting
+2022-02-11 12:46:06,841 - DEBUG - Setting - got setting
+2022-02-11 12:46:06,841 - INFO - Storage - Opened database successfully
+2022-02-11 12:46:06,841 - INFO - Storage - Do operation
+2022-02-11 12:46:06,843 - INFO - Storage - Database closed
+2022-02-11 12:48:04,078 - DEBUG - Setting - getting setting
+2022-02-11 12:48:04,078 - DEBUG - Setting - got setting
+2022-02-11 12:48:04,078 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:48:04,078 - DEBUG - Setting - getting setting
+2022-02-11 12:48:04,079 - DEBUG - Setting - got setting
+2022-02-11 12:48:04,079 - DEBUG - Setting - getting setting
+2022-02-11 12:48:04,079 - DEBUG - Setting - got setting
+2022-02-11 12:48:04,079 - INFO - Storage - Opened database successfully
+2022-02-11 12:48:04,080 - INFO - Storage - Do operation
+2022-02-11 12:48:04,080 - INFO - Storage - Do select
+2022-02-11 12:48:06,951 - DEBUG - Setting - getting setting
+2022-02-11 12:48:06,952 - DEBUG - Setting - got setting
+2022-02-11 12:48:06,952 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:48:06,952 - DEBUG - Setting - getting setting
+2022-02-11 12:48:06,952 - DEBUG - Setting - got setting
+2022-02-11 12:48:06,952 - DEBUG - Setting - getting setting
+2022-02-11 12:48:06,953 - DEBUG - Setting - got setting
+2022-02-11 12:48:06,953 - INFO - Storage - Opened database successfully
+2022-02-11 12:48:09,588 - DEBUG - Setting - getting setting
+2022-02-11 12:48:09,588 - DEBUG - Setting - got setting
+2022-02-11 12:48:09,589 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:48:09,589 - DEBUG - Setting - getting setting
+2022-02-11 12:48:09,589 - DEBUG - Setting - got setting
+2022-02-11 12:48:09,589 - DEBUG - Setting - getting setting
+2022-02-11 12:48:09,589 - DEBUG - Setting - got setting
+2022-02-11 12:48:09,589 - INFO - Storage - Opened database successfully
+2022-02-11 12:48:09,590 - INFO - Storage - Do operation
+2022-02-11 12:48:09,593 - INFO - Storage - Database closed
+2022-02-11 12:48:09,593 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:48:09,593 - DEBUG - Setting - getting setting
+2022-02-11 12:48:09,594 - DEBUG - Setting - got setting
+2022-02-11 12:48:09,594 - DEBUG - Setting - getting setting
+2022-02-11 12:48:09,594 - DEBUG - Setting - got setting
+2022-02-11 12:48:09,594 - INFO - Storage - Opened database successfully
+2022-02-11 12:48:09,595 - INFO - Storage - Do operation
+2022-02-11 12:48:09,595 - INFO - Storage - Do select
+2022-02-11 12:48:18,268 - DEBUG - Setting - getting setting
+2022-02-11 12:48:18,268 - DEBUG - Setting - got setting
+2022-02-11 12:48:18,268 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:48:18,268 - DEBUG - Setting - getting setting
+2022-02-11 12:48:18,269 - DEBUG - Setting - got setting
+2022-02-11 12:48:18,269 - DEBUG - Setting - getting setting
+2022-02-11 12:48:18,269 - DEBUG - Setting - got setting
+2022-02-11 12:48:18,269 - INFO - Storage - Opened database successfully
+2022-02-11 12:48:18,269 - INFO - Storage - Do operation
+2022-02-11 12:48:18,270 - INFO - Storage - Do select
+2022-02-11 12:48:18,270 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:48:18,270 - DEBUG - Setting - getting setting
+2022-02-11 12:48:18,270 - DEBUG - Setting - got setting
+2022-02-11 12:48:18,270 - DEBUG - Setting - getting setting
+2022-02-11 12:48:18,270 - DEBUG - Setting - got setting
+2022-02-11 12:48:18,270 - INFO - Storage - Opened database successfully
+2022-02-11 12:48:18,271 - INFO - Storage - Do operation
+2022-02-11 12:48:18,272 - INFO - Storage - Database closed
+2022-02-11 12:48:23,340 - DEBUG - Setting - getting setting
+2022-02-11 12:48:23,340 - DEBUG - Setting - got setting
+2022-02-11 12:48:23,340 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:48:23,340 - DEBUG - Setting - getting setting
+2022-02-11 12:48:23,340 - DEBUG - Setting - got setting
+2022-02-11 12:48:23,340 - DEBUG - Setting - getting setting
+2022-02-11 12:48:23,340 - DEBUG - Setting - got setting
+2022-02-11 12:48:23,340 - INFO - Storage - Opened database successfully
+2022-02-11 12:48:23,341 - INFO - Storage - Do operation
+2022-02-11 12:48:23,341 - INFO - Storage - Do select
+2022-02-11 12:48:28,688 - DEBUG - Setting - getting setting
+2022-02-11 12:48:28,688 - DEBUG - Setting - got setting
+2022-02-11 12:48:28,688 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:48:28,688 - DEBUG - Setting - getting setting
+2022-02-11 12:48:28,688 - DEBUG - Setting - got setting
+2022-02-11 12:48:28,688 - DEBUG - Setting - getting setting
+2022-02-11 12:48:28,688 - DEBUG - Setting - got setting
+2022-02-11 12:48:28,689 - INFO - Storage - Opened database successfully
+2022-02-11 12:48:28,689 - INFO - Storage - Do operation
+2022-02-11 12:48:28,691 - INFO - Storage - Database closed
+2022-02-11 12:48:28,691 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 12:48:28,691 - DEBUG - Setting - getting setting
+2022-02-11 12:48:28,692 - DEBUG - Setting - got setting
+2022-02-11 12:48:28,692 - DEBUG - Setting - getting setting
+2022-02-11 12:48:28,692 - DEBUG - Setting - got setting
+2022-02-11 12:48:28,692 - INFO - Storage - Opened database successfully
+2022-02-11 12:48:28,693 - INFO - Storage - Do operation
+2022-02-11 12:48:28,693 - INFO - Storage - Do select
+2022-02-11 13:01:19,434 - DEBUG - Setting - getting setting
+2022-02-11 13:01:19,440 - DEBUG - Setting - got setting
+2022-02-11 13:01:19,440 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 13:01:19,441 - DEBUG - Setting - getting setting
+2022-02-11 13:01:19,441 - DEBUG - Setting - got setting
+2022-02-11 13:01:19,441 - DEBUG - Setting - getting setting
+2022-02-11 13:01:19,442 - DEBUG - Setting - got setting
+2022-02-11 13:01:19,452 - INFO - Storage - Opened database successfully
+2022-02-11 13:04:55,315 - DEBUG - Setting - getting setting
+2022-02-11 13:04:55,316 - DEBUG - Setting - got setting
+2022-02-11 13:04:55,316 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 13:04:55,316 - DEBUG - Setting - getting setting
+2022-02-11 13:04:55,316 - DEBUG - Setting - got setting
+2022-02-11 13:04:55,316 - DEBUG - Setting - getting setting
+2022-02-11 13:04:55,316 - DEBUG - Setting - got setting
+2022-02-11 13:04:55,316 - INFO - Storage - Opened database successfully
+2022-02-11 13:04:55,317 - INFO - Storage - Do operation
+2022-02-11 13:04:55,318 - INFO - Storage - Database closed
+2022-02-11 13:04:55,319 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 13:04:55,319 - DEBUG - Setting - getting setting
+2022-02-11 13:04:55,319 - DEBUG - Setting - got setting
+2022-02-11 13:04:55,319 - DEBUG - Setting - getting setting
+2022-02-11 13:04:55,319 - DEBUG - Setting - got setting
+2022-02-11 13:04:55,319 - INFO - Storage - Opened database successfully
+2022-02-11 13:04:55,319 - INFO - Storage - Do operation
+2022-02-11 13:04:55,320 - INFO - Storage - Do select
+2022-02-11 13:10:31,434 - DEBUG - Setting - getting setting
+2022-02-11 13:10:31,435 - DEBUG - Setting - got setting
+2022-02-11 13:10:31,436 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 13:10:31,436 - DEBUG - Setting - getting setting
+2022-02-11 13:10:31,437 - DEBUG - Setting - got setting
+2022-02-11 13:10:31,438 - DEBUG - Setting - getting setting
+2022-02-11 13:10:31,439 - DEBUG - Setting - got setting
+2022-02-11 13:10:31,443 - INFO - Storage - Opened database successfully
+2022-02-11 13:10:52,495 - DEBUG - Setting - getting setting
+2022-02-11 13:10:52,496 - DEBUG - Setting - got setting
+2022-02-11 13:10:52,496 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 13:10:52,496 - DEBUG - Setting - getting setting
+2022-02-11 13:10:52,496 - DEBUG - Setting - got setting
+2022-02-11 13:10:52,496 - DEBUG - Setting - getting setting
+2022-02-11 13:10:52,496 - DEBUG - Setting - got setting
+2022-02-11 13:10:52,497 - INFO - Storage - Opened database successfully
+2022-02-11 13:10:52,497 - INFO - Storage - Do operation
+2022-02-11 13:10:52,499 - INFO - Storage - Database closed
+2022-02-11 13:10:52,499 - INFO - Storage - Start check repo exist - 1742861545@qq.com - TestRepo1
+2022-02-11 13:10:52,499 - DEBUG - Setting - getting setting
+2022-02-11 13:10:52,499 - DEBUG - Setting - got setting
+2022-02-11 13:10:52,500 - DEBUG - Setting - getting setting
+2022-02-11 13:10:52,500 - DEBUG - Setting - got setting
+2022-02-11 13:10:52,500 - INFO - Storage - Opened database successfully
+2022-02-11 13:10:52,500 - INFO - Storage - Do operation
+2022-02-11 13:10:52,500 - INFO - Storage - Do select

@@ -23,6 +23,12 @@ IIA通过websocket进行程序内通信
 pip3 install websocket-server
 ```
 
+#### Mail
+
+```
+pip3 install chardet
+```
+
 ## 运行
 
 * **IIA Start**
@@ -145,7 +151,7 @@ IIA的根本目标是构建元宇宙的个人数字结点。IIA由多个`项目`
 | 链接管理插件       | /                  |
 | 天气插件           | 天气（Apple）      |
 | 本地音乐播放器插件 | QQ音乐             |
-|                    |                    |
+| 生日提醒插件       | /                  |
 
 #### 生日插件案例
 

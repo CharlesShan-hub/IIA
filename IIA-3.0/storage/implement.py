@@ -86,13 +86,11 @@ def copy_file(path_from,path_to):
 		logger.info("File/Path failed copied - "+path_to,LOG_MODULE)
 
 
-def creat_database(name):
+def creat_database(path):
 	''' 数据库文件的创建
 	'''
-	logger.info("Creat new database - "+name,LOG_MODULE)
-	path = "./storage/resources/"+name+".db"
+	print(path)
 	conn = sqlite3.connect(path)
-	logger.info("Successfully created new database - "+name,LOG_MODULE)
 
 
 #####################################################
