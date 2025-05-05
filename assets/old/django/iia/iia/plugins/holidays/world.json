@@ -1,0 +1,2628 @@
+{
+  "元旦节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["元旦节"],
+      "en": ["New Year's Day"],
+      "lunar": false,
+      "month": 1,
+      "day": 1
+    }
+  },
+  "黑人日": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["黑人日"],
+      "en": ["Black Day"],
+      "month": 1,
+      "week_num": 1,
+      "weekday": 7
+    }
+  },
+  "周恩来逝世纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["周恩来逝世纪念日"],
+      "en": ["Anniversary of Zhou Enlai's Death"],
+      "lunar": false,
+      "month": 1,
+      "day": 8
+    }
+  },
+  "中国公安110宣传日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国公安110宣传日"],
+      "en": ["China Public Security 110 Publicity Day"],
+      "lunar": false,
+      "month": 1,
+      "day": 10
+    }
+  },
+  "列宁逝世纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["列宁逝世纪念日"],
+      "en": ["Lenin's Death Anniversary"],
+      "lunar": false,
+      "month": 1,
+      "day": 21
+    }
+  },
+  "国际海关日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际海关日"],
+      "en": ["International Customs Day"],
+      "lunar": false,
+      "month": 1,
+      "day": 26
+    }
+  },
+  "世界防治麻风病日": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["世界防治麻风病日（国际麻风节）"],
+      "en": ["World Leprosy Day"],
+      "month": 1,
+      "week_num": -1,
+      "weekday": 7
+    }
+  },
+  "世界湿地日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界湿地日"],
+      "en": ["World Wetlands Day"],
+      "lunar": false,
+      "month": 2,
+      "day": 2
+    }
+  },
+  "世界抗癌日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界抗癌日"],
+      "en": ["World Cancer Day"],
+      "lunar": false,
+      "month": 2,
+      "day": 4
+    }
+  },
+  "京汉铁路罢工纪念": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["京汉铁路罢工纪念"],
+      "en": ["Anniversary of the Jinghan Railway Strike"],
+      "lunar": false,
+      "month": 2,
+      "day": 7
+    }
+  },
+  "国际声援南非日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际声援南非日"],
+      "en": ["International Day of Solidarity with South Africa"],
+      "lunar": false,
+      "month": 2,
+      "day": 7
+    }
+  },
+  "国际气象节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际气象节"],
+      "en": ["World Meteorological Day"],
+      "lunar": false,
+      "month": 2,
+      "day": 10
+    }
+  },
+  "情人节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["情人节"],
+      "en": ["Valentine's Day"],
+      "lunar": false,
+      "month": 2,
+      "day": 14
+    }
+  },
+  "邓小平逝世纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["邓小平逝世纪念日"],
+      "en": ["Anniversary of the Death of Deng Xiaoping"],
+      "lunar": false,
+      "month": 2,
+      "day": 19
+    }
+  },
+  "反对殖民制度斗争日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["反对殖民制度斗争日"],
+      "en": ["International Day for the Elimination of Racial Discrimination"],
+      "lunar": false,
+      "month": 2,
+      "day": 21
+    }
+  },
+  "国际母语日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际母语日"],
+      "en": ["International Mother Language Day"],
+      "lunar": false,
+      "month": 2,
+      "day": 21
+    }
+  },
+  "第三世界青年日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["第三世界青年日"],
+      "en": ["International Day of the Third World Youth"],
+      "lunar": false,
+      "month": 2,
+      "day": 24
+    }
+  },
+  "国际罕见病日": {
+    "load": true,
+    "type": "LastInMonthHoliday",
+    "params": {
+      "zh": ["国际罕见病日"],
+      "en": ["International Rare Disease Day"],
+      "month": 2,
+      "last": 1
+    }
+  },
+  "世界居住条件调查日": {
+    "load": true,
+    "type": "LastInMonthHoliday",
+    "params": {
+      "zh": ["世界居住条件调查日"],
+      "en": ["World Day for Safety and Health at Work"],
+      "month": 2,
+      "last": 1
+    }
+  },
+  "国际海豹日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际海豹日"],
+      "en": ["International Day of the Seal"],
+      "lunar": false,
+      "month": 3,
+      "day": 1
+    }
+  },
+  "全国爱耳日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全国爱耳日"],
+      "en": ["National Ear Care Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 3
+    }
+  },
+  "世界野生动植物日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界野生动植物日"],
+      "en": ["World Wildlife Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 3
+    }
+  },
+  "周恩来诞辰纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["周恩来诞辰纪念日"],
+      "en": ["Commemoration Day of Zhou Enlai's Birthday"],
+      "lunar": false,
+      "month": 3,
+      "day": 5
+    }
+  },
+  "向雷锋同志学习纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["向雷锋同志学习纪念日"],
+      "en": ["Learn from Lei Feng Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 5
+    }
+  },
+  "中国青年志愿者服务日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国青年志愿者服务日"],
+      "en": ["China Young Volunteers' Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 5
+    }
+  },
+  "世界青光眼日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界青光眼日"],
+      "en": ["World Glaucoma Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 6
+    }
+  },
+  "国际劳动妇女节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际劳动妇女节"],
+      "en": ["International Women's Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 8
+    }
+  },
+  "孙中山逝世纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["孙中山逝世纪念日"],
+      "en": ["Commemoration Day of Sun Yat-sen's Death"],
+      "lunar": false,
+      "month": 3,
+      "day": 12
+    }
+  },
+  "中国植树节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国植树节"],
+      "en": ["Arbor Day in China"],
+      "lunar": false,
+      "month": 3,
+      "day": 12
+    }
+  },
+  "马克思逝世纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["马克思逝世纪念日"],
+      "en": ["Commemoration Day of Karl Marx's Death"],
+      "lunar": false,
+      "month": 3,
+      "day": 14
+    }
+  },
+  "白色情人节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["白色情人节"],
+      "en": ["White Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 14
+    }
+  },
+  "国际消费者权益日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际消费者权益日"],
+      "en": ["World Consumer Rights Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 15
+    }
+  },
+  "手拉手情系贫困小伙伴全国统一行动日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["手拉手情系贫困小伙伴全国统一行动日"],
+      "en": ["National Unity Day for Poverty Alleviation"],
+      "lunar": false,
+      "month": 3,
+      "day": 16
+    }
+  },
+  "国际航海日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际航海日"],
+      "en": ["International Maritime Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 17
+    }
+  },
+  "中国国医节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国国医节"],
+      "en": ["National Chinese Medicine Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 17
+    }
+  },
+  "全国科技人才活动日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全国科技人才活动日"],
+      "en": ["National Science and Technology Personnel Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 18
+    }
+  },
+  "世界林业节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界林业节"],
+      "en": ["International Day of Forests"],
+      "lunar": false,
+      "month": 3,
+      "day": 21
+    }
+  },
+  "消除种族歧视国际日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["消除种族歧视国际日"],
+      "en": ["International Day for the Elimination of Racial Discrimination"],
+      "lunar": false,
+      "month": 3,
+      "day": 21
+    }
+  },
+  "世界儿歌日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界儿歌日"],
+      "en": ["World Children's Song Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 21
+    }
+  },
+  "世界诗歌日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界诗歌日"],
+      "en": ["World Poetry Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 21
+    }
+  },
+  "世界睡眠日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界睡眠日"],
+      "en": ["World Sleep Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 21
+    }
+  },
+  "世界水日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界水日"],
+      "en": ["World Water Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 22
+    }
+  },
+  "世界气象日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界气象日"],
+      "en": ["World Meteorological Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 23
+    }
+  },
+  "世界防治结核病日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界防治结核病日"],
+      "en": ["World Tuberculosis Day"],
+      "lunar": false,
+      "month": 3,
+      "day": 24
+    }
+  },
+  "巴勒斯坦国土日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["巴勒斯坦国土日"],
+      "en": ["Land Day in Palestine"],
+      "lunar": false,
+      "month": 3,
+      "day": 30
+    }
+  },
+  "全国中小学安全宣传教育日": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["全国中小学安全宣传教育日"],
+      "en": ["National Safety Education Day for Primary and Secondary Schools"],
+      "month": 3,
+      "week_num": -1,
+      "weekday": 1
+    }
+  },
+  "国际愚人节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际愚人节"],
+      "en": ["April Fools' Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 1
+    }
+  },
+  "国际儿童图书日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际儿童图书日"],
+      "en": ["International Children's Book Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 2
+    }
+  },
+  "世界自闭症日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界自闭症日"],
+      "en": ["World Autism Awareness Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 2
+    }
+  },
+  "巴勒斯坦儿童日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["巴勒斯坦儿童日"],
+      "en": ["Palestinian Children's Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 5
+    }
+  },
+  "世界卫生日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界卫生日"],
+      "en": ["World Health Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 7
+    }
+  },
+  "非洲环境保护日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["非洲环境保护日"],
+      "en": ["Africa Environment Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 10
+    }
+  },
+  "世界帕金森日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界帕金森日"],
+      "en": ["World Parkinson's Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 11
+    }
+  },
+  "非洲自由日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["非洲自由日"],
+      "en": ["Africa Freedom Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 15
+    }
+  },
+  "全球青年服务日1": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全球青年服务日"],
+      "en": ["Global Youth Service Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 15
+    }
+  },
+  "全球青年服务日2": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全球青年服务日"],
+      "en": ["Global Youth Service Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 16
+    }
+  },
+  "全球青年服务日3": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全球青年服务日"],
+      "en": ["Global Youth Service Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 17
+    }
+  },
+  "世界血友病日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界血友病日"],
+      "en": ["World Hemophilia Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 17
+    }
+  },
+  "国际古迹遗址日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际古迹遗址日"],
+      "en": ["International Day for Monuments and Sites"],
+      "lunar": false,
+      "month": 4,
+      "day": 18
+    }
+  },
+  "全国企业家活动日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全国企业家活动日"],
+      "en": ["National Entrepreneurship Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 21
+    }
+  },
+  "列宁诞辰纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["列宁诞辰纪念日"],
+      "en": ["Lenin's Birthday"],
+      "lunar": false,
+      "month": 4,
+      "day": 22
+    }
+  },
+  "世界地球日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界地球日"],
+      "en": ["Earth Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 22
+    }
+  },
+  "世界法律日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界法律日"],
+      "en": ["World Day for Legal Awareness"],
+      "lunar": false,
+      "month": 4,
+      "day": 22
+    }
+  },
+  "世界图书和版权日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界图书和版权日"],
+      "en": ["World Book and Copyright Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 23
+    }
+  },
+  "世界青年反对殖民主义日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界青年反对殖民主义日"],
+      "en": ["World Day of Young People against Colonialism"],
+      "lunar": false,
+      "month": 4,
+      "day": 24
+    }
+  },
+  "亚非新闻工作者日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["亚非新闻工作者日"],
+      "en": ["Asia-Africa News Workers' Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 24
+    }
+  },
+  "全国儿童预防接种宣传日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全国儿童预防接种宣传日"],
+      "en": ["National Children's Immunization Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 25
+    }
+  },
+  "世界知识产权日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界知识产权日"],
+      "en": ["World Intellectual Property Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 26
+    }
+  },
+  "联谊城日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["联谊城日"],
+      "en": ["Friendship City Day"],
+      "lunar": false,
+      "month": 4,
+      "day": 27
+    }
+  },
+  "世界安全生产与健康日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界安全生产与健康日"],
+      "en": ["World Day for Safety and Health at Work"],
+      "lunar": false,
+      "month": 4,
+      "day": 28
+    }
+  },
+  "全国交通安全反思日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全国交通安全反思日"],
+      "en": ["National Day for Reflection on Traffic Safety"],
+      "lunar": false,
+      "month": 4,
+      "day": 30
+    }
+  },
+  "国际劳动节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际劳动节"],
+      "en": ["International Workers' Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 1
+    }
+  },
+  "世界新闻自由日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界新闻自由日"],
+      "en": ["World Press Freedom Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 3
+    }
+  },
+  "中国青年节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国青年节"],
+      "en": ["Youth Day in China"],
+      "lunar": false,
+      "month": 5,
+      "day": 4
+    }
+  },
+  "五四运动纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["五四运动纪念日"],
+      "en": ["May Fourth Movement Memorial Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 4
+    }
+  },
+  "马克思诞辰纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["马克思诞辰纪念日"],
+      "en": ["Karl Marx's Birthday"],
+      "lunar": false,
+      "month": 5,
+      "day": 5
+    }
+  },
+  "世界红十字日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界红十字日"],
+      "en": ["World Red Cross Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 8
+    }
+  },
+  "世界微笑日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界微笑日"],
+      "en": ["World Smile Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 8
+    }
+  },
+  "世界哮喘日": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["世界哮喘日"],
+      "en": ["World Asthma Day"],
+      "month": 5,
+      "week_num": 1,
+      "weekday": 2
+    }
+  },
+  "母亲节": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["母亲节"],
+      "en": ["Mother's Day"],
+      "month": 5,
+      "week_num": 2,
+      "weekday": 7
+    }
+  },
+  "国际护士节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际护士节"],
+      "en": ["International Nurses Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 12
+    }
+  },
+  "全国碘缺乏病防治日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全国碘缺乏病防治日"],
+      "en": ["National Iodine Deficiency Disorders Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 15
+    }
+  },
+  "国际家庭日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际家庭日"],
+      "en": ["International Day of Families"],
+      "lunar": false,
+      "month": 5,
+      "day": 15
+    }
+  },
+  "世界电信日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界电信日"],
+      "en": ["World Telecommunication Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 17
+    }
+  },
+  "世界高血压日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界高血压日"],
+      "en": ["World Hypertension Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 17
+    }
+  },
+  "国际博物馆日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际博物馆日"],
+      "en": ["International Museum Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 18
+    }
+  },
+  "全国母乳喂养宣传日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全国母乳喂养宣传日"],
+      "en": ["National Breastfeeding Promotion Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 20
+    }
+  },
+  "中国学生营养日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国学生营养日"],
+      "en": ["Chinese Students' Nutrition Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 20
+    }
+  },
+  "世界计量日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界计量日"],
+      "en": ["World Metrology Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 20
+    }
+  },
+  "生物多样性国际日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["生物多样性国际日"],
+      "en": ["International Day for Biological Diversity"],
+      "lunar": false,
+      "month": 5,
+      "day": 22
+    }
+  },
+  "全国助残日": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["全国助残日"],
+      "en": ["National Day for Helping the Disabled"],
+      "month": 5,
+      "week_num": 3,
+      "weekday": 7
+    }
+  },
+  "非洲解放日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["非洲解放日"],
+      "en": ["Africa Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 25
+    }
+  },
+  "世界预防中风日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界预防中风日"],
+      "en": ["World Hypertension Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 25
+    }
+  },
+  "世界向人体条件挑战日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界向人体条件挑战日"],
+      "en": ["World No Tobacco Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 26
+    }
+  },
+  "上海解放日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["上海解放日"],
+      "en": ["Liberation of Shanghai"],
+      "lunar": false,
+      "month": 5,
+      "day": 27
+    }
+  },
+  "国际月经日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际月经日"],
+      "en": ["International Day of Action for Women's Health"],
+      "lunar": false,
+      "month": 5,
+      "day": 28
+    }
+  },
+  "国际维和人员日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际维和人员日"],
+      "en": ["International Day of United Nations Peacekeepers"],
+      "lunar": false,
+      "month": 5,
+      "day": 29
+    }
+  },
+  "“五卅”反对帝国主义运动纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["“五卅”反对帝国主义运动纪念日"],
+      "en": ["Anti-Imperialist May 30th Movement Memorial Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 30
+    }
+  },
+  "世界无烟日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界无烟日"],
+      "en": ["World No Tobacco Day"],
+      "lunar": false,
+      "month": 5,
+      "day": 31
+    }
+  },
+  "国际儿童节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际儿童节"],
+      "en": ["International Children's Day"],
+      "lunar": false,
+      "month": 6,
+      "day": 1
+    }
+  },
+  "国际牛奶日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际牛奶日"],
+      "en": ["World Milk Day"],
+      "lunar": false,
+      "month": 6,
+      "day": 1
+    }
+  },
+  "受侵略戕害的无辜儿童国际日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["受侵略戕害的无辜儿童国际日"],
+      "en": ["International Day of Innocent Children Victims of Aggression"],
+      "lunar": false,
+      "month": 6,
+      "day": 4
+    }
+  },
+  "世界环境日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界环境日"],
+      "en": ["World Environment Day"],
+      "lunar": false,
+      "month": 6,
+      "day": 5
+    }
+  },
+  "全国爱眼日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全国爱眼日"],
+      "en": ["National Eye Care Day"],
+      "lunar": false,
+      "month": 6,
+      "day": 6
+    }
+  },
+  "世界海洋日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界海洋日"],
+      "en": ["World Oceans Day"],
+      "lunar": false,
+      "month": 6,
+      "day": 8
+    }
+  },
+  "中国人口日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国人口日"],
+      "en": ["China Population Day"],
+      "lunar": false,
+      "month": 6,
+      "day": 11
+    }
+  },
+  "世界无童工日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界无童工日"],
+      "en": ["World Day Against Child Labour"],
+      "lunar": false,
+      "month": 6,
+      "day": 12
+    }
+  },
+  "世界献血日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界献血日"],
+      "en": ["World Blood Donor Day"],
+      "lunar": false,
+      "month": 6,
+      "day": 14
+    }
+  },
+  "世界防止荒漠化和干旱日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界防止荒漠化和干旱日"],
+      "en": ["World Day to Combat Desertification and Drought"],
+      "lunar": false,
+      "month": 6,
+      "day": 17
+    }
+  },
+  "世界难民日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界难民日"],
+      "en": ["World Refugee Day"],
+      "lunar": false,
+      "month": 6,
+      "day": 20
+    }
+  },
+  "父亲节": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["父亲节"],
+      "en": ["Father's Day"],
+      "month": 6,
+      "week_num": 3,
+      "weekday": 7
+    }
+  },
+  "中国儿童慈善活动日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国儿童慈善活动日"],
+      "en": ["China Children's Charity Day"],
+      "lunar": false,
+      "month": 6,
+      "day": 22
+    }
+  },
+  "国际奥林匹克日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际奥林匹克日"],
+      "en": ["International Olympic Day"],
+      "lunar": false,
+      "month": 6,
+      "day": 23
+    }
+  },
+  "世界手球日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界手球日"],
+      "en": ["World Handball Day"],
+      "lunar": false,
+      "month": 6,
+      "day": 23
+    }
+  },
+  "全国土地日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全国土地日"],
+      "en": ["National Land Day"],
+      "lunar": false,
+      "month": 6,
+      "day": 25
+    }
+  },
+  "国际禁毒日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际禁毒日"],
+      "en": ["International Day Against Drug Abuse and Illicit Trafficking"],
+      "lunar": false,
+      "month": 6,
+      "day": 26
+    }
+  },
+  "禁止药物滥用和非法贩运国际日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["禁止药物滥用和非法贩运国际日"],
+      "en": ["International Day Against Drug Abuse and Illicit Trafficking"],
+      "lunar": false,
+      "month": 6,
+      "day": 26
+    }
+  },
+  "国际宪章日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际宪章日"],
+      "en": ["United Nations Charter Day"],
+      "lunar": false,
+      "month": 6,
+      "day": 26
+    }
+  },
+  "支援酷刑受害者国际日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["支援酷刑受害者国际日"],
+      "en": ["International Day in Support of Victims of Torture"],
+      "lunar": false,
+      "month": 6,
+      "day": 26
+    }
+  },
+  "中国共产党诞生日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国共产党诞生日"],
+      "en": ["Birthday of the Communist Party of China"],
+      "lunar": false,
+      "month": 7,
+      "day": 1
+    }
+  },
+  "香港回归纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["香港回归纪念日"],
+      "en": ["Hong Kong SAR Establishment Day"],
+      "lunar": false,
+      "month": 7,
+      "day": 1
+    }
+  },
+  "亚洲30亿人口日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["亚洲30亿人口日"],
+      "en": ["Asian Population Day"],
+      "lunar": false,
+      "month": 7,
+      "day": 1
+    }
+  },
+  "国际体育记者日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际体育记者日"],
+      "en": ["International Sports Journalists Day"],
+      "lunar": false,
+      "month": 7,
+      "day": 2
+    }
+  },
+  "国际合作节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际合作节"],
+      "en": ["International Day of Cooperatives"],
+      "lunar": false,
+      "month": 7,
+      "day": 3
+    }
+  },
+  "世界过敏性疾病日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界过敏性疾病日"],
+      "en": ["World Allergy Day"],
+      "lunar": false,
+      "month": 7,
+      "day": 8
+    }
+  },
+  "中国人民抗日战争纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国人民抗日战争纪念日"],
+      "en": ["Anniversary of the Marco Polo Bridge Incident"],
+      "lunar": false,
+      "month": 7,
+      "day": 7
+    }
+  },
+  "世界人口日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界人口日"],
+      "en": ["World Population Day"],
+      "lunar": false,
+      "month": 7,
+      "day": 11
+    }
+  },
+  "中国航海节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国航海节"],
+      "en": ["China Maritime Day"],
+      "lunar": false,
+      "month": 7,
+      "day": 11
+    }
+  },
+  "世界语创立日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界语创立日"],
+      "en": ["World Esperanto Day"],
+      "lunar": false,
+      "month": 7,
+      "day": 26
+    }
+  },
+  "非洲妇女日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["非洲妇女日"],
+      "en": ["African Women's Day"],
+      "lunar": false,
+      "month": 7,
+      "day": 30
+    }
+  },
+  "中国人民解放军建军节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国人民解放军建军节"],
+      "en": ["PLA Day"],
+      "lunar": false,
+      "month": 8,
+      "day": 1
+    }
+  },
+  "恩格斯逝世纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["恩格斯逝世纪念日"],
+      "en": ["Engels Memorial Day"],
+      "lunar": false,
+      "month": 8,
+      "day": 5
+    }
+  },
+  "国际电影节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际电影节"],
+      "en": ["International Day of the World's Indigenous Peoples"],
+      "lunar": false,
+      "month": 8,
+      "day": 6
+    }
+  },
+  "全民健身日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全民健身日"],
+      "en": ["National Fitness Day"],
+      "lunar": false,
+      "month": 8,
+      "day": 8
+    }
+  },
+  "国际青年日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际青年日"],
+      "en": ["International Youth Day"],
+      "lunar": false,
+      "month": 8,
+      "day": 12
+    }
+  },
+  "国际左撇子日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际左撇子日"],
+      "en": ["International Left-handers Day"],
+      "lunar": false,
+      "month": 8,
+      "day": 13
+    }
+  },
+  "日本正式宣布无条件投降日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["日本正式宣布无条件投降日"],
+      "en": ["Victory over Japan Day"],
+      "lunar": false,
+      "month": 8,
+      "day": 15
+    }
+  },
+  "邓小平诞辰纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["邓小平诞辰纪念日"],
+      "en": ["Deng Xiaoping Memorial Day"],
+      "lunar": false,
+      "month": 8,
+      "day": 22
+    }
+  },
+  "贩卖黑奴及其废除的国际纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["贩卖黑奴及其废除的国际纪念日"],
+      "en": [
+        "International Day for the Remembrance of the Slave Trade and its Abolition"
+      ],
+      "lunar": false,
+      "month": 8,
+      "day": 23
+    }
+  },
+  "全国律师咨询日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全国律师咨询日"],
+      "en": ["National Lawyers' Consultation Day"],
+      "lunar": false,
+      "month": 8,
+      "day": 26
+    }
+  },
+  "全国中小学开学日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全国中小学开学日"],
+      "en": ["National Primary and Secondary School Opening Day"],
+      "lunar": false,
+      "month": 9,
+      "day": 1
+    }
+  },
+  "中国抗日战争胜利纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国抗日战争胜利纪念日"],
+      "en": [
+        "Victory Day of Chinese People's War of Resistance Against Japanese Aggression"
+      ],
+      "lunar": false,
+      "month": 9,
+      "day": 3
+    }
+  },
+  "国际新闻工作者日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际新闻工作者日"],
+      "en": ["International Day of Journalists"],
+      "lunar": false,
+      "month": 9,
+      "day": 8
+    }
+  },
+  "世界扫盲日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界扫盲日"],
+      "en": ["International Literacy Day"],
+      "lunar": false,
+      "month": 9,
+      "day": 8
+    }
+  },
+  "毛泽东逝世纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["毛泽东逝世纪念日"],
+      "en": ["Mao Zedong Memorial Day"],
+      "lunar": false,
+      "month": 9,
+      "day": 9
+    }
+  },
+  "中国教师节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国教师节"],
+      "en": ["Teachers' Day in China"],
+      "lunar": false,
+      "month": 9,
+      "day": 10
+    }
+  },
+  "世界预防自杀日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界预防自杀日"],
+      "en": ["World Suicide Prevention Day"],
+      "lunar": false,
+      "month": 9,
+      "day": 10
+    }
+  },
+  "世界清洁地球日": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["世界清洁地球日"],
+      "en": ["World Cleanup Day"],
+      "month": 9,
+      "week_num": 3,
+      "weekday": 6
+    }
+  },
+  "国际臭氧层保护日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际臭氧层保护日"],
+      "en": ["International Day for the Preservation of the Ozone Layer"],
+      "lunar": false,
+      "month": 9,
+      "day": 16
+    }
+  },
+  "九·一八事变纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["九·一八事变纪念日"],
+      "en": ["The Mukden Incident Memorial Day"],
+      "lunar": false,
+      "month": 9,
+      "day": 18
+    }
+  },
+  "全国爱牙日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全国爱牙日"],
+      "en": ["National Tooth Day"],
+      "lunar": false,
+      "month": 9,
+      "day": 20
+    }
+  },
+  "国际和平日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际和平日"],
+      "en": ["International Day of Peace"],
+      "lunar": false,
+      "month": 9,
+      "day": 21
+    }
+  },
+  "世界无车日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界无车日"],
+      "en": ["World Car-Free Day"],
+      "lunar": false,
+      "month": 9,
+      "day": 22
+    }
+  },
+  "全民国防教育日": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["全民国防教育日"],
+      "en": ["National Defense Education Day"],
+      "month": 9,
+      "week_num": 3,
+      "weekday": 6
+    }
+  },
+  "世界老年性痴呆宣传日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界老年性痴呆宣传日"],
+      "en": ["World Alzheimer's Day"],
+      "lunar": false,
+      "month": 9,
+      "day": 21
+    }
+  },
+  "世界旅游日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界旅游日"],
+      "en": ["World Tourism Day"],
+      "lunar": false,
+      "month": 9,
+      "day": 27
+    }
+  },
+  "国际聋人节": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["国际聋人节"],
+      "en": ["International Day of the Deaf"],
+      "month": 9,
+      "week_num": 4,
+      "weekday": 7
+    }
+  },
+  "世界心脏日": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["世界心脏日"],
+      "en": ["World Heart Day"],
+      "month": 9,
+      "week_num": -1,
+      "weekday": 7
+    }
+  },
+  "世界海事日": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["世界海事日"],
+      "en": ["World Maritime Day"],
+      "month": 9,
+      "week_num": -1,
+      "weekday": 7
+    }
+  },
+  "中国国庆节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国国庆节"],
+      "en": ["National Day of the People's Republic of China"],
+      "lunar": false,
+      "month": 10,
+      "day": 1
+    }
+  },
+  "国际音乐日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际音乐日"],
+      "en": ["International Music Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 1
+    }
+  },
+  "国际老年人日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际老年人日"],
+      "en": ["International Day of Older Persons"],
+      "lunar": false,
+      "month": 10,
+      "day": 1
+    }
+  },
+  "国际和平与民主自由斗争日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际和平与民主自由斗争日"],
+      "en": ["International Day of Non-Violence"],
+      "lunar": false,
+      "month": 10,
+      "day": 2
+    }
+  },
+  "世界动物日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界动物日"],
+      "en": ["World Animal Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 4
+    }
+  },
+  "世界教师日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界教师日"],
+      "en": ["World Teachers' Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 5
+    }
+  },
+  "国际住房日": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["国际住房日"],
+      "en": ["World Habitat Day"],
+      "month": 10,
+      "week_num": 1,
+      "weekday": 1
+    }
+  },
+  "国际建筑日": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["国际建筑日"],
+      "en": ["World Architecture Day"],
+      "month": 10,
+      "week_num": 1,
+      "weekday": 1
+    }
+  },
+  "世界视觉日": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["世界视觉日"],
+      "en": ["World Sight Day"],
+      "month": 10,
+      "week_num": 2,
+      "weekday": 4
+    }
+  },
+  "全国高血压日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全国高血压日"],
+      "en": ["National Hypertension Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 8
+    }
+  },
+  "世界邮政日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界邮政日"],
+      "en": ["World Post Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 9
+    }
+  },
+  "辛亥革命纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["辛亥革命纪念日"],
+      "en": ["National Day of the Republic of China (Double Ten Day)"],
+      "lunar": false,
+      "month": 10,
+      "day": 10
+    }
+  },
+  "世界精神卫生日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界精神卫生日", "世界心理健康日"],
+      "en": ["World Mental Health Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 10
+    }
+  },
+  "减少自然灾害国际日": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["减少自然灾害国际日"],
+      "en": ["International Day for Disaster Reduction"],
+      "month": 10,
+      "week_num": 2,
+      "weekday": 3
+    }
+  },
+  "声援南非政治犯日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["声援南非政治犯日"],
+      "en": [
+        "National Day of Solidarity with South African Political Prisoners"
+      ],
+      "lunar": false,
+      "month": 10,
+      "day": 11
+    }
+  },
+  "世界镇痛日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界镇痛日"],
+      "en": ["World Day Against Pain"],
+      "lunar": false,
+      "month": 10,
+      "day": 11
+    }
+  },
+  "世界60亿人口日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界60亿人口日"],
+      "en": ["World Population Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 12
+    }
+  },
+  "中国少年先锋队诞辰日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国少年先锋队诞辰日"],
+      "en": ["Anniversary of the Founding of the Chinese Young Pioneers"],
+      "lunar": false,
+      "month": 10,
+      "day": 13
+    }
+  },
+  "世界保健日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界保健日"],
+      "en": ["World Health Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 13
+    }
+  },
+  "世界标准日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界标准日"],
+      "en": ["World Standards Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 14
+    }
+  },
+  "国际盲人节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际盲人节", "白手杖节"],
+      "en": ["International Day of the Blind"],
+      "lunar": false,
+      "month": 10,
+      "day": 15
+    }
+  },
+  "世界粮食日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界粮食日"],
+      "en": ["World Food Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 16
+    }
+  },
+  "世界消除贫困日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界消除贫困日", "消灭贫穷国际日"],
+      "en": ["International Day for the Eradication of Poverty"],
+      "lunar": false,
+      "month": 10,
+      "day": 17
+    }
+  },
+  "世界传统医药日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界传统医药日"],
+      "en": ["World Traditional Medicine Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 22
+    }
+  },
+  "联合国日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["联合国日"],
+      "en": ["United Nations Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 24
+    }
+  },
+  "世界发展宣传日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界发展宣传日", "世界发展信息日"],
+      "en": ["World Development Information Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 24
+    }
+  },
+  "抗美援朝纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["抗美援朝纪念日"],
+      "en": ["Korean War Veterans Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 25
+    }
+  },
+  "关注男性生殖健康日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["关注男性生殖健康日"],
+      "en": ["International Day of Action for Men's Health"],
+      "lunar": false,
+      "month": 10,
+      "day": 28
+    }
+  },
+  "世界勤俭日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界勤俭日"],
+      "en": ["World Savings Day"],
+      "lunar": false,
+      "month": 10,
+      "day": 31
+    }
+  },
+  "万圣节前夕": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["万圣节前夕"],
+      "en": ["Halloween Eve"],
+      "lunar": false,
+      "month": 10,
+      "day": 31
+    }
+  },
+  "世界植树造林日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界植树造林日"],
+      "en": ["World Arbor Day"],
+      "lunar": false,
+      "month": 11,
+      "day": 1
+    }
+  },
+  "哥斯拉日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["哥斯拉日"],
+      "en": ["Godzilla Day"],
+      "lunar": false,
+      "month": 11,
+      "day": 3
+    }
+  },
+  "防止战争和武装冲突糟蹋环境国际日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["防止战争和武装冲突糟蹋环境国际日"],
+      "en": [
+        "International Day for Preventing the Exploitation of the Environment in War and Armed Conflict"
+      ],
+      "lunar": false,
+      "month": 11,
+      "day": 6
+    }
+  },
+  "苏联十月革命纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["苏联十月革命纪念日"],
+      "en": ["October Revolution Day"],
+      "lunar": false,
+      "month": 11,
+      "day": 7
+    }
+  },
+  "世界美发日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界美发日"],
+      "en": ["World Hairdressing Day"],
+      "lunar": false,
+      "month": 11,
+      "day": 7
+    }
+  },
+  "世界美容日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界美容日"],
+      "en": ["World Beauty Day"],
+      "lunar": false,
+      "month": 11,
+      "day": 7
+    }
+  },
+  "中国记者节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国记者节"],
+      "en": ["Chinese Journalists' Day"],
+      "lunar": false,
+      "month": 11,
+      "day": 8
+    }
+  },
+  "中国消防宣传日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中国消防宣传日", "消防节"],
+      "en": ["China Firefighters' Day"],
+      "lunar": false,
+      "month": 11,
+      "day": 9
+    }
+  },
+  "世界青年节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界青年节"],
+      "en": ["International Day for Tolerance"],
+      "lunar": false,
+      "month": 11,
+      "day": 10
+    }
+  },
+  "刘少奇逝世纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["刘少奇逝世纪念日"],
+      "en": ["Commemoration Day of the Death of Liu Shaoqi"],
+      "lunar": false,
+      "month": 11,
+      "day": 12
+    }
+  },
+  "孙中山诞辰纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["孙中山诞辰纪念日"],
+      "en": ["Anniversary of the Birth of Sun Yat-sen"],
+      "lunar": false,
+      "month": 11,
+      "day": 12
+    }
+  },
+  "世界糖尿病日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界糖尿病日"],
+      "en": ["World Diabetes Day"],
+      "lunar": false,
+      "month": 11,
+      "day": 14
+    }
+  },
+  "国际容忍日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际容忍日", "国际宽容日"],
+      "en": ["International Day for Tolerance"],
+      "lunar": false,
+      "month": 11,
+      "day": 16
+    }
+  },
+  "国际大学生节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际大学生节", "国际学生日"],
+      "en": ["International Students' Day"],
+      "lunar": false,
+      "month": 11,
+      "day": 17
+    }
+  },
+  "非洲工业化日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["非洲工业化日"],
+      "en": ["Africa Industrialization Day"],
+      "lunar": false,
+      "month": 11,
+      "day": 20
+    }
+  },
+  "国际儿童日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际儿童日"],
+      "en": ["Universal Children's Day"],
+      "lunar": false,
+      "month": 11,
+      "day": 20
+    }
+  },
+  "世界电视日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界电视日"],
+      "en": ["World Television Day"],
+      "lunar": false,
+      "month": 11,
+      "day": 21
+    }
+  },
+  "世界问候日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界问候日"],
+      "en": ["World Hello Day"],
+      "lunar": false,
+      "month": 11,
+      "day": 21
+    }
+  },
+  "刘少奇诞辰纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["刘少奇诞辰纪念日"],
+      "en": ["Anniversary of the Birth of Liu Shaoqi"],
+      "lunar": false,
+      "month": 11,
+      "day": 24
+    }
+  },
+  "消除对妇女的暴力行为国际日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["消除对妇女的暴力行为国际日"],
+      "en": ["International Day for the Elimination of Violence against Women"],
+      "lunar": false,
+      "month": 11,
+      "day": 25
+    }
+  },
+  "国际素食日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际素食日", "节"],
+      "en": ["International Vegetarian Day"],
+      "lunar": false,
+      "month": 11,
+      "day": 25
+    }
+  },
+  "恩格斯诞辰纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["恩格斯诞辰纪念日"],
+      "en": ["Anniversary of the Birth of Friedrich Engels"],
+      "lunar": false,
+      "month": 11,
+      "day": 28
+    }
+  },
+  "声援巴勒斯坦人民国际日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["声援巴勒斯坦人民国际日"],
+      "en": ["International Day of Solidarity with the Palestinian People"],
+      "lunar": false,
+      "month": 11,
+      "day": 29
+    }
+  },
+  "美国感恩节": {
+    "load": true,
+    "type": "WeekdayInMonthHoliday",
+    "params": {
+      "zh": ["美国感恩节"],
+      "en": ["Thanksgiving Day (United States)"],
+      "lunar": false,
+      "month": 11,
+      "weekday": 4,
+      "week_num": 4
+    }
+  },
+  "世界艾滋病日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界艾滋病日"],
+      "en": ["World AIDS Day"],
+      "lunar": false,
+      "month": 12,
+      "day": 1
+    }
+  },
+  "废除奴隶制国际日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["废除奴隶制国际日", "废除一切形式奴役世界日"],
+      "en": ["International Day for the Abolition of Slavery"],
+      "lunar": false,
+      "month": 12,
+      "day": 2
+    }
+  },
+  "国际残疾人日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际残疾人日"],
+      "en": ["International Day of Persons with Disabilities"],
+      "lunar": false,
+      "month": 12,
+      "day": 3
+    }
+  },
+  "全国法制宣传日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["全国法制宣传日"],
+      "en": ["National Constitution Day"],
+      "lunar": false,
+      "month": 12,
+      "day": 4
+    }
+  },
+  "促进经济和社会发展自愿人员国际日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["促进经济和社会发展自愿人员国际日"],
+      "en": ["International Volunteer Day for Economic and Social Development"],
+      "lunar": false,
+      "month": 12,
+      "day": 5
+    }
+  },
+  "世界弱能人士日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界弱能人士日"],
+      "en": ["International Day of Persons with Disabilities"],
+      "lunar": false,
+      "month": 12,
+      "day": 5
+    }
+  },
+  "国际民航日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际民航日"],
+      "en": ["International Civil Aviation Day"],
+      "lunar": false,
+      "month": 12,
+      "day": 7
+    }
+  },
+  "“一二·九”运动纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["“一二·九”运动纪念日"],
+      "en": ["Anniversary of the 'December 9th Movement' (China)"],
+      "lunar": false,
+      "month": 12,
+      "day": 9
+    }
+  },
+  "世界足球日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界足球日"],
+      "en": ["World Football Day"],
+      "lunar": false,
+      "month": 12,
+      "day": 9
+    }
+  },
+  "国际反腐败日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际反腐败日"],
+      "en": ["International Anti-Corruption Day"],
+      "lunar": false,
+      "month": 12,
+      "day": 9
+    }
+  },
+  "世界人权日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界人权日"],
+      "en": ["International Human Rights Day"],
+      "lunar": false,
+      "month": 12,
+      "day": 10
+    }
+  },
+  "国际山岳日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际山岳日"],
+      "en": ["International Mountain Day"],
+      "lunar": false,
+      "month": 12,
+      "day": 11
+    }
+  },
+  "国际儿童电视广播日": {
+    "load": true,
+    "type": "WeekdayInMonthHoliday",
+    "params": {
+      "zh": ["国际儿童电视广播日"],
+      "en": ["International Children's Day of Broadcasting"],
+      "lunar": false,
+      "month": 12,
+      "weekday": 0,
+      "week_num": 2
+    }
+  },
+  "西安事变纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["西安事变纪念日"],
+      "en": ["Anniversary of the Xi'an Incident"],
+      "lunar": false,
+      "month": 12,
+      "day": 12
+    }
+  },
+  "南京大屠杀死难者国家公祭日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["南京大屠杀死难者国家公祭日"],
+      "en": ["National Memorial Day for Nanjing Massacre Victims"],
+      "lunar": false,
+      "month": 12,
+      "day": 13
+    }
+  },
+  "世界强化免疫日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["世界强化免疫日"],
+      "en": ["World Immunization Day"],
+      "lunar": false,
+      "month": 12,
+      "day": 15
+    }
+  },
+  "国际移徙者日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际移徙者日"],
+      "en": ["International Migrants Day"],
+      "lunar": false,
+      "month": 12,
+      "day": 18
+    }
+  },
+  "联合国南南合作日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["联合国南南合作日"],
+      "en": ["United Nations Day for South-South Cooperation"],
+      "lunar": false,
+      "month": 12,
+      "day": 19
+    }
+  },
+  "澳门回归纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["澳门回归纪念日"],
+      "en": ["Macau Special Administrative Region Establishment Day"],
+      "lunar": false,
+      "month": 12,
+      "day": 20
+    }
+  },
+  "国际人类团结日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际人类团结日"],
+      "en": ["International Human Solidarity Day"],
+      "lunar": false,
+      "month": 12,
+      "day": 20
+    }
+  },
+  "国际篮球日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["国际篮球日"],
+      "en": ["International Basketball Day"],
+      "lunar": false,
+      "month": 12,
+      "day": 21
+    }
+  },
+  "平安夜": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["平安夜"],
+      "en": ["Christmas Eve"],
+      "lunar": false,
+      "month": 12,
+      "day": 24
+    }
+  },
+  "圣诞节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["圣诞节"],
+      "en": ["Christmas Day"],
+      "lunar": false,
+      "month": 12,
+      "day": 25
+    }
+  },
+  "毛泽东诞辰纪念日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["毛泽东诞辰纪念日"],
+      "en": ["Mao Zedong's Birthday"],
+      "lunar": false,
+      "month": 12,
+      "day": 26
+    }
+  },
+  "节礼日": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["节礼日"],
+      "en": ["Boxing Day"],
+      "lunar": false,
+      "month": 12,
+      "day": 26
+    }
+  }
+}

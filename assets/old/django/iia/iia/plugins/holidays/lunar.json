@@ -1,0 +1,152 @@
+{
+  "春节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["春节"],
+      "en": ["The Spring Festival"],
+      "fix": true,
+      "lunar": true,
+      "month": 1,
+      "day": 1
+    }
+  },
+  "元宵节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["元宵节", "上元节"],
+      "en": ["Lantern Festival"],
+      "fix": true,
+      "lunar": true,
+      "month": 1,
+      "day": 15
+    }
+  },
+  "春龙节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["春龙节", "龙抬头"],
+      "en": ["The dragon saves spring", "The dragon raises head"],
+      "lunar": true,
+      "month": 2,
+      "day": 2
+    }
+  },
+  "上巳节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["上巳节"],
+      "en": ["Shangsi Festival"],
+      "lunar": true,
+      "month": 3,
+      "day": 3
+    }
+  },
+  "端午节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["端午节"],
+      "en": ["the Dragon Boat Festival"],
+      "lunar": true,
+      "month": 5,
+      "day": 5
+    }
+  },
+  "七夕": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["七夕"],
+      "en": ["Chinese Valentine's Day"],
+      "lunar": true,
+      "month": 7,
+      "day": 7
+    }
+  },
+  "中元节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中元节"],
+      "en": ["Zhongyuan Festival"],
+      "lunar": true,
+      "month": 7,
+      "day": 15
+    }
+  },
+  "中秋节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["中秋节"],
+      "en": ["Mid-Autumn Festival"],
+      "lunar": true,
+      "month": 8,
+      "day": 15
+    }
+  },
+  "重阳节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["重阳节"],
+      "en": ["Double Ninth Festival"],
+      "lunar": true,
+      "month": 9,
+      "day": 9
+    }
+  },
+  "寒衣节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["寒衣节"],
+      "en": ["Hanyi Festival", "Winter Clothing Festival"],
+      "lunar": true,
+      "month": 10,
+      "day": 1
+    }
+  },
+  "下元节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["下元节"],
+      "en": ["Xia Yuan Festival"],
+      "lunar": true,
+      "month": 10,
+      "day": 15
+    }
+  },
+  "腊八节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["腊八节"],
+      "en": ["Laba Festival"],
+      "lunar": true,
+      "month": 12,
+      "day": 8
+    }
+  },
+  "小年": {
+    "load": false,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["小年"],
+      "en": ["little new year"]
+    }
+  },
+  "除夕": {
+    "load": false,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["除夕"],
+      "en": ["New Year's Eve"]
+    }
+  }
+}

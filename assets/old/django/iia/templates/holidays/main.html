@@ -1,0 +1,121 @@
+<!-- templates/holidays/main.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Holidays</title>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        var test;
+        $(document).ready(function() {
+            // 第一个函数，处理点击事件
+            $('#ajax-button').click(function() {
+                var appName = 'holidays';
+                var appFunction = 'test_function';
+                var url = '{% url "app_function" "dummy" "dummy" %}';
+                url = url.replace('dummy', encodeURIComponent(appName));
+                url = url.replace('dummy', encodeURIComponent(appFunction), 1);
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('AJAX Error:', textStatus, errorThrown);
+                    }
+                });
+            });
+        });
+
+        function handleEnterPress(event) {
+            if (event.which == 13 || event.keyCode == 13) {
+                event.preventDefault();
+
+                var appName = 'holidays';
+                var appFunction = 'get_year';
+                var param = $('#year_input').val(); // 获取隐藏输入框的值
+                var url = '{% url "app_function" "dummy" "dummy" %}?year=' + encodeURIComponent(param);
+
+                url = url.replace('dummy', encodeURIComponent(appName));
+                url = url.replace('dummy', encodeURIComponent(appFunction), 1);
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data);
+                        test = data;
+                        fillTable(data.res, param); // 调用填充表格的函数
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('AJAX Error:', textStatus, errorThrown);
+                    }
+                });
+            }
+        }
+
+        function fillTable(holidays,year) {
+            var table = document.getElementById("year_selected_table");
+            // 清空表格内容，保留表头
+            while (table.rows.length > 1) {
+                table.deleteRow(1);
+            }
+            // 遍历节日列表，逐行添加到表格中
+            for (var i = 0; i < holidays.length; i++) {
+                var holiday = holidays[i];
+                var row = table.insertRow();
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                var dateParts = holiday.date[parseInt(year)].split('T')[0].split('-');
+                cell1.innerHTML = holiday.zh[0]; // 节日名称
+                cell2.innerHTML = dateParts[0]; // 年份
+                cell3.innerHTML = dateParts[1]; // 月份
+                cell4.innerHTML = dateParts[2]; // 日期
+            }
+        }
+
+
+
+    </script>
+
+    <h1>Holiday List</h1>
+    <input id="year_input" type="text" placeholder="Year" onkeydown="handleEnterPress(event)">
+    <!--<button id="ajax-button">Get Data via AJAX</button>-->
+    <!--<a href="/holidays/test_function">1111111</a>-->
+    <table border="1" id="year_selected_table">
+        <tr>
+        <th>节日</th>
+        <th>年</th>
+        <th>月</th>
+        <th>日</th>
+        </tr>
+    </table>
+    <!--
+    <table border="1">
+        <tr>
+        <th>节日</th>
+        <th>年</th>
+        <th>月</th>
+        <th>日</th>
+        </tr>
+        {% for holiday in data.holidays %}
+        <tr>
+        <th>{{holiday.zh.0}}</th>
+        <th>{{holiday.date.2024.year}}</th>
+        <th>{{holiday.date.2024.month}}</th>
+        <th>{{holiday.date.2024.day}}</th>
+        </tr>
+        {% endfor %}
+    </table>-->
+</body>
+</html>

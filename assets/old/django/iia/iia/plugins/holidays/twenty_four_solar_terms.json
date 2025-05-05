@@ -1,0 +1,218 @@
+{
+  "立春": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["立春"],
+      "en": ["Beginning of Spring"],
+      "solar_term": "立春"
+    }
+  },
+  "雨水": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["雨水"],
+      "en": ["Rain Water"],
+      "solar_term": "雨水"
+    }
+  },
+  "惊蛰": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["惊蛰"],
+      "en": ["Awakening of Insects"],
+      "solar_term": "惊蛰"
+    }
+  },
+  "春分": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["春分"],
+      "en": ["Spring Equinox"],
+      "solar_term": "春分"
+    }
+  },
+  "清明": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["清明"],
+      "en": ["Pure Brightness"],
+      "solar_term": "清明"
+    }
+  },
+  "谷雨": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["谷雨"],
+      "en": ["Grain Rain"],
+      "solar_term": "谷雨"
+    }
+  },
+  "立夏": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["立夏"],
+      "en": ["Beginning of Summer"],
+      "solar_term": "立夏"
+    }
+  },
+  "小满": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["小满"],
+      "en": ["Grain Buds"],
+      "solar_term": "小满"
+    }
+  },
+  "芒种": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["芒种"],
+      "en": ["Grain in Ear"],
+      "solar_term": "芒种"
+    }
+  },
+  "夏至": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["夏至"],
+      "en": ["Summer Solstice"],
+      "solar_term": "夏至"
+    }
+  },
+  "小暑": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["小暑"],
+      "en": ["Minor Heat"],
+      "solar_term": "小暑"
+    }
+  },
+  "大暑": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["大暑"],
+      "en": ["Major Heat"],
+      "solar_term": "大暑"
+    }
+  },
+  "立秋": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["立秋"],
+      "en": ["Beginning of Autumn"],
+      "solar_term": "立秋"
+    }
+  },
+  "处暑": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["处暑"],
+      "en": ["End of Heat"],
+      "solar_term": "处暑"
+    }
+  },
+  "白露": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["白露"],
+      "en": ["White Dew"],
+      "solar_term": "白露"
+    }
+  },
+  "秋分": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["秋分"],
+      "en": ["Autumn Equinox"],
+      "solar_term": "秋分"
+    }
+  },
+  "寒露": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["寒露"],
+      "en": ["Cold Dew"],
+      "solar_term": "寒露"
+    }
+  },
+  "霜降": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["霜降"],
+      "en": ["Frost's Descent"],
+      "solar_term": "霜降"
+    }
+  },
+  "立冬": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["立冬"],
+      "en": ["Beginning of Winter"],
+      "solar_term": "立冬"
+    }
+  },
+  "小雪": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["小雪"],
+      "en": ["Minor Snow"],
+      "solar_term": "小雪"
+    }
+  },
+  "大雪": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["大雪"],
+      "en": ["Major Snow"],
+      "solar_term": "大雪"
+    }
+  },
+  "冬至": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["冬至"],
+      "en": ["Winter Solstice"],
+      "solar_term": "冬至"
+    }
+  },
+  "小寒": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["小寒"],
+      "en": ["Minor Cold"],
+      "solar_term": "小寒"
+    }
+  },
+  "大寒": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["大寒"],
+      "en": ["Major Cold"],
+      "solar_term": "大寒"
+    }
+  }
+}

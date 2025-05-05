@@ -1,0 +1,54 @@
+{
+  "元旦": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["元旦"],
+      "en": ["New Year's Day"],
+      "lunar": false,
+      "month": 1,
+      "day": 1
+    }
+  },
+  "春节": {
+    "load": true,
+    "type": "FixHoliday",
+    "params": {
+      "zh": ["春节"],
+      "en": ["The Spring Festival"],
+      "lunar": true,
+      "month": 1,
+      "day": 1
+    }
+  },
+  "立春": {
+    "load": true,
+    "type": "SolarTermsHoliday",
+    "params": {
+      "zh": ["立春"],
+      "en": ["Beginning of Spring"],
+      "solar_term": "立春"
+    }
+  },
+  "母亲节": {
+    "load": true,
+    "type": "WeekInMonthHoliday",
+    "params": {
+      "zh": ["母亲节"],
+      "en": ["Mother's Day"],
+      "month": 5,
+      "week_num": 2,
+      "weekday": 7
+    }
+  },
+  "国际罕见病日": {
+    "load": true,
+    "type": "LastInMonthHoliday",
+    "params": {
+      "zh": ["国际罕见病日"],
+      "en": ["International Rare Disease Day"],
+      "month": 2,
+      "last": 1
+    }
+  }
+}

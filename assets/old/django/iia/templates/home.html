@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IIA</title>
+</head>
+<body>
+    <h1>IIA Main Page</h1>
+    <ul>
+        {% for app_path, app_name in apps.items %}
+        <li><a href="{% url 'app_home' app_name=app_path %}">{{ app_name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
