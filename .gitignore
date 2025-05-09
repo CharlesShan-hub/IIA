@@ -31,3 +31,5 @@ server/target/
 
 ### VS Code ###
 /server/.vscode/
+
+/client/node_modules
