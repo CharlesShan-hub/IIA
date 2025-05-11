@@ -33,5 +33,6 @@ server/target/
 /server/.vscode/
 
 /client/node_modules
+/client/src/assets/libs
 /node_modules
 .DS_Store
