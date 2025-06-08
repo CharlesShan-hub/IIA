@@ -36,3 +36,5 @@ server/target/
 /client/src/assets/libs
 /node_modules
 .DS_Store
+
+/backup
