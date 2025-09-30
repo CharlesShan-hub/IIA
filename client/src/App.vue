@@ -1,9 +1,18 @@
 <template>
-  <router-view></router-view>
+  <div id="app">
+    <router-view></router-view>
+    <!-- 全局通知组件 -->
+    <AppNotification />
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'App',
+import AppNotification from './components/Notification.vue'
+
+export default {
+  name: 'App',
+  components: {
+    AppNotification
   }
+}
 </script>

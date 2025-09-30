@@ -1,0 +1,35 @@
+server:
+  port: 8080
+spring:
+    application:
+        name: iia
+    datasource:
+        url: jdbc:mysql://localhost:3306/iia?useSSL=false&serverTimezone=UTC
+        username: root
+        password:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    redis:
+        host: localhost
+        port: 6379
+        timeout: 60000 # 连接超时时间（毫秒）
+    mail:
+        host: smtp.qq.com           # QQ邮箱SMTP服务器
+        username: inforassistant@foxmail.com  # 发送方邮箱
+        password: gtpjjuyufsracihj   # 邮箱授权码（非登录密码）
+        properties:
+            mail.smtp.auth: true
+            mail.smtp.starttls.enable: true
+            mail.smtp.starttls.required: true
+mybatis:
+    mapper-locations: classpath:mapper/*.xml  # XML SQL ??????
+    type-aliases-package: com.charles.server.iia.auth.entity  # ?????
+    configuration:
+        map-underscore-to-camel-case: true  # ??????????????
+# JWT配置
+jwt:
+    secret: ThisIsASecretKeyForJWTThatIsAtLeast64BytesLongEnoughForHS512AlgorithmSecurityRequirements!
+    expiration: 86400000 # Token有效期（毫秒），这里设置为24小时
+
+logging:
+    level:
+        root: INFO

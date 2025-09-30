@@ -211,7 +211,7 @@
                         <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-right">11</span><i class="mdi mdi-settings font-size-17 align-middle mr-1"></i> Settings</a>
                         <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline font-size-17 align-middle mr-1"></i> Lock screen</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="#"><i class="bx bx-power-off font-size-17 align-middle mr-1 text-danger"></i> Logout</a>
+                        <a class="dropdown-item text-danger" href="javascript:void(0)" @click="handleLogout"><i class="bx bx-power-off font-size-17 align-middle mr-1 text-danger"></i> Logout</a>
                     </div>
                 </div>
 
@@ -227,8 +227,61 @@
 </template>
 
 <script>
+import axios from '@/utils/axios';
+import { useAuthStore } from '@/stores/auth';
+import { useNotificationStore } from '@/stores/notification';
+import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
+
 export default {
     name: 'AppHeader',
-    // 可以在这里添加需要的数据或方法
+    setup() {
+        const authStore = useAuthStore();
+        const router = useRouter();
+        const notificationStore = useNotificationStore();
+        const { success } = notificationStore;
+
+        // 处理登出
+        const handleLogout = async () => {
+            try {
+                // 获取当前用户ID
+                const userId = authStore.user?.id;
+                
+                // 调用后端登出API
+                if (userId) {
+                    await axios.post(`/api/auth/logout/${userId}`);
+                }
+                
+                // 调用auth store中的logout方法清除本地状态
+                authStore.logout();
+                
+                // 显示登出成功消息
+                success('Logout successful');
+                
+                // 跳转到登录页面
+                router.push('/auth/login');
+            } catch (error) {
+                console.error('Logout failed:', error);
+                // 即使API调用失败，也应该清除本地状态
+                authStore.logout();
+                router.push('/auth/login');
+            }
+        };
+
+        // 检查用户是否已登录
+        const isLoggedIn = () => {
+            return authStore.isLoggedIn;
+        };
+
+        // 组件挂载时的处理
+        onMounted(() => {
+            // 可以在这里添加其他初始化逻辑
+        });
+
+        return {
+            handleLogout,
+            isLoggedIn
+        };
+    }
 }
 </script>
