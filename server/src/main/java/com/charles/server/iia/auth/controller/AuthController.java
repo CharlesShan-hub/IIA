@@ -3,8 +3,8 @@ package com.charles.server.iia.auth.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +18,9 @@ import com.charles.server.iia.auth.entity.AuthAccount;
 import com.charles.server.iia.auth.service.AuthService;
 import com.charles.server.iia.auth.service.TokenService;
 import com.charles.server.iia.auth.utils.JwtUtils;
+import com.charles.server.iia.auth.utils.TokenUtils;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,36 +35,101 @@ public class AuthController {
     private final JwtUtils jwtUtils;
     private final TokenService tokenService;
 
-    // 1. 原有登录接口（已添加日志）
+    // 登录接口
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody @Valid LoginDTO dto) {
-        log.info("用户登录请求，邮箱: {}", dto.getEmail());
+    public Map<String, Object> login(@RequestBody @Valid LoginDTO dto) {
         try {
-            // 执行登录验证
-            AuthAccount account = authService.login(dto);
+            Map<String, Object> loginResult = authService.login(dto);
             log.info("用户登录成功，邮箱: {}", dto.getEmail());
-            
-            // 使用JWT工具类生成Token
-            String token = jwtUtils.generateJwtToken(account.getId().toString());
-            
-            // 存储Token到Redis
-            tokenService.storeToken(account.getId().toString(), token);
-            
-            // 获取用户完整信息
-            Map<String, Object> userInfo = new HashMap<>();
-            userInfo.put("id", account.getId());
-            userInfo.put("authId", account.getId());
-            // 可以在这里添加更多用户信息
-            
-            // 设置响应数据
             Map<String, Object> response = new HashMap<>();
-            response.put("token", token);
-            response.put("user", userInfo);
-            
-            return ResponseEntity.ok(response);
+            response.put("code", 200);
+            response.put("msg", "登录成功");
+            response.put("data", loginResult);
+            log.info("Token: {}", loginResult.get("token"));
+            log.info("RefreshToken: {}", loginResult.get("refreshToken"));
+            return response;
         } catch (Exception e) {
             log.error("用户登录失败，邮箱: {}，错误信息: {}", dto.getEmail(), e.getMessage(), e);
-            throw e;
+
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("code", 400);
+            errorResponse.put("msg", e.getMessage());
+            errorResponse.put("data", null);
+            return errorResponse;
+        }
+    }
+
+    // 获取用户信息接口
+    @GetMapping("/profile")
+    public Map<String, Object> profile(HttpServletRequest request) {
+        try {
+            String token = TokenUtils.getTokenFromRequest(request);
+            log.info("用户信息请求，Token: {}", token);
+            String userId = authService.getUserIdFromToken(token);
+            Map<String, Object> userInfo = authService.getUserInfo(userId);
+            Map<String, Object> response = new HashMap<>();
+            response.put("code", 200);
+            response.put("message", "success");
+            response.put("data", userInfo);
+            return response;
+        } catch (Exception e) {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("code", 401);
+            errorResponse.put("message", "认证失败：" + e.getMessage());
+            return errorResponse;
+        }
+    }
+
+    /**
+     * 刷新AccessToken接口
+     * @param request 刷新令牌
+     * @return 新的AccessToken
+     */
+    @PostMapping("/refresh")
+    public Map<String, Object> refreshToken(@RequestBody Map<String, String> request) {
+        String refreshToken = request.get("refreshToken");
+        log.info("刷新AccessToken请求");
+        
+        try {
+            // 验证Refresh Token
+            if (refreshToken == null || !jwtUtils.validateRefreshToken(refreshToken)) {
+                throw new RuntimeException("无效的Refresh Token");
+            }
+            
+            // 获取用户ID
+            String userId = jwtUtils.getUserIdFromToken(refreshToken);
+            
+            // 验证Redis中的Refresh Token
+            if (!tokenService.validateRefreshToken(userId, refreshToken)) {
+                throw new RuntimeException("Refresh Token已过期");
+            }
+            
+            // 生成新的AccessToken
+            String newAccessToken = jwtUtils.generateAccessToken(userId);
+            
+            // 存储新的AccessToken到Redis
+            tokenService.storeAccessToken(userId, newAccessToken);
+            
+            // 设置响应数据 - 按照前端期望的格式包装（code, msg, data）
+            Map<String, Object> data = new HashMap<>();
+            data.put("token", newAccessToken);
+            
+            Map<String, Object> response = new HashMap<>();
+            response.put("code", 200);
+            response.put("msg", "刷新令牌成功");
+            response.put("data", data);
+            
+            log.info("刷新AccessToken成功，用户ID: {}", userId);
+            return response;
+        } catch (Exception e) {
+            log.error("刷新AccessToken失败，错误信息: {}", e.getMessage(), e);
+            
+            // 构造错误响应
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("code", 400);
+            errorResponse.put("msg", e.getMessage());
+            errorResponse.put("data", null);
+            return errorResponse;
         }
     }
     
@@ -72,39 +139,49 @@ public class AuthController {
      * @return 登出结果
      */
     @PostMapping("/logout/{userId}")
-    public ResponseEntity<Map<String, Object>> logout(@PathVariable Long userId) {
+    public Map<String, Object> logout(@PathVariable Long userId) {
         log.info("用户登出请求，用户ID: {}", userId);
         try {
-            // 从Redis删除Token使其失效
-            tokenService.deleteToken(userId.toString());
+            // 从Redis删除所有Token使其失效
+            tokenService.deleteAllTokens(userId.toString());
             
-            // 构造响应数据
+            // 设置响应数据 - 按照前端期望的格式包装（code, msg, data）
+            Map<String, Object> data = new HashMap<>();
+            data.put("success", true);
+            
             Map<String, Object> response = new HashMap<>();
-            response.put("success", true);
-            response.put("message", "登出成功");
+            response.put("code", 200);
+            response.put("msg", "登出成功");
+            response.put("data", data);
             
             log.info("用户登出成功，用户ID: {}", userId);
-            return ResponseEntity.ok(response);
+            return response;
         } catch (Exception e) {
             log.error("用户登出失败，用户ID: {}，错误信息: {}", userId, e.getMessage(), e);
-            throw e;
+            
+            // 构造错误响应
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("code", 400);
+            errorResponse.put("msg", e.getMessage());
+            errorResponse.put("data", null);
+            return errorResponse;
         }
     }
 
     // 2. 改造后的注册接口（新增验证码校验）（已添加日志）
     @PostMapping("/register")
-    public ResponseEntity<Map<String, Object>> register(@RequestBody @Valid RegisterDTO dto) {
+    public Map<String, Object> register(@RequestBody @Valid RegisterDTO dto) {
         log.info("用户注册请求，邮箱: {}", dto.getEmail());
         try {
             // 执行注册操作（包含验证码校验）
             AuthAccount account = authService.register(dto);
             log.info("用户注册成功，邮箱: {}，用户ID: {}", dto.getEmail(), account.getId());
             
-            // 使用JWT工具类生成Token
-            String token = jwtUtils.generateJwtToken(account.getId().toString());
+            // 使用JWT工具类生成AccessToken
+            String token = jwtUtils.generateAccessToken(account.getId().toString());
             
-            // 存储Token到Redis
-            tokenService.storeToken(account.getId().toString(), token);
+            // 存储AccessToken到Redis
+            tokenService.storeAccessToken(account.getId().toString(), token);
             
             // 获取用户完整信息
             Map<String, Object> userInfo = new HashMap<>();
@@ -112,30 +189,57 @@ public class AuthController {
             userInfo.put("authId", account.getId());
             // 可以在这里添加更多用户信息
             
-            // 设置响应数据
-            Map<String, Object> response = new HashMap<>();
-            response.put("token", token);
-            response.put("user", userInfo);
+            // 设置响应数据 - 按照前端期望的格式包装（code, msg, data）
+            Map<String, Object> data = new HashMap<>();
+            data.put("token", token);
+            data.put("user", userInfo);
             
-            return ResponseEntity.ok(response);
+            Map<String, Object> response = new HashMap<>();
+            response.put("code", 200);
+            response.put("msg", "注册成功");
+            response.put("data", data);
+            
+            return response;
         } catch (Exception e) {
             log.error("用户注册失败，邮箱: {}，错误信息: {}", dto.getEmail(), e.getMessage(), e);
-            throw e;
+            
+            // 构造错误响应
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("code", 400);
+            errorResponse.put("msg", e.getMessage());
+            errorResponse.put("data", null);
+            return errorResponse;
         }
     }
 
     // 3. 新增验证码发送接口
     @PostMapping("/send-code")
-    public ResponseEntity<Void> sendCode(@RequestBody @Valid SendCodeDTO dto) {
+    public Map<String, Object> sendCode(@RequestBody @Valid SendCodeDTO dto) {
         log.info("开始发送验证码请求，目标邮箱: {}", dto.getEmail());
         try {
             authService.sendCode(dto.getEmail());
             log.info("验证码已成功发送至邮箱: {}", dto.getEmail());
+            
+            // 设置响应数据 - 按照前端期望的格式包装（code, msg, data）
+            Map<String, Object> data = new HashMap<>();
+            data.put("success", true);
+            
+            Map<String, Object> response = new HashMap<>();
+            response.put("code", 200);
+            response.put("msg", "验证码发送成功");
+            response.put("data", data);
+            
+            return response;
         } catch (Exception e) {
             log.error("发送验证码失败，邮箱: {}，错误信息: {}", dto.getEmail(), e.getMessage(), e);
-            throw e;
+            
+            // 构造错误响应
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("code", 400);
+            errorResponse.put("msg", e.getMessage());
+            errorResponse.put("data", null);
+            return errorResponse;
         }
-        return ResponseEntity.ok().build();
     }
 
     /**
@@ -144,7 +248,7 @@ public class AuthController {
      * @return 重置结果
      */
     @PostMapping("/reset-password")
-    public ResponseEntity<Map<String, Object>> resetPassword(@RequestBody Map<String, String> resetData) {
+    public Map<String, Object> resetPassword(@RequestBody Map<String, String> resetData) {
         String email = resetData.get("email");
         String code = resetData.get("code");
         String newPassword = resetData.get("newPassword");
@@ -170,15 +274,25 @@ public class AuthController {
             authService.resetPassword(email, newPassword);
             log.info("用户密码重置成功，邮箱: {}", email);
             
-            // 构造响应数据
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", true);
-            response.put("message", "密码重置成功");
+            // 构造响应数据 - 按照前端期望的格式包装（code, msg, data）
+            Map<String, Object> data = new HashMap<>();
+            data.put("success", true);
             
-            return ResponseEntity.ok(response);
+            Map<String, Object> response = new HashMap<>();
+            response.put("code", 200);
+            response.put("msg", "密码重置成功");
+            response.put("data", data);
+            
+            return response;
         } catch (Exception e) {
             log.error("用户密码重置失败，邮箱: {}，错误信息: {}", email, e.getMessage(), e);
-            throw e;
+            
+            // 构造错误响应
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("code", 400);
+            errorResponse.put("msg", e.getMessage());
+            errorResponse.put("data", null);
+            return errorResponse;
         }
     }
 }

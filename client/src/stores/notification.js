@@ -3,24 +3,24 @@ import { defineStore } from 'pinia'
 
 export const useNotificationStore = defineStore('notification', {
   state: () => ({
-    type: null,
-    message: null
+    error: null,
+    success: null
   }),
   
   actions: {
     success(message) {
-      this.type = 'alert-success'
-      this.message = message
+      this.success = message
+      this.error = null
     },
     
     error(message) {
-      this.type = 'alert-danger'
-      this.message = message
+      this.error = message
+      this.success = null
     },
     
     clear() {
-      this.type = null
-      this.message = null
+      this.error = null
+      this.success = null
     }
   }
 })

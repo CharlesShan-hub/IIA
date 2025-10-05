@@ -9,8 +9,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.util.StringUtils;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -33,16 +33,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private TokenService tokenService;
     
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-            FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
+            // 1. 从请求头中解析出 JWT Token
             String jwt = parseJwt(request);
-            if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-                String userId = jwtUtils.getUserIdFromJwtToken(jwt);
+            
+            // 2. 第一重验证：验证 JWT Token 本身的有效性（签名、过期时间等）
+            if (jwt != null && jwtUtils.validateToken(jwt)) {
+                // 3. 从 Token 中提取用户 ID
+                String userId = jwtUtils.getUserIdFromToken(jwt);
                 
-                // 验证Redis中是否存在有效Token
-                if (tokenService.validateToken(userId, jwt)) {
-                    // 设置用户认证信息
+                // 4. 第二重验证：验证 Redis 中是否存在有效的 AccessToken
+                if (tokenService.validateAccessToken(userId, jwt)) {
+                    // 5. 验证通过，设置用户认证信息
                     UsernamePasswordAuthenticationToken authentication = 
                         new UsernamePasswordAuthenticationToken(userId, null, new ArrayList<>());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

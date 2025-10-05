@@ -1,56 +1,75 @@
 package com.charles.server.iia.auth.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
-
-import java.util.concurrent.TimeUnit;
-
 /**
- * Token管理服务，用于在Redis中存储和验证Token
+ * Token管理服务接口，定义Token操作的核心方法
  */
-@Service
-public class TokenService {
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
-    
+public interface TokenService {
     /**
-     * 存储Token到Redis，设置过期时间
+     * 存储AccessToken到Redis，设置过期时间
      * @param userId 用户ID
-     * @param token JWT Token
+     * @param token JWT Access Token
      */
-    public void storeToken(String userId, String token) {
-        String key = "user:token:" + userId;
-        redisTemplate.opsForValue().set(key, token, 24, TimeUnit.HOURS);
-    }
+    void storeAccessToken(String userId, String token);
     
     /**
-     * 从Redis获取Token
+     * 存储RefreshToken到Redis，设置过期时间
      * @param userId 用户ID
-     * @return Token
+     * @param refreshToken JWT Refresh Token
      */
-    public String getToken(String userId) {
-        String key = "user:token:" + userId;
-        return redisTemplate.opsForValue().get(key);
-    }
+    void storeRefreshToken(String userId, String refreshToken);
     
     /**
-     * 从Redis删除Token（用户登出）
+     * 从Redis获取AccessToken
+     * @param userId 用户ID
+     * @return Access Token
+     */
+    String getAccessToken(String userId);
+    
+    /**
+     * 从Redis获取RefreshToken
+     * @param userId 用户ID
+     * @return Refresh Token
+     */
+    String getRefreshToken(String userId);
+    
+    /**
+     * 从Redis删除AccessToken（用户登出）
      * @param userId 用户ID
      */
-    public void deleteToken(String userId) {
-        String key = "user:token:" + userId;
-        redisTemplate.delete(key);
-    }
+    void deleteAccessToken(String userId);
     
     /**
-     * 验证Token是否有效
+     * 从Redis删除RefreshToken（用户登出）
      * @param userId 用户ID
-     * @param token JWT Token
+     */
+    void deleteRefreshToken(String userId);
+    
+    /**
+     * 删除用户的所有Token（用户登出）
+     * @param userId 用户ID
+     */
+    void deleteAllTokens(String userId);
+    
+    /**
+     * 验证AccessToken是否有效
+     * @param userId 用户ID
+     * @param token JWT Access Token
      * @return 是否有效
      */
-    public boolean validateToken(String userId, String token) {
-        String storedToken = getToken(userId);
-        return storedToken != null && storedToken.equals(token);
-    }
+    boolean validateAccessToken(String userId, String token);
+    
+    /**
+     * 验证RefreshToken是否有效
+     * @param userId 用户ID
+     * @param refreshToken JWT Refresh Token
+     * @return 是否有效
+     */
+    boolean validateRefreshToken(String userId, String refreshToken);
+    
+    /**
+     * 通过AccessToken获取用户ID
+     * @param accessToken JWT Access Token
+     * @return 用户ID
+     */
+    Long getUserIdByAccessToken(String accessToken);
 }

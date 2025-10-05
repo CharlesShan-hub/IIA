@@ -7,12 +7,15 @@
 </template>
 
 <script>
-import AppNotification from './components/Notification.vue'
+import AppNotification from './components/main/Notification.vue'
 
-export default {
+const AppComponent = {
   name: 'App',
   components: {
     AppNotification
   }
 }
+
+export default AppComponent
+export const App = AppComponent
 </script>

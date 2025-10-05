@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AuthPage from '../components/Auth.vue'
-import LoginPage from '../components/Login.vue'
-import RegisterPage from '../components/Register.vue'
-import TestAuthPage from '../components/TestAuth.vue'
-import ForgotPasswordPage from '../components/ForgotPassword.vue'
-import MainPage from '../components/Main.vue'
-import DashboardPage from '../components/Dashboard.vue'
+import AuthPage from '../views/auth/Auth.vue'
+import LoginPage from '../views/auth/Login.vue'
+import RegisterPage from '../views/auth/Register.vue'
+import ForgotPasswordPage from '../views/auth/ForgotPassword.vue'
+import MainPage from '../components/main/Main.vue'
+import DashboardPage from '../views/Dashboard.vue'
+import TestNotification from '../views/TestNotification.vue'
 
 const routes = [
   {
@@ -15,22 +15,23 @@ const routes = [
       { path: 'login', component: LoginPage },
       { path: 'register', component: RegisterPage },
       { path: 'forgot-password', component: ForgotPasswordPage },
-      { path: 'test-auth', component: TestAuthPage }
     ]
+  },
+  { 
+    path: '/', 
+    redirect: '/auth/login',
   },
   { 
     path: '/main', 
     component: MainPage 
   },
-  { 
+  {
     path: '/dashboard', 
     component: DashboardPage 
   },
-  { 
-    path: '/', 
-    redirect: '/auth/test-auth'
-    // redirect: '/auth/login',
-    // redirect: '/main' 
+  {
+    path: '/test-notification',
+    component: TestNotification
   }
 ]
 
@@ -39,4 +40,4 @@ const router = createRouter({
   routes
 })
 
-export default router
+export { router }
