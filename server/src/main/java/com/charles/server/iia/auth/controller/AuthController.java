@@ -3,6 +3,7 @@ package com.charles.server.iia.auth.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.charles.server.iia.auth.dto.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,10 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.charles.server.iia.auth.dto.LoginDTO;
-import com.charles.server.iia.auth.dto.RegisterDTO;
-import com.charles.server.iia.auth.dto.SendCodeDTO;
-import com.charles.server.iia.auth.entity.AuthAccount;
 import com.charles.server.iia.auth.service.AuthService;
 import com.charles.server.iia.auth.service.TokenService;
 import com.charles.server.iia.auth.utils.JwtUtils;
@@ -36,13 +33,13 @@ public class AuthController {
     
     // 登录
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody @Valid LoginDTO dto) {
+    public Map<String, Object> login(@RequestBody @Valid LoginRequest dto) {
         try {
-            Map<String, Object> loginResult = authService.login(dto);
+            LoginResponse response = authService.login(dto);
             log.info("用户请求登录成功, 邮箱: {}", dto.getEmail());
-            log.debug("Token: {}", loginResult.get("token"));
-            log.debug("RefreshToken: {}", loginResult.get("refreshToken"));
-            return ResponseUtils.buildSuccessResponse(loginResult, "success");
+            log.debug("Token: {}", response.getToken());
+            log.debug("RefreshToken: {}", response.getRefreshToken());
+            return ResponseUtils.buildSuccessResponse(response, "success");
         } catch (Exception e) {
             log.info("用户登录失败, 邮箱: {}, 错误信息: {}", dto.getEmail(), e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
@@ -54,9 +51,9 @@ public class AuthController {
     public Map<String, Object> profile(HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
+            ProfileResponse response = authService.profile(userId.toString());
             log.info("用户信息请求, ID: {}", userId);
-            Map<String, Object> userInfo = authService.getUserInfo(userId.toString());
-            return ResponseUtils.buildSuccessResponse(userInfo, "success");
+            return ResponseUtils.buildSuccessResponse(response, "success");
         } catch (Exception e) {
             log.info("用户信息请求失败, token: {}, 错误信息: {}", tokenService.extractTokenFromRequest(request), e.getMessage(), e);
             return ResponseUtils.buildUnauthorizedResponse("认证失败：" + e.getMessage());
@@ -70,7 +67,6 @@ public class AuthController {
             Long userId = tokenService.getUserIdFromRequest(request);
             log.info("用户登出请求, 用户ID: {}", userId);
             tokenService.deleteAllTokens(userId.toString());
-
             log.info("用户登出成功, 用户ID: {}", userId);
             return ResponseUtils.buildEmptySuccessResponse("登出成功");
         } catch (Exception e) {
@@ -81,13 +77,11 @@ public class AuthController {
 
     // 发送验证码
     @PostMapping("/send-code")
-    public Map<String, Object> sendCode(@RequestBody @Valid SendCodeDTO dto) {
+    public Map<String, Object> sendCode(@RequestBody @Valid SendCodeRequest dto) {
         try {
             authService.sendCode(dto.getEmail());
             log.info("验证码已成功发送至邮箱: {}", dto.getEmail());
-            Map<String, Object> data = new HashMap<>();
-            data.put("success", true);
-            return ResponseUtils.buildSuccessResponse(data);
+            return ResponseUtils.buildSuccessResponse(null);
         } catch (Exception e) {
             log.error("发送验证码失败，邮箱: {}，错误信息: {}", dto.getEmail(), e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
@@ -96,31 +90,12 @@ public class AuthController {
 
     // 注册接口
     @PostMapping("/register")
-    public Map<String, Object> register(@RequestBody @Valid RegisterDTO dto) {
+    public Map<String, Object> register(@RequestBody @Valid RegisterRequest dto) {
         log.info("用户注册请求，邮箱: {}", dto.getEmail());
         try {
-            // 执行注册操作（包含验证码校验）
-            AuthAccount account = authService.register(dto);
-            log.info("用户注册成功，邮箱: {}，用户ID: {}", dto.getEmail(), account.getId());
-
-            // 使用JWT工具类生成AccessToken
-            String token = jwtUtils.generateAccessToken(account.getId().toString());
-
-            // 存储AccessToken到Redis
-            tokenService.storeAccessToken(account.getId().toString(), token);
-
-            // 获取用户完整信息
-            Map<String, Object> userInfo = new HashMap<>();
-            userInfo.put("id", account.getId());
-            userInfo.put("authId", account.getId());
-            // 可以在这里添加更多用户信息
-
-            // 设置响应数据
-            Map<String, Object> data = new HashMap<>();
-            data.put("token", token);
-            data.put("user", userInfo);
-
-            return ResponseUtils.buildSuccessResponse(data, "注册成功");
+            RegisterResponse response = authService.register(dto);
+            log.info("用户注册成功，邮箱: {}，用户ID: {}", dto.getEmail(), response.getUserId());
+            return ResponseUtils.buildSuccessResponse(response, "注册成功");
         } catch (Exception e) {
             log.error("用户注册失败，邮箱: {}，错误信息: {}", dto.getEmail(), e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
@@ -184,9 +159,7 @@ public class AuthController {
             }
             
             // 2. 验证验证码
-            if (!authService.verifyCode(email, code)) {
-                throw new RuntimeException("验证码验证失败");
-            }
+            authService.verifyCode(email, code);
             
             // 3. 验证新密码
             if (newPassword == null || newPassword.length() < 6 || newPassword.length() > 20) {

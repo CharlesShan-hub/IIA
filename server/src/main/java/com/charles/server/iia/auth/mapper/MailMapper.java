@@ -13,9 +13,9 @@ public interface MailMapper {
     @Select("SELECT * FROM iia_mail WHERE email = #{email}")
     Mail findByEmail(String email); // 通过邮箱查找邮箱信息
 
-    @Select("SELECT * FROM iia_mail WHERE auth_id = #{authId}")
-    Mail findByAuthId(Long authId); // 通过认证id查找邮箱信息
+    @Select("SELECT * FROM iia_mail WHERE user_id = #{userId}")
+    Mail findByAuthId(Long userId); // 通过认证id查找邮箱信息
 
-    @Insert("INSERT INTO iia_mail(email, auth_id, is_checked) VALUES(#{email}, #{authId}, #{isChecked})")
+    @Insert("INSERT INTO iia_mail(email, user_id) VALUES(#{email}, #{userId})")
     int insert(Mail mail); // 插入新的邮箱信息
 }

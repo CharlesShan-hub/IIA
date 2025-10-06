@@ -1,11 +1,12 @@
 package com.charles.server.iia.auth.entity;
 
-import lombok.Data;
 import java.time.LocalDateTime;
+
+import lombok.Data;
 
 @Data
 public class Profile {
-    private Long id; // 关联的认证ID
+    private Long userId;
     private String username;
     private LocalDateTime createdAt;
 }

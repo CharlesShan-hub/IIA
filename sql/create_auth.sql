@@ -1,23 +1,26 @@
--- 认证表（支持多邮箱）
+-- 用户认证部分
 
--- 创建认证表（仅包含ID和密码哈希）
+-- 删除旧的表
+drop table if exists iia_mail;
+drop table if exists iia_profile;
+drop table if exists iia_auth;
+
+-- 用户密码表
 CREATE TABLE IF NOT EXISTS iia_auth (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '用户ID',
     password_hash VARCHAR(100) NOT NULL COMMENT '密码哈希'
-) COMMENT '认证信息表';
+) COMMENT '用户密码表';
 
--- 创建用户基本信息表
+-- 用户信息表
 CREATE TABLE IF NOT EXISTS iia_profile (
-    id BIGINT PRIMARY KEY COMMENT '关联的认证ID',
+    user_id BIGINT PRIMARY KEY COMMENT '用户ID',
     username VARCHAR(50) NOT NULL COMMENT '用户名',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    FOREIGN KEY (id) REFERENCES iia_auth(id) ON DELETE CASCADE
-) ENGINE=InnoDB COMMENT='用户基本信息表';
+    FOREIGN KEY (user_id) REFERENCES iia_auth(user_id) ON DELETE CASCADE
+) ENGINE=InnoDB COMMENT='用户信息表';
 
--- 创建邮箱表（存储邮箱与用户的关联）
+-- 用户邮箱表
 CREATE TABLE IF NOT EXISTS iia_mail (
+    user_id BIGINT NOT NULL COMMENT '用户ID',
     email VARCHAR(100) PRIMARY KEY COMMENT '邮箱',
-    auth_id BIGINT NOT NULL COMMENT '关联的认证ID',
-    is_checked BOOLEAN DEFAULT FALSE COMMENT '是否经过验证',
-    FOREIGN KEY (auth_id) REFERENCES iia_auth(id) ON DELETE CASCADE
-) COMMENT '邮箱信息表';
+    FOREIGN KEY (user_id) REFERENCES iia_auth(user_id) ON DELETE CASCADE
+) COMMENT '用户邮箱表';
