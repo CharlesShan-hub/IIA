@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface ProfileMapper {
-    @Insert("INSERT INTO iia_profile(id, nickname) VALUES(#{id}, #{nickname})")
+    @Insert("INSERT INTO iia_profile(id, username) VALUES(#{id}, #{username})")
     int insert(Profile profile); // 插入新的用户基本信息
     
     @Select("SELECT * FROM iia_profile WHERE id = #{id}")

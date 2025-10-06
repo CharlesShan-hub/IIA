@@ -27,3 +27,29 @@ export function fetchGetUserInfo() {
     // }
   })
 }
+
+/**
+ * 发送验证码
+ * @param params 验证码参数
+ * @returns 发送验证码响应
+ */
+export function fetchSendVerificationCode(params: Api.Auth.SendVerificationCodeParams) {
+  return request.post<void>({
+    url: '/api/auth/send-code',
+    data: params,
+    showSuccessMessage: false
+  })
+}
+
+/**
+ * 用户注册
+ * @param params 注册参数
+ * @returns 注册响应
+ */
+export function fetchRegister(params: Api.Auth.RegisterParams) {
+  return request.post<void>({
+    url: '/api/auth/register',
+    data: params,
+    showSuccessMessage: false
+  })
+}

@@ -93,7 +93,7 @@ public class AuthServiceImpl implements AuthService {
             userInfo.put("email", mail.getEmail());
         }
         if (profile != null) {
-            userInfo.put("nickname", profile.getNickname());
+            userInfo.put("userName", profile.getUsername());
             // 可以根据实际需要添加更多的用户信息字段
         }
     
@@ -140,14 +140,14 @@ public class AuthServiceImpl implements AuthService {
         
         // 4. 创建用户基本信息，使用authAccount的id作为profile的id
         Profile profile = new Profile();
-        // 优先使用前端传来的昵称，如果为空则使用邮箱前缀
-        String nickname = dto.getNickname();
-        if (nickname == null || nickname.trim().isEmpty()) {
-            // 使用邮箱前缀作为默认昵称
-            nickname = dto.getEmail().split("@")[0];
+        // 优先使用前端传来的用户名，如果为空则使用邮箱前缀
+        String username = dto.getUsername();
+        if (username == null || username.trim().isEmpty()) {
+            // 使用邮箱前缀作为默认用户名
+            username = dto.getEmail().split("@")[0];
         }
         profile.setId(account.getId()); // 直接使用认证ID作为用户ID
-        profile.setNickname(nickname);
+        profile.setUsername(username);
         profileMapper.insert(profile);
         
         // 5. 创建邮箱信息，关联认证信息

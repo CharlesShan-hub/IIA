@@ -56,6 +56,19 @@ declare namespace Api {
       email: string
       avatar?: string
     }
+
+    /** 发送验证码参数 */
+    interface SendVerificationCodeParams {
+      email: string
+    }
+
+    /** 注册参数 */
+    interface RegisterParams {
+      email: string
+      username: string
+      password: string
+      code: string
+    }
   }
 
   /** 系统管理类型 */

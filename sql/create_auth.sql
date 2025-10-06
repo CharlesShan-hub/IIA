@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS iia_auth (
 -- 创建用户基本信息表
 CREATE TABLE IF NOT EXISTS iia_profile (
     id BIGINT PRIMARY KEY COMMENT '关联的认证ID',
-    nickname VARCHAR(50) NOT NULL COMMENT '昵称',
+    username VARCHAR(50) NOT NULL COMMENT '用户名',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     FOREIGN KEY (id) REFERENCES iia_auth(id) ON DELETE CASCADE
 ) ENGINE=InnoDB COMMENT='用户基本信息表';

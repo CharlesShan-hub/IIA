@@ -62,6 +62,70 @@ public class AuthController {
             return ResponseUtils.buildUnauthorizedResponse("认证失败：" + e.getMessage());
         }
     }
+
+    // 登出
+    @PostMapping("/logout")
+    public Map<String, Object> logout(HttpServletRequest request) {
+        try {
+            Long userId = tokenService.getUserIdFromRequest(request);
+            log.info("用户登出请求, 用户ID: {}", userId);
+            tokenService.deleteAllTokens(userId.toString());
+
+            log.info("用户登出成功, 用户ID: {}", userId);
+            return ResponseUtils.buildEmptySuccessResponse("登出成功");
+        } catch (Exception e) {
+            log.error("用户登出失败，错误信息: {}", e.getMessage(), e);
+            return ResponseUtils.buildErrorResponse(e.getMessage());
+        }
+    }
+
+    // 发送验证码
+    @PostMapping("/send-code")
+    public Map<String, Object> sendCode(@RequestBody @Valid SendCodeDTO dto) {
+        try {
+            authService.sendCode(dto.getEmail());
+            log.info("验证码已成功发送至邮箱: {}", dto.getEmail());
+            Map<String, Object> data = new HashMap<>();
+            data.put("success", true);
+            return ResponseUtils.buildSuccessResponse(data);
+        } catch (Exception e) {
+            log.error("发送验证码失败，邮箱: {}，错误信息: {}", dto.getEmail(), e.getMessage(), e);
+            return ResponseUtils.buildErrorResponse(e.getMessage());
+        }
+    }
+
+    // 注册接口
+    @PostMapping("/register")
+    public Map<String, Object> register(@RequestBody @Valid RegisterDTO dto) {
+        log.info("用户注册请求，邮箱: {}", dto.getEmail());
+        try {
+            // 执行注册操作（包含验证码校验）
+            AuthAccount account = authService.register(dto);
+            log.info("用户注册成功，邮箱: {}，用户ID: {}", dto.getEmail(), account.getId());
+
+            // 使用JWT工具类生成AccessToken
+            String token = jwtUtils.generateAccessToken(account.getId().toString());
+
+            // 存储AccessToken到Redis
+            tokenService.storeAccessToken(account.getId().toString(), token);
+
+            // 获取用户完整信息
+            Map<String, Object> userInfo = new HashMap<>();
+            userInfo.put("id", account.getId());
+            userInfo.put("authId", account.getId());
+            // 可以在这里添加更多用户信息
+
+            // 设置响应数据
+            Map<String, Object> data = new HashMap<>();
+            data.put("token", token);
+            data.put("user", userInfo);
+
+            return ResponseUtils.buildSuccessResponse(data, "注册成功");
+        } catch (Exception e) {
+            log.error("用户注册失败，邮箱: {}，错误信息: {}", dto.getEmail(), e.getMessage(), e);
+            return ResponseUtils.buildErrorResponse(e.getMessage());
+        }
+    }
     
     // 刷新AccessToken
     @PostMapping("/refresh")
@@ -97,70 +161,6 @@ public class AuthController {
             return ResponseUtils.buildSuccessResponse(data, "刷新令牌成功");
         } catch (Exception e) {
             log.error("刷新AccessToken失败，错误信息: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
-    }
-    
-    // 登出
-    @PostMapping("/logout")
-    public Map<String, Object> logout(HttpServletRequest request) {
-        try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            log.info("用户登出请求, 用户ID: {}", userId);
-            tokenService.deleteAllTokens(userId.toString());
-            
-            log.info("用户登出成功, 用户ID: {}", userId);
-            return ResponseUtils.buildEmptySuccessResponse("登出成功");
-        } catch (Exception e) {
-            log.error("用户登出失败，错误信息: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
-    }
-    
-    // 注册接口
-    @PostMapping("/register")
-    public Map<String, Object> register(@RequestBody @Valid RegisterDTO dto) {
-        log.info("用户注册请求，邮箱: {}", dto.getEmail());
-        try {
-            // 执行注册操作（包含验证码校验）
-            AuthAccount account = authService.register(dto);
-            log.info("用户注册成功，邮箱: {}，用户ID: {}", dto.getEmail(), account.getId());
-            
-            // 使用JWT工具类生成AccessToken
-            String token = jwtUtils.generateAccessToken(account.getId().toString());
-            
-            // 存储AccessToken到Redis
-            tokenService.storeAccessToken(account.getId().toString(), token);
-            
-            // 获取用户完整信息
-            Map<String, Object> userInfo = new HashMap<>();
-            userInfo.put("id", account.getId());
-            userInfo.put("authId", account.getId());
-            // 可以在这里添加更多用户信息
-            
-            // 设置响应数据
-            Map<String, Object> data = new HashMap<>();
-            data.put("token", token);
-            data.put("user", userInfo);
-            
-            return ResponseUtils.buildSuccessResponse(data, "注册成功");
-        } catch (Exception e) {
-            log.error("用户注册失败，邮箱: {}，错误信息: {}", dto.getEmail(), e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
-    }
-
-    // 发送验证码
-    @PostMapping("/send-code")
-    public Map<String, Object> sendCode(@RequestBody @Valid SendCodeDTO dto) {
-        try {
-            authService.sendCode(dto.getEmail());
-            log.info("验证码已成功发送至邮箱: {}", dto.getEmail());
-            Map<String, Object> data = new HashMap<>();
-            data.put("success", true);
-            return ResponseUtils.buildSuccessResponse(data);
-        } catch (Exception e) {
-            log.error("发送验证码失败，邮箱: {}，错误信息: {}", dto.getEmail(), e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }

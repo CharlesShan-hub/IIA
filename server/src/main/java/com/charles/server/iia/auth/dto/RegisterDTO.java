@@ -13,7 +13,7 @@ public class RegisterDTO {
     @NotBlank @Size(min = 6, max = 20)
     private String password;
 
-    private String nickname; // 用户昵称，可为空
+    private String username; // 用户昵称，可为空
 
     @NotBlank(message = "验证码不能为空")
     private String code; // 新增验证码字段

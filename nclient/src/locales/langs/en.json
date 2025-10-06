@@ -159,9 +159,15 @@
     "title": "Create account",
     "subTitle": "Welcome to join us, please fill in the following information to complete the registration",
     "placeholder": [
-      "Please enter your account",
+      "Please enter your email",
+      "Please enter your verification code",
+      "Seconds after resend",
+      "Send",
+      "Please enter your username",
       "Please enter your password",
-      "Please enter your password again"
+      "Please enter your password again",
+      "Registration successful",
+      "Registration failed"
     ],
     "rule": [
       "Please enter your password again",
@@ -175,6 +181,9 @@
     "submitBtnText": "Register",
     "hasAccount": "Already have an account?",
     "toLogin": "To login"
+  },
+  "code": {
+    "placeholder": ["Verification code sent successfully", "Verification code sent failed"]
   },
   "lockScreen": {
     "pwdError": "Password error",
