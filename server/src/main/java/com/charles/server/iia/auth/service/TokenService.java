@@ -1,5 +1,7 @@
 package com.charles.server.iia.auth.service;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 /**
  * Token管理服务接口，定义Token操作的核心方法
  */
@@ -72,4 +74,20 @@ public interface TokenService {
      * @return 用户ID
      */
     Long getUserIdByAccessToken(String accessToken);
+    
+    /**
+     * 从请求头中提取 JWT Token
+     * @param request HTTP请求对象
+     * @return 提取的Token
+     * @throws RuntimeException 如果不存在或格式不正确
+     */
+    String extractTokenFromRequest(HttpServletRequest request);
+    
+    /**
+     * 从请求中获取用户ID
+     * @param request HTTP请求对象
+     * @return 用户ID
+     * @throws RuntimeException 如果认证失败
+     */
+    Long getUserIdFromRequest(HttpServletRequest request);
 }

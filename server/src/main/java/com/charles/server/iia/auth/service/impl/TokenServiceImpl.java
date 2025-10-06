@@ -1,11 +1,16 @@
 package com.charles.server.iia.auth.service.impl;
 
-import com.charles.server.iia.auth.service.TokenService;
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import java.util.concurrent.TimeUnit;
+import com.charles.server.iia.auth.service.TokenService;
+import com.charles.server.iia.auth.utils.JwtUtils;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Token管理服务实现类，负责在Redis中存储和验证Token
@@ -14,6 +19,9 @@ import java.util.concurrent.TimeUnit;
 public class TokenServiceImpl implements TokenService {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
+    
+    @Autowired
+    private JwtUtils jwtUtils;
     
     // Token过期时间：24小时
     private static final long TOKEN_EXPIRATION = 24;
@@ -96,5 +104,21 @@ public class TokenServiceImpl implements TokenService {
         String key = "access_token:user_id:" + accessToken;
         String userIdStr = redisTemplate.opsForValue().get(key);
         return userIdStr != null ? Long.parseLong(userIdStr) : null;
+    }
+    
+    @Override
+    public String extractTokenFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        throw new RuntimeException("未提供有效的认证 Token");
+    }
+    
+    @Override
+    public Long getUserIdFromRequest(HttpServletRequest request) {
+        String token = extractTokenFromRequest(request);
+        String userId = jwtUtils.getUserIdFromToken(token);
+        return Long.valueOf(userId);
     }
 }

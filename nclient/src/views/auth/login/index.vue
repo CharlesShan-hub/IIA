@@ -191,11 +191,8 @@
       // 存储token和用户信息
       userStore.setToken(token, refreshToken)
       const userInfo = await fetchGetUserInfo()
-      console.log(1)
       userStore.setUserInfo(userInfo)
       userStore.setLoginStatus(true)
-
-      console.log(2)
 
       // 登录成功处理
       showLoginSuccessNotice()
