@@ -1,7 +1,7 @@
 package com.charles.server.auth.service;
 
 import com.charles.server.auth.dto.*;
-import com.charles.server.iia.auth.dto.*;
+import com.charles.server.auth.dto.*;
 
 public interface AuthService {
     LoginResponse login(LoginRequest dto);

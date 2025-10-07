@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import com.charles.server.auth.dto.*;
-import com.charles.server.iia.auth.dto.*;
+import com.charles.server.auth.dto.*;
 import com.charles.server.auth.entity.Account;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;

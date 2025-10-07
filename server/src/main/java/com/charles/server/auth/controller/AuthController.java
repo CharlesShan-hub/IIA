@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.charles.server.auth.dto.*;
-import com.charles.server.iia.auth.dto.*;
+import com.charles.server.auth.dto.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
