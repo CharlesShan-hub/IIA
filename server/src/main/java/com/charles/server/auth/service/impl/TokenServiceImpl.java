@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.charles.server.auth.service.TokenService;
-import com.charles.server.auth.utils.JwtUtils;
+import com.charles.server.utils.JwtUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 

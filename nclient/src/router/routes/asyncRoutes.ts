@@ -28,6 +28,28 @@ export const asyncRoutes: AppRouteRecord[] = [
   //     keepAlive: false
   //   }
   // },
+  // 提醒事项
+  {
+    name: 'Reminder',
+    path: '/reminder',
+    component: RoutesAlias.Layout,
+    meta: {
+      title: '提醒事项',
+      icon: '&#xe72a;', // 使用一个合适的图标
+      keepAlive: false
+    },
+    children: [
+      {
+        path: 'blank',
+        name: 'ReminderBlank',
+        component: RoutesAlias.ReminderBlank,
+        meta: {
+          title: '空白页',
+          keepAlive: false
+        }
+      }
+    ]
+  },
   {
     name: 'Dashboard',
     path: '/dashboard',

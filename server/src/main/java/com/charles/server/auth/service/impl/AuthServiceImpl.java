@@ -20,7 +20,7 @@ import com.charles.server.auth.mapper.MailMapper;
 import com.charles.server.auth.mapper.ProfileMapper;
 import com.charles.server.auth.service.AuthService;
 import com.charles.server.auth.service.TokenService;
-import com.charles.server.auth.utils.JwtUtils;
+import com.charles.server.utils.JwtUtils;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

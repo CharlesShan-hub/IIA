@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.charles.server.auth.service.AuthService;
 import com.charles.server.auth.service.TokenService;
-import com.charles.server.auth.utils.JwtUtils;
-import com.charles.server.auth.utils.ResponseUtils;
+import com.charles.server.utils.JwtUtils;
+import com.charles.server.utils.ResponseUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;

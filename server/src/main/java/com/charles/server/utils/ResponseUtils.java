@@ -1,4 +1,4 @@
-package com.charles.server.auth.utils;
+package com.charles.server.utils;
 
 import java.util.HashMap;
 import java.util.Map;

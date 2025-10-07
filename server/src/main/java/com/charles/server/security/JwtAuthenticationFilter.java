@@ -1,6 +1,6 @@
 package com.charles.server.security;
 
-import com.charles.server.auth.utils.JwtUtils;
+import com.charles.server.utils.JwtUtils;
 import com.charles.server.auth.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
