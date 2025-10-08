@@ -7,7 +7,7 @@ import request from '@/utils/http'
  */
 export function fetchCreateProject(params: Api.Reminder.CreateProjectParams) {
   return request.post<void>({
-    url: '/api/reminder/project/create',
+    url: '/api/reminder/projects/create',
     data: params,
     showSuccessMessage: false
   })

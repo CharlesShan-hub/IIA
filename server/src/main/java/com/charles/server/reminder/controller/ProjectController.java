@@ -3,6 +3,8 @@ package com.charles.server.reminder.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.charles.server.reminder.dto.CreateProjectRequest;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,10 +32,10 @@ public class ProjectController {
     
     // 创建项目
     @PostMapping("create")
-    public Map<String, Object> create(@RequestBody Project project, HttpServletRequest request) {
+    public Map<String, Object> create(@RequestBody @Valid CreateProjectRequest dto, HttpServletRequest request) {
         try {
-            project.setUserId(tokenService.getUserIdFromRequest(request));
-            Project createdProject = projectService.create(project);
+            Long userId = tokenService.getUserIdFromRequest(request);
+            Project createdProject = projectService.create(userId, dto);
             return ResponseUtils.buildSuccessResponse(createdProject, "创建成功");
         } catch (Exception e) {
             log.error("创建项目失败: {}", e.getMessage(), e);

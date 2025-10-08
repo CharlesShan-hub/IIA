@@ -162,8 +162,11 @@
     dialogVisible.value = true
   }
 
+  // 首先导入API函数
+  import { fetchCreateProject } from '@/api/reminder'
+
   // 保存项目
-  const handleSaveProject = () => {
+  const handleSaveProject = async () => {
     if (!projectForm.value.name.trim()) {
       ElMessage.error('请输入项目名称')
       return
@@ -177,15 +180,31 @@
       ElMessage.success('项目更新成功')
     } else {
       // 添加新项目
-      const newProject: Project = {
-        id: Date.now(), // 临时ID，实际应用中应使用后端返回的ID
-        name: projectForm.value.name.trim(),
-        description: projectForm.value.description.trim() || undefined,
-        color: projectForm.value.color || '#409EFF',
-        icon: projectForm.value.icon || undefined
+      try {
+        // 准备创建项目参数
+        const createParams: Api.Reminder.CreateProjectParams = {
+          name: projectForm.value.name.trim(),
+          description: projectForm.value.description.trim() || undefined,
+          color: projectForm.value.color || '#409EFF',
+          icon: projectForm.value.icon || undefined
+        }
+        
+        // 调用创建项目API
+        await fetchCreateProject(createParams)
+        
+        // 这里假设API成功后会返回项目列表，实际应用中可能需要重新获取项目列表
+        // 临时模拟添加新项目到列表（实际应该从后端重新获取）
+        const newProject: Project = {
+          id: Date.now(), // 临时ID，实际应用中应使用后端返回的ID
+          ...createParams
+        }
+        projects.value.push(newProject)
+        ElMessage.success('项目添加成功')
+      } catch (error) {
+        ElMessage.error('项目添加失败，请重试')
+        console.error('创建项目失败:', error)
+        return
       }
-      projects.value.push(newProject)
-      ElMessage.success('项目添加成功')
     }
 
     dialogVisible.value = false

@@ -77,14 +77,21 @@ declare namespace Api {
     interface CreateProjectParams {
       name: string
       description?: string
+      color?: string
+      icon?: string
     }
 
     /** 创建项目响应 */
     interface CreateProjectResponse {
       id: number
+      projectId: number
       name: string
       description?: string
-      createTime: string
+      color?: string
+      icon?: string
+      userId: number
+      sortOrder?: number
+      isArchived?: boolean
     }
   }
 

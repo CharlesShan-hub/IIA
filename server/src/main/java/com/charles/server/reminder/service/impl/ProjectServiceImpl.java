@@ -1,6 +1,8 @@
 package com.charles.server.reminder.service.impl;
 
 import java.util.List;
+
+import com.charles.server.reminder.dto.CreateProjectRequest;
 import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.mapper.ProjectMapper;
@@ -16,10 +18,14 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectMapper projectMapper;
     
     @Override
-    public Project create(Project project) {
-        if (this.existsByName(project.getUserId(), project.getName())) {
+    public Project create(Long userId, CreateProjectRequest dto) {
+        if (this.existsByName(userId, dto.getName())) {
             throw new RuntimeException("该项目名称已存在");
         }
+        Project project = new Project(dto);
+        project.setUserId(userId);
+        project.setSortOrder(projectMapper.findActiveByUserId(userId).size() + 1);
+        project.setIsArchived(false);
         projectMapper.insert(project);
         log.info("用户创建项目成功, 用户ID: {}, 项目名称: {}", project.getUserId(), project.getName());
         return project;
