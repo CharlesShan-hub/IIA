@@ -32,8 +32,8 @@ public class ProjectController {
     @PostMapping("create")
     public Map<String, Object> create(@RequestBody Project project, HttpServletRequest request) {
         try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            Project createdProject = projectService.createProject(project, userId);
+            project.setUserId(tokenService.getUserIdFromRequest(request));
+            Project createdProject = projectService.create(project);
             return ResponseUtils.buildSuccessResponse(createdProject, "创建成功");
         } catch (Exception e) {
             log.error("创建项目失败: {}", e.getMessage(), e);
@@ -46,7 +46,7 @@ public class ProjectController {
     public Map<String, Object> getAll(HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            List<Project> projects = projectService.getUserProjects(userId);
+            List<Project> projects = projectService.getAll(userId);
             return ResponseUtils.buildSuccessResponse(projects, "查询成功");
         } catch (Exception e) {
             log.error("获取项目列表失败: {}", e.getMessage(), e);
@@ -59,7 +59,7 @@ public class ProjectController {
     public Map<String, Object> getById(@PathVariable("id") Long projectId, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            Project project = projectService.getProjectById(projectId, userId);
+            Project project = projectService.getProjectById(userId, projectId);
             return ResponseUtils.buildSuccessResponse(project, "查询成功");
         } catch (Exception e) {
             log.error("获取项目失败: {}", e.getMessage(), e);
@@ -71,8 +71,9 @@ public class ProjectController {
     @PutMapping("update/{id}")
     public Map<String, Object> updateById(@PathVariable("id") Long projectId, @RequestBody Project project, HttpServletRequest request) {
         try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            Project updatedProject = projectService.updateProject(project, projectId, userId);
+            project.setUserId(tokenService.getUserIdFromRequest(request));
+            project.setProjectId(projectId);
+            Project updatedProject = projectService.updateProject(project);
             return ResponseUtils.buildSuccessResponse(updatedProject, "更新成功");
         } catch (Exception e) {
             log.error("更新项目失败: {}", e.getMessage(), e);

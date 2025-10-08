@@ -215,6 +215,10 @@
       "analysis": "分析页",
       "ecommerce": "电子商务"
     },
+    "reminder": {
+      "title": "提醒事项",
+      "tasks": "任务"
+    },
     "widgets": {
       "title": "组件中心",
       "iconList": "Icon 图标",

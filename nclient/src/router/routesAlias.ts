@@ -60,5 +60,6 @@ export enum RoutesAlias {
   PermissionSwitchRole = '/examples/permission/switch-role', // 切换权限页面
   PermissionButtonAuth = '/examples/permission/button-auth', // 按钮权限演示页面
   PermissionPageVisibility = '/examples/permission/page-visibility', // 页面可见性演示页面
-  ReminderBlank = '/reminder/blank' // 提醒事项-空白页
+  // 提醒事项
+  Tasks = '/reminder/tasks' // 提醒事项-任务页
 }

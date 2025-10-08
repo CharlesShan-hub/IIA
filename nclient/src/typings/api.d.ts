@@ -71,6 +71,23 @@ declare namespace Api {
     }
   }
 
+  /** 提醒类型 */
+  namespace Reminder {
+    /** 创建项目参数 */
+    interface CreateProjectParams {
+      name: string
+      description?: string
+    }
+
+    /** 创建项目响应 */
+    interface CreateProjectResponse {
+      id: number
+      name: string
+      description?: string
+      createTime: string
+    }
+  }
+
   /** 系统管理类型 */
   namespace SystemManage {
     /** 用户列表 */

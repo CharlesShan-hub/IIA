@@ -228,6 +228,10 @@
       "analysis": "Analysis",
       "ecommerce": "Ecommerce"
     },
+    "reminder": {
+      "title": "Reminder",
+      "tasks": "Tasks"
+    },
     "widgets": {
       "title": "Components",
       "iconList": "Icon List",

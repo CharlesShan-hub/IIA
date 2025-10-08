@@ -30,27 +30,6 @@ export const asyncRoutes: AppRouteRecord[] = [
   // },
   // 提醒事项
   {
-    name: 'Reminder',
-    path: '/reminder',
-    component: RoutesAlias.Layout,
-    meta: {
-      title: '提醒事项',
-      icon: '&#xe72a;', // 使用一个合适的图标
-      keepAlive: false
-    },
-    children: [
-      {
-        path: 'blank',
-        name: 'ReminderBlank',
-        component: RoutesAlias.ReminderBlank,
-        meta: {
-          title: '空白页',
-          keepAlive: false
-        }
-      }
-    ]
-  },
-  {
     name: 'Dashboard',
     path: '/dashboard',
     component: RoutesAlias.Layout,
@@ -85,6 +64,27 @@ export const asyncRoutes: AppRouteRecord[] = [
         component: RoutesAlias.Ecommerce,
         meta: {
           title: 'menus.dashboard.ecommerce',
+          keepAlive: false
+        }
+      }
+    ]
+  },
+  {
+    name: 'Reminder',
+    path: '/reminder',
+    component: RoutesAlias.Layout,
+    meta: {
+      title: 'menus.reminder.title',
+      icon: '&#xe72a;', // 使用一个合适的图标
+      keepAlive: false
+    },
+    children: [
+      {
+        path: 'tasks',
+        name: 'Tasks',
+        component: RoutesAlias.Tasks,
+        meta: {
+          title: 'menus.reminder.tasks',
           keepAlive: false
         }
       }

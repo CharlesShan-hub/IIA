@@ -19,8 +19,8 @@ public interface ProjectMapper {
     Project findById(Long projectId);
 
     // 根据名称查询项目
-    @Select("SELECT * FROM reminder_project WHERE name = #{name}")
-    Project findByName(String name);
+    @Select("SELECT * FROM reminder_project WHERE name = #{name} AND user_id = #{userId}")
+    Project findByName(Long userId, String name);
     
     // 查询用户的所有项目
     @Select("SELECT * FROM reminder_project WHERE user_id = #{userId} ORDER BY sort_order")
