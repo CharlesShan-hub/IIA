@@ -35,8 +35,8 @@ public class ProjectController {
     public Map<String, Object> create(@RequestBody @Valid CreateProjectRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            Project createdProject = projectService.create(userId, dto);
-            return ResponseUtils.buildSuccessResponse(createdProject, "创建成功");
+            projectService.create(userId, dto);
+            return ResponseUtils.buildSuccessResponse(null, "创建成功");
         } catch (Exception e) {
             log.error("创建项目失败: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());

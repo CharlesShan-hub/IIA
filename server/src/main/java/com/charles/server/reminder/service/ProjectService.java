@@ -7,7 +7,7 @@ import com.charles.server.reminder.entity.Project;
 
 public interface ProjectService {
     /** 创建项目 */
-    Project create(Long userId, CreateProjectRequest dto);
+    void create(Long userId, CreateProjectRequest dto);
     
     /** 获取用户所有项目 */
     List<Project> getAll(Long userId);

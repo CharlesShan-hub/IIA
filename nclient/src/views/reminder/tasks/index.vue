@@ -70,10 +70,13 @@
   defineOptions({ name: 'Tasks' })
 
   import { VueDraggable } from 'vue-draggable-plus'
-  import { ref, computed } from 'vue'
+  import { ref, computed, onMounted } from 'vue'
   import { StarFilled } from '@element-plus/icons-vue'
   import { ElDialog, ElForm, ElFormItem, ElInput, ElButton, ElMessage, ElMessageBox, ElColorPicker } from 'element-plus'
   import { IconTypeEnum } from '@/enums/appEnum'
+  
+  // 首先导入API函数
+  import { fetchCreateProject, fetchGetAllProjects } from '@/api/reminder'
   
   // 项目类型定义
   interface Project {
@@ -89,12 +92,12 @@
     { id: 1, name: '今天' },
     { id: 2, name: '收集箱' }
   ])
-  
+
   // 第二组拖拽项：Projects
   const projects = ref<Project[]>([
-    { id: 101, name: '项目A', color: '#409EFF', icon: 'iconsys-arrow-sfixed' },
-    { id: 102, name: '项目B', color: '#67C23A', icon: 'iconsys-jiantouyoushang' },
-    { id: 103, name: '项目C', color: '#E6A23C', icon: 'iconsys-gou' }
+    // { id: 101, name: '项目A', color: '#409EFF', icon: 'iconsys-arrow-sfixed' },
+    // { id: 102, name: '项目B', color: '#67C23A', icon: 'iconsys-jiantouyoushang' },
+    // { id: 103, name: '项目C', color: '#E6A23C', icon: 'iconsys-gou' }
   ])
 
   // 预定义颜色
@@ -125,6 +128,24 @@
 
   // 计算属性
   const isEditing = computed(() => editingProjectIndex.value >= 0)
+
+  // 加载项目列表
+  const loadProjects = async () => {
+    try {
+      const response = await fetchGetAllProjects()
+      // 将API返回的项目数据映射到本地Project接口格式
+      projects.value = response.map(project => ({
+        id: project.projectId,
+        name: project.name,
+        description: project.description || '',
+        color: project.color || '#409EFF',
+        icon: project.icon || ''
+      }))
+    } catch (error) {
+      ElMessage.error('获取项目列表失败')
+      console.error('获取项目列表失败:', error)
+    }
+  }
 
   // 重置表单
   const resetForm = () => {
@@ -162,8 +183,6 @@
     dialogVisible.value = true
   }
 
-  // 首先导入API函数
-  import { fetchCreateProject } from '@/api/reminder'
 
   // 保存项目
   const handleSaveProject = async () => {
@@ -173,11 +192,13 @@
     }
 
     if (isEditing.value) {
-      // 更新现有项目
+      // 更新现有项目（目前只有前端更新，实际应该调用后端API）
       projects.value[editingProjectIndex.value] = {
         ...projectForm.value
       }
       ElMessage.success('项目更新成功')
+      dialogVisible.value = false
+      resetForm()
     } else {
       // 添加新项目
       try {
@@ -192,23 +213,17 @@
         // 调用创建项目API
         await fetchCreateProject(createParams)
         
-        // 这里假设API成功后会返回项目列表，实际应用中可能需要重新获取项目列表
-        // 临时模拟添加新项目到列表（实际应该从后端重新获取）
-        const newProject: Project = {
-          id: Date.now(), // 临时ID，实际应用中应使用后端返回的ID
-          ...createParams
-        }
-        projects.value.push(newProject)
+        // 重新获取项目列表，确保数据最新
+        await loadProjects()
         ElMessage.success('项目添加成功')
+        dialogVisible.value = false
+        resetForm()
       } catch (error) {
         ElMessage.error('项目添加失败，请重试')
         console.error('创建项目失败:', error)
         return
       }
     }
-
-    dialogVisible.value = false
-    resetForm()
   }
 
   // 删除项目
@@ -228,6 +243,11 @@
       })
     }
   }
+  
+  // 组件挂载时加载项目列表
+  onMounted(() => {
+    loadProjects()
+  })
 </script>
 
 <style lang="scss" scoped>

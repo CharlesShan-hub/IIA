@@ -18,7 +18,7 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectMapper projectMapper;
     
     @Override
-    public Project create(Long userId, CreateProjectRequest dto) {
+    public void create(Long userId, CreateProjectRequest dto) {
         if (this.existsByName(userId, dto.getName())) {
             throw new RuntimeException("该项目名称已存在");
         }
@@ -28,7 +28,6 @@ public class ProjectServiceImpl implements ProjectService {
         project.setIsArchived(false);
         projectMapper.insert(project);
         log.info("用户创建项目成功, 用户ID: {}, 项目名称: {}", project.getUserId(), project.getName());
-        return project;
     }
     
     @Override

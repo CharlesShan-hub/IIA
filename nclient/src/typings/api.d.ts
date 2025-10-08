@@ -93,6 +93,19 @@ declare namespace Api {
       sortOrder?: number
       isArchived?: boolean
     }
+
+    /** 获取所有项目响应 */
+    interface GetAllProjectsResponse {
+      id: number
+      projectId: number
+      name: string
+      description?: string
+      color?: string
+      icon?: string
+      userId: number
+      sortOrder?: number
+      isArchived?: boolean
+    }
   }
 
   /** 系统管理类型 */

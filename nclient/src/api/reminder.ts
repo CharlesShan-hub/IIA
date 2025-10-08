@@ -12,3 +12,14 @@ export function fetchCreateProject(params: Api.Reminder.CreateProjectParams) {
     showSuccessMessage: false
   })
 }
+
+/**
+ * 获取用户所有项目
+ * @returns 用户所有项目
+ */
+export function fetchGetAllProjects() {
+  return request.get<Api.Reminder.GetAllProjectsResponse[]>({
+    url: '/api/reminder/projects/get-all',
+    showSuccessMessage: false
+  })
+}
