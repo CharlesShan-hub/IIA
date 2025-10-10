@@ -3,6 +3,12 @@
 -- 删除旧的表
 drop table if exists iia_mail;
 drop table if exists iia_profile;
+drop table if exists reminder_project;
+drop table if exists reminder_task;
+drop table if exists reminder_recurrence;
+drop table if exists reminder_history;
+drop table if exists reminder_tag;
+drop table if exists reminder_task_tag;
 drop table if exists iia_auth;
 
 -- 用户密码表

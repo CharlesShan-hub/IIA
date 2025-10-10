@@ -1,6 +1,7 @@
 package com.charles.server.reminder.entity;
 
 import com.charles.server.reminder.dto.CreateProjectRequest;
+import com.charles.server.reminder.dto.UpdateProjectRequest;
 import lombok.Data;
 
 @Data

@@ -7,7 +7,7 @@
           <el-divider>
             <el-icon><star-filled /></el-icon>
           </el-divider>
-          <div class="section-title">Shortcuts</div>
+          <div class="section-title">{{ $t('tasks.project.title[0]') }}</div>
           <VueDraggable v-model="dragItems">
             <div class="drag-item" v-for="item in dragItems" :key="item.id">
               {{ item.name }}
@@ -19,12 +19,12 @@
             <el-icon><star-filled /></el-icon>
           </el-divider>
           <div class="section-header">
-            <div class="section-title">Projects</div>
+            <div class="section-title">{{ $t('tasks.project.title[1]') }}</div>
             <div class="section-icon">
               <i class="iconfont-sys" @click="showAddProjectDialog">&#xe83e;</i>
             </div>
           </div>
-          <VueDraggable v-model="projects">
+          <VueDraggable v-model="projects" @end="handleProjectDragEnd">
             <div class="drag-item" v-for="project in projects" :key="project.id" @click="showEditProjectDialog(project)">
               <i v-if="project.icon" :class="`iconfont-sys ${project.icon}`" style="margin-right: 8px; display: inline-block; width: 20px; height: 20px;"></i>
               <span>{{ project.name }}</span>
@@ -75,8 +75,8 @@
   import { ElDialog, ElForm, ElFormItem, ElInput, ElButton, ElMessage, ElMessageBox, ElColorPicker } from 'element-plus'
   import { IconTypeEnum } from '@/enums/appEnum'
   
-  // 首先导入API函数
-  import { fetchCreateProject, fetchGetAllProjects } from '@/api/reminder'
+  // 导入API函数
+  import { fetchCreateProject, fetchGetAllProjects, fetchUpdateProject, fetchSwapPositionProject } from '@/api/reminder'
   
   // 项目类型定义
   interface Project {
@@ -87,18 +87,26 @@
     icon?: string
   }
   
-  // 第一组拖拽项
+  // 导入useI18n钩子
+  import { useI18n } from 'vue-i18n'
+  
+  // 然后在组件中使用
+  const { t } = useI18n()
+  
+  // 现在您可以在JS代码中使用t()函数进行翻译
   const dragItems = ref([
-    { id: 1, name: '今天' },
-    { id: 2, name: '收集箱' }
+    { id: 1, name: t('tasks.project.title[2]') },
+    { id: 2, name: t('tasks.project.title[3]') }
   ])
+  
+  // 如果您需要在其他函数中使用翻译
+  const someFunction = () => {
+    const translatedText = t('some.key')
+    console.log(translatedText)
+  }
 
   // 第二组拖拽项：Projects
-  const projects = ref<Project[]>([
-    // { id: 101, name: '项目A', color: '#409EFF', icon: 'iconsys-arrow-sfixed' },
-    // { id: 102, name: '项目B', color: '#67C23A', icon: 'iconsys-jiantouyoushang' },
-    // { id: 103, name: '项目C', color: '#E6A23C', icon: 'iconsys-gou' }
-  ])
+  const projects = ref<Project[]>([])
 
   // 预定义颜色
   const predefineColors = [
@@ -183,7 +191,6 @@
     dialogVisible.value = true
   }
 
-
   // 保存项目
   const handleSaveProject = async () => {
     if (!projectForm.value.name.trim()) {
@@ -192,13 +199,30 @@
     }
 
     if (isEditing.value) {
-      // 更新现有项目（目前只有前端更新，实际应该调用后端API）
-      projects.value[editingProjectIndex.value] = {
-        ...projectForm.value
+      // 更新现有项目
+      try {
+        // 准备更新项目参数
+        const updateParams: Api.Reminder.UpdateProjectParams = {
+          projectId: projectForm.value.id,
+          name: projectForm.value.name.trim(),
+          description: projectForm.value.description.trim() || undefined,
+          color: projectForm.value.color || '#409EFF',
+          icon: projectForm.value.icon || undefined
+        }
+        
+        // 调用更新项目API
+        await fetchUpdateProject(updateParams)
+        
+        // 重新获取项目列表，确保数据最新
+        await loadProjects()
+        ElMessage.success('项目更新成功')
+        dialogVisible.value = false
+        resetForm()
+      } catch (error) {
+        ElMessage.error('项目更新失败，请重试')
+        console.error('更新项目失败:', error)
+        return
       }
-      ElMessage.success('项目更新成功')
-      dialogVisible.value = false
-      resetForm()
     } else {
       // 添加新项目
       try {
@@ -248,6 +272,48 @@
   onMounted(() => {
     loadProjects()
   })
+
+  // 处理项目拖拽结束事件
+  const handleProjectDragEnd = async () => {
+    try {
+      // 记录开始时间，用于性能监控
+      const startTime = Date.now()
+      console.log('拖拽结束，开始更新所有项目位置')
+      
+      // 创建一个数组来保存所有更新请求
+      const updatePromises = projects.value.map(async (project, index) => {
+        // 位置从1开始
+        const newSortOrder = index + 1
+        
+        // 构建更新位置的参数
+        const swapPositionParams: Api.Reminder.SwapPositionProjectParams = {
+          projectId: project.id,
+          sortOrder: newSortOrder
+        }
+        
+        console.log(`正在更新项目ID: ${project.id}，新位置: ${newSortOrder}`)
+        
+        // 调用API更新位置
+        return fetchSwapPositionProject(swapPositionParams)
+      })
+      
+      // 等待所有位置更新请求完成
+      await Promise.all(updatePromises)
+      
+      // 重新获取项目列表，确保前端显示与后端一致
+      await loadProjects()
+      
+      // 计算总耗时
+      const endTime = Date.now()
+      console.log(`所有项目位置更新完成，耗时: ${endTime - startTime}ms`)
+      // ElMessage.success('项目排序已更新')
+    } catch (error) {
+      console.error('更新项目位置失败:', error)
+      ElMessage.error('项目排序更新失败')
+      // 失败时重新加载列表以恢复状态
+      await loadProjects()
+    }
+  }
 </script>
 
 <style lang="scss" scoped>

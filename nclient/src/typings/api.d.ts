@@ -81,17 +81,19 @@ declare namespace Api {
       icon?: string
     }
 
-    /** 创建项目响应 */
-    interface CreateProjectResponse {
-      id: number
+    /** 更新项目参数 */
+    interface UpdateProjectParams {
       projectId: number
       name: string
       description?: string
       color?: string
       icon?: string
-      userId: number
-      sortOrder?: number
-      isArchived?: boolean
+    }
+
+    /** 交换位置 */
+    interface SwapPositionProjectParams {
+      projectId: number
+      sortOrder: number
     }
 
     /** 获取所有项目响应 */

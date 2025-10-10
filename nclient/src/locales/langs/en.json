@@ -182,6 +182,11 @@
     "hasAccount": "Already have an account?",
     "toLogin": "To login"
   },
+  "tasks":{
+    "project":{
+      "title":["Shortcut", "Project", "Today", "Collection"]
+    }
+  },
   "code": {
     "placeholder": ["Verification code sent successfully", "Verification code sent failed"]
   },
