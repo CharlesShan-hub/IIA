@@ -3,6 +3,7 @@ package com.charles.server.reminder.service.impl;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.charles.server.reminder.dto.CreateTaskRequest;
 import org.springframework.stereotype.Service;
 
 import com.charles.server.reminder.entity.Task;
@@ -20,15 +21,28 @@ public class TaskServiceImpl implements TaskService {
     private final TaskMapper taskMapper;
 
     @Override
-    public Task create(Task task) {
-        log.info("Creating task for user: {}", task.getUserId());
+    public void create(Long userId, CreateTaskRequest dto) {
+        log.info("Creating task for user: {}", userId);
+        Task task = new Task(dto);
+        dto.setUserId(userId);
+        task.setStatus("todo");
+        task.setIsArchived(false);
+        Long projectId = task.getProjectId();
+        Long parentTaskId = task.getParentTaskId();
+        int count;
+        if(parentTaskId == null){
+            count = taskMapper.findByUserIdAndProjectId(userId, null).size();
+        }else{
+            assert this.getById(parentTaskId).getUserId().equals(userId);
+            count = taskMapper.findSubTasks(userId, parentTaskId).size();
+        }
+        task.setSortOrder(count + 1);
+
         int result = taskMapper.insert(task);
         if (result > 0) {
             log.info("Task created successfully with id: {}", task.getTaskId());
-            return task;
         }
         log.error("Failed to create task");
-        return null;
     }
 
     @Override

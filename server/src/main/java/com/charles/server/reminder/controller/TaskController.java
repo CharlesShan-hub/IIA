@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.time.LocalDateTime;
 
+import com.charles.server.reminder.dto.CreateTaskRequest;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,16 +35,11 @@ public class TaskController {
 
     // 创建任务
     @PostMapping("create")
-    public Map<String, Object> create(@RequestBody Task task, HttpServletRequest request) {
+    public Map<String, Object> create(@RequestBody @Valid CreateTaskRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            task.setUserId(userId);
-            Task createdTask = taskService.create(task);
-            if (createdTask != null) {
-                return ResponseUtils.buildSuccessResponse(createdTask, "任务创建成功");
-            } else {
-                return ResponseUtils.buildErrorResponse("任务创建失败");
-            }
+            taskService.create(userId, dto);
+            return ResponseUtils.buildSuccessResponse(null, "任务创建成功");
         } catch (Exception e) {
             log.error("创建任务失败: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());

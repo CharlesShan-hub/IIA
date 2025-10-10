@@ -41,3 +41,12 @@ export function fetchSwapPositionProject(params: Api.Reminder.SwapPositionProjec
     showSuccessMessage: false
   })
 }
+
+/** 创建任务 */
+export function fetchCreateTask(params: Api.Reminder.CreateTaskParams) {
+  return request.post<void>({
+    url: '/api/reminder/tasks/create',
+    data: params,
+    showSuccessMessage: false
+  })
+}

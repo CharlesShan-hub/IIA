@@ -3,11 +3,12 @@ package com.charles.server.reminder.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.charles.server.reminder.dto.CreateTaskRequest;
 import com.charles.server.reminder.entity.Task;
 
 public interface TaskService {
     // 创建任务
-    Task create(Task task);
+    void create(Long userId, CreateTaskRequest dto);
     
     // 获取用户所有任务
     List<Task> getAll(Long userId);

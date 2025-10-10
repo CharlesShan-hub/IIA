@@ -184,7 +184,23 @@
   },
   "tasks":{
     "project":{
-      "title":["Shortcut", "Project", "Today", "Collection"]
+      "title":["Shortcut", "Project", "Today", "Collection"],
+      "formAdd":{
+        "title": "Add Project",
+        "name":["Name","Please enter project name"],
+        "des": ["Description", "Please enter project description (optional)"],
+        "color": ["Color"],
+        "icon": ["Icon"],
+        "btn": ["Add"]
+      },
+      "formEdit":{
+        "title": "Edit Project",
+        "name":["Edit Project","Please enter project name"],
+        "des": ["Description", "Please enter project description (optional)"],
+        "color": ["Color"],
+        "icon": ["Icon"],
+        "btn": ["Delete","Update"]
+      }
     }
   },
   "code": {

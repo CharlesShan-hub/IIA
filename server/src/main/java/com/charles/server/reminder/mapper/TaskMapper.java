@@ -9,9 +9,9 @@ public interface TaskMapper {
     
     // 插入新任务
     @Insert("INSERT INTO reminder_task(user_id, project_id, title, category, status, parent_task_id, "+
-            "sort_order, due_date, start_date, completed_at, reminder_sent_at, priority) "+
+            "sort_order, due_date, start_date, completed_at, reminder_sent_at, priority, is_archived) "+
             "VALUES(#{userId}, #{projectId}, #{title}, #{category}, #{status}, #{parentTaskId}, "+
-            "#{sortOrder}, #{dueDate}, #{startDate}, #{completedAt}, #{reminderSentAt}, #{priority})")
+            "#{sortOrder}, #{dueDate}, #{startDate}, #{completedAt}, #{reminderSentAt}, #{priority}, #{isArchived})")
     @Options(useGeneratedKeys = true, keyProperty = "taskId", keyColumn = "task_id")
     int insert(Task task);
     

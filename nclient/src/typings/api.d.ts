@@ -108,6 +108,19 @@ declare namespace Api {
       sortOrder?: number
       isArchived?: boolean
     }
+
+    /** 创建任务参数 */
+    interface CreateTaskParams {
+      projectId?: number
+      title: string
+      category: string
+      parentTaskId?: number
+      description?: string
+      dueDate?: string
+      startDate?: string
+      reminderSentAt?: string
+      priority?: string
+    }
   }
 
   /** 系统管理类型 */

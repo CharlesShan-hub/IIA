@@ -36,7 +36,7 @@ CREATE TABLE reminder_task (
     
     -- 层级结构
     parent_task_id BIGINT NULL COMMENT '父任务ID',
-    sort_order DOUBLE DEFAULT 0 COMMENT '排序顺序',
+    sort_order INT DEFAULT 0 COMMENT '排序顺序',
 
     -- 时间信息
     due_date DATETIME NULL COMMENT '任务截止日期',
