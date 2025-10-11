@@ -95,7 +95,7 @@
     fetchCreateProject,
     fetchGetAllProjects,
     fetchUpdateProject,
-    fetchSwapPositionProject
+    fetchBatchUpdatePosition
   } from '@/api/reminder'
 
   // 项目类型定义
@@ -280,34 +280,25 @@
     try {
       // 记录开始时间，用于性能监控
       const startTime = Date.now()
-      console.log('拖拽结束，开始更新所有项目位置')
+      console.log('拖拽结束，开始批量更新所有项目位置')
 
-      // 创建一个数组来保存所有更新请求
-      const updatePromises = projects.value.map(async (project, index) => {
-        // 位置从1开始
-        const newSortOrder = index + 1
-
-        // 构建更新位置的参数
-        const swapPositionParams: Api.Reminder.SwapPositionProjectParams = {
+      // 构建批量更新参数
+      const batchUpdateParams: Api.Reminder.BatchUpdatePositionParams = {
+        projects: projects.value.map((project, index) => ({
           projectId: project.id,
-          sortOrder: newSortOrder
-        }
+          sortOrder: index + 1 // 位置从1开始
+        }))
+      }
 
-        console.log(`正在更新项目ID: ${project.id}，新位置: ${newSortOrder}`)
-
-        // 调用API更新位置
-        return fetchSwapPositionProject(swapPositionParams)
-      })
-
-      // 等待所有位置更新请求完成
-      await Promise.all(updatePromises)
+      // 调用批量更新API
+      await fetchBatchUpdatePosition(batchUpdateParams)
 
       // 重新获取项目列表，确保前端显示与后端一致
       await loadProjects()
 
       // 计算总耗时
       const endTime = Date.now()
-      console.log(`所有项目位置更新完成，耗时: ${endTime - startTime}ms`)
+      console.log(`所有项目位置批量更新完成，耗时: ${endTime - startTime}ms`)
       // ElMessage.success('项目排序已更新')
     } catch (error) {
       console.error('更新项目位置失败:', error)

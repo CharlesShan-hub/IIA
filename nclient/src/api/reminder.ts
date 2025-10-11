@@ -34,9 +34,9 @@ export function fetchGetAllProjects() {
 }
 
 /** 交换位置*/
-export function fetchSwapPositionProject(params: Api.Reminder.SwapPositionProjectParams) {
+export function fetchBatchUpdatePosition(params: Api.Reminder.BatchUpdatePositionParams) {
   return request.post<void>({
-    url: '/api/reminder/projects/swap-position',
+    url: '/api/reminder/projects/batch-update-position',
     data: params,
     showSuccessMessage: false
   })

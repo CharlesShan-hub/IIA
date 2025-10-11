@@ -131,7 +131,10 @@
     status: 'pending' | 'completed' | 'in_progress'
     priority: 'low' | 'medium' | 'high'
     dueDate?: string
+    startDate?: string
     projectId?: number
+    category?: string
+    parentTaskId?: number
     children?: Task[]
   }
 
@@ -177,6 +180,41 @@
       minWidth: 180
     },
     {
+      prop: 'projectId',
+      label: '所属项目',
+      minWidth: 120,
+      formatter: (row: Task) => {
+        const project = availableProjects.value.find(p => p.id === row.projectId)
+        return project?.name || '无项目'
+      }
+    },
+    {
+      prop: 'category',
+      label: '任务分类',
+      minWidth: 100,
+      formatter: (row: Task) => row.category || '无'
+    },
+    {
+      prop: 'parentTaskId',
+      label: '父任务',
+      minWidth: 150,
+      formatter: (row: Task) => {
+        if (!row.parentTaskId) return '无'
+        // 递归查找父任务名称
+        const findParentTask = (tasks: Task[], id: number): string => {
+          for (const task of tasks) {
+            if (task.id === id) return task.title
+            if (task.children) {
+              const found = findParentTask(task.children, id)
+              if (found) return found
+            }
+          }
+          return '未知'
+        }
+        return findParentTask(tableData.value, row.parentTaskId)
+      }
+    },
+    {
       prop: 'status',
       label: '状态',
       formatter: (row: Task) => {
@@ -203,9 +241,22 @@
       }
     },
     {
+      prop: 'startDate',
+      label: '开始日期',
+      minWidth: 120,
+      formatter: (row: Task) => row.startDate || '无'
+    },
+    {
       prop: 'dueDate',
       label: '截止日期',
+      minWidth: 120,
       formatter: (row: Task) => row.dueDate || '无'
+    },
+    {
+      prop: 'description',
+      label: '任务描述',
+      minWidth: 200,
+      formatter: (row: Task) => row.description || '无'
     },
     {
       prop: 'operation',
@@ -239,55 +290,80 @@
         {
           id: 1,
           title: '项目规划文档',
+          description: '制定详细的项目规划和时间表',
           status: 'in_progress',
           priority: 'high',
+          startDate: '2023-12-01',
           dueDate: '2023-12-31',
+          category: '项目管理',
           children: [
             {
               id: 11,
               title: '需求分析',
+              description: '分析用户需求并撰写需求文档',
               status: 'completed',
               priority: 'medium',
-              dueDate: '2023-12-10'
+              startDate: '2023-12-01',
+              dueDate: '2023-12-10',
+              category: '需求',
+              parentTaskId: 1
             },
             {
               id: 12,
               title: '技术选型',
+              description: '评估和选择合适的技术栈',
               status: 'in_progress',
               priority: 'medium',
-              dueDate: '2023-12-15'
+              startDate: '2023-12-11',
+              dueDate: '2023-12-15',
+              category: '技术',
+              parentTaskId: 1
             }
           ]
         },
         {
           id: 2,
           title: 'UI设计稿',
+          description: '设计应用的用户界面原型',
           status: 'pending',
           priority: 'medium',
+          startDate: '2023-12-20',
           dueDate: '2024-01-15',
+          category: '设计',
           children: [
             {
               id: 21,
               title: '登录页面',
+              description: '设计用户登录和注册页面',
               status: 'pending',
               priority: 'low',
-              dueDate: '2024-01-05'
+              startDate: '2023-12-20',
+              dueDate: '2024-01-05',
+              category: '界面',
+              parentTaskId: 2
             },
             {
               id: 22,
               title: '仪表盘',
+              description: '设计数据仪表盘界面',
               status: 'pending',
               priority: 'medium',
-              dueDate: '2024-01-10'
+              startDate: '2024-01-06',
+              dueDate: '2024-01-10',
+              category: '界面',
+              parentTaskId: 2
             }
           ]
         },
         {
           id: 3,
           title: '数据库设计',
+          description: '设计系统的数据库结构',
           status: 'completed',
           priority: 'high',
-          dueDate: '2023-12-20'
+          startDate: '2023-12-10',
+          dueDate: '2023-12-20',
+          category: '技术'
         }
       ]
     } catch (error) {

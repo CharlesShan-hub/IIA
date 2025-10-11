@@ -91,9 +91,11 @@ declare namespace Api {
     }
 
     /** 交换位置 */
-    interface SwapPositionProjectParams {
-      projectId: number
-      sortOrder: number
+    interface BatchUpdatePositionParams {
+      projects: Array<{
+        projectId: number
+        sortOrder: number
+      }>
     }
 
     /** 获取所有项目响应 */

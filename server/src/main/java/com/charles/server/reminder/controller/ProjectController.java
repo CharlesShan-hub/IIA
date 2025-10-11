@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.charles.server.auth.service.TokenService;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.service.ProjectService;
+import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.utils.ResponseUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api/reminder/projects")
 @RequiredArgsConstructor
 public class ProjectController {
+    
     private final ProjectService projectService;
     private final TokenService tokenService;
     
@@ -55,23 +57,15 @@ public class ProjectController {
         }
     }
 
-    // 交换项目位置
-    @PostMapping("swap-position")
-    public Map<String, Object> swapPosition(@RequestBody @Valid SwapPositionRequest dto, HttpServletRequest request) {
+    // 批量更新项目位置
+    @PostMapping("batch-update-position")
+    public Map<String, Object> batchUpdatePosition(@RequestBody @Valid BatchUpdatePositionRequest request, HttpServletRequest httpRequest) {
         try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            Project src = projectService.getProjectById(userId, dto.getProjectId());
-            Project des = projectService.getProjectBySortOrder(userId, dto.getSortOrder());
-            if(des == null || src == null) {
-                return ResponseUtils.buildErrorResponse("项目不存在");
-            }
-            if(!src.equals(des)) {
-                projectService.updateSortOrder(userId, des.getProjectId(), src.getSortOrder());
-                projectService.updateSortOrder(userId, src.getProjectId(), dto.getSortOrder());
-            }
-            return ResponseUtils.buildSuccessResponse(null, "交换成功");
+            Long userId = tokenService.getUserIdFromRequest(httpRequest);
+            projectService.batchUpdatePosition(userId, request);
+            return ResponseUtils.buildSuccessResponse(null, "批量更新成功");
         } catch (Exception e) {
-            log.error("交换项目位置失败: {}", e.getMessage(), e);
+            log.error("批量更新项目位置失败: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }

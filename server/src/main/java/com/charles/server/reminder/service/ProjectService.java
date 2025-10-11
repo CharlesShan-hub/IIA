@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.charles.server.reminder.dto.CreateProjectRequest;
 import com.charles.server.reminder.dto.UpdateProjectRequest;
+import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.entity.Project;
 
 public interface ProjectService {
@@ -33,4 +34,7 @@ public interface ProjectService {
 
     /** 根据位置判断项目是否存在 */
     public boolean existsBySortOrder(Long userId, Integer sortOrder);
+
+    /** 添加批量更新位置方法 */
+    void batchUpdatePosition(Long userId, BatchUpdatePositionRequest request);
 }
