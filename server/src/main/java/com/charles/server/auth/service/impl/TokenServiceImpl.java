@@ -12,9 +12,6 @@ import com.charles.server.utils.JwtUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-/**
- * Token管理服务实现类，负责在Redis中存储和验证Token
- */
 @Service
 public class TokenServiceImpl implements TokenService {
     @Autowired
@@ -22,27 +19,27 @@ public class TokenServiceImpl implements TokenService {
     
     @Autowired
     private JwtUtils jwtUtils;
+
+    @Value("${jwt.expiration}")
+    private long tokenExpiration;
     
-    // Token过期时间：24小时
-    private static final long TOKEN_EXPIRATION = 24;
-    
-    // Refresh Token过期时间：7天
-    private static final long REFRESH_TOKEN_EXPIRATION = 7 * 24;
-    
+    @Value("${jwt.refresh-expiration}")
+    private long refreshTokenExpiration;
+
     @Override
     public void storeAccessToken(String userId, String token) {
         String key = "user:access_token:" + userId;
-        redisTemplate.opsForValue().set(key, token, TOKEN_EXPIRATION, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set(key, token, tokenExpiration, TimeUnit.HOURS);
         
-        // 添加反向映射：accessToken -> userId
+        // Add reverse mapping: accessToken -> userId
         String reverseKey = "access_token:user_id:" + token;
-        redisTemplate.opsForValue().set(reverseKey, userId, TOKEN_EXPIRATION, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set(reverseKey, userId, tokenExpiration, TimeUnit.HOURS);
     }
     
     @Override
     public void storeRefreshToken(String userId, String refreshToken) {
         String key = "user:refresh_token:" + userId;
-        redisTemplate.opsForValue().set(key, refreshToken, REFRESH_TOKEN_EXPIRATION, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set(key, refreshToken, refreshTokenExpiration, TimeUnit.HOURS);
     }
     
     @Override
@@ -61,12 +58,9 @@ public class TokenServiceImpl implements TokenService {
     public void deleteAccessToken(String userId) {
         String key = "user:access_token:" + userId;
         String token = redisTemplate.opsForValue().get(key);
-        
-        // 删除正向映射
         redisTemplate.delete(key);
-        
-        // 如果存在Token，同时删除反向映射
         if (token != null) {
+            // if the token exists, delete the reverse mapping
             String reverseKey = "access_token:user_id:" + token;
             redisTemplate.delete(reverseKey);
         }
@@ -86,9 +80,9 @@ public class TokenServiceImpl implements TokenService {
     
     @Override
     public boolean validateAccessToken(String userId, String token) {
-        // 从Redis中获取存储的Token
+        // Retrieve the stored token from Redis
         String storedToken = getAccessToken(userId);
-        // 验证传入的Token是否与Redis中存储的一致
+        // Verify that the provided token matches the one stored in Redis
         return storedToken != null && storedToken.equals(token);
     }
     
@@ -100,7 +94,7 @@ public class TokenServiceImpl implements TokenService {
     
     @Override
     public Long getUserIdByAccessToken(String accessToken) {
-        // 从反向映射中获取用户ID
+        // Retrieve the user ID from the reverse mapping
         String key = "access_token:user_id:" + accessToken;
         String userIdStr = redisTemplate.opsForValue().get(key);
         return userIdStr != null ? Long.parseLong(userIdStr) : null;
@@ -112,7 +106,7 @@ public class TokenServiceImpl implements TokenService {
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
-        throw new RuntimeException("未提供有效的认证 Token");
+        throw new RuntimeException("No valid Authorization header found");
     }
     
     @Override

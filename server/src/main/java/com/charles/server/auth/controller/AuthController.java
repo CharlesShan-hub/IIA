@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.charles.server.auth.service.AuthService;
 import com.charles.server.auth.service.TokenService;
+import com.charles.server.auth.service.MailService;
 import com.charles.server.utils.ResponseUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthController {
     private final AuthService authService;
     private final TokenService tokenService;
+    private final MailService mailService;
     
     // Login
     @PostMapping("/login")
@@ -34,9 +36,7 @@ public class AuthController {
         try {
             LoginResponse response = authService.login(dto);
             log.info("User login succeeded, email: {}", dto.getEmail());
-            log.debug("Token: {}", response.getToken());
-            log.debug("RefreshToken: {}", response.getRefreshToken());
-            return ResponseUtils.buildSuccessResponse(response, "success");
+            return ResponseUtils.buildSuccessResponse(response, "login succeeded");
         } catch (Exception e) {
             log.info("User login failed, email: {}, error: {}", dto.getEmail(), e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
@@ -50,7 +50,7 @@ public class AuthController {
             Long userId = tokenService.getUserIdFromRequest(request);
             ProfileResponse response = authService.profile(userId.toString());
             log.info("User profile request, ID: {}", userId);
-            return ResponseUtils.buildSuccessResponse(response, "success");
+            return ResponseUtils.buildSuccessResponse(response, "user profile");
         } catch (Exception e) {
             log.info("User profile request failed, token: {}, error: {}", tokenService.extractTokenFromRequest(request), e.getMessage(), e);
             return ResponseUtils.buildUnauthorizedResponse("Authentication failed: " + e.getMessage());
@@ -65,22 +65,9 @@ public class AuthController {
             log.info("User logout request, user ID: {}", userId);
             tokenService.deleteAllTokens(userId.toString());
             log.info("User logout succeeded, user ID: {}", userId);
-            return ResponseUtils.buildEmptySuccessResponse("Logout succeeded");
+            return ResponseUtils.buildEmptySuccessResponse("logout succeeded");
         } catch (Exception e) {
             log.error("User logout failed, error: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
-    }
-
-    // Send verification code
-    @PostMapping("/send-code")
-    public Map<String, Object> sendCode(@RequestBody @Valid SendCodeRequest dto) {
-        try {
-            authService.sendCode(dto.getEmail());
-            log.info("Verification code sent to email: {}", dto.getEmail());
-            return ResponseUtils.buildEmptySuccessResponse("Verification code sent");
-        } catch (Exception e) {
-            log.error("Failed to send verification code, email: {}, error: {}", dto.getEmail(), e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }
@@ -92,7 +79,7 @@ public class AuthController {
         try {
             RegisterResponse response = authService.register(dto);
             log.info("User registration succeeded, email: {}, user ID: {}", dto.getEmail(), response.getUserId());
-            return ResponseUtils.buildSuccessResponse(response, "Registration succeeded");
+            return ResponseUtils.buildSuccessResponse(response, "registration succeeded");
         } catch (Exception e) {
             log.error("User registration failed, email: {}, error: {}", dto.getEmail(), e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
@@ -103,11 +90,10 @@ public class AuthController {
     @PostMapping("/refresh")
     public Map<String, Object> refreshToken(@RequestBody @Valid RefreshTokenRequest request) {
         log.info("Refresh Access Token request");
-        
         try {
             RefreshResponse response = authService.refreshAccessToken(request.getRefreshToken());
             log.info("Refreshed Access Token successfully");
-            return ResponseUtils.buildSuccessResponse(response, "Refresh token succeeded");
+            return ResponseUtils.buildSuccessResponse(response, "refresh token succeeded");
         } catch (Exception e) {
             log.error("Failed to refresh Access Token, error: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
@@ -121,9 +107,22 @@ public class AuthController {
         try {
             authService.resetPassword(dto.getEmail(), dto.getNewPassword());
             log.info("Password reset succeeded, email: {}", dto.getEmail());
-            return ResponseUtils.buildEmptySuccessResponse("Password reset succeeded");
+            return ResponseUtils.buildEmptySuccessResponse("password reset succeeded");
         } catch (Exception e) {
             log.error("Password reset failed, email: {}, error: {}", dto.getEmail(), e.getMessage(), e);
+            return ResponseUtils.buildErrorResponse(e.getMessage());
+        }
+    }
+
+    // Send verification code
+    @PostMapping("/send-code")
+    public Map<String, Object> sendCode(@RequestBody @Valid SendCodeRequest dto) {
+        try {
+            mailService.sendVerificationCode(dto.getEmail());
+            log.info("Verification code sent to email: {}", dto.getEmail());
+            return ResponseUtils.buildEmptySuccessResponse("Verification code sent");
+        } catch (Exception e) {
+            log.error("Failed to send verification code, email: {}, error: {}", dto.getEmail(), e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }

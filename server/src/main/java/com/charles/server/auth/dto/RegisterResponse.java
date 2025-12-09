@@ -8,4 +8,5 @@ public class RegisterResponse {
     private Long userId;
     private String passwordHash;
     private String token;
+    private String refreshToken;
 }
