@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class SendCodeRequest {
-    @Email(message = "邮箱格式不正确")
+    @Email(message = "email format is incorrect")
     private String email;
 }

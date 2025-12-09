@@ -13,8 +13,8 @@ public class RegisterRequest {
     @NotBlank @Size(min = 6, max = 20)
     private String password;
 
-    private String username; // 用户昵称，可为空
+    private String username;
 
-    @NotBlank(message = "验证码不能为空")
-    private String code; // 新增验证码字段
+    @NotBlank(message = "verification code is required")
+    private String code;
 }
