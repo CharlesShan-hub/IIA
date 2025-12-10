@@ -16,6 +16,7 @@ spring:
         host: smtp.qq.com           # QQ邮箱SMTP服务器
         username: inforassistant@foxmail.com  # 发送方邮箱
         password: gtpjjuyufsracihj   # 邮箱授权码（非登录密码）
+        expiration: 5 # 验证码5分钟过期
         properties:
             mail.smtp.auth: true
             mail.smtp.starttls.enable: true
@@ -28,8 +29,8 @@ mybatis:
 # JWT配置
 jwt:
     secret: ThisIsASecretKeyForJWTThatIsAtLeast64BytesLongEnoughForHS512AlgorithmSecurityRequirements!
-    expiration: 24 # Token有效期，这里设置为24小时
-    refresh-expiration: 168 # Refresh Token有效期，这里设置为7天
+    expiration: 86400000 # Token有效期，这里设置为24小时
+    refresh-expiration: 604800000 # Refresh Token有效期，这里设置为7天
 
 logging:
     level:

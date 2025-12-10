@@ -1,18 +1,11 @@
 package com.charles.server.auth.service.impl;
 
-import com.charles.server.auth.dto.*;
-import com.charles.server.auth.entity.Account;
-import com.charles.server.auth.service.MailService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import com.charles.server.auth.entity.Mail;
-import com.charles.server.auth.entity.Profile;
-import com.charles.server.auth.mapper.AccountMapper;
-import com.charles.server.auth.mapper.MailMapper;
-import com.charles.server.auth.mapper.ProfileMapper;
-import com.charles.server.auth.service.AuthService;
-import com.charles.server.auth.service.TokenService;
+import com.charles.server.auth.dto.*;
+import com.charles.server.auth.entity.*;
+import com.charles.server.auth.mapper.*;
+import com.charles.server.auth.service.*;
 import com.charles.server.utils.JwtUtils;
 
 import jakarta.transaction.Transactional;
