@@ -7,11 +7,11 @@ import lombok.Data;
 
 @Data
 public class UpdateProjectRequest {
-    @NotBlank(message = "项目名称不能为空")
-    @Size(min = 1, max = 20, message = "项目名称不能超过20个字符")
+    @NotBlank(message = "Project Name is Required")
+    @Size(min = 1, max = 20, message = "Project Name must be between 1 and 20 characters")
     private String name;
 
-    @Size(min = 1, max = 500, message = "项目简介不能超过500个字符")
+    @Size(min = 1, max = 500, message = "Project Description must be between 1 and 500 characters")
     private String description;
 
     private String color;

@@ -31,67 +31,67 @@ public class ProjectController {
     private final ProjectService projectService;
     private final TokenService tokenService;
     
-    // 创建项目
+    // Create Project
     @PostMapping("create")
     public Map<String, Object> create(@RequestBody @Valid CreateProjectRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             projectService.create(userId, dto);
-            return ResponseUtils.buildSuccessResponse(null, "创建成功");
+            return ResponseUtils.buildEmptySuccessResponse("Reminder Project Created");
         } catch (Exception e) {
-            log.error("创建项目失败: {}", e.getMessage(), e);
+            log.error("Reminder Project Create Failed: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }
 
-    // 更新项目
+    // Update Project
     @PostMapping("update")
     public Map<String, Object> updateById(@RequestBody @Valid UpdateProjectRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             projectService.update(userId, dto);
-            return ResponseUtils.buildSuccessResponse(null, "更新成功");
+            return ResponseUtils.buildEmptySuccessResponse("Reminder Project Updated");
         } catch (Exception e) {
-            log.error("更新项目失败: {}", e.getMessage(), e);
+            log.error("Reminder Project Update Failed: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }
 
-    // 批量更新项目位置
+    // Batch Update Project Positions
     @PostMapping("batch-update-position")
     public Map<String, Object> batchUpdatePosition(@RequestBody @Valid BatchUpdatePositionRequest request, HttpServletRequest httpRequest) {
         try {
             Long userId = tokenService.getUserIdFromRequest(httpRequest);
             projectService.batchUpdatePosition(userId, request);
-            return ResponseUtils.buildSuccessResponse(null, "批量更新成功");
+            return ResponseUtils.buildEmptySuccessResponse("Reminder Project Positions Updated");
         } catch (Exception e) {
-            log.error("批量更新项目位置失败: {}", e.getMessage(), e);
+            log.error("Reminder Project Batch Update Position Failed: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }
     
-    // 获取用户所有项目
+    // Query All Projects for User
     @GetMapping("get-all")
     public Map<String, Object> getAll(HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             List<Project> projects = projectService.getAll(userId);
-            return ResponseUtils.buildSuccessResponse(projects, "查询成功");
+            return ResponseUtils.buildSuccessResponse(projects, "Reminder Projects Queried");
         } catch (Exception e) {
-            log.error("获取项目列表失败: {}", e.getMessage(), e);
+            log.error("Reminder Project Query Failed: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }
     
-    // 获取单个项目
+    // Query Project by ID
     @GetMapping("get/{id}")
     public Map<String, Object> getById(@PathVariable("id") Long projectId, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             Project project = projectService.getProjectById(userId, projectId);
-            return ResponseUtils.buildSuccessResponse(project, "查询成功");
+            return ResponseUtils.buildSuccessResponse(project, "Reminder Project Queried");
         } catch (Exception e) {
-            log.error("获取项目失败: {}", e.getMessage(), e);
+            log.error("Reminder Project Query Failed: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }

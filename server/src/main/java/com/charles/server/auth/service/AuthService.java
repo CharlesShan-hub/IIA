@@ -1,7 +1,6 @@
 package com.charles.server.auth.service;
 
 import com.charles.server.auth.dto.*;
-import com.charles.server.auth.dto.*;
 
 public interface AuthService {
     /**
@@ -18,11 +17,6 @@ public interface AuthService {
      */
     RegisterResponse register(RegisterRequest dto);
 
-    /**
-     * Get user profile by user id
-     * @param userId user id
-     * @return profile response dto
-     */
     /**
      * Get user profile
      */

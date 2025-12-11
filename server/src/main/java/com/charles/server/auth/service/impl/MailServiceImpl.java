@@ -1,5 +1,7 @@
 package com.charles.server.auth.service.impl;
 
+import com.charles.server.auth.exception.ExpiredVerificationCodeException;
+import com.charles.server.auth.exception.InvalidVerificationCodeException;
 import com.charles.server.auth.service.MailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -38,7 +40,7 @@ public class MailServiceImpl implements MailService {
         // 1. Generate a 6-digit verification code
         String code = generateVerificationCode();
         
-        // 2. Cache the code in Redis with a n-minute expiration
+        // 2. Cache the code in Redis with an n-minute expiration
         String key = "email:code:" + email;
         redisTemplate.opsForValue().set(key, code, codeExpiration, TimeUnit.MINUTES);
         
@@ -69,12 +71,12 @@ public class MailServiceImpl implements MailService {
         
         if (correctCode == null) {
             log.warn("Verification code expired for email: {}", email);
-            throw new RuntimeException("Verification code expired");
+            throw new ExpiredVerificationCodeException();
         }
         
         if (!correctCode.equals(inputCode)) {
             log.warn("Invalid verification code for email: {}", email);
-            throw new RuntimeException("Invalid verification code");
+            throw new InvalidVerificationCodeException();
         }
         
         // Delete the code from Redis after successful verification
@@ -166,23 +168,19 @@ public class MailServiceImpl implements MailService {
                     </div>
                     <p class="instructions">
                         Hello,<br><br>
-                        You've requested a verification code for your account. 
+                        You've requested a verification code for your account.
                         Please use the code below to complete your verification process.
                     </p>
-                    
                     <div class="code-container">
                         <div class="verification-code">%s</div>
                     </div>
-                    
                     <div class="warning">
-                        ⚠️ This code will expire in <strong>%s minutes</strong>. 
+                        ⚠️ This code will expire in <strong>%s minutes</strong>.
                         Please do not share this code with anyone.
                     </div>
-                    
                     <p class="instructions">
                         If you didn't request this code, please ignore this email or contact our support team.
                     </p>
-                    
                     <div class="footer">
                         <p>© 2024 Your App Name. All rights reserved.</p>
                         <p>This is an automated message, please do not reply to this email.</p>

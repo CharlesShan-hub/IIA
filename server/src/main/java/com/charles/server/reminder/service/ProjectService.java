@@ -8,33 +8,69 @@ import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.entity.Project;
 
 public interface ProjectService {
-    /** 创建项目 */
+    /** Create a new project 
+     * @param userId the user ID
+     * @param dto the project creation request
+    */
     void create(Long userId, CreateProjectRequest dto);
 
-    /** 更新项目 */
+    /** Update an existing project
+     * @param userId the user ID
+     * @param dto the project update request
+    */
     void update(Long userId, UpdateProjectRequest dto);
 
-    /** 更新位置 */
+    /** Update the sort order of a project
+     * @param userId the user ID
+     * @param projectId the project ID
+     * @param sortOrder the new sort order
+    */
     void updateSortOrder(Long userId, Long projectId, Integer sortOrder);
     
-    /** 获取用户所有项目 */
+    /** Get all projects for a user
+     * @param userId the user ID
+     * @return the list of projects
+    */
     List<Project> getAll(Long userId);
     
-    /** 根据项目ID获取项目 */
+    /** Get a project by ID
+     * @param userId the user ID
+     * @param projectId the project ID
+     * @return the project
+    */
     Project getProjectById(Long userId, Long projectId);
 
-    /** 根据名称获取项目 */
+    /** Get a project by name
+     * @param userId the user ID
+     * @param name the project name
+     * @return the project
+    */
     Project getProjectByName(Long userId, String name);
 
-    /** 根据位置获取项目 */
+    /** Get a project by sort order
+     * @param userId the user ID
+     * @param sortOrder the sort order
+     * @return the project
+    */
     Project getProjectBySortOrder(Long userId, Integer sortOrder);
 
-    /** 根据项目名判断项目是否存在 */
+    /** Check if a project exists by name
+     * @param userId the user ID
+     * @param name the project name
+     * @return true if exists, false otherwise
+    */
     boolean existsByName(Long userId, String name);
 
-    /** 根据位置判断项目是否存在 */
+    /** Check if a project exists by sort order
+     * @param userId the user ID
+     * @param sortOrder the sort order
+     * @return true if exists, false otherwise
+    */
     public boolean existsBySortOrder(Long userId, Integer sortOrder);
 
-    /** 添加批量更新位置方法 */
+    /** Batch update the sort order of projects
+     * @param userId the user ID
+     * @param request the batch update position request
+    */
     void batchUpdatePosition(Long userId, BatchUpdatePositionRequest request);
 }

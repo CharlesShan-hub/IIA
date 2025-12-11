@@ -64,14 +64,7 @@ public interface TokenService {
      * @return 是否有效
      */
     boolean validateRefreshToken(String userId, String refreshToken);
-    
-    /**
-     * Get userId by AccessToken
-     * @param accessToken JWT Access Token
-     * @return 用户ID
-     */
-    Long getUserIdByAccessToken(String accessToken);
-    
+
     /**
      * Extract JWT Token from HttpServletRequest
      * @param request HTTP请求对象

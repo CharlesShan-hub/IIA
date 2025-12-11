@@ -2,8 +2,9 @@ package com.charles.server.auth.service.impl;
 
 import java.util.concurrent.TimeUnit;
 
+import com.charles.server.auth.exception.InvalidTokenException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -14,12 +15,11 @@ import com.charles.server.utils.JwtUtils;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Service
+@RequiredArgsConstructor
 public class TokenServiceImpl implements TokenService {
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
-    
-    @Autowired
-    private JwtUtils jwtUtils;
+
+    private final RedisTemplate<String, String> redisTemplate;
+    private final JwtUtils jwtUtils;
 
     @Value("${jwt.expiration}")
     private long tokenExpiration;
@@ -92,22 +92,14 @@ public class TokenServiceImpl implements TokenService {
         String storedRefreshToken = getRefreshToken(userId);
         return storedRefreshToken != null && storedRefreshToken.equals(refreshToken);
     }
-    
-    @Override
-    public Long getUserIdByAccessToken(String accessToken) {
-        // Retrieve the user ID from the reverse mapping
-        String key = "access_token:user_id:" + accessToken;
-        String userIdStr = redisTemplate.opsForValue().get(key);
-        return userIdStr != null ? Long.parseLong(userIdStr) : null;
-    }
-    
+
     @Override
     public String extractTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
-        throw new RuntimeException("No valid Authorization header found");
+        throw new InvalidTokenException("Invalid Bearer Token");
     }
     
     @Override

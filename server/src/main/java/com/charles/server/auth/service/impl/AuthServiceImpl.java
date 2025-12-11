@@ -1,11 +1,13 @@
 package com.charles.server.auth.service.impl;
 
+import com.charles.server.auth.exception.UserNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.charles.server.auth.dto.*;
 import com.charles.server.auth.entity.*;
 import com.charles.server.auth.mapper.*;
 import com.charles.server.auth.service.*;
+import com.charles.server.auth.exception.*;
 import com.charles.server.utils.JwtUtils;
 
 import jakarta.transaction.Transactional;
@@ -58,13 +60,13 @@ public class AuthServiceImpl implements AuthService {
         // 1. Get Mail record by email
         Mail mail = mailMapper.findByEmail(dto.getEmail());
         if (mail == null) {
-            throw new RuntimeException("Mail record not found for email: " + dto.getEmail());
+            throw new UserNotFoundException(dto.getEmail());
         }
 
         // 2. Get Account record by authId
         Account account = accountMapper.findById(mail.getUserId());
         if (account == null || !passwordEncoder.matches(dto.getPassword(), account.getPasswordHash())) {
-            throw new RuntimeException("Incorrect password");
+            throw new InvalidCredentialsException();
         }
 
         // 3. Generate and store Tokens
@@ -83,7 +85,7 @@ public class AuthServiceImpl implements AuthService {
     public ProfileResponse profile(String userId) {
         Account account = accountMapper.findById(Long.valueOf(userId));
         if (account == null) {
-            throw new RuntimeException("Account record not found for userId: " + userId);
+            throw new UserNotFoundException(userId);
         }
         Mail mail = mailMapper.findByAuthId(Long.valueOf(userId));
         Profile profile = profileMapper.findById(Long.valueOf(userId));
@@ -103,7 +105,7 @@ public class AuthServiceImpl implements AuthService {
 
         // 2. Check if email is already registered
         if (mailMapper.existsByEmail(dto.getEmail())) {
-            throw new RuntimeException("Email already registered");
+            throw new EmailAlreadyRegisteredException(dto.getEmail());
         }
 
         // 3. Register Process: Create Account first 
@@ -143,13 +145,13 @@ public class AuthServiceImpl implements AuthService {
         // 1. Find Mail record by email
         Mail mail = mailMapper.findByEmail(email);
         if (mail == null) {
-            throw new RuntimeException("Mail record not found for email: " + email);
+            throw new UserNotFoundException(email);
         }
 
         // 2. Find Account record by authId
         Account account = accountMapper.findById(mail.getUserId());
         if (account == null) {
-            throw new RuntimeException("Account record not found for userId: " + mail.getUserId());
+            throw new UserNotFoundException(mail.getUserId().toString());
         }
 
         // 3. Update password (using BCrypt encryption)
@@ -163,7 +165,7 @@ public class AuthServiceImpl implements AuthService {
         
         // Validate Refresh Token
         if (refreshToken == null || !jwtUtils.validateRefreshToken(refreshToken)) {
-            throw new RuntimeException("Invalid Refresh Token");
+            throw new InvalidTokenException();
         }
         
         // Get user ID
@@ -171,7 +173,7 @@ public class AuthServiceImpl implements AuthService {
         
         // Validate Refresh Token in Redis
         if (!tokenService.validateRefreshToken(userId, refreshToken)) {
-            throw new RuntimeException("Refresh Token expired");
+            throw new ExpiredTokenException();
         }
         
         // Generate new Access Token

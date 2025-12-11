@@ -1,7 +1,5 @@
 package com.charles.server.reminder.entity;
 
-import com.charles.server.reminder.dto.CreateProjectRequest;
-import com.charles.server.reminder.dto.UpdateProjectRequest;
 import lombok.Data;
 
 @Data
@@ -14,14 +12,4 @@ public class Project {
     private String icon;
     private Integer sortOrder;
     private Boolean isArchived;
-
-    public Project() {
-    }
-
-    public Project(CreateProjectRequest dto) {
-        this.name = dto.getName();
-        this.description = dto.getDescription();
-        this.color = dto.getColor();
-        this.icon = dto.getIcon();
-    }
 }
