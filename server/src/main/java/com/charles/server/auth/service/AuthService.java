@@ -25,7 +25,7 @@ public interface AuthService {
     /**
      * Reset user password
      */
-    void resetPassword(String email, String newPassword);
+    void resetPassword(ResetPasswordRequest dto);
     
     /**
      * Refresh access token using refresh token

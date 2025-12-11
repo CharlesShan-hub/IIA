@@ -15,4 +15,7 @@ public class ResetPasswordRequest {
     @NotBlank(message = "New password is required")
     @Size(min = 6, max = 20, message = "Password length must be 6-20 characters")
     private String newPassword;
+
+    @NotBlank(message = "verification code is required")
+    private String code;
 }

@@ -86,6 +86,20 @@ public class AuthController {
         }
     }
 
+    // Reset Password
+    @PostMapping("/reset-password")
+    public Map<String, Object> resetPassword(@RequestBody @Valid ResetPasswordRequest dto) {
+        log.info("Reset password request, email: {}", dto.getEmail());
+        try {
+            authService.resetPassword(dto);
+            log.info("Password reset succeeded, email: {}", dto.getEmail());
+            return ResponseUtils.buildEmptySuccessResponse("password reset succeeded");
+        } catch (Exception e) {
+            log.error("Password reset failed, email: {}, error: {}", dto.getEmail(), e.getMessage(), e);
+            return ResponseUtils.buildErrorResponse(e.getMessage());
+        }
+    }
+
     // Refresh Access Token
     @PostMapping("/refresh")
     public Map<String, Object> refreshToken(@RequestBody @Valid RefreshTokenRequest request) {
@@ -96,20 +110,6 @@ public class AuthController {
             return ResponseUtils.buildSuccessResponse(response, "refresh token succeeded");
         } catch (Exception e) {
             log.error("Failed to refresh Access Token, error: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
-    }
-
-    // Reset Password
-    @PostMapping("/reset-password")
-    public Map<String, Object> resetPassword(@RequestBody @Valid ResetPasswordRequest dto) {
-        log.info("Reset password request, email: {}", dto.getEmail());
-        try {
-            authService.resetPassword(dto.getEmail(), dto.getNewPassword());
-            log.info("Password reset succeeded, email: {}", dto.getEmail());
-            return ResponseUtils.buildEmptySuccessResponse("password reset succeeded");
-        } catch (Exception e) {
-            log.error("Password reset failed, email: {}, error: {}", dto.getEmail(), e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }

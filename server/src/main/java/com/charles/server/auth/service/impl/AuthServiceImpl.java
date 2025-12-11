@@ -57,7 +57,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponse login(LoginRequest dto) {
-        // 1. Get Mail record by email
+        // 1. Get authId by email
         Mail mail = mailMapper.findByEmail(dto.getEmail());
         if (mail == null) {
             throw new UserNotFoundException(dto.getEmail());
@@ -65,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
 
         // 2. Get Account record by authId
         Account account = accountMapper.findById(mail.getUserId());
-        if (account == null || !passwordEncoder.matches(dto.getPassword(), account.getPasswordHash())) {
+        if (!passwordEncoder.matches(dto.getPassword(), account.getPasswordHash())) {
             throw new InvalidCredentialsException();
         }
 
@@ -141,21 +141,24 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public void resetPassword(String email, String newPassword) {
-        // 1. Find Mail record by email
-        Mail mail = mailMapper.findByEmail(email);
+    public void resetPassword(ResetPasswordRequest dto) {
+        // 1. Verify Code
+        mailService.verifyCode(dto.getEmail(), dto.getCode());
+
+        // 2. Find Mail record by email
+        Mail mail = mailMapper.findByEmail(dto.getEmail());
         if (mail == null) {
-            throw new UserNotFoundException(email);
+            throw new UserNotFoundException(dto.getEmail());
         }
 
-        // 2. Find Account record by authId
+        // 3. Find Account record by authId
         Account account = accountMapper.findById(mail.getUserId());
         if (account == null) {
             throw new UserNotFoundException(mail.getUserId().toString());
         }
 
-        // 3. Update password (using BCrypt encryption)
-        account.setPasswordHash(passwordEncoder.encode(newPassword));
+        // 4. Update password (using BCrypt encryption)
+        account.setPasswordHash(passwordEncoder.encode(dto.getNewPassword()));
         accountMapper.updateById(account);
     }
 
