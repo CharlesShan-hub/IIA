@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class Mail {
-    private String email;
     private Long userId;
+    private String email;
 }

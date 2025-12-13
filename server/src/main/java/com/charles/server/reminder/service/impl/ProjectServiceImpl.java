@@ -7,6 +7,7 @@ import com.charles.server.reminder.dto.UpdateProjectRequest;
 import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.exception.PermissionDeniedException;
 import com.charles.server.reminder.exception.ProjectNotFoundException;
+import com.charles.server.reminder.exception.ProjectAlreadyExistException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Project;
@@ -31,11 +32,26 @@ public class ProjectServiceImpl implements ProjectService {
         project.setIcon(dto.getIcon());
         return project;
     }
+
+    private Project validatedFindProjectById(Long userId, Long projectId) {
+        Project project = projectMapper.findById(projectId);
+        if (project == null) {
+            throw new ProjectNotFoundException(projectId);
+        }
+        if (!project.getUserId().equals(userId)) {
+            throw new PermissionDeniedException(userId, projectId);
+        }
+        return project;
+    }
+
+    private boolean existsByName(Long userId, String name) {
+        return projectMapper.findByName(userId, name) != null;
+    }
     
     @Override
     public void create(Long userId, CreateProjectRequest dto) {
-        if (this.existsByName(userId, dto.getName())) {
-            throw new RuntimeException("Project name already exists");
+        if (existsByName(userId, dto.getName())) {
+            throw new ProjectAlreadyExistException(dto.getName());
         }
         Project project = convertToEntity(dto);
         project.setUserId(userId);
@@ -87,51 +103,19 @@ public class ProjectServiceImpl implements ProjectService {
     public Project getProjectById(Long userId, Long projectId) {
         return Optional.ofNullable(projectMapper.findById(projectId))
                 .filter(project -> project.getUserId().equals(userId))
-                .orElseThrow(() -> new RuntimeException("项目不存在或无权限访问"));
+                .orElseThrow(() -> new ProjectNotFoundException(projectId));
     }
 
-    @Override
-    public Project getProjectByName(Long userId, String name) {
-        Project project = projectMapper.findByName(userId, name);
-        if (project == null) {
-            throw new RuntimeException("项目不存在");
-        }
-        log.info("用户获取项目成功, 用户ID: {}, 项目名称: {}", userId, name);
-        return project;
-    }
-
-    @Override
-    public Project getProjectBySortOrder(Long userId, Integer sortOrder) {
-        Project project = projectMapper.findBySortOrder(userId, sortOrder);
-        if (project == null) {
-            throw new RuntimeException("项目不存在");
-        }
-        log.info("用户获取项目成功, 用户ID: {}, 项目排序: {}", userId, sortOrder);
-        return project;
-    }
-
-    @Override
-    public boolean existsByName(Long userId, String name) {
-        return projectMapper.findByName(userId, name) != null;
-    }
-
-    @Override
-    public boolean existsBySortOrder(Long userId, Integer sortOrder) {
-        return projectMapper.findBySortOrder(userId, sortOrder) != null;
-    }
-
-    @Transactional // 添加事务注解，确保操作的原子性
+    @Transactional
     @Override
     public void batchUpdatePosition(Long userId, BatchUpdatePositionRequest request) {
-        // 验证每个项目是否属于当前用户
+        // Validate each project belongs to the user
+        // Must validate all projects before updating positions
         for (BatchUpdatePositionRequest.ProjectPosition position : request.getProjects()) {
-            Project project = projectMapper.findById(position.getProjectId());
-            if (project == null || !project.getUserId().equals(userId)) {
-                throw new RuntimeException("项目不存在或无权限访问");
-            }
+            validatedFindProjectById(userId, position.getProjectId());
         }
         
-        // 批量更新所有项目的位置
+        // Batch update positions
         for (BatchUpdatePositionRequest.ProjectPosition position : request.getProjects()) {
             Project project = new Project();
             project.setProjectId(position.getProjectId());
@@ -139,7 +123,7 @@ public class ProjectServiceImpl implements ProjectService {
             projectMapper.updateSortOrder(project);
         }
         
-        log.info("用户批量更新项目位置成功, 用户ID: {}, 更新项目数量: {}", 
-                 userId, request.getProjects().size());
+        log.info("User {} batch update project positions successfully, updated projects: {}", 
+                 userId, request.getProjects());
     }
 }

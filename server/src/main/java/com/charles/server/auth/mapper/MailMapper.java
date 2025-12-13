@@ -7,15 +7,17 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface MailMapper {
-    @Select("SELECT COUNT(*) FROM iia_mail WHERE email = #{email}")
+    String TABLE_NAME = "iia_mail";
+
+    @Select("SELECT COUNT(*) FROM "+TABLE_NAME+" WHERE email = #{email}")
     boolean existsByEmail(String email);
 
-    @Select("SELECT * FROM iia_mail WHERE email = #{email}")
+    @Select("SELECT * FROM "+TABLE_NAME+" WHERE email = #{email}")
     Mail findByEmail(String email);
 
-    @Select("SELECT * FROM iia_mail WHERE user_id = #{userId}")
+    @Select("SELECT * FROM "+TABLE_NAME+" WHERE user_id = #{userId}")
     Mail findByAuthId(Long userId);
 
-    @Insert("INSERT INTO iia_mail(email, user_id) VALUES(#{email}, #{userId})")
+    @Insert("INSERT INTO "+TABLE_NAME+" (email, user_id) VALUES(#{email}, #{userId})")
     int insert(Mail mail);
 }

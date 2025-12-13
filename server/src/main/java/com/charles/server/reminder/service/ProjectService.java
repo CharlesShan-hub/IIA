@@ -47,27 +47,6 @@ public interface ProjectService {
     */
     Project getProjectByName(Long userId, String name);
 
-    /** Get a project by sort order
-     * @param userId the user ID
-     * @param sortOrder the sort order
-     * @return the project
-    */
-    Project getProjectBySortOrder(Long userId, Integer sortOrder);
-
-    /** Check if a project exists by name
-     * @param userId the user ID
-     * @param name the project name
-     * @return true if exists, false otherwise
-    */
-    boolean existsByName(Long userId, String name);
-
-    /** Check if a project exists by sort order
-     * @param userId the user ID
-     * @param sortOrder the sort order
-     * @return true if exists, false otherwise
-    */
-    public boolean existsBySortOrder(Long userId, Integer sortOrder);
-
     /** Batch update the sort order of projects
      * @param userId the user ID
      * @param request the batch update position request

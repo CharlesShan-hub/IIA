@@ -59,10 +59,10 @@ public class ProjectController {
 
     // Batch Update Project Positions
     @PostMapping("batch-update-position")
-    public Map<String, Object> batchUpdatePosition(@RequestBody @Valid BatchUpdatePositionRequest request, HttpServletRequest httpRequest) {
+    public Map<String, Object> batchUpdatePosition(@RequestBody @Valid BatchUpdatePositionRequest dto, HttpServletRequest httpRequest) {
         try {
             Long userId = tokenService.getUserIdFromRequest(httpRequest);
-            projectService.batchUpdatePosition(userId, request);
+            projectService.batchUpdatePosition(userId, dto);
             return ResponseUtils.buildEmptySuccessResponse("Reminder Project Positions Updated");
         } catch (Exception e) {
             log.error("Reminder Project Batch Update Position Failed: {}", e.getMessage(), e);
@@ -84,11 +84,11 @@ public class ProjectController {
     }
     
     // Query Project by ID
-    @GetMapping("get/{id}")
-    public Map<String, Object> getById(@PathVariable("id") Long projectId, HttpServletRequest request) {
+    @GetMapping("get")
+    public Map<String, Object> getById(@RequestBody @Valid GetProjectRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            Project project = projectService.getProjectById(userId, projectId);
+            Project project = projectService.getProjectById(userId, dto.getProjectId());
             return ResponseUtils.buildSuccessResponse(project, "Reminder Project Queried");
         } catch (Exception e) {
             log.error("Reminder Project Query Failed: {}", e.getMessage(), e);

@@ -9,13 +9,15 @@ import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface AccountMapper {
-    @Insert("INSERT INTO iia_auth(password_hash) VALUES(#{passwordHash})")
+    String TABLE_NAME = "iia_auth";
+
+    @Insert("INSERT INTO "+TABLE_NAME+" (password_hash) VALUES(#{passwordHash})")
     @Options(useGeneratedKeys = true, keyProperty = "userId", keyColumn = "user_id")
     void insert(Account account);
 
-    @Select("SELECT * FROM iia_auth WHERE user_id = #{userId}")
+    @Select("SELECT * FROM "+TABLE_NAME+" WHERE user_id = #{userId}")
     Account findById(Long userId);
 
-    @Update("UPDATE iia_auth SET password_hash = #{passwordHash} WHERE user_id = #{userId}")
+    @Update("UPDATE "+TABLE_NAME+" SET password_hash = #{passwordHash} WHERE user_id = #{userId}")
     void updateById(Account account);
 }

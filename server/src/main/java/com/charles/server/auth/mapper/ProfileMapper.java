@@ -7,9 +7,11 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface ProfileMapper {
-    @Insert("INSERT INTO iia_profile(user_id, username) VALUES(#{userId}, #{username})")
-    int insert(Profile profile); 
-    
-    @Select("SELECT * FROM iia_profile WHERE user_id = #{userId}")
+    String TABLE_NAME = "iia_profile";
+
+    @Insert("INSERT INTO "+TABLE_NAME+" (user_id, username) VALUES(#{userId}, #{username})")
+    int insert(Profile profile);
+
+    @Select("SELECT * FROM "+TABLE_NAME+" WHERE user_id = #{userId}")
     Profile findById(Long userId);
 }
