@@ -7,7 +7,6 @@ import com.charles.server.reminder.dto.UpdateProjectRequest;
 import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.exception.PermissionDeniedException;
 import com.charles.server.reminder.exception.ProjectNotFoundException;
-import com.charles.server.reminder.exception.ProjectAlreadyExistException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Project;
@@ -15,7 +14,6 @@ import com.charles.server.reminder.mapper.ProjectMapper;
 import com.charles.server.reminder.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -43,16 +41,9 @@ public class ProjectServiceImpl implements ProjectService {
         }
         return project;
     }
-
-    private boolean existsByName(Long userId, String name) {
-        return projectMapper.findByName(userId, name) != null;
-    }
     
     @Override
     public void create(Long userId, CreateProjectRequest dto) {
-        if (existsByName(userId, dto.getName())) {
-            throw new ProjectAlreadyExistException(dto.getName());
-        }
         Project project = convertToEntity(dto);
         project.setUserId(userId);
         project.setSortOrder(projectMapper.findActiveByUserId(userId).size() + 1);
@@ -63,13 +54,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void update(Long userId, UpdateProjectRequest dto) {
-        Project project = projectMapper.findById(dto.getProjectId());
-        if (project == null) {
-            throw new ProjectNotFoundException(dto.getProjectId());
-        }
-        if (!project.getUserId().equals(userId)) {
-            throw new PermissionDeniedException(userId, project.getProjectId());
-        }
+        Project project = validatedFindProjectById(userId, dto.getProjectId());
         if (dto.getName() != null) project.setName(dto.getName());
         if (dto.getDescription() != null) project.setDescription(dto.getDescription());
         if (dto.getColor() != null) project.setColor(dto.getColor());
@@ -77,33 +62,19 @@ public class ProjectServiceImpl implements ProjectService {
         projectMapper.update(project);
         log.info("User {} update project {} successfully", userId, project.getProjectId());
     }
-
-    @Override
-    public void updateSortOrder(Long userId, Long projectId, Integer sortOrder) {
-        Project project = projectMapper.findById(projectId);
-        if (project == null) {
-            throw new ProjectNotFoundException(projectId);
-        }
-        if (!project.getUserId().equals(userId)) {
-            throw new PermissionDeniedException(userId, projectId);
-        }
-        project.setSortOrder(sortOrder);
-        projectMapper.update(project);
-        log.info("User {} update project {} sort order to {}", userId, projectId, sortOrder);
-    }
         
     @Override
-    public List<Project> getAll(Long userId) {
-        List<Project> projects = projectMapper.findByUserId(userId);
-        log.info("User {} get all projects successfully", userId);
+    public List<Project> getAllArchived(Long userId) {
+        List<Project> projects = projectMapper.findArchivedByUserId(userId);
+        log.info("User {} get all archived projects successfully", userId);
         return projects;
     }
-    
+
     @Override
-    public Project getProjectById(Long userId, Long projectId) {
-        return Optional.ofNullable(projectMapper.findById(projectId))
-                .filter(project -> project.getUserId().equals(userId))
-                .orElseThrow(() -> new ProjectNotFoundException(projectId));
+    public List<Project> getAllActive(Long userId) {
+        List<Project> projects = projectMapper.findActiveByUserId(userId);
+        log.info("User {} get all active projects successfully", userId);
+        return projects;
     }
 
     @Transactional

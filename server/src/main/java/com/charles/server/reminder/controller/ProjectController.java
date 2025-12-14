@@ -2,9 +2,11 @@ package com.charles.server.reminder.controller;
 
 import java.util.List;
 import java.util.Map;
-
-import com.charles.server.reminder.dto.*;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,12 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.charles.server.auth.service.TokenService;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.service.ProjectService;
-import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
+import com.charles.server.reminder.dto.*;
 import com.charles.server.utils.ResponseUtils;
-
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
@@ -71,27 +69,27 @@ public class ProjectController {
     }
     
     // Query All Projects for User
-    @GetMapping("get-all")
-    public Map<String, Object> getAll(HttpServletRequest request) {
+    @GetMapping("get-all-active")
+    public Map<String, Object> getAllActive(HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            List<Project> projects = projectService.getAll(userId);
-            return ResponseUtils.buildSuccessResponse(projects, "Reminder Projects Queried");
+            List<Project> projects = projectService.getAllActive(userId);
+            return ResponseUtils.buildSuccessResponse(projects, "Reminder Active Projects Queried");
         } catch (Exception e) {
-            log.error("Reminder Project Query Failed: {}", e.getMessage(), e);
+            log.error("Reminder Active Project Query Failed: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }
-    
-    // Query Project by ID
-    @GetMapping("get")
-    public Map<String, Object> getById(@RequestBody @Valid GetProjectRequest dto, HttpServletRequest request) {
+
+    // Query All Archived Projects for User
+    @GetMapping("get-all-archived")
+    public Map<String, Object> getAllArchived(HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            Project project = projectService.getProjectById(userId, dto.getProjectId());
-            return ResponseUtils.buildSuccessResponse(project, "Reminder Project Queried");
+            List<Project> projects = projectService.getAllArchived(userId);
+            return ResponseUtils.buildSuccessResponse(projects, "Reminder Archived Projects Queried");
         } catch (Exception e) {
-            log.error("Reminder Project Query Failed: {}", e.getMessage(), e);
+            log.error("Reminder Archived Project Query Failed: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }

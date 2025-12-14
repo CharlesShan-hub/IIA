@@ -20,32 +20,17 @@ public interface ProjectService {
     */
     void update(Long userId, UpdateProjectRequest dto);
 
-    /** Update the sort order of a project
+    /** Get all active projects for a user
      * @param userId the user ID
-     * @param projectId the project ID
-     * @param sortOrder the new sort order
+     * @return the list of active projects
     */
-    void updateSortOrder(Long userId, Long projectId, Integer sortOrder);
-    
-    /** Get all projects for a user
-     * @param userId the user ID
-     * @return the list of projects
-    */
-    List<Project> getAll(Long userId);
-    
-    /** Get a project by ID
-     * @param userId the user ID
-     * @param projectId the project ID
-     * @return the project
-    */
-    Project getProjectById(Long userId, Long projectId);
+    List<Project> getAllActive(Long userId);
 
-    /** Get a project by name
+    /** Get all archived projects for a user
      * @param userId the user ID
-     * @param name the project name
-     * @return the project
+     * @return the list of archived projects
     */
-    Project getProjectByName(Long userId, String name);
+    List<Project> getAllArchived(Long userId);
 
     /** Batch update the sort order of projects
      * @param userId the user ID
