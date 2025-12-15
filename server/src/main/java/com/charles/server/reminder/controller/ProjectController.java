@@ -64,7 +64,7 @@ public class ProjectController {
             Long userId = tokenService.getUserIdFromRequest(httpRequest);
             projectService.batchUpdatePosition(userId, dto);
             log.info("User {} batch update project positions successfully, updated projects: {}", 
-                 userId, dto.getProjects());
+                 userId, dto.getPos());
             return ResponseUtils.buildEmptySuccessResponse("Reminder Project Positions Updated");
         } catch (Exception e) {
             log.error("Reminder Project Batch Update Position Failed: {}", e.getMessage(), e);

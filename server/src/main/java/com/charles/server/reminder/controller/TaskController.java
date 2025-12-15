@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.time.LocalDateTime;
 
+import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.dto.CreateTaskRequest;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,7 +53,7 @@ public class TaskController {
     public Map<String, Object> deleteById(@RequestParam Long taskId, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            taskService.deleteById(taskId);
+            taskService.deleteById(userId, taskId);
             log.info("Task deleted successfully for user: {}", userId);
             return ResponseUtils.buildEmptySuccessResponse("Task deleted successfully");
         } catch (Exception e) {
@@ -61,32 +62,31 @@ public class TaskController {
         }
     }
 
-    // 获取用户所有任务
+    // Batch Update Task Positions
+    @PostMapping("batch-update-position")
+    public Map<String, Object> batchUpdatePosition(@RequestBody @Valid BatchUpdatePositionRequest dto, HttpServletRequest httpRequest) {
+        try {
+            Long userId = tokenService.getUserIdFromRequest(httpRequest);
+            taskService.batchUpdatePosition(userId, dto);
+            log.info("User {} batch update task positions successfully, updated tasks: {}",
+                 userId, dto.getPos());
+            return ResponseUtils.buildEmptySuccessResponse("Reminder Tasks Positions Updated");
+        } catch (Exception e) {
+            log.error("Reminder Task Batch Update Task Failed: {}", e.getMessage(), e);
+            return ResponseUtils.buildErrorResponse(e.getMessage());
+        }
+    }
+
+    // Get All Tasks
     @GetMapping("get-all")
     public Map<String, Object> getAll(HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             List<Task> tasks = taskService.getAll(userId);
-            return ResponseUtils.buildSuccessResponse(tasks, "任务查询成功");
+            log.info("Get All Tasks Successfully for user: {}", userId);
+            return ResponseUtils.buildSuccessResponse(tasks, "Get All Tasks Successfully");
         } catch (Exception e) {
-            log.error("获取任务列表失败: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
-    }
-
-    // 根据ID获取任务
-    @GetMapping("get/{id}")
-    public Map<String, Object> getById(@PathVariable("id") Long taskId, HttpServletRequest request) {
-        try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            Task task = taskService.getById(taskId);
-            if (task != null && task.getUserId().equals(userId)) {
-                return ResponseUtils.buildSuccessResponse(task, "任务查询成功");
-            } else {
-                return ResponseUtils.buildErrorResponse("任务不存在或无权限");
-            }
-        } catch (Exception e) {
-            log.error("获取任务失败: {}", e.getMessage(), e);
+            log.error("Get All Tasks Failed: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }
@@ -101,7 +101,7 @@ public class TaskController {
             task.setUserId(userId);
             boolean updated = taskService.updateById(task);
             if (updated) {
-                return ResponseUtils.buildSuccessResponse(null, "任务更新成功");
+                return ResponseUtils.buildEmptySuccessResponse("任务更新成功");
             } else {
                 return ResponseUtils.buildErrorResponse("任务更新失败或无权限");
             }
@@ -118,20 +118,11 @@ public class TaskController {
                                          HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            // 验证任务属于当前用户
-            Task existingTask = taskService.getById(taskId);
-            if (existingTask == null || !existingTask.getUserId().equals(userId)) {
-                return ResponseUtils.buildErrorResponse("任务不存在或无权限");
-            }
-            
-            boolean updated = taskService.updateStatus(taskId, status);
-            if (updated) {
-                return ResponseUtils.buildSuccessResponse(null, "任务状态更新成功");
-            } else {
-                return ResponseUtils.buildErrorResponse("任务状态更新失败");
-            }
+            taskService.updateStatus(taskId, status);
+            log.info("Update Task Status Successfully for user: {}, taskId: {}, status: {}", userId, taskId, status);
+            return ResponseUtils.buildEmptySuccessResponse("Update Task Status Successfully");
         } catch (Exception e) {
-            log.error("更新任务状态失败: {}", e.getMessage(), e);
+            log.error("Update Task Status Failed: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }

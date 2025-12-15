@@ -3,16 +3,25 @@ package com.charles.server.reminder.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.dto.CreateTaskRequest;
 import com.charles.server.reminder.entity.Task;
 
 public interface TaskService {
     /**
      * Create Task
-     * @param userId user id
-     * @param dto
      */
     void create(Long userId, CreateTaskRequest dto);
+
+    /**
+     * Delete Task
+     */
+    void deleteById(Long userId, Long taskId);
+
+    /**
+     * Batch update the sort order of tasks
+     */
+    void batchUpdatePosition(Long userId, BatchUpdatePositionRequest dto);
     
     // 获取用户所有任务
     List<Task> getAll(Long userId);

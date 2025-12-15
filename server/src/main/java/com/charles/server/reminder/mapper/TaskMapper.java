@@ -41,7 +41,7 @@ public interface TaskMapper {
 
     // 查询用户的某任务的子任务的最大排序（按照项目筛选）
     @Select("SELECT MAX(sort_order) FROM reminder_task WHERE user_id = #{userId} AND parent_task_id = #{parentTaskId}")
-    int findMaxSortOrderByUserIdAndParentTaskId(@Param("userId") Long userId, @Param("parentTaskId") Long parentTaskId)
+    int findMaxSortOrderByUserIdAndParentTaskId(@Param("userId") Long userId, @Param("parentTaskId") Long parentTaskId);
     
     // 更新任务信息
     @Update("UPDATE reminder_task SET project_id = #{projectId}, title = #{title}, category = #{category}, "+
@@ -54,6 +54,10 @@ public interface TaskMapper {
     // 更新任务状态
     @Update("UPDATE reminder_task SET status = #{status} WHERE task_id = #{taskId}")
     int updateStatus(@Param("taskId") Long taskId, @Param("status") String status);
+
+    // 更新位置
+    @Update("UPDATE reminder_task SET sort_order = #{sortOrder} WHERE task_id = #{taskId}")
+    void updateSortOrder(Task task);
     
     // 查询截止日期前的任务
     @Select("SELECT * FROM reminder_task WHERE user_id = #{userId} AND due_date <= #{dueDate}")
@@ -61,5 +65,5 @@ public interface TaskMapper {
 
     // 删除任务
     @Delete("DELETE FROM reminder_task WHERE task_id = #{taskId}")
-    int deleteById(Long taskId);
+    void deleteById(Long taskId);
 }

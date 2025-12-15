@@ -42,14 +42,13 @@ public class TagServiceImpl implements TagService {
     }
     
     @Override
-    public Tag create(Long userId, CreateTagRequest dto) {
+    public void create(Long userId, CreateTagRequest dto) {
         if (existsByName(userId, dto.getName())) {
             throw new RuntimeException("Tag name " + dto.getName() + " already exists");
         }
         Tag tag = convertToEntity(userId, dto);
         tagMapper.insert(tag);
         log.info("User {} create tag {}: {}", userId, tag.getTagId(), tag.getName());
-        return tag;
     }
 
     @Override

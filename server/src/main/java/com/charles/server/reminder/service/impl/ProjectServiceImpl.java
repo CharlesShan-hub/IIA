@@ -76,16 +76,14 @@ public class ProjectServiceImpl implements ProjectService {
     public void batchUpdatePosition(Long userId, BatchUpdatePositionRequest request) {
         // Validate each project belongs to the user
         // Must validate all projects before updating positions
-        for (BatchUpdatePositionRequest.ProjectPosition position : request.getProjects()) {
-            validatedFindProjectById(userId, position.getProjectId());
-        }
+        request.getPos().forEach(p -> validatedFindProjectById(userId, p.getItemId()));
         
         // Batch update positions
-        for (BatchUpdatePositionRequest.ProjectPosition position : request.getProjects()) {
+        request.getPos().forEach(p -> {
             Project project = new Project();
-            project.setProjectId(position.getProjectId());
-            project.setSortOrder(position.getSortOrder());
+            project.setProjectId(p.getItemId());
+            project.setSortOrder(p.getSortOrder());
             projectMapper.updateSortOrder(project);
-        }
+        });
     }
 }

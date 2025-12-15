@@ -34,7 +34,7 @@ public interface ProjectService {
 
     /** Batch update the sort order of projects
      * @param userId the user ID
-     * @param request the batch update position request
+     * @param dto the batch update position request
     */
-    void batchUpdatePosition(Long userId, BatchUpdatePositionRequest request);
+    void batchUpdatePosition(Long userId, BatchUpdatePositionRequest dto);
 }

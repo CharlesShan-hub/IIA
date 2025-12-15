@@ -2,7 +2,9 @@ package com.charles.server.reminder.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import jakarta.transaction.Transactional;
 
+import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.dto.CreateTaskRequest;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,7 @@ public class TaskServiceImpl implements TaskService {
         task.setStartDate(dto.getStartDate());
         task.setReminderSentAt(dto.getReminderSentAt());
         task.setPriority(dto.getPriority());
-        return task
+        return task;
     }
 
     private Task validatedFindTaskById(Long userId, Long taskId) {
@@ -54,9 +56,9 @@ public class TaskServiceImpl implements TaskService {
         Long parentTaskId = task.getParentTaskId();
         if(parentTaskId==null) // root task, sort order is the number of tasks in the project + 1
             task.setSortOrder(taskMapper.findMaxSortOrderOfRootTasksByUserIdAndProjectId(userId, projectId) + 1);
-        else // sub task, sort order is the number of sub tasks in the parent task + 1
+        else // sub-task, sort order is the number of sub-tasks in the parent task + 1
             task.setSortOrder(taskMapper.findMaxSortOrderByUserIdAndParentTaskId(userId, parentTaskId) + 1);
-        taskMapper.insert(task)
+        taskMapper.insert(task);
     }
 
     @Override
@@ -71,20 +73,30 @@ public class TaskServiceImpl implements TaskService {
         // 2. Delete current task (task-tag relations are cascade-deleted by DB)
         // 3. No sort order adjustment needed due to max()+1 insertion strategy
         // 4. Delete current task
-        taskMapper.delete(task.getTaskId());
+        taskMapper.deleteById(task.getTaskId());
+    }
+
+    @Transactional
+    @Override
+    public void batchUpdatePosition(Long userId, BatchUpdatePositionRequest request) {
+        // Validate each project belongs to the user
+        // Must validate all projects before updating positions
+        request.getPos().forEach(t -> validatedFindTaskById(userId, t.getItemId()));
+        
+        // Batch update positions
+        request.getPos().forEach(t -> {
+            Task task = new Task();
+            task.setTaskId(t.getItemId());
+            task.setSortOrder(t.getSortOrder());
+            taskMapper.updateSortOrder(task);
+        });
     }
 
     @Override
-    public List<Task> getAll(Long userId) {
-        log.info("Getting all tasks for user: {}", userId);
-        return taskMapper.findByUserId(userId);
-    }
+    public List<Task> getAll(Long userId) { return taskMapper.findByUserId(userId);}
 
     @Override
-    public Task getById(Long taskId) {
-        log.info("Getting task by id: {}", taskId);
-        return taskMapper.findById(taskId);
-    }
+    public Task getById(Long taskId) { return taskMapper.findById(taskId);}
 
     @Override
     public boolean updateById(Task task) {
@@ -98,24 +110,14 @@ public class TaskServiceImpl implements TaskService {
         
         int result = taskMapper.update(task);
         boolean success = result > 0;
-        log.info("Task update {}" + (success ? "successful" : "failed") + " for task id: {}", success ? "successful" : "failed", task.getTaskId());
+        log.info("Task update {}{} for task id: {}", success ? "successful" : "failed", success ? "successful" : "failed", task.getTaskId());
         return success;
     }
 
     @Override
-    public boolean updateStatus(Long taskId, String status) {
-        log.info("Updating status for task id: {} to {}", taskId, status);
-        // 验证任务存在
-        Task existingTask = taskMapper.findById(taskId);
-        if (existingTask == null) {
-            log.warn("Task not found for id: {}", taskId);
-            return false;
-        }
-        
-        int result = taskMapper.updateStatus(taskId, status);
-        boolean success = result > 0;
-        log.info("Task status update {}" + (success ? "successful" : "failed") + " for task id: {}", success ? "successful" : "failed", taskId);
-        return success;
+    public void updateStatus(Long taskId, String status) {
+        Task task = validatedFindTaskById(userId, taskId);
+        taskMapper.updateStatus(taskId, status);
     }
 
     @Override
@@ -133,7 +135,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> getSubTasks(Long userId, Long parentTaskId) {
         log.info("Getting sub-tasks for user: {} with parent task id: {}", userId, parentTaskId);
-        return taskMapper.findSubTasks(userId, parentTaskId);
+        return taskMapper.findByUserIdAndParentTaskId(userId, parentTaskId);
     }
 
     @Override

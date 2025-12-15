@@ -5,11 +5,11 @@ import java.util.List;
 
 @Data
 public class BatchUpdatePositionRequest {
-    private List<ProjectPosition> projects;
+    private List<Position> pos;
     
     @Data
-    public static class ProjectPosition {
-        private Long projectId;
+    public static class Position {
+        private Long itemId;
         private Integer sortOrder;
     }
 }
