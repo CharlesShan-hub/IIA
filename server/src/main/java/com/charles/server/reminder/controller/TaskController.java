@@ -33,15 +33,30 @@ public class TaskController {
     private final TaskService taskService;
     private final TokenService tokenService;
 
-    // 创建任务
+    // Create Task
     @PostMapping("create")
     public Map<String, Object> create(@RequestBody @Valid CreateTaskRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             taskService.create(userId, dto);
-            return ResponseUtils.buildSuccessResponse(null, "任务创建成功");
+            log.info("Task created successfully for user: {}", userId);
+            return ResponseUtils.buildEmptySuccessResponse("Task created successfully");
         } catch (Exception e) {
-            log.error("创建任务失败: {}", e.getMessage(), e);
+            log.error("Create task failed: {}", e.getMessage(), e);
+            return ResponseUtils.buildErrorResponse(e.getMessage());
+        }
+    }
+
+    // Delete Task
+    @PostMapping("delete")
+    public Map<String, Object> deleteById(@RequestParam Long taskId, HttpServletRequest request) {
+        try {
+            Long userId = tokenService.getUserIdFromRequest(request);
+            taskService.deleteById(taskId);
+            log.info("Task deleted successfully for user: {}", userId);
+            return ResponseUtils.buildEmptySuccessResponse("Task deleted successfully");
+        } catch (Exception e) {
+            log.error("Delete task failed: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }

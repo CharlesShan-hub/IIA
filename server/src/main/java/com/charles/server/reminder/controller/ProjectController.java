@@ -35,6 +35,7 @@ public class ProjectController {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             projectService.create(userId, dto);
+            log.info("User {} create project {} successfully", userId, dto.getName());
             return ResponseUtils.buildEmptySuccessResponse("Reminder Project Created");
         } catch (Exception e) {
             log.error("Reminder Project Create Failed: {}", e.getMessage(), e);
@@ -48,6 +49,7 @@ public class ProjectController {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             projectService.update(userId, dto);
+            log.info("User {} update project {} successfully", userId, dto.getProjectId());
             return ResponseUtils.buildEmptySuccessResponse("Reminder Project Updated");
         } catch (Exception e) {
             log.error("Reminder Project Update Failed: {}", e.getMessage(), e);
@@ -61,6 +63,8 @@ public class ProjectController {
         try {
             Long userId = tokenService.getUserIdFromRequest(httpRequest);
             projectService.batchUpdatePosition(userId, dto);
+            log.info("User {} batch update project positions successfully, updated projects: {}", 
+                 userId, dto.getProjects());
             return ResponseUtils.buildEmptySuccessResponse("Reminder Project Positions Updated");
         } catch (Exception e) {
             log.error("Reminder Project Batch Update Position Failed: {}", e.getMessage(), e);
@@ -74,6 +78,7 @@ public class ProjectController {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             List<Project> projects = projectService.getAllActive(userId);
+            log.info("User {} get all active projects successfully", userId);
             return ResponseUtils.buildSuccessResponse(projects, "Reminder Active Projects Queried");
         } catch (Exception e) {
             log.error("Reminder Active Project Query Failed: {}", e.getMessage(), e);
@@ -87,6 +92,7 @@ public class ProjectController {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             List<Project> projects = projectService.getAllArchived(userId);
+            log.info("User {} get all archived projects successfully", userId);
             return ResponseUtils.buildSuccessResponse(projects, "Reminder Archived Projects Queried");
         } catch (Exception e) {
             log.error("Reminder Archived Project Query Failed: {}", e.getMessage(), e);

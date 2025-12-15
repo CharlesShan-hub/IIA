@@ -27,12 +27,4 @@ public interface TagService {
      * @return the list of tags
      */
     List<Tag> getAll(Long userId);
-    
-    /**
-     * Get a tag by its ID
-     * @param tagId the tag id
-     * @param userId the user id
-     * @return the tag information
-     */
-    Tag getById(Long tagId, Long userId);
 }

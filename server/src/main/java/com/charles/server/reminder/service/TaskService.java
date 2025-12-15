@@ -7,7 +7,11 @@ import com.charles.server.reminder.dto.CreateTaskRequest;
 import com.charles.server.reminder.entity.Task;
 
 public interface TaskService {
-    // 创建任务
+    /**
+     * Create Task
+     * @param userId user id
+     * @param dto
+     */
     void create(Long userId, CreateTaskRequest dto);
     
     // 获取用户所有任务

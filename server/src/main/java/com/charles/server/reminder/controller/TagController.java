@@ -63,22 +63,9 @@ public class TagController {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             List<Tag> tags = tagService.getAll(userId);
-            return ResponseUtils.buildSuccessResponse(tags, "查询成功");
+            return ResponseUtils.buildSuccessResponse(tags, "Tags retrieved successfully");
         } catch (Exception e) {
-            log.error("获取标签列表失败: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
-    }
-    
-    // 获取单个标签
-    @GetMapping("get/{id}")
-    public Map<String, Object> getById(@PathVariable("id") Long tagId, HttpServletRequest request) {
-        try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            Tag tag = tagService.getById(tagId, userId);
-            return ResponseUtils.buildSuccessResponse(tag, "查询成功");
-        } catch (Exception e) {
-            log.error("获取标签失败: {}", e.getMessage(), e);
+            log.error("Failed to retrieve tags: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }

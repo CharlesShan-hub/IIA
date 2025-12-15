@@ -5,7 +5,6 @@ import lombok.Data;
 
 @Data
 public class CreateTaskRequest {
-    private Long userId;
     private Long projectId;
     private String title;
     private String category;

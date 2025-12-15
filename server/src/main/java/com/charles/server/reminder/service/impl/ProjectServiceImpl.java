@@ -49,7 +49,6 @@ public class ProjectServiceImpl implements ProjectService {
         project.setSortOrder(projectMapper.findActiveByUserId(userId).size() + 1);
         project.setIsArchived(false);
         projectMapper.insert(project);
-        log.info("User {} create project {} successfully", userId, project.getName());
     }
 
     @Override
@@ -60,21 +59,16 @@ public class ProjectServiceImpl implements ProjectService {
         if (dto.getColor() != null) project.setColor(dto.getColor());
         if (dto.getIcon() != null) project.setIcon(dto.getIcon());
         projectMapper.update(project);
-        log.info("User {} update project {} successfully", userId, project.getProjectId());
     }
         
     @Override
     public List<Project> getAllArchived(Long userId) {
-        List<Project> projects = projectMapper.findArchivedByUserId(userId);
-        log.info("User {} get all archived projects successfully", userId);
-        return projects;
+        return projectMapper.findArchivedByUserId(userId);
     }
 
     @Override
     public List<Project> getAllActive(Long userId) {
-        List<Project> projects = projectMapper.findActiveByUserId(userId);
-        log.info("User {} get all active projects successfully", userId);
-        return projects;
+        return projectMapper.findActiveByUserId(userId);
     }
 
     @Transactional
@@ -93,8 +87,5 @@ public class ProjectServiceImpl implements ProjectService {
             project.setSortOrder(position.getSortOrder());
             projectMapper.updateSortOrder(project);
         }
-        
-        log.info("User {} batch update project positions successfully, updated projects: {}", 
-                 userId, request.getProjects());
     }
 }

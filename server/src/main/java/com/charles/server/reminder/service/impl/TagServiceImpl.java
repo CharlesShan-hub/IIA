@@ -67,14 +67,4 @@ public class TagServiceImpl implements TagService {
         log.info("User {} get tag list {}", userId, tags);
         return tags;
     }
-    
-    @Override
-    public Tag getById(Long tagId, Long userId) {
-        Tag tag = tagMapper.findById(tagId);
-        if (tag == null || !tag.getUserId().equals(userId)) {
-            throw new RuntimeException("标签不存在或无权限访问");
-        }
-        log.info("用户获取标签成功, 用户ID: {}, 标签ID: {}", userId, tagId);
-        return tag;
-    }
 }

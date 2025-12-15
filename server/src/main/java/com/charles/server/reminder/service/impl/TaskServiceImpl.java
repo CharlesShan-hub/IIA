@@ -20,29 +20,58 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskMapper taskMapper;
 
+    private Task convertToEntity(Long userId, CreateTaskRequest dto) {
+        Task task = new Task();
+        task.setUserId(userId);
+        task.setProjectId(dto.getProjectId());
+        task.setTitle(dto.getTitle());
+        task.setCategory(dto.getCategory());
+        task.setParentTaskId(dto.getParentTaskId());
+        task.setDueDate(dto.getDueDate());
+        task.setStartDate(dto.getStartDate());
+        task.setReminderSentAt(dto.getReminderSentAt());
+        task.setPriority(dto.getPriority());
+        return task
+    }
+
+    private Task validatedFindTaskById(Long userId, Long taskId) {
+        Task task = taskMapper.findById(taskId);
+        if (task == null) {
+            throw new RuntimeException("Task not found");
+        }
+        if (!task.getUserId().equals(userId)) {
+            throw new RuntimeException("No permission to access this task");
+        }
+        return task;
+    }
+
     @Override
     public void create(Long userId, CreateTaskRequest dto) {
-        log.info("Creating task for user: {}", userId);
-        Task task = new Task(dto);
-        dto.setUserId(userId);
+        Task task = convertToEntity(userId, dto);
         task.setStatus("todo");
         task.setIsArchived(false);
         Long projectId = task.getProjectId();
         Long parentTaskId = task.getParentTaskId();
-        int count;
-        if(parentTaskId == null){
-            count = taskMapper.findByUserIdAndProjectId(userId, null).size();
-        }else{
-            assert this.getById(parentTaskId).getUserId().equals(userId);
-            count = taskMapper.findSubTasks(userId, parentTaskId).size();
-        }
-        task.setSortOrder(count + 1);
+        if(parentTaskId==null) // root task, sort order is the number of tasks in the project + 1
+            task.setSortOrder(taskMapper.findMaxSortOrderOfRootTasksByUserIdAndProjectId(userId, projectId) + 1);
+        else // sub task, sort order is the number of sub tasks in the parent task + 1
+            task.setSortOrder(taskMapper.findMaxSortOrderByUserIdAndParentTaskId(userId, parentTaskId) + 1);
+        taskMapper.insert(task)
+    }
 
-        int result = taskMapper.insert(task);
-        if (result > 0) {
-            log.info("Task created successfully with id: {}", task.getTaskId());
-        }
-        log.error("Failed to create task");
+    @Override
+    public void deleteById(Long userId, Long taskId) {
+        deleteById(validatedFindTaskById(userId, taskId));
+    }
+
+    private void deleteById(Task task){
+        // 1. Recursively delete all subtasks
+        List<Task> subTasks = taskMapper.findByUserIdAndParentTaskId(task.getUserId(), task.getTaskId());
+        subTasks.forEach(this::deleteById);
+        // 2. Delete current task (task-tag relations are cascade-deleted by DB)
+        // 3. No sort order adjustment needed due to max()+1 insertion strategy
+        // 4. Delete current task
+        taskMapper.delete(task.getTaskId());
     }
 
     @Override

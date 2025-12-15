@@ -30,10 +30,18 @@ public interface TaskMapper {
     // 查询用户的任务（按项目筛选）
     @Select("SELECT * FROM reminder_task WHERE user_id = #{userId} AND project_id = #{projectId}")
     List<Task> findByUserIdAndProjectId(@Param("userId") Long userId, @Param("projectId") Long projectId);
+
+    // 查询用户的根任务的最大排序（按照项目筛选）
+    @Select("SELECT MAX(sort_order) FROM reminder_task WHERE user_id = #{userId} AND project_id = #{projectId} AND parent_task_id IS NULL")
+    Integer findMaxSortOrderOfRootTasksByUserIdAndProjectId(@Param("userId") Long userId, @Param("projectId") Long projectId);
     
-    // 查询用户的子任务
+    // 查询用户的子任务（按父任务筛选）
     @Select("SELECT * FROM reminder_task WHERE user_id = #{userId} AND parent_task_id = #{parentTaskId}")
-    List<Task> findSubTasks(@Param("userId") Long userId, @Param("parentTaskId") Long parentTaskId);
+    List<Task> findByUserIdAndParentTaskId(@Param("userId") Long userId, @Param("parentTaskId") Long parentTaskId);
+
+    // 查询用户的某任务的子任务的最大排序（按照项目筛选）
+    @Select("SELECT MAX(sort_order) FROM reminder_task WHERE user_id = #{userId} AND parent_task_id = #{parentTaskId}")
+    int findMaxSortOrderByUserIdAndParentTaskId(@Param("userId") Long userId, @Param("parentTaskId") Long parentTaskId)
     
     // 更新任务信息
     @Update("UPDATE reminder_task SET project_id = #{projectId}, title = #{title}, category = #{category}, "+
@@ -50,4 +58,8 @@ public interface TaskMapper {
     // 查询截止日期前的任务
     @Select("SELECT * FROM reminder_task WHERE user_id = #{userId} AND due_date <= #{dueDate}")
     List<Task> findUpcomingTasks(@Param("userId") Long userId, @Param("dueDate") java.time.LocalDateTime dueDate);
+
+    // 删除任务
+    @Delete("DELETE FROM reminder_task WHERE task_id = #{taskId}")
+    int deleteById(Long taskId);
 }

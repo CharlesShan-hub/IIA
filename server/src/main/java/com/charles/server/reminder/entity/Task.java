@@ -28,19 +28,4 @@ public class Task {
     
     // 优先级
     private String priority; // 'none', 'low', 'medium', 'high'
-
-    public Task() {
-    }
-
-    public Task(CreateTaskRequest dto) {
-        this.userId = dto.getUserId();
-        this.projectId = dto.getProjectId();
-        this.title = dto.getTitle();
-        this.category = dto.getCategory();
-        this.parentTaskId = dto.getParentTaskId();
-        this.dueDate = dto.getDueDate();
-        this.startDate = dto.getStartDate();
-        this.reminderSentAt = dto.getReminderSentAt();
-        this.priority = dto.getPriority();
-    }
 }
