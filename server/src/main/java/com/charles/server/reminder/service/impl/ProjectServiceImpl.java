@@ -7,7 +7,7 @@ import com.charles.server.reminder.dto.UpdateProjectRequest;
 import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.exception.PermissionDeniedException;
 import com.charles.server.reminder.exception.ProjectNotFoundException;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.mapper.ProjectMapper;

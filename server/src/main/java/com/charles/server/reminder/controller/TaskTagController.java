@@ -1,6 +1,7 @@
 package com.charles.server.reminder.controller;
 
 import com.charles.server.auth.service.TokenService;
+import com.charles.server.reminder.dto.CreateTaskTagRequest;
 import com.charles.server.reminder.entity.TaskTag;
 import com.charles.server.reminder.service.TaskTagService;
 import com.charles.server.utils.ResponseUtils;
@@ -23,19 +24,20 @@ public class TaskTagController {
 
     // 创建任务-标签关联
     @PostMapping("create")
-    public Map<String, Object> create(@RequestBody TaskTag taskTag, HttpServletRequest request) {
+    public Map<String, Object> create(@RequestBody CreateTaskTagRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            log.info("User {} creating task-tag association: taskId={}, tagId={}", userId, taskTag.getTaskId(), taskTag.getTagId());
+            
+            log.info("User {} creating task-tag association: taskId={}, tagId={}", userId, dto.getTaskId(), dto.getTagId());
             
             // 检查关联是否已存在
-            TaskTag existing = taskTagService.getByTaskIdAndTagId(taskTag.getTaskId(), taskTag.getTagId());
+            TaskTag existing = taskTagService.getByTaskIdAndTagId(dto.getTaskId(), dto.getTagId());
             if (existing != null) {
                 return ResponseUtils.buildErrorResponse("任务与标签的关联已存在");
             }
             
-            TaskTag created = taskTagService.create(taskTag);
-            return ResponseUtils.buildSuccessResponse(created, "任务-标签关联创建成功");
+            taskTagService.create(userId, dto);
+            return ResponseUtils.buildSuccessResponse(null, "任务-标签关联创建成功");
         } catch (Exception e) {
             log.error("创建任务-标签关联失败: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());

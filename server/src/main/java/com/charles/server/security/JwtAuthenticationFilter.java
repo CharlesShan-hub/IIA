@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.util.StringUtils;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -63,9 +62,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      * 从请求头中解析JWT Token
      */
     private String parseJwt(HttpServletRequest request) {
+        logger.info("Request: {}", request.getHeader("Authorization"));
         String headerAuth = request.getHeader("Authorization");
-        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-            return headerAuth.substring(7);
+        if (headerAuth != null && headerAuth.trim().toLowerCase().startsWith("bearer ")) {
+            return headerAuth.trim().substring(7).trim();
         }
         return null;
     }

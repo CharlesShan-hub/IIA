@@ -2,7 +2,7 @@ package com.charles.server.reminder.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.dto.CreateTaskRequest;
@@ -115,7 +115,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void updateStatus(Long taskId, String status) {
+    public void updateStatus(Long userId, Long taskId, String status) {
         Task task = validatedFindTaskById(userId, taskId);
         taskMapper.updateStatus(taskId, status);
     }

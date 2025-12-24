@@ -2,7 +2,10 @@ package com.charles.server.reminder.service.impl;
 
 import com.charles.server.reminder.entity.TaskTag;
 import com.charles.server.reminder.mapper.TaskTagMapper;
+import com.charles.server.reminder.service.TagService;
+import com.charles.server.reminder.service.TaskService;
 import com.charles.server.reminder.service.TaskTagService;
+import com.charles.server.reminder.dto.CreateTaskTagRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,12 +19,20 @@ public class TaskTagServiceImpl implements TaskTagService {
 
     private final TaskTagMapper taskTagMapper;
 
+    private TaskTag convertToEntity(CreateTaskTagRequest dto) {
+        TaskTag taskTag = new TaskTag();
+        taskTag.setTaskId(dto.getTaskId());
+        taskTag.setTagId(dto.getTagId());
+        return taskTag;
+    }
+
     @Override
-    public TaskTag create(TaskTag taskTag) {
-        log.info("Creating task-tag association: taskId={}, tagId={}", taskTag.getTaskId(), taskTag.getTagId());
+    public void create(Long userId, CreateTaskTagRequest dto) {
+//        validatedFindTagById(userId, dto.getTagId());
+//        validatedFindTaskById(userId, dto.getTaskId());
+        TaskTag taskTag = convertToEntity(dto);
         taskTagMapper.insert(taskTag);
         log.info("Created task-tag association with id: {}", taskTag.getId());
-        return taskTag;
     }
 
     @Override

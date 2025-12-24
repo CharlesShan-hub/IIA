@@ -118,7 +118,7 @@ public class TaskController {
                                          HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            taskService.updateStatus(taskId, status);
+            taskService.updateStatus(userId, taskId, status);
             log.info("Update Task Status Successfully for user: {}, taskId: {}, status: {}", userId, taskId, status);
             return ResponseUtils.buildEmptySuccessResponse("Update Task Status Successfully");
         } catch (Exception e) {

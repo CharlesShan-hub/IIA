@@ -10,7 +10,7 @@ import com.charles.server.auth.service.*;
 import com.charles.server.auth.exception.*;
 import com.charles.server.utils.JwtUtils;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 import lombok.AllArgsConstructor;

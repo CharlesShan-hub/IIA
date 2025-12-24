@@ -33,7 +33,7 @@ public interface TaskService {
     boolean updateById(Task task);
     
     // 更新任务状态
-    boolean updateStatus(Long taskId, String status);
+    void updateStatus(Long userId, Long taskId, String status);
     
     // 获取用户特定状态的任务
     List<Task> getByStatus(Long userId, String status);

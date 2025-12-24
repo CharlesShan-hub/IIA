@@ -1,11 +1,12 @@
 package com.charles.server.reminder.service;
 
+import com.charles.server.reminder.dto.CreateTaskTagRequest;
 import com.charles.server.reminder.entity.TaskTag;
 import java.util.List;
 
 public interface TaskTagService {
     // 创建任务-标签关联
-    TaskTag create(TaskTag taskTag);
+    void create(Long userId, CreateTaskTagRequest dto);
     
     // 批量创建任务-标签关联
     int createBatch(List<TaskTag> taskTagList);

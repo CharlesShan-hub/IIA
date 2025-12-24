@@ -63,7 +63,7 @@ public class JwtUtils {
      */
     public String getUserIdFromToken(String token) {
         SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
-        return Jwts.parserBuilder()
+        return Jwts.parser()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
@@ -78,7 +78,7 @@ public class JwtUtils {
      */
     public String getTokenType(String token) {
         SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
-        return Jwts.parserBuilder()
+        return Jwts.parser()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
@@ -95,7 +95,7 @@ public class JwtUtils {
         try {
             // 使用密钥解析并验证 JWT Token
             SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
-            Jwts.parserBuilder()
+            Jwts.parser()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token);
@@ -114,7 +114,7 @@ public class JwtUtils {
     public boolean validateRefreshToken(String refreshToken) {
         try {
             SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
-            Claims claims = Jwts.parserBuilder()
+            Claims claims = Jwts.parser()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(refreshToken)
