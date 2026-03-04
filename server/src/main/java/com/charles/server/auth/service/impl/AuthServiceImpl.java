@@ -164,8 +164,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public RefreshResponse refreshAccessToken(String refreshToken) {
-        log.info("Refreshing access token");
-        
         // Validate Refresh Token
         if (refreshToken == null || !jwtUtils.validateRefreshToken(refreshToken)) {
             throw new InvalidTokenException();
@@ -184,9 +182,7 @@ public class AuthServiceImpl implements AuthService {
         
         // Store new Access Token in Redis
         tokenService.storeAccessToken(userId, newAccessToken);
-        
-        log.info("Refreshed Access Token successfully, user ID: {}", userId);
-        
+
         // Return DTO instead of building response
         return new RefreshResponse(newAccessToken);
     }

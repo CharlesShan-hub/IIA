@@ -54,9 +54,8 @@ public class TokenServiceImpl implements TokenService {
         String key = "user:refresh_token:" + userId;
         return redisTemplate.opsForValue().get(key);
     }
-    
-    @Override
-    public void deleteAccessToken(String userId) {
+
+    private void deleteAccessToken(String userId) {
         String key = "user:access_token:" + userId;
         String token = redisTemplate.opsForValue().get(key);
         redisTemplate.delete(key);
@@ -66,15 +65,13 @@ public class TokenServiceImpl implements TokenService {
             redisTemplate.delete(reverseKey);
         }
     }
-    
-    @Override
-    public void deleteRefreshToken(String userId) {
+
+    private void deleteRefreshToken(String userId) {
         String key = "user:refresh_token:" + userId;
         redisTemplate.delete(key);
     }
-    
-    @Override
-    public void deleteAllTokens(String userId) {
+
+    public void delete(String userId) {
         deleteAccessToken(userId);
         deleteRefreshToken(userId);
     }
@@ -93,8 +90,7 @@ public class TokenServiceImpl implements TokenService {
         return storedRefreshToken != null && storedRefreshToken.equals(refreshToken);
     }
 
-    @Override
-    public String extractTokenFromRequest(HttpServletRequest request) {
+    private String extractTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);

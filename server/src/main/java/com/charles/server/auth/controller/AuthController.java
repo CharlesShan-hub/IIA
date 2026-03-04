@@ -52,7 +52,7 @@ public class AuthController {
             log.info("User profile request, ID: {}", userId);
             return ResponseUtils.buildSuccessResponse(response, "user profile");
         } catch (Exception e) {
-            log.info("User profile request failed, token: {}, error: {}", tokenService.extractTokenFromRequest(request), e.getMessage(), e);
+            log.info("User profile request failed, error: {}", e.getMessage(), e);
             return ResponseUtils.buildUnauthorizedResponse("Authentication failed: " + e.getMessage());
         }
     }
@@ -63,7 +63,7 @@ public class AuthController {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             log.info("User logout request, user ID: {}", userId);
-            tokenService.deleteAllTokens(userId.toString());
+            tokenService.delete(userId.toString());
             log.info("User logout succeeded, user ID: {}", userId);
             return ResponseUtils.buildEmptySuccessResponse("logout succeeded");
         } catch (Exception e) {
@@ -102,10 +102,10 @@ public class AuthController {
 
     // Refresh Access Token
     @PostMapping("/refresh")
-    public Map<String, Object> refreshToken(@RequestBody @Valid RefreshTokenRequest request) {
+    public Map<String, Object> refreshToken(@RequestBody @Valid RefreshTokenRequest dto) {
         log.info("Refresh Access Token request");
         try {
-            RefreshResponse response = authService.refreshAccessToken(request.getRefreshToken());
+            RefreshResponse response = authService.refreshAccessToken(dto.getRefreshToken());
             log.info("Refreshed Access Token successfully");
             return ResponseUtils.buildSuccessResponse(response, "refresh token succeeded");
         } catch (Exception e) {
