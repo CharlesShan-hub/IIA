@@ -2,12 +2,13 @@ package com.charles.server.auth.service.impl;
 
 import java.util.concurrent.TimeUnit;
 
-import com.charles.server.auth.exception.InvalidTokenException;
+import com.charles.server.auth.exception.TokenException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import java.util.Objects;
 
 import com.charles.server.auth.service.TokenService;
 import com.charles.server.utils.JwtUtils;
@@ -30,17 +31,17 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public void storeAccessToken(String userId, String token) {
         String key = "user:access_token:" + userId;
-        redisTemplate.opsForValue().set(key, token, tokenExpiration, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set(key, Objects.requireNonNull(token), tokenExpiration, TimeUnit.HOURS);
         
         // Add reverse mapping: accessToken -> userId
-        String reverseKey = "access_token:user_id:" + token;
-        redisTemplate.opsForValue().set(reverseKey, userId, tokenExpiration, TimeUnit.HOURS);
+        String reverseKey = "access_token:user_id:" + Objects.requireNonNull(token);
+        redisTemplate.opsForValue().set(reverseKey, Objects.requireNonNull(userId), tokenExpiration, TimeUnit.HOURS);
     }
     
     @Override
     public void storeRefreshToken(String userId, String refreshToken) {
         String key = "user:refresh_token:" + userId;
-        redisTemplate.opsForValue().set(key, refreshToken, refreshTokenExpiration, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set(key, Objects.requireNonNull(refreshToken), refreshTokenExpiration, TimeUnit.HOURS);
     }
     
     @Override
@@ -95,7 +96,7 @@ public class TokenServiceImpl implements TokenService {
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
-        throw new InvalidTokenException("Invalid Bearer Token");
+        throw TokenException.invalid("Invalid Bearer Token");
     }
     
     @Override

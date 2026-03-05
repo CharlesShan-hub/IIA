@@ -1,6 +1,6 @@
 package com.charles.server.auth.exception;
 
-public class InvalidCredentialsException extends AuthenticationException {
+public class InvalidCredentialsException extends RuntimeException {
     public InvalidCredentialsException() {
         super("Invalid email or password");
     }

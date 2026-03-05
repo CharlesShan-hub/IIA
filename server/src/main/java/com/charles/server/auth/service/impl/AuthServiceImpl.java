@@ -9,6 +9,7 @@ import com.charles.server.auth.mapper.*;
 import com.charles.server.auth.service.*;
 import com.charles.server.auth.exception.*;
 import com.charles.server.utils.JwtUtils;
+import com.charles.server.auth.mapper.ProfileMapper;
 
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +21,8 @@ import lombok.Data;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
-    private final AccountMapper accountMapper;
+    private final UserMapper userMapper;
     private final ProfileMapper profileMapper;
-    private final MailMapper mailMapper;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
     private final TokenService tokenService;
@@ -57,20 +57,19 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponse login(LoginRequest dto) {
-        // 1. Get authId by email
-        Mail mail = mailMapper.findByEmail(dto.getEmail());
-        if (mail == null) {
+        // 1. Check all user profile
+        UserAll userAll = userMapper.findAllByEmail(dto.getEmail());
+        if (userAll == null) {
             throw new UserNotFoundException(dto.getEmail());
         }
 
-        // 2. Get Account record by authId
-        Account account = accountMapper.findById(mail.getUserId());
-        if (!passwordEncoder.matches(dto.getPassword(), account.getPasswordHash())) {
+        // 2. Check password
+        if (!passwordEncoder.matches(dto.getPassword(), userAll.getPasswordHash())) {
             throw new InvalidCredentialsException();
         }
 
-        // 3. Generate and store Tokens
-        String userId = account.getUserId().toString();
+        // 3. Generate and store tokens
+        String userId = userAll.getUserId().toString();
         TokenPair tokenPair = generateAndStoreTokens(userId);
 
         // 4. Return LoginResponse
@@ -83,59 +82,51 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ProfileResponse profile(String userId) {
-        Account account = accountMapper.findById(Long.valueOf(userId));
-        if (account == null) {
+        Profile profile = profileMapper.findById(Long.valueOf(userId));
+        if (profile == null) {
             throw new UserNotFoundException(userId);
         }
-        Mail mail = mailMapper.findByAuthId(Long.valueOf(userId));
-        Profile profile = profileMapper.findById(Long.valueOf(userId));
 
         ProfileResponse response = new ProfileResponse();
-        response.setEmail(mail.getEmail());
         response.setUserName(profile.getUsername());
-        response.setUserId(account.getUserId());
+        response.setUserId(profile.getUserId());
         return response;
     }
 
     @Override
     @Transactional
     public RegisterResponse register(RegisterRequest dto) {
-        // 1. Verify Code
-        mailService.verifyCode(dto.getEmail(), dto.getCode());
-
-        // 2. Check if email is already registered
-        if (mailMapper.existsByEmail(dto.getEmail())) {
+        // 1. Check if email already exists
+        if (userMapper.existsByEmail(dto.getEmail())) {
             throw new EmailAlreadyRegisteredException(dto.getEmail());
         }
-
-        // 3. Register Process: Create Account first 
+        
+        // 2. Create Account (password hash)
         Account account = new Account();
         account.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
-        accountMapper.insert(account); // after insert, userId will be auto-set
-
-        // 4. Register Process: Create User Profile
+        userMapper.insertAccount(account); // after insert, userId will be auto-set
+        
+        // 3. Create Profile
         Profile profile = new Profile();
-        profile.setUserId(account.getUserId()); // use the new account's userId
+        profile.setUserId(account.getUserId());
         String username = generateDefaultUsername(dto.getUsername(), dto.getEmail());
         profile.setUsername(username);
-        profileMapper.insert(profile);
-
-        // 5. Register Process: Create Mail Record
+        userMapper.insertProfile(profile);
+        
+        // 4. Create Mail record
         Mail mail = new Mail();
         mail.setEmail(dto.getEmail());
         mail.setUserId(account.getUserId());
-        mailMapper.insert(mail);
-
-        // 6. Generate and store AccessToken
+        userMapper.insertMail(mail);
+        
+        // 5. Generate and store tokens
         TokenPair tokenPair = generateAndStoreTokens(account.getUserId().toString());
-
-        // 7. Build RegisterResponse
+        
+        // 6. Build response
         RegisterResponse response = new RegisterResponse();
         response.setUserId(account.getUserId());
-        response.setPasswordHash(account.getPasswordHash());
         response.setToken(tokenPair.getAccessToken());
         response.setRefreshToken(tokenPair.getRefreshToken());
-
         return response;
     }
 
@@ -144,29 +135,25 @@ public class AuthServiceImpl implements AuthService {
     public void resetPassword(ResetPasswordRequest dto) {
         // 1. Verify Code
         mailService.verifyCode(dto.getEmail(), dto.getCode());
-
-        // 2. Find Mail record by email
-        Mail mail = mailMapper.findByEmail(dto.getEmail());
-        if (mail == null) {
+        
+        // 2. Check all user profile
+        UserAll userDetails = userMapper.findAllByEmail(dto.getEmail());
+        if (userDetails == null) {
             throw new UserNotFoundException(dto.getEmail());
         }
-
-        // 3. Find Account record by authId
-        Account account = accountMapper.findById(mail.getUserId());
-        if (account == null) {
-            throw new UserNotFoundException(mail.getUserId().toString());
-        }
-
-        // 4. Update password (using BCrypt encryption)
+        
+        // 3. Update password
+        Account account = new Account();
+        account.setUserId(userDetails.getUserId());
         account.setPasswordHash(passwordEncoder.encode(dto.getNewPassword()));
-        accountMapper.updateById(account);
+        userMapper.updateAccount(account);
     }
 
     @Override
     public RefreshResponse refreshAccessToken(String refreshToken) {
         // Validate Refresh Token
         if (refreshToken == null || !jwtUtils.validateRefreshToken(refreshToken)) {
-            throw new InvalidTokenException();
+            throw TokenException.invalid();
         }
         
         // Get user ID
@@ -174,7 +161,7 @@ public class AuthServiceImpl implements AuthService {
         
         // Validate Refresh Token in Redis
         if (!tokenService.validateRefreshToken(userId, refreshToken)) {
-            throw new ExpiredTokenException();
+            throw TokenException.expired();
         }
         
         // Generate new Access Token

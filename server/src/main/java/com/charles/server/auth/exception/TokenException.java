@@ -4,8 +4,16 @@ public class TokenException extends RuntimeException {
     public TokenException(String message) {
         super(message);
     }
-
-    public TokenException(String message, Throwable cause) {
-        super(message, cause);
+    
+    public static TokenException invalid() {
+        return new TokenException("Invalid token");
+    }
+    
+    public static TokenException invalid(String message) {
+        return new TokenException("Invalid token: " + message);
+    }
+    
+    public static TokenException expired() {
+        return new TokenException("Token has expired");
     }
 }
