@@ -34,6 +34,7 @@ server/target/
 
 /client/node_modules
 /client/src/assets/libs
+/client/.pnpm-store
 /node_modules
 .DS_Store
 
