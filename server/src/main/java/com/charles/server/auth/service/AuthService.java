@@ -26,11 +26,4 @@ public interface AuthService {
      * Reset user password
      */
     void resetPassword(ResetPasswordRequest dto);
-    
-    /**
-     * Refresh access token using refresh token
-     * @param refreshToken the refresh token
-     * @return RefreshResponse containing new access token
-     */
-    RefreshResponse refreshAccessToken(String refreshToken);
 }

@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.charles.server.auth.service.AuthService;
-import com.charles.server.auth.service.TokenService;
-import com.charles.server.auth.service.MailService;
+import com.charles.server.auth.service.*;
 import com.charles.server.utils.ResponseUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -105,7 +103,11 @@ public class AuthController {
     public Map<String, Object> refreshToken(@RequestBody @Valid RefreshTokenRequest dto) {
         log.info("Refresh Access Token request");
         try {
-            RefreshResponse response = authService.refreshAccessToken(dto.getRefreshToken());
+            Map<String, String> tokens = tokenService.refresh(dto.getRefreshToken());
+            RefreshResponse response = new RefreshResponse(
+                tokens.get("accessToken"), 
+                tokens.get("refreshToken")
+            );
             log.info("Refreshed Access Token successfully");
             return ResponseUtils.buildSuccessResponse(response, "refresh token succeeded");
         } catch (Exception e) {

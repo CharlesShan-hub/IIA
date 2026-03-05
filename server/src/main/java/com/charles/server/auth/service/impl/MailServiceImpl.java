@@ -1,6 +1,6 @@
 package com.charles.server.auth.service.impl;
 
-import com.charles.server.auth.exception.VerificationCodeException;
+import com.charles.server.auth.exception.AuthException;
 import com.charles.server.auth.service.MailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -70,12 +70,12 @@ public class MailServiceImpl implements MailService {
         
         if (correctCode == null) {
             log.warn("Verification code expired for email: {}", email);
-            throw VerificationCodeException.expired();
+            throw AuthException.verificationCodeExpired();
         }
         
         if (!correctCode.equals(inputCode)) {
             log.warn("Invalid verification code for email: {}", email);
-            throw VerificationCodeException.invalid();
+            throw AuthException.verificationCodeInvalid();
         }
         
         // Delete the code from Redis after successful verification

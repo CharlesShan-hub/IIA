@@ -1,6 +1,5 @@
 package com.charles.server.auth.service.impl;
 
-import com.charles.server.auth.exception.UserNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.charles.server.auth.dto.*;
@@ -10,12 +9,10 @@ import com.charles.server.auth.service.*;
 import com.charles.server.auth.exception.*;
 import com.charles.server.utils.JwtUtils;
 import com.charles.server.auth.mapper.ProfileMapper;
-
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -24,28 +21,8 @@ public class AuthServiceImpl implements AuthService {
     private final UserMapper userMapper;
     private final ProfileMapper profileMapper;
     private final PasswordEncoder passwordEncoder;
-    private final JwtUtils jwtUtils;
     private final TokenService tokenService;
     private final MailService mailService;
-
-    @Data
-    @AllArgsConstructor
-    private static class TokenPair {
-        private String accessToken;
-        private String refreshToken;
-    }
-
-    private TokenPair generateAndStoreTokens(String userId) {
-        // Generate Tokens
-        String accessToken = jwtUtils.generateAccessToken(userId);
-        String refreshToken = jwtUtils.generateRefreshToken(userId);
-        
-        // Store Tokens to Redis
-        tokenService.storeAccessToken(userId, accessToken);
-        tokenService.storeRefreshToken(userId, refreshToken);
-
-        return new TokenPair(accessToken, refreshToken);
-    }
 
     private String generateDefaultUsername(String providedUsername, String email) {
         // If provided username is not empty, use it; otherwise, use email prefix
@@ -60,22 +37,22 @@ public class AuthServiceImpl implements AuthService {
         // 1. Check all user profile
         UserAll userAll = userMapper.findAllByEmail(dto.getEmail());
         if (userAll == null) {
-            throw new UserNotFoundException(dto.getEmail());
+            throw AuthException.userNotFound(dto.getEmail());
         }
 
         // 2. Check password
         if (!passwordEncoder.matches(dto.getPassword(), userAll.getPasswordHash())) {
-            throw new InvalidCredentialsException();
+            throw AuthException.invalidCredentials();
         }
 
         // 3. Generate and store tokens
         String userId = userAll.getUserId().toString();
-        TokenPair tokenPair = generateAndStoreTokens(userId);
+        Map<String, String> tokens = tokenService.get(userId);
 
         // 4. Return LoginResponse
         LoginResponse response = new LoginResponse();
-        response.setToken(tokenPair.getAccessToken());
-        response.setRefreshToken(tokenPair.getRefreshToken());
+        response.setToken(tokens.get("accessToken"));
+        response.setRefreshToken(tokens.get("refreshToken"));
         response.setUserId(userId);
         return response;
     }
@@ -84,7 +61,7 @@ public class AuthServiceImpl implements AuthService {
     public ProfileResponse profile(String userId) {
         Profile profile = profileMapper.findById(Long.valueOf(userId));
         if (profile == null) {
-            throw new UserNotFoundException(userId);
+            throw AuthException.userNotFound(userId);
         }
 
         ProfileResponse response = new ProfileResponse();
@@ -98,7 +75,7 @@ public class AuthServiceImpl implements AuthService {
     public RegisterResponse register(RegisterRequest dto) {
         // 1. Check if email already exists
         if (userMapper.existsByEmail(dto.getEmail())) {
-            throw new EmailAlreadyRegisteredException(dto.getEmail());
+            throw AuthException.emailAlreadyRegistered(dto.getEmail());
         }
         
         // 2. Create Account (password hash)
@@ -120,13 +97,13 @@ public class AuthServiceImpl implements AuthService {
         userMapper.insertMail(mail);
         
         // 5. Generate and store tokens
-        TokenPair tokenPair = generateAndStoreTokens(account.getUserId().toString());
+        Map<String, String> tokens = tokenService.get(account.getUserId().toString());
         
         // 6. Build response
         RegisterResponse response = new RegisterResponse();
         response.setUserId(account.getUserId());
-        response.setToken(tokenPair.getAccessToken());
-        response.setRefreshToken(tokenPair.getRefreshToken());
+        response.setToken(tokens.get("accessToken"));
+        response.setRefreshToken(tokens.get("refreshToken"));
         return response;
     }
 
@@ -139,7 +116,7 @@ public class AuthServiceImpl implements AuthService {
         // 2. Check all user profile
         UserAll userDetails = userMapper.findAllByEmail(dto.getEmail());
         if (userDetails == null) {
-            throw new UserNotFoundException(dto.getEmail());
+            throw AuthException.userNotFound(dto.getEmail());
         }
         
         // 3. Update password
@@ -147,30 +124,5 @@ public class AuthServiceImpl implements AuthService {
         account.setUserId(userDetails.getUserId());
         account.setPasswordHash(passwordEncoder.encode(dto.getNewPassword()));
         userMapper.updateAccount(account);
-    }
-
-    @Override
-    public RefreshResponse refreshAccessToken(String refreshToken) {
-        // Validate Refresh Token
-        if (refreshToken == null || !jwtUtils.validateRefreshToken(refreshToken)) {
-            throw TokenException.invalid();
-        }
-        
-        // Get user ID
-        String userId = jwtUtils.getUserIdFromToken(refreshToken);
-        
-        // Validate Refresh Token in Redis
-        if (!tokenService.validateRefreshToken(userId, refreshToken)) {
-            throw TokenException.expired();
-        }
-        
-        // Generate new Access Token
-        String newAccessToken = jwtUtils.generateAccessToken(userId);
-        
-        // Store new Access Token in Redis
-        tokenService.storeAccessToken(userId, newAccessToken);
-
-        // Return DTO instead of building response
-        return new RefreshResponse(newAccessToken);
     }
 }

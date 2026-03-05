@@ -26,7 +26,6 @@ public class JwtUtils {
     
     /**
      * Generate access token
-     * @param userId
      * @return JWT Access Token
      */
     public String generateAccessToken(String userId) {
@@ -42,7 +41,6 @@ public class JwtUtils {
     
     /**
      * Generate refresh token
-     * @param userId
      * @return JWT Refresh Token
      */
     public String generateRefreshToken(String userId) {
@@ -99,9 +97,9 @@ public class JwtUtils {
     // 下面是没整理过的代码
     
     /**
-     * 从Token中获取用户ID
+     * Get User ID from JWT Token
      * @param token JWT Token
-     * @return 用户ID
+     * @return User ID
      */
     public String getUserIdFromToken(String token) {
         SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
@@ -114,9 +112,9 @@ public class JwtUtils {
     }
     
     /**
-     * 获取Token类型
+     * Get Token Type from JWT Token
      * @param token JWT Token
-     * @return Token类型 (access/refresh)
+     * @return Token Type (access/refresh)  
      */
     public String getTokenType(String token) {
         SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
