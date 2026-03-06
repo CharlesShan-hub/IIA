@@ -66,4 +66,16 @@ public interface TaskMapper {
     // 删除任务
     @Delete("DELETE FROM reminder_task WHERE task_id = #{taskId}")
     void deleteById(Long taskId);
+
+    @Update("UPDATE reminder_task SET project_id = #{toProjectId} WHERE user_id = #{userId} AND project_id = #{fromProjectId}")
+    int updateProjectIdByUserId(@Param("userId") Long userId, @Param("fromProjectId") Long fromProjectId, @Param("toProjectId") Long toProjectId);
+
+    @Update("UPDATE reminder_task SET project_id = NULL WHERE user_id = #{userId} AND project_id = #{fromProjectId}")
+    int clearProjectIdByUserId(@Param("userId") Long userId, @Param("fromProjectId") Long fromProjectId);
+
+    @Delete("DELETE FROM reminder_task WHERE user_id = #{userId} AND project_id = #{projectId}")
+    int deleteByUserIdAndProjectId(@Param("userId") Long userId, @Param("projectId") Long projectId);
+
+    @Update("UPDATE reminder_task SET project_id = #{projectId} WHERE task_id = #{taskId}")
+    int updateProjectId(@Param("taskId") Long taskId, @Param("projectId") Long projectId);
 }

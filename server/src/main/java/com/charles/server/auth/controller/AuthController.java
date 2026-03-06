@@ -1,22 +1,15 @@
 package com.charles.server.auth.controller;
 
 import java.util.Map;
-
-import com.charles.server.auth.dto.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.charles.server.auth.service.*;
-import com.charles.server.utils.ResponseUtils;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+import com.charles.server.auth.dto.*;
+import com.charles.server.auth.service.*;
+import com.charles.server.utils.ResponseUtils;
 
 @Slf4j
 @RestController
@@ -103,11 +96,7 @@ public class AuthController {
     public Map<String, Object> refreshToken(@RequestBody @Valid RefreshTokenRequest dto) {
         log.info("Refresh Access Token request");
         try {
-            Map<String, String> tokens = tokenService.refresh(dto.getRefreshToken());
-            RefreshResponse response = new RefreshResponse(
-                tokens.get("accessToken"), 
-                tokens.get("refreshToken")
-            );
+            RefreshResponse response = tokenService.refresh(dto.getRefreshToken());
             log.info("Refreshed Access Token successfully");
             return ResponseUtils.buildSuccessResponse(response, "refresh token succeeded");
         } catch (Exception e) {

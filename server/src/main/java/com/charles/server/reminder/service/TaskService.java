@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.dto.CreateTaskRequest;
+import com.charles.server.reminder.dto.DeleteProjectRequest;
 import com.charles.server.reminder.entity.Task;
 
 public interface TaskService {
@@ -19,9 +20,19 @@ public interface TaskService {
     void deleteById(Long userId, Long taskId);
 
     /**
+     * Delete all tasks in a project
+     */
+    void deleteByProjectId(Long userId, Long projectId);
+
+    /**
      * Batch update the sort order of tasks
      */
     void batchUpdatePosition(Long userId, BatchUpdatePositionRequest dto);
+    
+    /**
+     * Batch update the project_id of tasks (project_id may be null to indicate default area)
+     */
+    void batchUpdateProjectId(Long userId, DeleteProjectRequest dto);
     
     // 获取用户所有任务
     List<Task> getAll(Long userId);
@@ -46,4 +57,5 @@ public interface TaskService {
     
     // 获取即将截止的任务
     List<Task> getUpcomingTasks(Long userId, LocalDateTime dueDate);
+
 }

@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
+import com.charles.server.reminder.dto.DeleteProjectRequest;
 import com.charles.server.reminder.dto.CreateTaskRequest;
+
 import org.springframework.stereotype.Service;
 
 import com.charles.server.reminder.entity.Task;
@@ -79,11 +81,7 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     @Override
     public void batchUpdatePosition(Long userId, BatchUpdatePositionRequest request) {
-        // Validate each project belongs to the user
-        // Must validate all projects before updating positions
         request.getPos().forEach(t -> validatedFindTaskById(userId, t.getItemId()));
-        
-        // Batch update positions
         request.getPos().forEach(t -> {
             Task task = new Task();
             task.setTaskId(t.getItemId());
@@ -93,7 +91,23 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getAll(Long userId) { return taskMapper.findByUserId(userId);}
+    public void batchUpdateProjectId(Long userId, DeleteProjectRequest dto) {
+        if (dto == null || dto.getProjectId() == null) return;
+        Long projectId = dto.getProjectId();
+        if(Boolean.TRUE.equals(dto.getTargetProject())){
+            taskMapper.updateProjectIdByUserId(userId, projectId, dto.getTargetProjectId());
+        } else {
+            taskMapper.clearProjectIdByUserId(userId, projectId);
+        }
+    }
+
+    @Override
+    public List<Task> getAll(Long userId) { return taskMapper.findByUserId(userId);} 
+
+    @Override
+    public void deleteByProjectId(Long userId, Long projectId) {
+        taskMapper.deleteByUserIdAndProjectId(userId, projectId);
+    }
 
     @Override
     public Task getById(Long taskId) { return taskMapper.findById(taskId);}

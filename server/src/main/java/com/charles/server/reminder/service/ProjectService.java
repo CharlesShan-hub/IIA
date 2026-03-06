@@ -5,6 +5,8 @@ import java.util.List;
 import com.charles.server.reminder.dto.CreateProjectRequest;
 import com.charles.server.reminder.dto.UpdateProjectRequest;
 import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
+import com.charles.server.reminder.dto.DeleteProjectRequest;
+import com.charles.server.reminder.dto.GetAllProjectRequest;
 import com.charles.server.reminder.entity.Project;
 
 public interface ProjectService {
@@ -20,21 +22,22 @@ public interface ProjectService {
     */
     void update(Long userId, UpdateProjectRequest dto);
 
-    /** Get all active projects for a user
+    /** Get projects by archived filter via DTO: archived or isAll
      * @param userId the user ID
-     * @return the list of active projects
-    */
-    List<Project> getAllActive(Long userId);
+     * @param dto query options
+     * @return the list of projects matching the filter
+     */
+    List<Project> getAll(Long userId, GetAllProjectRequest dto);
 
-    /** Get all archived projects for a user
+    /** Delete a project
      * @param userId the user ID
-     * @return the list of archived projects
-    */
-    List<Project> getAllArchived(Long userId);
+     * @param dto the project deletion request
+     */
+    void delete(Long userId, DeleteProjectRequest dto);
 
     /** Batch update the sort order of projects
      * @param userId the user ID
      * @param dto the batch update position request
-    */
+     */
     void batchUpdatePosition(Long userId, BatchUpdatePositionRequest dto);
 }

@@ -94,8 +94,6 @@ public class JwtUtils {
         }
     }
 
-    // 下面是没整理过的代码
-    
     /**
      * Get User ID from JWT Token
      * @param token JWT Token

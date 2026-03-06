@@ -8,8 +8,9 @@ import java.util.regex.Pattern;
  */
 public class ColorUtils {
 
-    // RGB格式的正则表达式
-    private static final Pattern RGB_PATTERN = Pattern.compile("rgb\\((\\d{1,3}),\\s*(\\d{1,3}),\\s*(\\d{1,3})\\)");
+    private static final Pattern HEX_SHORT_PATTERN = Pattern.compile("^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{4})$");
+    private static final Pattern HEX_LONG_PATTERN = Pattern.compile("^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$");
+    private static final Pattern RGB_A_PATTERN = Pattern.compile("rgba?\\((\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})(?:\\s*,\\s*([\\d.]+))?\\)", Pattern.CASE_INSENSITIVE);
 
     /**
      * 转换颜色字符串为十六进制格式
@@ -19,36 +20,75 @@ public class ColorUtils {
      * @return 十六进制格式的颜色字符串
      */
     public static String normalizeColor(String color) {
-        if (color == null || color.trim().isEmpty()) {
+        if (color == null) {
+            return null;
+        }
+        color = color.trim();
+        if (color.isEmpty()) {
             return null;
         }
 
-        // 去除前后空格
-        color = color.trim();
-
-        // 如果已经是以#开头的十六进制格式，则直接返回
-        if (color.startsWith("#") && (color.length() == 7 || color.length() == 9)) {
-            return color;
+        // 长十六进制示例（大小写均可）：
+        //   #RRGGBB   如 #1a2b3c -> #1A2B3C
+        //   #RRGGBBAA 如 #1a2b3c80 -> #1A2B3C80
+        // 输出：保持长度不变，统一为大写
+        if (HEX_LONG_PATTERN.matcher(color).matches()) {
+            String hex = color.substring(1);
+            return "#" + hex.toUpperCase();
         }
 
-        // 如果是RGB格式，则转换为十六进制
-        Matcher matcher = RGB_PATTERN.matcher(color);
-        if (matcher.matches()) {
-            try {
-                int r = Integer.parseInt(matcher.group(1));
-                int g = Integer.parseInt(matcher.group(2));
-                int b = Integer.parseInt(matcher.group(3));
+        Matcher shortHex = HEX_SHORT_PATTERN.matcher(color);
+        // 短十六进制示例：
+        //   #RGB  如 #f0a  -> #FF00AA
+        //   #RGBA 如 #f0a8 -> #FF00AA88（每位重复一次并大写）
+        if (shortHex.matches()) {
+            String s = shortHex.group(1);
+            StringBuilder sb = new StringBuilder("#");
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                sb.append(Character.toUpperCase(c)).append(Character.toUpperCase(c));
+            }
+            return sb.toString();
+        }
 
-                // 验证RGB值的范围是否有效 (0-255)
-                if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255) {
+        // rgb/rgba 示例（大小写不敏感，逗号与空格可变）：
+        //   rgb(255, 0, 128)      -> #FF0080
+        //   rgba(255,0,0,0.5)     -> #FF000080（alpha 为 0–1 小数）
+        //   rgba(34,12,64,128)    -> #220C4080（alpha 为 0–255 整数）
+        Matcher m = RGB_A_PATTERN.matcher(color);
+        if (m.matches()) {
+            try {
+                int r = Integer.parseInt(m.group(1));
+                int g = Integer.parseInt(m.group(2));
+                int b = Integer.parseInt(m.group(3));
+                if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
+                    return null;
+                }
+                String aStr = m.group(4);
+                if (aStr == null) {
                     return String.format("#%02X%02X%02X", r, g, b);
+                } else {
+                    int alpha;
+                    if (aStr.contains(".")) {
+                        double ad = Double.parseDouble(aStr);
+                        if (ad < 0.0 || ad > 1.0) {
+                            return null;
+                        }
+                        alpha = (int) Math.round(ad * 255);
+                    } else {
+                        int ai = Integer.parseInt(aStr);
+                        if (ai < 0 || ai > 255) {
+                            return null;
+                        }
+                        alpha = ai;
+                    }
+                    return String.format("#%02X%02X%02X%02X", r, g, b, alpha);
                 }
             } catch (NumberFormatException e) {
-                // 数字格式错误，返回null
+                return null;
             }
         }
 
-        // 无法识别的颜色格式，返回null
         return null;
     }
 

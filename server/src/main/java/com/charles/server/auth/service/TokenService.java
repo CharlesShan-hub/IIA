@@ -3,15 +3,16 @@ package com.charles.server.auth.service;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Map;
+import com.charles.server.auth.dto.RefreshResponse;
 
 public interface TokenService {
 
     /**
      * Refresh tokens using refresh token
      * @param token JWT Refresh Token
-     * @return New Tokens (accessToken, refreshToken)
+     * @return New tokens
      */
-    Map<String, String> refresh(String token);
+    RefreshResponse refresh(String token);
 
     /**
      * Generate, store and get tokens
@@ -25,9 +26,9 @@ public interface TokenService {
     
     /**
      * Get userId from HttpServletRequest
-     * @param request HTTP请求对象
-     * @return 用户ID
-     * @throws RuntimeException 如果认证失败
+     * @param request HttpServletRequest object
+     * @return userId
+     * @throws RuntimeException
      */
     Long getUserIdFromRequest(HttpServletRequest request);
 }

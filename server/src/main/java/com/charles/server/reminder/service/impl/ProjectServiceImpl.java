@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.charles.server.reminder.dto.CreateProjectRequest;
 import com.charles.server.reminder.dto.UpdateProjectRequest;
+import com.charles.server.reminder.dto.GetAllProjectRequest;
+import com.charles.server.reminder.dto.DeleteProjectRequest;
 import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.exception.PermissionDeniedException;
 import com.charles.server.reminder.exception.ProjectNotFoundException;
@@ -11,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.mapper.ProjectMapper;
+
+import com.charles.server.reminder.service.TaskService;
 import com.charles.server.reminder.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 public class ProjectServiceImpl implements ProjectService {
     
     private final ProjectMapper projectMapper;
+
+    private final TaskService taskService;
 
     private Project convertToEntity(CreateProjectRequest dto) {
         Project project = new Project();
@@ -46,7 +52,7 @@ public class ProjectServiceImpl implements ProjectService {
     public void create(Long userId, CreateProjectRequest dto) {
         Project project = convertToEntity(dto);
         project.setUserId(userId);
-        project.setSortOrder(projectMapper.findActiveByUserId(userId).size() + 1);
+        project.setSortOrder(projectMapper.findByUserIdAndArchived(userId, false).size() + 1);
         project.setIsArchived(false);
         projectMapper.insert(project);
     }
@@ -60,17 +66,22 @@ public class ProjectServiceImpl implements ProjectService {
         if (dto.getIcon() != null) project.setIcon(dto.getIcon());
         projectMapper.update(project);
     }
-        
+    
     @Override
-    public List<Project> getAllArchived(Long userId) {
-        return projectMapper.findArchivedByUserId(userId);
+    public List<Project> getAll(Long userId, GetAllProjectRequest dto) {
+        if (Boolean.TRUE.equals(dto.getIsAll())) {
+            List<Project> activeList = projectMapper.findByUserIdAndArchived(userId, false);
+            List<Project> archivedList = projectMapper.findByUserIdAndArchived(userId, true);
+            List<Project> all = new java.util.ArrayList<>(activeList);
+            all.addAll(archivedList);
+            return all;
+        }
+        if (Boolean.TRUE.equals(dto.getArchived())) {
+            return projectMapper.findByUserIdAndArchived(userId, true);
+        }
+        return projectMapper.findByUserIdAndArchived(userId, false);
     }
-
-    @Override
-    public List<Project> getAllActive(Long userId) {
-        return projectMapper.findActiveByUserId(userId);
-    }
-
+    
     @Transactional
     @Override
     public void batchUpdatePosition(Long userId, BatchUpdatePositionRequest request) {
@@ -85,5 +96,21 @@ public class ProjectServiceImpl implements ProjectService {
             project.setSortOrder(p.getSortOrder());
             projectMapper.updateSortOrder(project);
         });
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long userId, DeleteProjectRequest dto) {
+        Long projectId = dto.getProjectId();
+        validatedFindProjectById(userId, projectId);
+        if (Boolean.FALSE.equals(dto.getKeepTasks())) {
+            taskService.deleteByProjectId(userId, projectId);
+        } else {
+            if(Boolean.TRUE.equals(dto.getTargetProject())){
+                validatedFindProjectById(userId, dto.getTargetProjectId());
+            }
+            taskService.batchUpdateProjectId(userId, dto);
+        }
+        projectMapper.deleteById(projectId);
     }
 }

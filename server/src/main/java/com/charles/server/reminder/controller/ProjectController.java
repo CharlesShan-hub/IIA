@@ -6,17 +6,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.charles.server.auth.service.TokenService;
-import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.service.ProjectService;
+import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.dto.*;
 import com.charles.server.utils.ResponseUtils;
 
@@ -57,6 +51,20 @@ public class ProjectController {
         }
     }
 
+    // Query projects by archived flag and isAll flag
+    @GetMapping("get-all")
+    public Map<String, Object> getAll(@RequestBody @Valid GetAllProjectRequest dto, HttpServletRequest request) {
+        try {
+            Long userId = tokenService.getUserIdFromRequest(request);
+            List<Project> projects = projectService.getAll(userId, dto);
+            log.info("User {} query projects successfully, archived: {}, isAll: {}", userId, dto.getArchived(), dto.getIsAll());
+            return ResponseUtils.buildSuccessResponse(projects, "Reminder Projects Queried");
+        } catch (Exception e) {
+            log.error("Reminder Project Query Failed: {}", e.getMessage(), e);
+            return ResponseUtils.buildErrorResponse(e.getMessage());
+        }
+    }
+
     // Batch Update Project Positions
     @PostMapping("batch-update-position")
     public Map<String, Object> batchUpdatePosition(@RequestBody @Valid BatchUpdatePositionRequest dto, HttpServletRequest httpRequest) {
@@ -71,31 +79,18 @@ public class ProjectController {
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }
-    
-    // Query All Projects for User
-    @GetMapping("get-all-active")
-    public Map<String, Object> getAllActive(HttpServletRequest request) {
-        try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            List<Project> projects = projectService.getAllActive(userId);
-            log.info("User {} get all active projects successfully", userId);
-            return ResponseUtils.buildSuccessResponse(projects, "Reminder Active Projects Queried");
-        } catch (Exception e) {
-            log.error("Reminder Active Project Query Failed: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
-    }
 
-    // Query All Archived Projects for User
-    @GetMapping("get-all-archived")
-    public Map<String, Object> getAllArchived(HttpServletRequest request) {
+    // Delete Project
+    @PostMapping("delete")
+    public Map<String, Object> delete(@RequestBody @Valid DeleteProjectRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            List<Project> projects = projectService.getAllArchived(userId);
-            log.info("User {} get all archived projects successfully", userId);
-            return ResponseUtils.buildSuccessResponse(projects, "Reminder Archived Projects Queried");
+            projectService.delete(userId, dto);
+            log.info("User {} delete project {} successfully, keepTasks: {}, targetProjectId: {}", 
+                 userId, dto.getProjectId(), dto.getKeepTasks(), dto.getTargetProjectId());
+            return ResponseUtils.buildEmptySuccessResponse("Reminder Project Deleted");
         } catch (Exception e) {
-            log.error("Reminder Archived Project Query Failed: {}", e.getMessage(), e);
+            log.error("Reminder Project Delete Failed: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }
