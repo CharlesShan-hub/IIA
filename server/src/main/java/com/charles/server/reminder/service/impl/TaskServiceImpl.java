@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
-import com.charles.server.reminder.dto.DeleteProjectRequest;
-import com.charles.server.reminder.dto.CreateTaskRequest;
+import com.charles.server.reminder.dto.ProjectDeleteRequest;
+import com.charles.server.reminder.dto.TaskCreateRequest;
+import com.charles.server.reminder.dto.TaskUpdateRequest;
 
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskMapper taskMapper;
 
-    private Task convertToEntity(Long userId, CreateTaskRequest dto) {
+    private Task convertToEntity(Long userId, TaskCreateRequest dto) {
         Task task = new Task();
         task.setUserId(userId);
         task.setProjectId(dto.getProjectId());
@@ -50,7 +51,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void create(Long userId, CreateTaskRequest dto) {
+    public void create(Long userId, TaskCreateRequest dto) {
         Task task = convertToEntity(userId, dto);
         task.setStatus("todo");
         task.setIsArchived(false);
@@ -61,6 +62,24 @@ public class TaskServiceImpl implements TaskService {
         else // sub-task, sort order is the number of sub-tasks in the parent task + 1
             task.setSortOrder(taskMapper.findMaxSortOrderByUserIdAndParentTaskId(userId, parentTaskId) + 1);
         taskMapper.insert(task);
+    }
+
+    @Override
+    public void update(Long userId, TaskUpdateRequest dto) {
+        Task task = new Task();
+        task.setTaskId(dto.getTaskId());
+        task.setUserId(userId);
+        if (dto.getProjectId() != null) task.setProjectId(dto.getProjectId());
+        if (dto.getTitle() != null) task.setTitle(dto.getTitle());
+        if (dto.getCategory() != null) task.setCategory(dto.getCategory());
+        if (dto.getParentTaskId() != null) task.setParentTaskId(dto.getParentTaskId());
+        if (dto.getDueDate() != null) task.setDueDate(dto.getDueDate());
+        if (dto.getStartDate() != null) task.setStartDate(dto.getStartDate());
+        if (dto.getReminderSentAt() != null) task.setReminderSentAt(dto.getReminderSentAt());
+        if (dto.getPriority() != null) task.setPriority(dto.getPriority());
+        if (!updateById(task)) {
+            throw new RuntimeException("Task update failed or no permission");
+        }
     }
 
     @Override
@@ -91,7 +110,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void batchUpdateProjectId(Long userId, DeleteProjectRequest dto) {
+    public void batchUpdateProjectId(Long userId, ProjectDeleteRequest dto) {
         if (dto == null || dto.getProjectId() == null) return;
         Long projectId = dto.getProjectId();
         if(Boolean.TRUE.equals(dto.getTargetProject())){

@@ -17,3 +17,18 @@ docker exec -it iia-mysql mysql -u root -p
 ```shell
 docker exec -it iia-redis redis-cli
 ```
+
+
+
+---
+
+## Progress
+
+- [x] 认证模块后端
+- [ ] 备忘录模块后端
+  - [x] Project
+  - [ ] Task
+  - [ ] Recurrence
+  - [ ] History
+  - [ ] Tag
+  - [ ] TaskTag

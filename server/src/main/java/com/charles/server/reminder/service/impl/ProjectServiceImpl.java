@@ -2,13 +2,12 @@ package com.charles.server.reminder.service.impl;
 
 import java.util.List;
 
-import com.charles.server.reminder.dto.CreateProjectRequest;
-import com.charles.server.reminder.dto.UpdateProjectRequest;
-import com.charles.server.reminder.dto.GetAllProjectRequest;
-import com.charles.server.reminder.dto.DeleteProjectRequest;
+import com.charles.server.reminder.dto.ProjectCreateRequest;
+import com.charles.server.reminder.dto.ProjectUpdateRequest;
+import com.charles.server.reminder.dto.ProjectGetAllRequest;
+import com.charles.server.reminder.dto.ProjectDeleteRequest;
 import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
-import com.charles.server.reminder.exception.PermissionDeniedException;
-import com.charles.server.reminder.exception.ProjectNotFoundException;
+import com.charles.server.reminder.exception.ProjectAccessException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Project;
@@ -25,10 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 public class ProjectServiceImpl implements ProjectService {
     
     private final ProjectMapper projectMapper;
-
     private final TaskService taskService;
 
-    private Project convertToEntity(CreateProjectRequest dto) {
+    private Project convertToEntity(ProjectCreateRequest dto) {
         Project project = new Project();
         project.setName(dto.getName());
         project.setDescription(dto.getDescription());
@@ -40,16 +38,16 @@ public class ProjectServiceImpl implements ProjectService {
     private Project validatedFindProjectById(Long userId, Long projectId) {
         Project project = projectMapper.findById(projectId);
         if (project == null) {
-            throw new ProjectNotFoundException(projectId);
+            throw ProjectAccessException.notFound(projectId);
         }
         if (!project.getUserId().equals(userId)) {
-            throw new PermissionDeniedException(userId, projectId);
+            throw ProjectAccessException.permissionDenied(userId, projectId);
         }
         return project;
     }
     
     @Override
-    public void create(Long userId, CreateProjectRequest dto) {
+    public void create(Long userId, ProjectCreateRequest dto) {
         Project project = convertToEntity(dto);
         project.setUserId(userId);
         project.setSortOrder(projectMapper.findByUserIdAndArchived(userId, false).size() + 1);
@@ -58,7 +56,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void update(Long userId, UpdateProjectRequest dto) {
+    public void update(Long userId, ProjectUpdateRequest dto) {
         Project project = validatedFindProjectById(userId, dto.getProjectId());
         if (dto.getName() != null) project.setName(dto.getName());
         if (dto.getDescription() != null) project.setDescription(dto.getDescription());
@@ -68,7 +66,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
     
     @Override
-    public List<Project> getAll(Long userId, GetAllProjectRequest dto) {
+    public List<Project> getAll(Long userId, ProjectGetAllRequest dto) {
         if (Boolean.TRUE.equals(dto.getIsAll())) {
             List<Project> activeList = projectMapper.findByUserIdAndArchived(userId, false);
             List<Project> archivedList = projectMapper.findByUserIdAndArchived(userId, true);
@@ -100,7 +98,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional
-    public void delete(Long userId, DeleteProjectRequest dto) {
+    public void delete(Long userId, ProjectDeleteRequest dto) {
         Long projectId = dto.getProjectId();
         validatedFindProjectById(userId, projectId);
         if (Boolean.FALSE.equals(dto.getKeepTasks())) {

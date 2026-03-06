@@ -2,16 +2,16 @@ package com.charles.server.reminder.service;
 
 import java.util.List;
 import com.charles.server.reminder.entity.Tag;
-import com.charles.server.reminder.dto.CreateTagRequest;
-import com.charles.server.reminder.dto.UpdateTagRequest;
+import com.charles.server.reminder.dto.TagCreateRequest;
+import com.charles.server.reminder.dto.TagUpdateRequest;
 
 public interface TagService {
     /**
      * Create a new tag for the user
      * @param userId the user id
-     * @param dto CreateTagRequest
+     * @param dto TagCreateRequest
      */
-    void create(Long userId, CreateTagRequest dto);
+    void create(Long userId, TagCreateRequest dto);
 
     /**
      * Update a tag by its ID
@@ -19,7 +19,7 @@ public interface TagService {
      * @param tagId the tag id
      * @param userId the user id
      */
-    void updateById(Long userId, UpdateTagRequest dto);
+    void updateById(Long userId, TagUpdateRequest dto);
     
     /**
      * Get all tags for a user

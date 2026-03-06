@@ -25,7 +25,7 @@ public class ProjectController {
     
     // Create Project
     @PostMapping("create")
-    public Map<String, Object> create(@RequestBody @Valid CreateProjectRequest dto, HttpServletRequest request) {
+    public Map<String, Object> create(@RequestBody @Valid ProjectCreateRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             projectService.create(userId, dto);
@@ -37,9 +37,24 @@ public class ProjectController {
         }
     }
 
+    // Delete Project
+    @PostMapping("delete")
+    public Map<String, Object> delete(@RequestBody @Valid ProjectDeleteRequest dto, HttpServletRequest request) {
+        try {
+            Long userId = tokenService.getUserIdFromRequest(request);
+            projectService.delete(userId, dto);
+            log.info("User {} delete project {} successfully, keepTasks: {}, targetProjectId: {}", 
+                 userId, dto.getProjectId(), dto.getKeepTasks(), dto.getTargetProjectId());
+            return ResponseUtils.buildEmptySuccessResponse("Reminder Project Deleted");
+        } catch (Exception e) {
+            log.error("Reminder Project Delete Failed: {}", e.getMessage(), e);
+            return ResponseUtils.buildErrorResponse(e.getMessage());
+        }
+    }
+
     // Update Project
     @PostMapping("update")
-    public Map<String, Object> updateById(@RequestBody @Valid UpdateProjectRequest dto, HttpServletRequest request) {
+    public Map<String, Object> updateById(@RequestBody @Valid ProjectUpdateRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             projectService.update(userId, dto);
@@ -47,20 +62,6 @@ public class ProjectController {
             return ResponseUtils.buildEmptySuccessResponse("Reminder Project Updated");
         } catch (Exception e) {
             log.error("Reminder Project Update Failed: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
-    }
-
-    // Query projects by archived flag and isAll flag
-    @GetMapping("get-all")
-    public Map<String, Object> getAll(@RequestBody @Valid GetAllProjectRequest dto, HttpServletRequest request) {
-        try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            List<Project> projects = projectService.getAll(userId, dto);
-            log.info("User {} query projects successfully, archived: {}, isAll: {}", userId, dto.getArchived(), dto.getIsAll());
-            return ResponseUtils.buildSuccessResponse(projects, "Reminder Projects Queried");
-        } catch (Exception e) {
-            log.error("Reminder Project Query Failed: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }
@@ -80,17 +81,16 @@ public class ProjectController {
         }
     }
 
-    // Delete Project
-    @PostMapping("delete")
-    public Map<String, Object> delete(@RequestBody @Valid DeleteProjectRequest dto, HttpServletRequest request) {
+    // Query projects by archived flag and isAll flag
+    @GetMapping("get-all")
+    public Map<String, Object> getAll(@RequestBody @Valid ProjectGetAllRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            projectService.delete(userId, dto);
-            log.info("User {} delete project {} successfully, keepTasks: {}, targetProjectId: {}", 
-                 userId, dto.getProjectId(), dto.getKeepTasks(), dto.getTargetProjectId());
-            return ResponseUtils.buildEmptySuccessResponse("Reminder Project Deleted");
+            List<Project> projects = projectService.getAll(userId, dto);
+            log.info("User {} query projects successfully, archived: {}, isAll: {}", userId, dto.getArchived(), dto.getIsAll());
+            return ResponseUtils.buildSuccessResponse(projects, "Reminder Projects Queried");
         } catch (Exception e) {
-            log.error("Reminder Project Delete Failed: {}", e.getMessage(), e);
+            log.error("Reminder Project Query Failed: {}", e.getMessage(), e);
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }

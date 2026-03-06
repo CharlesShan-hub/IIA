@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Tag;
 import com.charles.server.reminder.mapper.TagMapper;
 import com.charles.server.reminder.service.TagService;
-import com.charles.server.reminder.dto.CreateTagRequest;
-import com.charles.server.reminder.dto.UpdateTagRequest;
+import com.charles.server.reminder.dto.TagCreateRequest;
+import com.charles.server.reminder.dto.TagUpdateRequest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ public class TagServiceImpl implements TagService {
     
     private final TagMapper tagMapper;
 
-    private Tag convertToEntity(Long userId, CreateTagRequest dto) {
+    private Tag convertToEntity(Long userId, TagCreateRequest dto) {
         Tag tag = new Tag();
         tag.setUserId(userId);
         tag.setName(dto.getName());
@@ -42,7 +42,7 @@ public class TagServiceImpl implements TagService {
     }
     
     @Override
-    public void create(Long userId, CreateTagRequest dto) {
+    public void create(Long userId, TagCreateRequest dto) {
         if (existsByName(userId, dto.getName())) {
             throw new RuntimeException("Tag name " + dto.getName() + " already exists");
         }
@@ -52,7 +52,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public void updateById(Long userId, UpdateTagRequest dto) {
+    public void updateById(Long userId, TagUpdateRequest dto) {
         Tag tag = validatedFindTagById(userId, dto.getTagId());
         tag.setName(dto.getName());
         tag.setColor(dto.getColor());

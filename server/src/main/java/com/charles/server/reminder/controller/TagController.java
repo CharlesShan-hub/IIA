@@ -5,7 +5,6 @@ import java.util.Map;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +15,8 @@ import com.charles.server.auth.service.TokenService;
 import com.charles.server.reminder.entity.Tag;
 import com.charles.server.reminder.service.TagService;
 import com.charles.server.utils.ResponseUtils;
-import com.charles.server.reminder.dto.CreateTagRequest;
-import com.charles.server.reminder.dto.UpdateTagRequest;
+import com.charles.server.reminder.dto.TagCreateRequest;
+import com.charles.server.reminder.dto.TagUpdateRequest;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +32,7 @@ public class TagController {
     
     // Create Tag
     @PostMapping("create")
-    public Map<String, Object> create(@RequestBody @Valid CreateTagRequest dto, HttpServletRequest request) {
+    public Map<String, Object> create(@RequestBody @Valid TagCreateRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             tagService.create(userId, dto);
@@ -46,7 +45,7 @@ public class TagController {
 
     // Update Tag
     @PutMapping("update")
-    public Map<String, Object> updateById(@RequestBody @Valid UpdateTagRequest dto, HttpServletRequest request) {
+    public Map<String, Object> updateById(@RequestBody @Valid TagUpdateRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             tagService.updateById(userId, dto);

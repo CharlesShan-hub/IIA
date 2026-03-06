@@ -1,7 +1,7 @@
 package com.charles.server.reminder.controller;
 
 import com.charles.server.auth.service.TokenService;
-import com.charles.server.reminder.dto.CreateTaskTagRequest;
+import com.charles.server.reminder.dto.TaskTagCreateRequest;
 import com.charles.server.reminder.entity.TaskTag;
 import com.charles.server.reminder.service.TaskTagService;
 import com.charles.server.utils.ResponseUtils;
@@ -24,7 +24,7 @@ public class TaskTagController {
 
     // 创建任务-标签关联
     @PostMapping("create")
-    public Map<String, Object> create(@RequestBody CreateTaskTagRequest dto, HttpServletRequest request) {
+    public Map<String, Object> create(@RequestBody TaskTagCreateRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             

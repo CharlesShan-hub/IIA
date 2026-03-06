@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class UpdateProjectRequest {
+public class ProjectCreateRequest {
     @NotBlank(message = "Project Name is Required")
     @Size(min = 1, max = 20, message = "Project Name must be between 1 and 20 characters")
     private String name;
@@ -16,8 +16,6 @@ public class UpdateProjectRequest {
 
     private String color;
     private String icon;
-    private Long userId;
-    private Long projectId;
 
     public void setColor(String color) {
         this.color = ColorUtils.getColorOrDefault(color, "#409EFF");

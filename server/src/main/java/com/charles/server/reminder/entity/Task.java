@@ -1,7 +1,6 @@
 package com.charles.server.reminder.entity;
 
 import java.time.LocalDateTime;
-import com.charles.server.reminder.dto.CreateTaskRequest;
 import lombok.Data;
 
 @Data

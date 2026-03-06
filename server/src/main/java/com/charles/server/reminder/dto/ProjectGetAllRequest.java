@@ -4,7 +4,7 @@ import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 
 @Data
-public class GetAllProjectRequest {
+public class ProjectGetAllRequest {
     @NotNull(message = "archived is required")
     private Boolean archived = false;
     // true: return archived + unarchived projects

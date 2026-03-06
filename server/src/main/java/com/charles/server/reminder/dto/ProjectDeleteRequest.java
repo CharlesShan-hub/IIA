@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class DeleteProjectRequest {
+public class ProjectDeleteRequest {
     @NotNull(message = "projectId is required")
     private Long projectId;
     @NotNull(message = "keepTasks is required")

@@ -4,15 +4,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
-import com.charles.server.reminder.dto.CreateTaskRequest;
-import com.charles.server.reminder.dto.DeleteProjectRequest;
+import com.charles.server.reminder.dto.TaskCreateRequest;
+import com.charles.server.reminder.dto.TaskUpdateRequest;
+import com.charles.server.reminder.dto.ProjectDeleteRequest;
 import com.charles.server.reminder.entity.Task;
 
 public interface TaskService {
     /**
      * Create Task
      */
-    void create(Long userId, CreateTaskRequest dto);
+    void create(Long userId, TaskCreateRequest dto);
+
+    /** Update Task */
+    void update(Long userId, TaskUpdateRequest dto);
 
     /**
      * Delete Task
@@ -32,7 +36,7 @@ public interface TaskService {
     /**
      * Batch update the project_id of tasks (project_id may be null to indicate default area)
      */
-    void batchUpdateProjectId(Long userId, DeleteProjectRequest dto);
+    void batchUpdateProjectId(Long userId, ProjectDeleteRequest dto);
     
     // 获取用户所有任务
     List<Task> getAll(Long userId);

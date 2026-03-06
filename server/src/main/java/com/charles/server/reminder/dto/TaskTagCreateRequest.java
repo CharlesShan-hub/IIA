@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class CreateTaskTagRequest {
+public class TaskTagCreateRequest {
     @NotBlank(message = "Task ID is Required")
     private Long taskId;
 
