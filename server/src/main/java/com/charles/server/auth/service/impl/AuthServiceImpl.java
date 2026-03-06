@@ -7,8 +7,6 @@ import com.charles.server.auth.entity.*;
 import com.charles.server.auth.mapper.*;
 import com.charles.server.auth.service.*;
 import com.charles.server.auth.exception.*;
-import com.charles.server.utils.JwtUtils;
-import com.charles.server.auth.mapper.ProfileMapper;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +16,9 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
-    private final UserMapper userMapper;
+    private final AuthMapper authMapper;
     private final ProfileMapper profileMapper;
+    private final MailMapper mailMapper;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
     private final MailService mailService;
@@ -35,7 +34,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponse login(LoginRequest dto) {
         // 1. Check all user profile
-        UserAll userAll = userMapper.findAllByEmail(dto.getEmail());
+        UserAll userAll = authMapper.findAllByEmail(dto.getEmail());
         if (userAll == null) {
             throw AuthException.userNotFound(dto.getEmail());
         }
@@ -74,27 +73,27 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public RegisterResponse register(RegisterRequest dto) {
         // 1. Check if email already exists
-        if (userMapper.existsByEmail(dto.getEmail())) {
+        if (mailMapper.existsByEmail(dto.getEmail())) {
             throw AuthException.emailAlreadyRegistered(dto.getEmail());
         }
         
         // 2. Create Account (password hash)
         Account account = new Account();
         account.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
-        userMapper.insertAccount(account); // after insert, userId will be auto-set
+        authMapper.insertAccount(account); // after insert, userId will be auto-set
         
         // 3. Create Profile
         Profile profile = new Profile();
         profile.setUserId(account.getUserId());
         String username = generateDefaultUsername(dto.getUsername(), dto.getEmail());
         profile.setUsername(username);
-        userMapper.insertProfile(profile);
+        profileMapper.insertProfile(profile);
         
         // 4. Create Mail record
         Mail mail = new Mail();
         mail.setEmail(dto.getEmail());
         mail.setUserId(account.getUserId());
-        userMapper.insertMail(mail);
+        mailMapper.insertMail(mail);
         
         // 5. Generate and store tokens
         Map<String, String> tokens = tokenService.get(account.getUserId().toString());
@@ -114,7 +113,7 @@ public class AuthServiceImpl implements AuthService {
         mailService.verifyCode(dto.getEmail(), dto.getCode());
         
         // 2. Check all user profile
-        UserAll userDetails = userMapper.findAllByEmail(dto.getEmail());
+        UserAll userDetails = authMapper.findAllByEmail(dto.getEmail());
         if (userDetails == null) {
             throw AuthException.userNotFound(dto.getEmail());
         }
@@ -123,6 +122,6 @@ public class AuthServiceImpl implements AuthService {
         Account account = new Account();
         account.setUserId(userDetails.getUserId());
         account.setPasswordHash(passwordEncoder.encode(dto.getNewPassword()));
-        userMapper.updateAccount(account);
+        authMapper.updateAccount(account);
     }
 }
