@@ -7,6 +7,7 @@ import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.dto.TaskCreateRequest;
 import com.charles.server.reminder.dto.TaskUpdateRequest;
 import com.charles.server.reminder.dto.TaskDeleteRequest;
+import com.charles.server.reminder.dto.TaskGetAllRequest;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -90,10 +91,10 @@ public class TaskController {
 
     // Get All Tasks
     @GetMapping("get-all")
-    public Map<String, Object> getAll(HttpServletRequest request) {
+    public Map<String, Object> getAll(@RequestBody @Valid TaskGetAllRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            List<Task> tasks = taskService.getAll(userId);
+            List<Task> tasks = taskService.getAll(userId, dto);
             log.info("Get All Tasks Successfully for user: {}", userId);
             return ResponseUtils.buildSuccessResponse(tasks, "Get All Tasks Successfully");
         } catch (Exception e) {
@@ -134,20 +135,6 @@ public class TaskController {
     //         return ResponseUtils.buildSuccessResponse(tasks, "任务查询成功");
     //     } catch (Exception e) {
     //         log.error("获取特定状态任务失败: {}", e.getMessage(), e);
-    //         return ResponseUtils.buildErrorResponse(e.getMessage());
-    //     }
-    // }
-
-    // 获取特定项目的任务
-    // @GetMapping("get-by-project/{projectId}")
-    // public Map<String, Object> getByProjectId(@PathVariable("projectId") Long projectId, 
-    //                                        HttpServletRequest request) {
-    //     try {
-    //         Long userId = tokenService.getUserIdFromRequest(request);
-    //         List<Task> tasks = taskService.getByProjectId(userId, projectId);
-    //         return ResponseUtils.buildSuccessResponse(tasks, "任务查询成功");
-    //     } catch (Exception e) {
-    //         log.error("获取特定项目任务失败: {}", e.getMessage(), e);
     //         return ResponseUtils.buildErrorResponse(e.getMessage());
     //     }
     // }

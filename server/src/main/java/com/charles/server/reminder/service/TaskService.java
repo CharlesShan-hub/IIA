@@ -7,6 +7,7 @@ import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.dto.TaskCreateRequest;
 import com.charles.server.reminder.dto.TaskUpdateRequest;
 import com.charles.server.reminder.dto.ProjectDeleteRequest;
+import com.charles.server.reminder.dto.TaskGetAllRequest;
 import com.charles.server.reminder.entity.Task;
 
 public interface TaskService {
@@ -38,10 +39,14 @@ public interface TaskService {
      */
     void batchUpdateProjectId(Long userId, ProjectDeleteRequest dto);
     
-    // 获取用户所有任务
-    List<Task> getAll(Long userId);
+    /**
+     * Get all tasks for a user (including tasks in default area)
+     */
+    List<Task> getAll(Long userId, TaskGetAllRequest dto);
     
-    // 根据ID获取任务
+    /**
+     * Get task by ID
+     */
     Task getById(Long taskId);
     
     // 更新任务

@@ -16,6 +16,7 @@ public class ProjectUpdateRequest {
 
     private String color;
     private String icon;
+    private Boolean isArchived;
     private Long userId;
     private Long projectId;
 

@@ -32,7 +32,6 @@ CREATE TABLE reminder_task (
     title TEXT NOT NULL COMMENT '任务标题',
     category ENUM('task', 'note') NOT NULL DEFAULT 'task' COMMENT 'task:任务, note:笔记',
     status ENUM('todo','done','abandoned') NOT NULL DEFAULT 'todo' COMMENT 'todo: 待处理, done: 已完成, abandoned: 已放弃',
-    is_archived BOOLEAN DEFAULT FALSE COMMENT '是否归档',
     
     -- 层级结构
     parent_task_id BIGINT NULL COMMENT '父任务ID',

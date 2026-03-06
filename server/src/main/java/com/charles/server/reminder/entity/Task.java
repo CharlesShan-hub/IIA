@@ -13,7 +13,6 @@ public class Task {
     private String title; // NOT NULL
     private String category; // 'task' 或 'note' NOT NULL DEFAULT 'task'
     private String status; // 'todo', 'done' 或 'abandoned' NOT NULL DEFAULT 'todo'
-    private Boolean isArchived; // DEFAULT FALSE
     
     // 层级结构
     private Long parentTaskId; // NULL

@@ -1,6 +1,8 @@
 package com.charles.server.reminder.service.impl;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 import com.charles.server.reminder.dto.ProjectCreateRequest;
 import com.charles.server.reminder.dto.ProjectUpdateRequest;
@@ -45,12 +47,16 @@ public class ProjectServiceImpl implements ProjectService {
         }
         return project;
     }
+
+    private int getNextSortOrder(Long userId, boolean archived) {
+        return projectMapper.findMaxSortOrderByUserIdAndArchived(userId, archived) + 1;
+    }
     
     @Override
     public void create(Long userId, ProjectCreateRequest dto) {
         Project project = convertToEntity(dto);
         project.setUserId(userId);
-        project.setSortOrder(projectMapper.findByUserIdAndArchived(userId, false).size() + 1);
+        project.setSortOrder(getNextSortOrder(userId, false));
         project.setIsArchived(false);
         projectMapper.insert(project);
     }
@@ -62,6 +68,11 @@ public class ProjectServiceImpl implements ProjectService {
         if (dto.getDescription() != null) project.setDescription(dto.getDescription());
         if (dto.getColor() != null) project.setColor(dto.getColor());
         if (dto.getIcon() != null) project.setIcon(dto.getIcon());
+        if (dto.getIsArchived() != null && !dto.getIsArchived().equals(project.getIsArchived())) {
+            boolean archived = dto.getIsArchived();
+            project.setIsArchived(archived);
+            project.setSortOrder(getNextSortOrder(userId, archived));
+        }
         projectMapper.update(project);
     }
     
@@ -83,17 +94,19 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional
     @Override
     public void batchUpdatePosition(Long userId, BatchUpdatePositionRequest request) {
-        // Validate each project belongs to the user
-        // Must validate all projects before updating positions
         request.getPos().forEach(p -> validatedFindProjectById(userId, p.getItemId()));
-        
-        // Batch update positions
-        request.getPos().forEach(p -> {
+
+        List<BatchUpdatePositionRequest.Position> sorted = new ArrayList<>(request.getPos());
+        sorted.sort(Comparator.comparing(BatchUpdatePositionRequest.Position::getSortOrder)
+                .thenComparing(BatchUpdatePositionRequest.Position::getItemId));
+
+        int next = 1;
+        for (BatchUpdatePositionRequest.Position p : sorted) {
             Project project = new Project();
             project.setProjectId(p.getItemId());
-            project.setSortOrder(p.getSortOrder());
+            project.setSortOrder(next++);
             projectMapper.updateSortOrder(project);
-        });
+        }
     }
 
     @Override

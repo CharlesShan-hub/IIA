@@ -24,6 +24,9 @@ public interface ProjectMapper {
     @Select("SELECT * FROM reminder_project WHERE user_id = #{userId} AND is_archived = #{archived} ORDER BY sort_order")
     List<Project> findByUserIdAndArchived(@Param("userId") Long userId, @Param("archived") boolean archived);
 
+    @Select("SELECT COALESCE(MAX(sort_order), 0) FROM reminder_project WHERE user_id = #{userId} AND is_archived = #{archived}")
+    Integer findMaxSortOrderByUserIdAndArchived(@Param("userId") Long userId, @Param("archived") boolean archived);
+
     @Update("UPDATE reminder_project SET sort_order = #{sortOrder} WHERE project_id = #{projectId}")
     int updateSortOrder(Project project);
 

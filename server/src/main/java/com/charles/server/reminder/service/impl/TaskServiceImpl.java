@@ -8,12 +8,14 @@ import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.dto.ProjectDeleteRequest;
 import com.charles.server.reminder.dto.TaskCreateRequest;
 import com.charles.server.reminder.dto.TaskUpdateRequest;
+import com.charles.server.reminder.dto.TaskGetAllRequest;
 
 import org.springframework.stereotype.Service;
 
 import com.charles.server.reminder.entity.Task;
 import com.charles.server.reminder.mapper.TaskMapper;
 import com.charles.server.reminder.service.TaskService;
+import com.charles.server.reminder.exception.TaskAccessException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,13 +41,28 @@ public class TaskServiceImpl implements TaskService {
         return task;
     }
 
+    private int getNextSortOrder(Long userId, Long projectId, Long parentTaskId) {
+        if (parentTaskId == null) {
+            if (projectId == null) {
+                Integer max = taskMapper.findMaxSortOrderOfRootTasksByUserIdAndProjectIdIsNull(userId);
+                return (max == null ? 0 : max) + 1;
+            } else {
+                Integer max = taskMapper.findMaxSortOrderOfRootTasksByUserIdAndProjectId(userId, projectId);
+                return (max == null ? 0 : max) + 1;
+            }
+        } else {
+            Integer max = taskMapper.findMaxSortOrderByUserIdAndParentTaskId(userId, parentTaskId);
+            return (max == 0 ? 0 : max) + 1;
+        }
+    }
+
     private Task validatedFindTaskById(Long userId, Long taskId) {
         Task task = taskMapper.findById(taskId);
         if (task == null) {
-            throw new RuntimeException("Task not found");
+            throw TaskAccessException.notFound(taskId);
         }
         if (!task.getUserId().equals(userId)) {
-            throw new RuntimeException("No permission to access this task");
+            throw TaskAccessException.permissionDenied(userId, taskId);
         }
         return task;
     }
@@ -54,13 +71,9 @@ public class TaskServiceImpl implements TaskService {
     public void create(Long userId, TaskCreateRequest dto) {
         Task task = convertToEntity(userId, dto);
         task.setStatus("todo");
-        task.setIsArchived(false);
         Long projectId = task.getProjectId();
         Long parentTaskId = task.getParentTaskId();
-        if(parentTaskId==null) // root task, sort order is the number of tasks in the project + 1
-            task.setSortOrder(taskMapper.findMaxSortOrderOfRootTasksByUserIdAndProjectId(userId, projectId) + 1);
-        else // sub-task, sort order is the number of sub-tasks in the parent task + 1
-            task.setSortOrder(taskMapper.findMaxSortOrderByUserIdAndParentTaskId(userId, parentTaskId) + 1);
+        task.setSortOrder(getNextSortOrder(userId, projectId, parentTaskId));
         taskMapper.insert(task);
     }
 
@@ -121,7 +134,15 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getAll(Long userId) { return taskMapper.findByUserId(userId);} 
+    public List<Task> getAll(Long userId, TaskGetAllRequest dto) {
+        if (Boolean.TRUE.equals(dto.getIsAll())) {
+            return taskMapper.findByUserId(userId);
+        }
+        if (dto.getProjectId() == null) {
+            return taskMapper.findByUserIdAndProjectIdIsNull(userId);
+        }
+        return taskMapper.findByUserIdAndProjectId(userId, dto.getProjectId());
+    }
 
     @Override
     public void deleteByProjectId(Long userId, Long projectId) {

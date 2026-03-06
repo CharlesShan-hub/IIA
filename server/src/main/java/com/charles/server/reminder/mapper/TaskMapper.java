@@ -9,9 +9,9 @@ public interface TaskMapper {
     
     // 插入新任务
     @Insert("INSERT INTO reminder_task(user_id, project_id, title, category, status, parent_task_id, "+
-            "sort_order, due_date, start_date, completed_at, reminder_sent_at, priority, is_archived) "+
+            "sort_order, due_date, start_date, completed_at, reminder_sent_at, priority) "+
             "VALUES(#{userId}, #{projectId}, #{title}, #{category}, #{status}, #{parentTaskId}, "+
-            "#{sortOrder}, #{dueDate}, #{startDate}, #{completedAt}, #{reminderSentAt}, #{priority}, #{isArchived})")
+            "#{sortOrder}, #{dueDate}, #{startDate}, #{CompletedAt}, #{reminderSentAt}, #{priority})")
     @Options(useGeneratedKeys = true, keyProperty = "taskId", keyColumn = "task_id")
     int insert(Task task);
     
@@ -31,9 +31,17 @@ public interface TaskMapper {
     @Select("SELECT * FROM reminder_task WHERE user_id = #{userId} AND project_id = #{projectId}")
     List<Task> findByUserIdAndProjectId(@Param("userId") Long userId, @Param("projectId") Long projectId);
 
+    // 查询用户的任务（默认区：project_id IS NULL）
+    @Select("SELECT * FROM reminder_task WHERE user_id = #{userId} AND project_id IS NULL")
+    List<Task> findByUserIdAndProjectIdIsNull(@Param("userId") Long userId);
+
     // 查询用户的根任务的最大排序（按照项目筛选）
     @Select("SELECT MAX(sort_order) FROM reminder_task WHERE user_id = #{userId} AND project_id = #{projectId} AND parent_task_id IS NULL")
     Integer findMaxSortOrderOfRootTasksByUserIdAndProjectId(@Param("userId") Long userId, @Param("projectId") Long projectId);
+
+    // 查询默认区（project_id IS NULL）的根任务最大排序
+    @Select("SELECT COALESCE(MAX(sort_order), 0) FROM reminder_task WHERE user_id = #{userId} AND project_id IS NULL AND parent_task_id IS NULL")
+    Integer findMaxSortOrderOfRootTasksByUserIdAndProjectIdIsNull(@Param("userId") Long userId);
     
     // 查询用户的子任务（按父任务筛选）
     @Select("SELECT * FROM reminder_task WHERE user_id = #{userId} AND parent_task_id = #{parentTaskId}")
