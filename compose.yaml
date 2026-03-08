@@ -10,6 +10,9 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./sql/create_db.sql:/docker-entrypoint-initdb.d/01_create_db.sql:ro
+      - ./sql/create_auth.sql:/docker-entrypoint-initdb.d/02_create_auth.sql:ro
+      - ./sql/create_task.sql:/docker-entrypoint-initdb.d/03_create_task.sql:ro
     restart: unless-stopped
 
   redis:
@@ -35,7 +38,7 @@ services:
       - HTTPS_PROXY=http://host.docker.internal:7897
       - NO_PROXY=localhost,127.0.0.1,.local,.docker.internal
     volumes:
-      - d:/project/IIA/client:/app
+      - ${IIA_CLIENT_DIR:-./client}:/app
       - client_node_modules:/app/node_modules
       - pnpm_store:/pnpm-store
     command: >

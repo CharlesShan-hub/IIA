@@ -1,11 +1,6 @@
 -- 提醒模块
 
-drop table if exists reminder_project;
-drop table if exists reminder_task;
-drop table if exists reminder_recurrence;
-drop table if exists reminder_history;
-drop table if exists reminder_tag;
-drop table if exists reminder_task_tag;
+USE iia;
 
 -- 提醒模块 - 项目表
 CREATE TABLE reminder_project (
@@ -75,7 +70,7 @@ CREATE TABLE reminder_recurrence (
         ebbinghaus:          → 无需存储, 1,2,4,7,13,13,....
     ',
     FOREIGN KEY (task_id) REFERENCES reminder_task(task_id) ON DELETE CASCADE
-) COMMENT '提醒模块 - 重复任务表';
+) ENGINE=InnoDB COMMENT '提醒模块 - 重复任务表';
 
 CREATE INDEX idx_reminder_recurrence_task ON reminder_recurrence(task_id);
 CREATE INDEX idx_reminder_recurrence_next ON reminder_recurrence(next_time);

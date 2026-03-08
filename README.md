@@ -3,6 +3,11 @@
 
 ## Introduction
 
+下线运行的容器
+```shell
+docker compose down -v
+```
+
 运行docker compose
 ```shell
 docker compose up -d
