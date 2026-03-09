@@ -37,8 +37,11 @@ docker exec -it iia-redis redis-cli
 - [x] 认证模块后端
 - [ ] 备忘录模块后端
   - [x] Project
-  - [ ] Task
+  - [x] Task
   - [ ] Recurrence
   - [ ] History
   - [ ] Tag
   - [ ] TaskTag
+
+完成了从task到recurrence的转换
+还需要完成循环任务子任务的管理
