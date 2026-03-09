@@ -11,7 +11,7 @@ public interface TaskMapper {
     @Insert("INSERT INTO reminder_task(user_id, project_id, title, category, status, parent_task_id, "+
             "sort_order, due_date, start_date, completed_at, reminder_sent_at, priority) "+
             "VALUES(#{userId}, #{projectId}, #{title}, #{category}, #{status}, #{parentTaskId}, "+
-            "#{sortOrder}, #{dueDate}, #{startDate}, #{CompletedAt}, #{reminderSentAt}, #{priority})")
+            "#{sortOrder}, #{dueDate}, #{startDate}, #{completedAt}, #{reminderSentAt}, #{priority})")
     @Options(useGeneratedKeys = true, keyProperty = "taskId", keyColumn = "task_id")
     int insert(Task task);
     
@@ -47,9 +47,9 @@ public interface TaskMapper {
     @Select("SELECT * FROM reminder_task WHERE user_id = #{userId} AND parent_task_id = #{parentTaskId}")
     List<Task> findByUserIdAndParentTaskId(@Param("userId") Long userId, @Param("parentTaskId") Long parentTaskId);
 
-    // 查询用户的某任务的子任务的最大排序（按照项目筛选）
-    @Select("SELECT MAX(sort_order) FROM reminder_task WHERE user_id = #{userId} AND parent_task_id = #{parentTaskId}")
-    int findMaxSortOrderByUserIdAndParentTaskId(@Param("userId") Long userId, @Param("parentTaskId") Long parentTaskId);
+    // 查询用户的某任务的子任务的最大排序
+    @Select("SELECT COALESCE(MAX(sort_order), 0) FROM reminder_task WHERE user_id = #{userId} AND parent_task_id = #{parentTaskId}")
+    Integer findMaxSortOrderByUserIdAndParentTaskId(@Param("userId") Long userId, @Param("parentTaskId") Long parentTaskId);
     
     // 更新任务信息
     @Update("UPDATE reminder_task SET project_id = #{projectId}, title = #{title}, category = #{category}, "+

@@ -11,33 +11,33 @@ import com.charles.server.reminder.entity.Project;
 
 public interface ProjectService {
     /** Create a new project 
-     * @param userId the user ID
+     * @param userId
      * @param dto the project creation request
     */
     void create(Long userId, ProjectCreateRequest dto);
 
     /** Update an existing project
-     * @param userId the user ID
+     * @param userId
      * @param dto the project update request
     */
     void update(Long userId, ProjectUpdateRequest dto);
 
-    /** Get projects by archived filter via DTO: archived or isAll
-     * @param userId the user ID
-     * @param dto query options
-     * @return the list of projects matching the filter
-     */
-    List<Project> getAll(Long userId, ProjectGetAllRequest dto);
-
     /** Delete a project
-     * @param userId the user ID
+     * @param userId
      * @param dto the project deletion request
      */
     void delete(Long userId, ProjectDeleteRequest dto);
 
     /** Batch update the sort order of projects
-     * @param userId the user ID
+     * @param userId
      * @param dto the batch update position request
      */
     void batchUpdatePosition(Long userId, BatchUpdatePositionRequest dto);
+
+    /** Get projects by archived filter via DTO: archived or isAll
+     * @param userId
+     * @param dto query options
+     * @return the list of projects matching the filter
+     */
+    List<Project> getAll(Long userId, ProjectGetAllRequest dto);
 }

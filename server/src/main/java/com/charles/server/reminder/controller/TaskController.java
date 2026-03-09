@@ -8,6 +8,7 @@ import com.charles.server.reminder.dto.TaskCreateRequest;
 import com.charles.server.reminder.dto.TaskUpdateRequest;
 import com.charles.server.reminder.dto.TaskDeleteRequest;
 import com.charles.server.reminder.dto.TaskGetAllRequest;
+import com.charles.server.reminder.dto.TaskStatusUpdateRequest;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,7 +53,7 @@ public class TaskController {
     public Map<String, Object> delete(@RequestBody @Valid TaskDeleteRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            taskService.deleteById(userId, dto.getTaskId());
+            taskService.delete(userId, dto.getTaskId());
             log.info("Task deleted successfully for user: {}, taskId: {}", userId, dto.getTaskId());
             return ResponseUtils.buildEmptySuccessResponse("Task deleted successfully");
         } catch (Exception e) {
@@ -104,26 +105,26 @@ public class TaskController {
     }
 
     /**************************************************************************************/
-    /*                                    xxxxx                                           */
+    /*                                   Task Status                                      */
     /**************************************************************************************/
 
+    // Update Task Status (taskId & status [done|todo|abandoned])
+    @PatchMapping("update-status")
+    public Map<String, Object> updateStatus(@RequestBody @Valid TaskStatusUpdateRequest dto, HttpServletRequest request) {
+        try {
+            Long userId = tokenService.getUserIdFromRequest(request);
+            taskService.updateStatus(userId, dto.getTaskId(), dto.getStatus());
+            log.info("Update Task Status Successfully for user: {}, taskId: {}, status: {}", userId, dto.getTaskId(), dto.getStatus());
+            return ResponseUtils.buildEmptySuccessResponse("Update Task Status Successfully");
+        } catch (Exception e) {
+            log.error("Update Task Status Failed: {}", e.getMessage(), e);
+            return ResponseUtils.buildErrorResponse(e.getMessage());
+        }
+    }
 
-
-    // 更新任务状态
-    // @PutMapping("update-status/{id}")
-    // public Map<String, Object> updateStatus(@PathVariable("id") Long taskId, 
-    //                                      @RequestParam("status") String status, 
-    //                                      HttpServletRequest request) {
-    //     try {
-    //         Long userId = tokenService.getUserIdFromRequest(request);
-    //         taskService.updateStatus(userId, taskId, status);
-    //         log.info("Update Task Status Successfully for user: {}, taskId: {}, status: {}", userId, taskId, status);
-    //         return ResponseUtils.buildEmptySuccessResponse("Update Task Status Successfully");
-    //     } catch (Exception e) {
-    //         log.error("Update Task Status Failed: {}", e.getMessage(), e);
-    //         return ResponseUtils.buildErrorResponse(e.getMessage());
-    //     }
-    // }
+    /**************************************************************************************/
+    /*                                   Task Status                                      */
+    /**************************************************************************************/
 
     // 获取特定状态的任务
     // @GetMapping("get-by-status")

@@ -9,6 +9,7 @@ import com.charles.server.reminder.dto.ProjectDeleteRequest;
 import com.charles.server.reminder.dto.TaskCreateRequest;
 import com.charles.server.reminder.dto.TaskUpdateRequest;
 import com.charles.server.reminder.dto.TaskGetAllRequest;
+import com.charles.server.reminder.dto.TaskStatusUpdateRequest;
 
 import org.springframework.stereotype.Service;
 
@@ -96,7 +97,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void deleteById(Long userId, Long taskId) {
+    public void delete(Long userId, Long taskId) {
         deleteById(validatedFindTaskById(userId, taskId));
     }
 
@@ -123,17 +124,6 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void batchUpdateProjectId(Long userId, ProjectDeleteRequest dto) {
-        if (dto == null || dto.getProjectId() == null) return;
-        Long projectId = dto.getProjectId();
-        if(Boolean.TRUE.equals(dto.getTargetProject())){
-            taskMapper.updateProjectIdByUserId(userId, projectId, dto.getTargetProjectId());
-        } else {
-            taskMapper.clearProjectIdByUserId(userId, projectId);
-        }
-    }
-
-    @Override
     public List<Task> getAll(Long userId, TaskGetAllRequest dto) {
         if (Boolean.TRUE.equals(dto.getIsAll())) {
             return taskMapper.findByUserId(userId);
@@ -142,6 +132,48 @@ public class TaskServiceImpl implements TaskService {
             return taskMapper.findByUserIdAndProjectIdIsNull(userId);
         }
         return taskMapper.findByUserIdAndProjectId(userId, dto.getProjectId());
+    }
+
+    @Override
+    public void batchUpdateProjectId(Long userId, ProjectDeleteRequest dto) {
+        if (dto == null || dto.getProjectId() == null) return;
+        Long fromProjectId = dto.getProjectId();
+        // Capture source root tasks (for order preservation)
+        List<Task> sourceTasks = taskMapper.findByUserIdAndProjectId(userId, fromProjectId);
+        java.util.List<Task> sourceRoot = new java.util.ArrayList<>();
+        for (Task t : sourceTasks) {
+            if (t.getParentTaskId() == null) sourceRoot.add(t);
+        }
+        sourceRoot.sort(java.util.Comparator.comparing(Task::getSortOrder)
+                .thenComparing(Task::getTaskId));
+
+        if (Boolean.TRUE.equals(dto.getTargetProject())) {
+            // Move to target project
+            // target project_id has been validated in ProjectDeleteRequest!
+            Long toProjectId = dto.getTargetProjectId();
+            Integer max = taskMapper.findMaxSortOrderOfRootTasksByUserIdAndProjectId(userId, toProjectId);
+            int next = (max == null ? 0 : max) + 1;
+            // Move tasks
+            taskMapper.updateProjectIdByUserId(userId, fromProjectId, toProjectId);
+            // Append moved roots after existing ones in target project
+            for (Task rt : sourceRoot) {
+                Task update = new Task();
+                update.setTaskId(rt.getTaskId());
+                update.setSortOrder(next++);
+                taskMapper.updateSortOrder(update);
+            }
+        } else {
+            // Move to inbox (project_id = NULL), append after existing inbox roots
+            Integer maxInbox = taskMapper.findMaxSortOrderOfRootTasksByUserIdAndProjectIdIsNull(userId);
+            int next = (maxInbox == null ? 0 : maxInbox) + 1;
+            taskMapper.clearProjectIdByUserId(userId, fromProjectId);
+            for (Task rt : sourceRoot) {
+                Task update = new Task();
+                update.setTaskId(rt.getTaskId());
+                update.setSortOrder(next++);
+                taskMapper.updateSortOrder(update);
+            }
+        }
     }
 
     @Override
@@ -169,9 +201,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void updateStatus(Long userId, Long taskId, String status) {
-        Task task = validatedFindTaskById(userId, taskId);
-        taskMapper.updateStatus(taskId, status);
+    public void updateStatus(Long userId, TaskStatusUpdateRequest dto) {
+        Task task = validatedFindTaskById(userId, dto.getTaskId());
+        taskMapper.updateStatus(task.getTaskId(), dto.getStatus());
     }
 
     @Override

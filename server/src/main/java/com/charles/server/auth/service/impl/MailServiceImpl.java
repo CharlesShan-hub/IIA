@@ -12,6 +12,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+
+import javax.naming.AuthenticationException;
+
 import lombok.RequiredArgsConstructor;
 import static java.util.Objects.requireNonNull;
 
@@ -76,7 +79,7 @@ public class MailServiceImpl implements MailService {
             log.warn("Verification code expired for email: {}", email);
             throw AuthException.verificationCodeExpired();
         }
-        
+
         if (!correctCode.equals(inputCode)) {
             log.warn("Invalid verification code for email: {}", email);
             throw AuthException.verificationCodeInvalid();
