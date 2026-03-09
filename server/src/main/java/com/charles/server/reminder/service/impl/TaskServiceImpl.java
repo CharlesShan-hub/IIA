@@ -1,6 +1,5 @@
 package com.charles.server.reminder.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +27,10 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskMapper taskMapper;
 
+    /**************************************************************************************/
+    /*                                      Utils                                         */
+    /**************************************************************************************/
+
     private Task convertToEntity(Long userId, TaskCreateRequest dto) {
         Task task = new Task();
         task.setUserId(userId);
@@ -53,7 +56,7 @@ public class TaskServiceImpl implements TaskService {
             }
         } else {
             Integer max = taskMapper.findMaxSortOrderByUserIdAndParentTaskId(userId, parentTaskId);
-            return (max == 0 ? 0 : max) + 1;
+            return (max == null ? 0 : max) + 1;
         }
     }
 
@@ -68,6 +71,10 @@ public class TaskServiceImpl implements TaskService {
         return task;
     }
 
+    /**************************************************************************************/
+    /*                                    Basic CRUD                                      */
+    /**************************************************************************************/
+
     @Override
     public void create(Long userId, TaskCreateRequest dto) {
         Task task = convertToEntity(userId, dto);
@@ -76,6 +83,20 @@ public class TaskServiceImpl implements TaskService {
         Long parentTaskId = task.getParentTaskId();
         task.setSortOrder(getNextSortOrder(userId, projectId, parentTaskId));
         taskMapper.insert(task);
+    }
+
+    private boolean updateById(Task task) {
+        log.info("Updating task with id: {}", task.getTaskId());
+        // Validate task existence and ownership
+        Task existingTask = taskMapper.findById(task.getTaskId());
+        if (existingTask == null || !existingTask.getUserId().equals(task.getUserId())) {
+            log.warn("Task not found or permission denied for task id: {}", task.getTaskId());
+            return false;
+        }
+        int result = taskMapper.update(task);
+        boolean success = result > 0;
+        log.info("Task update {} for task id: {}", success ? "successful" : "failed", task.getTaskId());
+        return success;
     }
 
     @Override
@@ -98,13 +119,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void delete(Long userId, Long taskId) {
-        deleteById(validatedFindTaskById(userId, taskId));
+        deleteRecursively(validatedFindTaskById(userId, taskId));
     }
 
-    private void deleteById(Task task){
+    private void deleteRecursively(Task task){
         // 1. Recursively delete all subtasks
         List<Task> subTasks = taskMapper.findByUserIdAndParentTaskId(task.getUserId(), task.getTaskId());
-        subTasks.forEach(this::deleteById);
+        subTasks.forEach(this::deleteRecursively);
         // 2. Delete current task (task-tag relations are cascade-deleted by DB)
         // 3. No sort order adjustment needed due to max()+1 insertion strategy
         // 4. Delete current task
@@ -133,6 +154,40 @@ public class TaskServiceImpl implements TaskService {
         }
         return taskMapper.findByUserIdAndProjectId(userId, dto.getProjectId());
     }
+
+    /**************************************************************************************/
+    /*                                   Task Status                                      */
+    /**************************************************************************************/
+
+    @Override
+    public void updateStatus(Long userId, TaskStatusUpdateRequest dto) {
+        Task existing = validatedFindTaskById(userId, dto.getTaskId());
+        String status = dto.getStatus();
+        java.time.LocalDateTime completedAt = null;
+        if ("done".equals(status)) {
+            completedAt = java.time.LocalDateTime.now();
+        }
+        taskMapper.updateStatusAndCompletedAt(existing.getTaskId(), status, completedAt);
+        if (Boolean.TRUE.equals(dto.getCascade())) {
+            updateStatusRecursively(userId, existing.getTaskId(), status, completedAt);
+        }
+    }
+
+    private void updateStatusRecursively(Long userId, Long parentTaskId, String status, java.time.LocalDateTime completedAt) {
+        List<Task> children = taskMapper.findByUserIdAndParentTaskId(userId, parentTaskId);
+        for (Task child : children) {
+            java.time.LocalDateTime childCompletedAt = null;  // todo | abandoned
+            if ("done".equals(status)) {
+                childCompletedAt = (child.getCompletedAt() != null) ? child.getCompletedAt() : completedAt;
+            }
+            taskMapper.updateStatusAndCompletedAt(child.getTaskId(), status, childCompletedAt);
+            updateStatusRecursively(userId, child.getTaskId(), status, completedAt);
+        }
+    }
+
+    /**************************************************************************************/
+    /*                              Support Project Operation                             */
+    /**************************************************************************************/
 
     @Override
     public void batchUpdateProjectId(Long userId, ProjectDeleteRequest dto) {
@@ -179,54 +234,5 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void deleteByProjectId(Long userId, Long projectId) {
         taskMapper.deleteByUserIdAndProjectId(userId, projectId);
-    }
-
-    @Override
-    public Task getById(Long taskId) { return taskMapper.findById(taskId);}
-
-    @Override
-    public boolean updateById(Task task) {
-        log.info("Updating task with id: {}", task.getTaskId());
-        // 验证任务存在且属于当前用户
-        Task existingTask = taskMapper.findById(task.getTaskId());
-        if (existingTask == null || !existingTask.getUserId().equals(task.getUserId())) {
-            log.warn("Task not found or permission denied for task id: {}", task.getTaskId());
-            return false;
-        }
-        
-        int result = taskMapper.update(task);
-        boolean success = result > 0;
-        log.info("Task update {}{} for task id: {}", success ? "successful" : "failed", success ? "successful" : "failed", task.getTaskId());
-        return success;
-    }
-
-    @Override
-    public void updateStatus(Long userId, TaskStatusUpdateRequest dto) {
-        Task task = validatedFindTaskById(userId, dto.getTaskId());
-        taskMapper.updateStatus(task.getTaskId(), dto.getStatus());
-    }
-
-    @Override
-    public List<Task> getByStatus(Long userId, String status) {
-        log.info("Getting tasks for user: {} with status: {}", userId, status);
-        return taskMapper.findByUserIdAndStatus(userId, status);
-    }
-
-    @Override
-    public List<Task> getByProjectId(Long userId, Long projectId) {
-        log.info("Getting tasks for user: {} in project: {}", userId, projectId);
-        return taskMapper.findByUserIdAndProjectId(userId, projectId);
-    }
-
-    @Override
-    public List<Task> getSubTasks(Long userId, Long parentTaskId) {
-        log.info("Getting sub-tasks for user: {} with parent task id: {}", userId, parentTaskId);
-        return taskMapper.findByUserIdAndParentTaskId(userId, parentTaskId);
-    }
-
-    @Override
-    public List<Task> getUpcomingTasks(Long userId, LocalDateTime dueDate) {
-        log.info("Getting upcoming tasks for user: {} until: {}", userId, dueDate);
-        return taskMapper.findUpcomingTasks(userId, dueDate);
     }
 }

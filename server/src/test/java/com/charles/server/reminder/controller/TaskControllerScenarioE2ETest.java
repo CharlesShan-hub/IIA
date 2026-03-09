@@ -6,6 +6,7 @@ import com.charles.server.reminder.dto.ProjectCreateRequest;
 import com.charles.server.reminder.dto.TaskCreateRequest;
 import com.charles.server.reminder.dto.TaskDeleteRequest;
 import com.charles.server.reminder.dto.ProjectDeleteRequest;
+import com.charles.server.reminder.dto.TaskStatusUpdateRequest;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.entity.Task;
 import com.charles.server.reminder.mapper.ProjectMapper;
@@ -29,6 +30,7 @@ import java.util.Optional;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -341,5 +343,57 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         org.junit.jupiter.api.Assertions.assertEquals(taskY.getTaskId(), yInInbox.getTaskId());
         org.junit.jupiter.api.Assertions.assertEquals(xInInbox.getTaskId(), yInInbox.getParentTaskId());
         org.junit.jupiter.api.Assertions.assertEquals(dOrderBefore + 1, xInInbox.getSortOrder(), "X should be appended after D in inbox");
+    }
+
+    @Test
+    void scenario_updateStatus_done_then_todo() throws Exception {
+        // 创建项目并创建任务 Z
+        ProjectCreateRequest p = new ProjectCreateRequest();
+        p.setName("StatusP");
+        mockMvc.perform(post("/api/reminder/projects/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(p)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(200)));
+        Long pId = projectMapper.findByUserIdAndArchived(1L, false).stream()
+                .filter(pp -> "StatusP".equals(pp.getName())).findFirst().orElseThrow().getProjectId();
+
+        TaskCreateRequest z = new TaskCreateRequest();
+        z.setProjectId(pId);
+        z.setTitle("Z");
+        z.setCategory("task");
+        mockMvc.perform(post("/api/reminder/task/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(z)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(200)));
+        Task taskZ = taskMapper.findByUserIdAndProjectId(1L, pId).stream()
+                .filter(t -> "Z".equals(t.getTitle())).findFirst().orElseThrow();
+
+        // 标记完成
+        TaskStatusUpdateRequest dtoDone = new TaskStatusUpdateRequest();
+        dtoDone.setTaskId(taskZ.getTaskId());
+        dtoDone.setStatus("done");
+        mockMvc.perform(patch("/api/reminder/task/update-status")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dtoDone)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(200)));
+        Task afterDone = taskMapper.findById(taskZ.getTaskId());
+        Assertions.assertEquals("done", afterDone.getStatus());
+        Assertions.assertNotNull(afterDone.getCompletedAt(), "completedAt should be set on done");
+
+        // 恢复为待办
+        // TaskStatusUpdateRequest dtoTodo = new TaskStatusUpdateRequest();
+        // dtoTodo.setTaskId(taskZ.getTaskId());
+        // dtoTodo.setStatus("todo");
+        // mockMvc.perform(patch("/api/reminder/task/update-status")
+        //                 .contentType(MediaType.APPLICATION_JSON)
+        //                 .content(objectMapper.writeValueAsString(dtoTodo)))
+        //         .andExpect(status().isOk())
+        //         .andExpect(jsonPath("$.code", is(200)));
+        // Task afterTodo = taskMapper.findById(taskZ.getTaskId());
+        // Assertions.assertEquals("todo", afterTodo.getStatus());
+        // Assertions.assertNull(afterTodo.getCompletedAt(), "completedAt should be cleared on todo");
     }
 }

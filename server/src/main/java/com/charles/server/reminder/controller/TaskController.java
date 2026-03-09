@@ -30,10 +30,6 @@ public class TaskController {
     private final TaskService taskService;
     private final TokenService tokenService;
 
-    /**************************************************************************************/
-    /*                                    Basic CRUD                                      */
-    /**************************************************************************************/
-
     // Create Task
     @PostMapping("create")
     public Map<String, Object> create(@RequestBody @Valid TaskCreateRequest dto, HttpServletRequest request) {
@@ -64,7 +60,7 @@ public class TaskController {
 
     // Update Task
     @PostMapping("update")
-    public Map<String, Object> updateById(@RequestBody @Valid TaskUpdateRequest dto, HttpServletRequest request) {
+    public Map<String, Object> update(@RequestBody @Valid TaskUpdateRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
             taskService.update(userId, dto);
@@ -104,16 +100,12 @@ public class TaskController {
         }
     }
 
-    /**************************************************************************************/
-    /*                                   Task Status                                      */
-    /**************************************************************************************/
-
     // Update Task Status (taskId & status [done|todo|abandoned])
     @PatchMapping("update-status")
     public Map<String, Object> updateStatus(@RequestBody @Valid TaskStatusUpdateRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            taskService.updateStatus(userId, dto.getTaskId(), dto.getStatus());
+            taskService.updateStatus(userId, dto);
             log.info("Update Task Status Successfully for user: {}, taskId: {}, status: {}", userId, dto.getTaskId(), dto.getStatus());
             return ResponseUtils.buildEmptySuccessResponse("Update Task Status Successfully");
         } catch (Exception e) {
@@ -121,51 +113,4 @@ public class TaskController {
             return ResponseUtils.buildErrorResponse(e.getMessage());
         }
     }
-
-    /**************************************************************************************/
-    /*                                   Task Status                                      */
-    /**************************************************************************************/
-
-    // 获取特定状态的任务
-    // @GetMapping("get-by-status")
-    // public Map<String, Object> getByStatus(@RequestParam("status") String status, 
-    //                                      HttpServletRequest request) {
-    //     try {
-    //         Long userId = tokenService.getUserIdFromRequest(request);
-    //         List<Task> tasks = taskService.getByStatus(userId, status);
-    //         return ResponseUtils.buildSuccessResponse(tasks, "任务查询成功");
-    //     } catch (Exception e) {
-    //         log.error("获取特定状态任务失败: {}", e.getMessage(), e);
-    //         return ResponseUtils.buildErrorResponse(e.getMessage());
-    //     }
-    // }
-
-    // 获取子任务
-    // @GetMapping("get-sub-tasks/{parentTaskId}")
-    // public Map<String, Object> getSubTasks(@PathVariable("parentTaskId") Long parentTaskId, 
-    //                                     HttpServletRequest request) {
-    //     try {
-    //         Long userId = tokenService.getUserIdFromRequest(request);
-    //         List<Task> subTasks = taskService.getSubTasks(userId, parentTaskId);
-    //         return ResponseUtils.buildSuccessResponse(subTasks, "子任务查询成功");
-    //     } catch (Exception e) {
-    //         log.error("获取子任务失败: {}", e.getMessage(), e);
-    //         return ResponseUtils.buildErrorResponse(e.getMessage());
-    //     }
-    // }
-
-    // 获取即将截止的任务
-    // @GetMapping("get-upcoming")
-    // public Map<String, Object> getUpcomingTasks(@RequestParam("days") Integer days, 
-    //                                          HttpServletRequest request) {
-    //     try {
-    //         Long userId = tokenService.getUserIdFromRequest(request);
-    //         LocalDateTime dueDate = LocalDateTime.now().plusDays(days != null ? days : 7);
-    //         List<Task> upcomingTasks = taskService.getUpcomingTasks(userId, dueDate);
-    //         return ResponseUtils.buildSuccessResponse(upcomingTasks, "即将截止任务查询成功");
-    //     } catch (Exception e) {
-    //         log.error("获取即将截止任务失败: {}", e.getMessage(), e);
-    //         return ResponseUtils.buildErrorResponse(e.getMessage());
-    //     }
-    // }
 }

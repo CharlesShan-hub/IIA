@@ -59,9 +59,11 @@ public interface TaskMapper {
             "WHERE task_id = #{taskId}")
     int update(Task task);
     
-    // 更新任务状态
-    @Update("UPDATE reminder_task SET status = #{status} WHERE task_id = #{taskId}")
-    int updateStatus(@Param("taskId") Long taskId, @Param("status") String status);
+    // 同时更新状态与完成时间
+    @Update("UPDATE reminder_task SET status = #{status}, completed_at = #{completedAt} WHERE task_id = #{taskId}")
+    int updateStatusAndCompletedAt(@Param("taskId") Long taskId,
+                                   @Param("status") String status,
+                                   @Param("completedAt") java.time.LocalDateTime completedAt);
 
     // 更新位置
     @Update("UPDATE reminder_task SET sort_order = #{sortOrder} WHERE task_id = #{taskId}")
