@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
+import static java.util.Objects.requireNonNull;
 
 @Slf4j
 @Service
@@ -37,20 +38,20 @@ public class MailServiceImpl implements MailService {
         log.info("Sending verification code to: {}", email);
         
         // 1. Generate a 6-digit verification code
-        String code = generateVerificationCode();
+        String code = requireNonNull(generateVerificationCode(), "verification code must not be null");
         
         // 2. Cache the code in Redis with an n-minute expiration
-        String key = "email:code:" + email;
+        String key = "email:code:" + requireNonNull(email, "email must not be null");
         redisTemplate.opsForValue().set(key, code, codeExpiration, TimeUnit.MINUTES);
         
         // 3. Send the email with the verification code
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            helper.setFrom(fromEmail);
+            helper.setFrom(requireNonNull(fromEmail, "fromEmail must not be null"));
             helper.setTo(email);
             helper.setSubject("Verification Code - Your Account");
-            String htmlContent = buildHtmlEmailContent(code);
+            String htmlContent = requireNonNull(buildHtmlEmailContent(code), "htmlContent must not be null");
             helper.setText(htmlContent, true); // true indicates HTML
             mailSender.send(mimeMessage);
             log.info("Verification code sent successfully to: {}", email);
@@ -58,6 +59,9 @@ public class MailServiceImpl implements MailService {
             log.error("Failed to send verification code to: {}, error: {}", email, e.getMessage(), e);
             throw new RuntimeException("Failed to send verification code: " + e.getMessage());
         }
+        
+        // 4. Log the code for debugging purposes (remove in production)
+        log.info("Generated verification code for {}: {}", email, code);
     
     }
     

@@ -59,16 +59,10 @@ CREATE TABLE reminder_recurrence (
     task_id BIGINT PRIMARY KEY COMMENT '与reminder_task表一对一关联',
     category ENUM('weekly', 'monthly', 'yearly', 'days', 'weeks', 'ebinghaus') NOT NULL 
         COMMENT 'weekly:每周, monthly:每月, yearly:每年, days:隔N天, weeks:隔N周, ebinghaus:艾宾浩斯',
-    interval INT DEFAULT 1 COMMENT '间隔数值 - days/weeks类型使用',
-    count INT NOT NULL COMMENT '总重复次数',
+    `interval` INT DEFAULT 1 COMMENT '间隔数值 - days/weeks类型使用',
+    `count` INT NOT NULL COMMENT '总重复次数',
     next_time DATETIME NOT NULL COMMENT '下一次发生时间',
-    schedule JSON COMMENT '根据category存储规则值
-        weekly: [1,3]        → 每周一、三
-        monthly: [1,15]      → 每月1和15号  
-        yearly: ["06-01"]    → 每年6月1日
-        days/weeks:          → 无需存储
-        ebbinghaus:          → 无需存储, 1,2,4,7,13,13,....
-    ',
+    schedule JSON COMMENT '规则: weekly=[1,3]; monthly=[1,15]; yearly=["MM-dd"]; days/weeks=无; ebbinghaus=无',
     FOREIGN KEY (task_id) REFERENCES reminder_task(task_id) ON DELETE CASCADE
 ) ENGINE=InnoDB COMMENT '提醒模块 - 重复任务表';
 

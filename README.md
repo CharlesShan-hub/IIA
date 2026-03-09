@@ -8,6 +8,11 @@
 docker compose down -v
 ```
 
+下线并且删掉容器、网络、命名卷
+```shell
+docker compose down -v --remove-orphans
+```
+
 运行docker compose
 ```shell
 docker compose up -d

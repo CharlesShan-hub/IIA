@@ -20,8 +20,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
+import com.charles.server.BaseE2eDatabaseTest;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -33,14 +32,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc(addFilters = false)
-class ProjectScenarioE2ETest {
+class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
 
-    @DynamicPropertySource
-    static void dbProps(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", () -> System.getProperty("test.db.url", "jdbc:mysql://127.0.0.1:3306/iia_test?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"));
-        registry.add("spring.datasource.username", () -> System.getProperty("test.db.username", "root"));
-        registry.add("spring.datasource.password", () -> System.getProperty("test.db.password", ""));
-    }
+    /* DB properties provided by BaseE2eDatabaseTest */
 
     @Autowired
     MockMvc mockMvc;
@@ -50,6 +44,8 @@ class ProjectScenarioE2ETest {
     JdbcTemplate jdbcTemplate;
     @Autowired
     ProjectMapper projectMapper;
+
+    /* Schema init handled by BaseE2eDatabaseTest */
 
     @TestConfiguration
     static class TestConfig {
@@ -68,28 +64,12 @@ class ProjectScenarioE2ETest {
         }
     }
 
-    @BeforeAll
-    static void beforeAll(@Autowired JdbcTemplate jdbc) {
-        jdbc.execute("SET NAMES utf8mb4");
-        jdbc.execute("SET FOREIGN_KEY_CHECKS = 0");
-        jdbc.execute("DROP TABLE IF EXISTS reminder_project");
-        jdbc.execute("DROP TABLE IF EXISTS iia_auth");
-        jdbc.execute("CREATE TABLE iia_auth (user_id BIGINT PRIMARY KEY)");
-        jdbc.execute(
-                "CREATE TABLE reminder_project (" +
-                        " project_id BIGINT PRIMARY KEY AUTO_INCREMENT," +
-                        " user_id BIGINT NOT NULL," +
-                        " name VARCHAR(255) NOT NULL," +
-                        " description TEXT NULL," +
-                        " color VARCHAR(20) NULL," +
-                        " icon VARCHAR(50) NULL," +
-                        " sort_order INT DEFAULT 0," +
-                        " is_archived BOOLEAN DEFAULT FALSE," +
-                        " FOREIGN KEY (user_id) REFERENCES iia_auth(user_id) ON DELETE CASCADE" +
-                        ") ENGINE=InnoDB"
-        );
-        jdbc.execute("SET FOREIGN_KEY_CHECKS = 1");
-        jdbc.update("INSERT INTO iia_auth(user_id) VALUES (1)");
+    @BeforeEach
+    void cleanProjects() {
+        projectMapper.findByUserIdAndArchived(1L, false)
+                .forEach(p -> projectMapper.deleteById(p.getProjectId()));
+        projectMapper.findByUserIdAndArchived(1L, true)
+                .forEach(p -> projectMapper.deleteById(p.getProjectId()));
     }
 
     @Test
