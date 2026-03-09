@@ -10,7 +10,7 @@ public class TaskUpdateRequest {
 
     private Long projectId;
     private String title;
-    private String category;
+    private Boolean isRecurring;
     private Long parentTaskId;
 
     private java.time.LocalDateTime dueDate;
@@ -19,4 +19,10 @@ public class TaskUpdateRequest {
     private java.time.LocalDateTime reminderSentAt;
 
     private String priority;
+
+    private String recurrenceCategory;
+    private Integer recurrenceInterval;
+    private Integer recurrenceCount;
+    private java.time.LocalDateTime recurrenceNextTime;
+    private String recurrenceSchedule;
 }

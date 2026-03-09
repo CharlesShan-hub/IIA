@@ -72,7 +72,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         TaskCreateRequest t1 = new TaskCreateRequest();
         t1.setProjectId(projectId);
         t1.setTitle("T1");
-        t1.setCategory("task");
+        t1.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(t1)))
@@ -82,7 +82,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         TaskCreateRequest t2 = new TaskCreateRequest();
         t2.setProjectId(projectId);
         t2.setTitle("T2");
-        t2.setCategory("task");
+        t2.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(t2)))
@@ -103,7 +103,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         c1.setProjectId(projectId);
         c1.setParentTaskId(first.getTaskId());
         c1.setTitle("T1-1");
-        c1.setCategory("task");
+        c1.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(c1)))
@@ -122,7 +122,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         c2.setProjectId(projectId);
         c2.setParentTaskId(c1Entity.getTaskId());
         c2.setTitle("T1-1-1");
-        c2.setCategory("task");
+        c2.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(c2)))
@@ -185,7 +185,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         TaskCreateRequest c = new TaskCreateRequest();
         c.setProjectId(p2Id);
         c.setTitle("C");
-        c.setCategory("task");
+        c.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(c)))
@@ -199,7 +199,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         TaskCreateRequest a = new TaskCreateRequest();
         a.setProjectId(p1Id);
         a.setTitle("A");
-        a.setCategory("task");
+        a.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(a)))
@@ -215,7 +215,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         TaskCreateRequest b = new TaskCreateRequest();
         b.setProjectId(p1Id);
         b.setTitle("B");
-        b.setCategory("task");
+        b.setIsRecurring(false);
         b.setParentTaskId(taskA.getTaskId());
         mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -269,7 +269,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         // 在收件箱（project_id=NULL）先创建任务 D，记录其排序
         TaskCreateRequest d = new TaskCreateRequest();
         d.setTitle("D");
-        d.setCategory("task");
+        d.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(d)))
@@ -294,7 +294,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         TaskCreateRequest x = new TaskCreateRequest();
         x.setProjectId(p3Id);
         x.setTitle("X");
-        x.setCategory("task");
+        x.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(x)))
@@ -307,7 +307,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         TaskCreateRequest y = new TaskCreateRequest();
         y.setProjectId(p3Id);
         y.setTitle("Y");
-        y.setCategory("task");
+        y.setIsRecurring(false);
         y.setParentTaskId(taskX.getTaskId());
         mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -361,7 +361,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         TaskCreateRequest z = new TaskCreateRequest();
         z.setProjectId(pId);
         z.setTitle("Z");
-        z.setCategory("task");
+        z.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(z)))

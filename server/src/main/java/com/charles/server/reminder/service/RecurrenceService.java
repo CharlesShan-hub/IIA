@@ -1,43 +1,52 @@
 package com.charles.server.reminder.service;
 
-import com.charles.server.reminder.entity.Recurrence;
-import java.time.LocalDateTime;
-import java.util.List;
+import com.charles.server.reminder.dto.TaskCreateRequest;
+import com.charles.server.reminder.dto.TaskUpdateRequest;
 
 public interface RecurrenceService {
     
     /**
-     * 创建循环任务配置
+     * Create a new recurrence config from TaskCreateRequest and taskId
      */
-    int create(Recurrence recurrence);
-    
+    void create(Long taskId, TaskCreateRequest dto);
+
     /**
-     * 根据任务ID查询循环配置
+     * Create or update recurrence config from TaskUpdateRequest and taskId
      */
-    Recurrence getByTaskId(Long taskId);
-    
+    void create(Long taskId, TaskUpdateRequest dto);
+
     /**
-     * 更新循环任务配置
-     */
-    int update(Recurrence recurrence);
+     * Delete recurrence and history occurrences
+    */
+    void deleteByTaskId(Long taskId);
     
-    /**
-     * 更新下一次发生时间
-     */
-    int updateNextTime(Long taskId, LocalDateTime nextTime);
+    // /**
+    //  * 根据任务ID查询循环配置
+    //  */
+    // Recurrence getByTaskId(Long taskId);
     
-    /**
-     * 更新重复次数
-     */
-    int updateCount(Long taskId, Integer count);
+    // /**
+    //  * 更新循环任务配置
+    //  */
+    // int update(Recurrence recurrence);
     
-    /**
-     * 删除循环任务配置
-     */
-    int deleteByTaskId(Long taskId);
+    // /**
+    //  * 更新下一次发生时间
+    //  */
+    // int updateNextTime(Long taskId, LocalDateTime nextTime);
     
-    /**
-     * 查询用户即将发生的循环任务
-     */
-    List<Recurrence> getUpcomingByUserId(Long userId, LocalDateTime deadline);
+    // /**
+    //  * 更新重复次数
+    //  */
+    // int updateCount(Long taskId, Integer count);
+    
+    // /**
+    //  * 删除循环任务配置
+    //  */
+    // int deleteByTaskId(Long taskId);
+    
+    // /**
+    //  * 查询用户即将发生的循环任务
+    //  */
+    // List<Recurrence> getUpcomingByUserId(Long userId, LocalDateTime deadline);
 }

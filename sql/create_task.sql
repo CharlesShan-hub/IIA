@@ -25,7 +25,7 @@ CREATE TABLE reminder_task (
     
     -- 核心元数据
     title TEXT NOT NULL COMMENT '任务标题',
-    category ENUM('task', 'note') NOT NULL DEFAULT 'task' COMMENT 'task:任务, note:笔记',
+    is_recurring BOOLEAN DEFAULT FALSE COMMENT '是否循环任务',
     status ENUM('todo','done','abandoned') NOT NULL DEFAULT 'todo' COMMENT 'todo: 待处理, done: 已完成, abandoned: 已放弃',
     
     -- 层级结构
@@ -51,7 +51,7 @@ CREATE INDEX idx_reminder_task_parent_id ON reminder_task(parent_task_id);
 CREATE INDEX idx_reminder_task_project_id ON reminder_task(project_id);
 CREATE INDEX idx_reminder_task_due_date ON reminder_task(due_date);
 CREATE INDEX idx_reminder_task_status ON reminder_task(status);
-CREATE INDEX idx_reminder_task_category ON reminder_task(category);
+CREATE INDEX idx_reminder_task_is_recurring ON reminder_task(is_recurring);
 
 
 -- 提醒模块 - 重复任务表

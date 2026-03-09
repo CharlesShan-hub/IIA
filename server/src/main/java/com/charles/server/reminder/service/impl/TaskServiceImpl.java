@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Task;
 import com.charles.server.reminder.mapper.TaskMapper;
 import com.charles.server.reminder.service.TaskService;
+import com.charles.server.reminder.service.RecurrenceService;
 import com.charles.server.reminder.exception.TaskAccessException;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskMapper taskMapper;
+    private final RecurrenceService recurrenceService;
 
     /**************************************************************************************/
     /*                                      Utils                                         */
@@ -36,12 +38,12 @@ public class TaskServiceImpl implements TaskService {
         task.setUserId(userId);
         task.setProjectId(dto.getProjectId());
         task.setTitle(dto.getTitle());
-        task.setCategory(dto.getCategory());
         task.setParentTaskId(dto.getParentTaskId());
         task.setDueDate(dto.getDueDate());
         task.setStartDate(dto.getStartDate());
         task.setReminderSentAt(dto.getReminderSentAt());
         task.setPriority(dto.getPriority());
+        task.setIsRecurring(Boolean.TRUE.equals(dto.getIsRecurring()));
         return task;
     }
 
@@ -75,6 +77,7 @@ public class TaskServiceImpl implements TaskService {
     /*                                    Basic CRUD                                      */
     /**************************************************************************************/
 
+    @Transactional
     @Override
     public void create(Long userId, TaskCreateRequest dto) {
         Task task = convertToEntity(userId, dto);
@@ -83,6 +86,9 @@ public class TaskServiceImpl implements TaskService {
         Long parentTaskId = task.getParentTaskId();
         task.setSortOrder(getNextSortOrder(userId, projectId, parentTaskId));
         taskMapper.insert(task);
+        if (Boolean.TRUE.equals(task.getIsRecurring())) {
+            recurrenceService.create(task.getTaskId(), dto);
+        }
     }
 
     private boolean updateById(Task task) {
@@ -99,6 +105,7 @@ public class TaskServiceImpl implements TaskService {
         return success;
     }
 
+    @Transactional
     @Override
     public void update(Long userId, TaskUpdateRequest dto) {
         Task task = new Task();
@@ -106,7 +113,11 @@ public class TaskServiceImpl implements TaskService {
         task.setUserId(userId);
         if (dto.getProjectId() != null) task.setProjectId(dto.getProjectId());
         if (dto.getTitle() != null) task.setTitle(dto.getTitle());
-        if (dto.getCategory() != null) task.setCategory(dto.getCategory());
+        if (dto.getIsRecurring() != null){
+            task.setIsRecurring(dto.getIsRecurring());
+            if(dto.getIsRecurring()) recurrenceService.create(task.getTaskId(), dto);
+            else recurrenceService.deleteByTaskId(task.getTaskId());
+        }
         if (dto.getParentTaskId() != null) task.setParentTaskId(dto.getParentTaskId());
         if (dto.getDueDate() != null) task.setDueDate(dto.getDueDate());
         if (dto.getStartDate() != null) task.setStartDate(dto.getStartDate());
@@ -184,6 +195,11 @@ public class TaskServiceImpl implements TaskService {
             updateStatusRecursively(userId, child.getTaskId(), status, completedAt);
         }
     }
+
+    /**************************************************************************************/
+    /*                                   Recurrence Task                                  */
+    /**************************************************************************************/
+
 
     /**************************************************************************************/
     /*                              Support Project Operation                             */

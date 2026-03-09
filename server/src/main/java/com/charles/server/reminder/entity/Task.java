@@ -11,7 +11,7 @@ public class Task {
     
     // 核心元数据
     private String title; // NOT NULL
-    private String category; // 'task' 或 'note' NOT NULL DEFAULT 'task'
+    private Boolean isRecurring = false; // DEFAULT FALSE
     private String status; // 'todo', 'done' 或 'abandoned' NOT NULL DEFAULT 'todo'
     
     // 层级结构

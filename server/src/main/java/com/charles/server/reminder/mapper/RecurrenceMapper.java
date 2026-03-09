@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.*;
 public interface RecurrenceMapper {
     
     // 插入新的循环任务配置
-    @Insert("INSERT INTO reminder_recurrence(task_id, category, interval, count, next_time, schedule) " +
+    @Insert("INSERT INTO reminder_recurrence(task_id, category, `interval`, `count`, next_time, schedule) " +
             "VALUES(#{taskId}, #{category}, #{interval}, #{count}, #{nextTime}, #{schedule})")
     int insert(Recurrence recurrence);
     
@@ -16,8 +16,8 @@ public interface RecurrenceMapper {
     Recurrence findByTaskId(Long taskId);
     
     // 更新循环任务配置
-    @Update("UPDATE reminder_recurrence SET category = #{category}, interval = #{interval}, " +
-            "count = #{count}, next_time = #{nextTime}, schedule = #{schedule} " +
+    @Update("UPDATE reminder_recurrence SET category = #{category}, `interval` = #{interval}, " +
+            "`count` = #{count}, next_time = #{nextTime}, schedule = #{schedule} " +
             "WHERE task_id = #{taskId}")
     int update(Recurrence recurrence);
     
@@ -26,7 +26,7 @@ public interface RecurrenceMapper {
     int updateNextTime(@Param("taskId") Long taskId, @Param("nextTime") java.time.LocalDateTime nextTime);
     
     // 更新重复次数
-    @Update("UPDATE reminder_recurrence SET count = #{count} WHERE task_id = #{taskId}")
+    @Update("UPDATE reminder_recurrence SET `count` = #{count} WHERE task_id = #{taskId}")
     int updateCount(@Param("taskId") Long taskId, @Param("count") Integer count);
     
     // 删除循环任务配置

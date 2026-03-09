@@ -8,10 +8,10 @@ import java.util.List;
 public interface TaskMapper {
     
     // 插入新任务
-    @Insert("INSERT INTO reminder_task(user_id, project_id, title, category, status, parent_task_id, "+
-            "sort_order, due_date, start_date, completed_at, reminder_sent_at, priority) "+
-            "VALUES(#{userId}, #{projectId}, #{title}, #{category}, #{status}, #{parentTaskId}, "+
-            "#{sortOrder}, #{dueDate}, #{startDate}, #{completedAt}, #{reminderSentAt}, #{priority})")
+    @Insert("INSERT INTO reminder_task(user_id, project_id, title, status, parent_task_id, "+
+            "sort_order, due_date, start_date, completed_at, reminder_sent_at, priority, is_recurring) "+
+            "VALUES(#{userId}, #{projectId}, #{title}, #{status}, #{parentTaskId}, "+
+            "#{sortOrder}, #{dueDate}, #{startDate}, #{completedAt}, #{reminderSentAt}, #{priority}, #{isRecurring})")
     @Options(useGeneratedKeys = true, keyProperty = "taskId", keyColumn = "task_id")
     int insert(Task task);
     
@@ -51,12 +51,26 @@ public interface TaskMapper {
     @Select("SELECT COALESCE(MAX(sort_order), 0) FROM reminder_task WHERE user_id = #{userId} AND parent_task_id = #{parentTaskId}")
     Integer findMaxSortOrderByUserIdAndParentTaskId(@Param("userId") Long userId, @Param("parentTaskId") Long parentTaskId);
     
-    // 更新任务信息
-    @Update("UPDATE reminder_task SET project_id = #{projectId}, title = #{title}, category = #{category}, "+
-            "status = #{status}, parent_task_id = #{parentTaskId}, sort_order = #{sortOrder}, "+
-            "due_date = #{dueDate}, start_date = #{startDate}, completed_at = #{completedAt}, "+
-            "reminder_sent_at = #{reminderSentAt}, priority = #{priority} "+
-            "WHERE task_id = #{taskId}")
+    // 部分更新任务信息（仅更新非空字段）
+    @Update({
+        "<script>",
+        "UPDATE reminder_task",
+        "<set>",
+        "  <if test='projectId != null'>project_id = #{projectId},</if>",
+        "  <if test='title != null'>title = #{title},</if>",
+        "  <if test='status != null'>status = #{status},</if>",
+        "  <if test='parentTaskId != null'>parent_task_id = #{parentTaskId},</if>",
+        "  <if test='sortOrder != null'>sort_order = #{sortOrder},</if>",
+        "  <if test='dueDate != null'>due_date = #{dueDate},</if>",
+        "  <if test='startDate != null'>start_date = #{startDate},</if>",
+        "  <if test='completedAt != null'>completed_at = #{completedAt},</if>",
+        "  <if test='reminderSentAt != null'>reminder_sent_at = #{reminderSentAt},</if>",
+        "  <if test='priority != null'>priority = #{priority},</if>",
+        "  <if test='isRecurring != null'>is_recurring = #{isRecurring},</if>",
+        "</set>",
+        "WHERE task_id = #{taskId}",
+        "</script>"
+    })
     int update(Task task);
     
     // 同时更新状态与完成时间
