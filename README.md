@@ -28,8 +28,6 @@ docker exec -it iia-mysql mysql -u root -p
 docker exec -it iia-redis redis-cli
 ```
 
-
-
 ---
 
 ## Progress

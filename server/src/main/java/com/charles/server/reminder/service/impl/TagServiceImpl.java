@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Tag;
 import com.charles.server.reminder.mapper.TagMapper;
 import com.charles.server.reminder.service.TagService;
+import com.charles.server.reminder.exception.TagException;
 import com.charles.server.reminder.dto.TagCreateRequest;
 import com.charles.server.reminder.dto.TagUpdateRequest;
 
@@ -19,24 +20,24 @@ public class TagServiceImpl implements TagService {
     private final TagMapper tagMapper;
 
     private Tag convertToEntity(Long userId, TagCreateRequest dto) {
-        Tag tag = new Tag();
-        tag.setUserId(userId);
-        tag.setName(dto.getName());
-        tag.setColor(dto.getColor());
-        return tag;
+        return Tag.builder()
+                .userId(userId)
+                .name(dto.getName())
+                .color(dto.getColor())
+                .build();
     }
 
     private boolean existsByName(Long userId, String name) {
-        return tagMapper.findByName(userId, name) != null;
+        return tagMapper.existsByNameAndUserId(name, userId);
     }
     
     private Tag validatedFindTagById(Long userId, Long tagId) {
         Tag tag = tagMapper.findById(tagId);
         if (tag == null) {
-            throw new RuntimeException("Tag not found");
+            throw TagException.notFound(tagId);
         }
         if (!tag.getUserId().equals(userId)) {
-            throw new RuntimeException("No permission to access this tag");
+            throw TagException.permissionDenied(userId, tagId);
         }
         return tag;
     }
@@ -44,22 +45,49 @@ public class TagServiceImpl implements TagService {
     @Override
     public void create(Long userId, TagCreateRequest dto) {
         if (existsByName(userId, dto.getName())) {
-            throw new RuntimeException("Tag name " + dto.getName() + " already exists");
+            throw TagException.nameAlreadyExists(userId, dto.getName());
         }
         Tag tag = convertToEntity(userId, dto);
-        tagMapper.insert(tag);
+        try {
+            tagMapper.insert(tag);
+        } catch (Exception e) {
+            log.error("Error creating tag for user {}: {}", userId, e.getMessage(), e);
+            throw TagException.createFailed(userId, e);
+        }
         log.info("User {} create tag {}: {}", userId, tag.getTagId(), tag.getName());
     }
 
     @Override
-    public void updateById(Long userId, TagUpdateRequest dto) {
+    public void update(Long userId, TagUpdateRequest dto) {
         Tag tag = validatedFindTagById(userId, dto.getTagId());
-        tag.setName(dto.getName());
-        tag.setColor(dto.getColor());
-        tagMapper.update(tag);
-        log.info("User {} update tag {}: {}", userId, dto.getTagId(), dto.getName());
+        if (dto.getName() != null) {
+            if(!dto.getName().equals(tag.getName()) && existsByName(userId, dto.getName()))
+                throw TagException.nameAlreadyExists(userId, dto.getName());
+            tag.setName(dto.getName());
+        }
+        if (dto.getColor() != null) {
+            tag.setColor(dto.getColor());
+        }
+        try {
+            tagMapper.update(tag);
+        } catch (Exception e) {
+            log.error("Error updating tag for user {}: {}", userId, e.getMessage(), e);
+            throw TagException.updateFailed(userId, dto.getTagId(), e);
+        }
     }
     
+    @Override
+    public void delete(Long userId, Long tagId) {
+        validatedFindTagById(userId, tagId);
+        try {
+            tagMapper.deleteById(tagId);
+        } catch (Exception e) {
+            log.error("Error deleting tag for user {}: {}", userId, e.getMessage(), e);
+            throw TagException.deleteFailed(userId, tagId, e);
+        }
+        log.info("User {} delete tag {} successfully", userId, tagId);
+    }
+
     @Override
     public List<Tag> getAll(Long userId) {
         List<Tag> tags = tagMapper.findByUserId(userId);

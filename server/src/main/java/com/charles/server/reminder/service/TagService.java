@@ -19,8 +19,15 @@ public interface TagService {
      * @param tagId the tag id
      * @param userId the user id
      */
-    void updateById(Long userId, TagUpdateRequest dto);
+    void update(Long userId, TagUpdateRequest dto);
     
+    /**
+     * Delete a tag by its ID
+     * @param userId the user id
+     * @param tagId the tag id
+     */
+    void delete(Long userId, Long tagId);
+
     /**
      * Get all tags for a user
      * @param userId the user id

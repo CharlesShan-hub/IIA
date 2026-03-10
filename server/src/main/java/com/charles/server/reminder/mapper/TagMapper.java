@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.Delete;
 
 import com.charles.server.reminder.entity.Tag;
 
@@ -34,6 +35,10 @@ public interface TagMapper {
     // 更新标签信息
     @Update("UPDATE reminder_tag SET name = #{name}, color = #{color} WHERE tag_id = #{tagId}")
     int update(Tag tag);
+
+    // 删除标签
+    @Delete("DELETE FROM reminder_tag WHERE tag_id = #{tagId}")
+    int deleteById(@Param("tagId") Long tagId);
     
     // 查询标签是否存在（根据用户ID和标签名称）
     @Select("SELECT COUNT(*) FROM reminder_tag WHERE user_id = #{userId} AND name = #{name}")

@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import javax.naming.AuthenticationException;
-
 import lombok.RequiredArgsConstructor;
 import static java.util.Objects.requireNonNull;
 

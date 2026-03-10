@@ -17,6 +17,7 @@ import com.charles.server.reminder.service.TagService;
 import com.charles.server.utils.ResponseUtils;
 import com.charles.server.reminder.dto.TagCreateRequest;
 import com.charles.server.reminder.dto.TagUpdateRequest;
+import com.charles.server.reminder.dto.TagDeleteRequest;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -45,10 +46,10 @@ public class TagController {
 
     // Update Tag
     @PutMapping("update")
-    public Map<String, Object> updateById(@RequestBody @Valid TagUpdateRequest dto, HttpServletRequest request) {
+    public Map<String, Object> update(@RequestBody @Valid TagUpdateRequest dto, HttpServletRequest request) {
         try {
             Long userId = tokenService.getUserIdFromRequest(request);
-            tagService.updateById(userId, dto);
+            tagService.update(userId, dto);
             return ResponseUtils.buildEmptySuccessResponse("Tag updated successfully");
         } catch (Exception e) {
             log.error("更新标签失败: {}", e.getMessage(), e);
@@ -56,6 +57,19 @@ public class TagController {
         }
     }
     
+    // Delete Tag
+    @PostMapping("delete")
+    public Map<String, Object> delete(@RequestBody @Valid TagDeleteRequest dto, HttpServletRequest request) {
+        try {
+            Long userId = tokenService.getUserIdFromRequest(request);
+            tagService.delete(userId, dto.getTagId());
+            return ResponseUtils.buildEmptySuccessResponse("Tag deleted successfully");
+        } catch (Exception e) {
+            log.error("Failed to delete tag: {}", e.getMessage(), e);
+            return ResponseUtils.buildErrorResponse(e.getMessage());
+        }
+    }
+
     // Get all tags for a user
     @GetMapping("get-all")
     public Map<String, Object> getAll(HttpServletRequest request) {
