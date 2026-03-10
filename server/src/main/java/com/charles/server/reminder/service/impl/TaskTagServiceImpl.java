@@ -12,7 +12,7 @@ import com.charles.server.reminder.dto.TaskTagDeleteRequest;
 import com.charles.server.reminder.dto.TaskTagBatchCreateRequest;
 import com.charles.server.reminder.dto.TaskTagBatchDeleteRequest;
 import com.charles.server.reminder.exception.TagException;
-import com.charles.server.reminder.exception.TaskAccessException;
+import com.charles.server.reminder.exception.TaskException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -38,10 +38,10 @@ public class TaskTagServiceImpl implements TaskTagService {
     private void validatedFindTaskById(Long userId, Long taskId) {
         Task task = taskMapper.findById(taskId);
         if (task == null) {
-            throw TaskAccessException.notFound(taskId);
+            throw TaskException.notFound(taskId);
         }
         if (!task.getUserId().equals(userId)) {
-            throw TaskAccessException.permissionDenied(userId, taskId);
+            throw TaskException.permissionDenied(userId, taskId);
         }
     }
 

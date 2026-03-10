@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
@@ -35,6 +36,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
     @Autowired MockMvc mockMvc;
     @Autowired ObjectMapper objectMapper;
     @Autowired TagMapper tagMapper;
+    @Autowired JdbcTemplate jdbc;
 
     @TestConfiguration
     static class TestConfig {
@@ -109,7 +111,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
                         .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(t5))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code").value(400))
+                .andExpect(jsonPath("$.code").value(409))
                 .andExpect(result -> {
                     String c = result.getResponse().getContentAsString();
                     com.fasterxml.jackson.databind.JsonNode root = objectMapper.readTree(c);
@@ -196,5 +198,60 @@ class TagControllerTest extends BaseE2eDatabaseTest {
                     data.forEach(n -> names.add(n.path("name").asText()));
                     org.junit.jupiter.api.Assertions.assertEquals(java.util.Set.of("Tag1-Renamed", "Tag2", "Tag3-Renamed"), names);
                 });
+    }
+
+    @Test
+    void scenario_tag_error_responses() throws Exception {
+        // 1) Duplicate name -> 409
+        TagCreateRequest first = new TagCreateRequest();
+        first.setName("DUP");
+        first.setColor("#111111");
+        mockMvc.perform(post("/api/reminder/tags/create")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(first))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        TagCreateRequest dup = new TagCreateRequest();
+        dup.setName("DUP");
+        dup.setColor("#222222");
+        mockMvc.perform(post("/api/reminder/tags/create")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(dup))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(409));
+
+        // 2) Delete non-existent -> 404
+        TagDeleteRequest delMissing = new TagDeleteRequest();
+        delMissing.setTagId(999999L);
+        mockMvc.perform(post("/api/reminder/tags/delete")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(delMissing))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(404));
+
+        // 3) Permission denied -> 403 (tag belongs to another user)
+        jdbc.update(
+                "INSERT INTO iia_auth(user_id, password_hash) VALUES (?, ?) " +
+                        "ON DUPLICATE KEY UPDATE password_hash = VALUES(password_hash)",
+                2L,
+                "x"
+        );
+        Tag otherUsersTag = Tag.builder().userId(2L).name("OTHER").color("#333333").build();
+        tagMapper.insert(otherUsersTag);
+        TagDeleteRequest delOther = new TagDeleteRequest();
+        delOther.setTagId(otherUsersTag.getTagId());
+        mockMvc.perform(post("/api/reminder/tags/delete")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(delOther))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(403));
+
+        // 4) Bad JSON -> 400
+        mockMvc.perform(post("/api/reminder/tags/create")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content("{invalid_json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(400));
     }
 }

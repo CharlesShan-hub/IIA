@@ -26,72 +26,47 @@ public class ProjectController {
     // Create Project
     @PostMapping("create")
     public Map<String, Object> create(@RequestBody @Valid ProjectCreateRequest dto, HttpServletRequest request) {
-        try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            projectService.create(userId, dto);
-            log.info("User {} create project {} successfully", userId, dto.getName());
-            return ResponseUtils.buildEmptySuccessResponse("Reminder Project Created");
-        } catch (Exception e) {
-            log.error("Reminder Project Create Failed: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
+        Long userId = tokenService.getUserIdFromRequest(request);
+        projectService.create(userId, dto);
+        log.info("User {} create project {} successfully", userId, dto.getName());
+        return ResponseUtils.buildEmptySuccessResponse("Reminder Project Created");
     }
 
     // Delete Project
     @PostMapping("delete")
     public Map<String, Object> delete(@RequestBody @Valid ProjectDeleteRequest dto, HttpServletRequest request) {
-        try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            projectService.delete(userId, dto);
-            log.info("User {} delete project {} successfully, keepTasks: {}, targetProjectId: {}", 
+        Long userId = tokenService.getUserIdFromRequest(request);
+        projectService.delete(userId, dto);
+        log.info("User {} delete project {} successfully, keepTasks: {}, targetProjectId: {}", 
                  userId, dto.getProjectId(), dto.getKeepTasks(), dto.getTargetProjectId());
-            return ResponseUtils.buildEmptySuccessResponse("Reminder Project Deleted");
-        } catch (Exception e) {
-            log.error("Reminder Project Delete Failed: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
+        return ResponseUtils.buildEmptySuccessResponse("Reminder Project Deleted");
     }
 
     // Update Project
     @PostMapping("update")
     public Map<String, Object> updateById(@RequestBody @Valid ProjectUpdateRequest dto, HttpServletRequest request) {
-        try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            projectService.update(userId, dto);
-            log.info("User {} update project {} successfully", userId, dto.getProjectId());
-            return ResponseUtils.buildEmptySuccessResponse("Reminder Project Updated");
-        } catch (Exception e) {
-            log.error("Reminder Project Update Failed: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
+        Long userId = tokenService.getUserIdFromRequest(request);
+        projectService.update(userId, dto);
+        log.info("User {} update project {} successfully", userId, dto.getProjectId());
+        return ResponseUtils.buildEmptySuccessResponse("Reminder Project Updated");
     }
 
     // Batch Update Project Positions
     @PostMapping("batch-update-position")
     public Map<String, Object> batchUpdatePosition(@RequestBody @Valid BatchUpdatePositionRequest dto, HttpServletRequest httpRequest) {
-        try {
-            Long userId = tokenService.getUserIdFromRequest(httpRequest);
-            projectService.batchUpdatePosition(userId, dto);
-            log.info("User {} batch update project positions successfully, updated projects: {}", 
+        Long userId = tokenService.getUserIdFromRequest(httpRequest);
+        projectService.batchUpdatePosition(userId, dto);
+        log.info("User {} batch update project positions successfully, updated projects: {}", 
                  userId, dto.getPos());
-            return ResponseUtils.buildEmptySuccessResponse("Reminder Project Positions Updated");
-        } catch (Exception e) {
-            log.error("Reminder Project Batch Update Position Failed: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
+        return ResponseUtils.buildEmptySuccessResponse("Reminder Project Positions Updated");
     }
 
     // Query projects by archived flag and isAll flag
     @GetMapping("get-all")
     public Map<String, Object> getAll(@RequestBody @Valid ProjectGetAllRequest dto, HttpServletRequest request) {
-        try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            List<Project> projects = projectService.getAll(userId, dto);
-            log.info("User {} query projects successfully, archived: {}, isAll: {}", userId, dto.getArchived(), dto.getIsAll());
-            return ResponseUtils.buildSuccessResponse(projects, "Reminder Projects Queried");
-        } catch (Exception e) {
-            log.error("Reminder Project Query Failed: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
+        Long userId = tokenService.getUserIdFromRequest(request);
+        List<Project> projects = projectService.getAll(userId, dto);
+        log.info("User {} query projects successfully, archived: {}, isAll: {}", userId, dto.getArchived(), dto.getIsAll());
+        return ResponseUtils.buildSuccessResponse(projects, "Reminder Projects Queried");
     }
 }

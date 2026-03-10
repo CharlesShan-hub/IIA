@@ -22,6 +22,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Comparator;
@@ -40,6 +41,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
     @Autowired ObjectMapper objectMapper;
     @Autowired ProjectMapper projectMapper;
     @Autowired TaskMapper taskMapper;
+    @Autowired JdbcTemplate jdbc;
 
     @TestConfiguration
     static class TestConfig {
@@ -394,5 +396,43 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
          Task afterTodo = taskMapper.findById(taskZ.getTaskId());
          Assertions.assertEquals("todo", afterTodo.getStatus());
          Assertions.assertNull(afterTodo.getCompletedAt(), "completedAt should be cleared on todo");
+    }
+
+    @Test
+    void scenario_task_error_not_found() throws Exception {
+        TaskDeleteRequest del = new TaskDeleteRequest();
+        del.setTaskId(999999L);
+        mockMvc.perform(post("/api/reminder/task/delete")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(del))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(404));
+    }
+
+    @Test
+    void scenario_task_error_permission_denied() throws Exception {
+        jdbc.update(
+                "INSERT INTO iia_auth(user_id, password_hash) VALUES (?, ?) " +
+                        "ON DUPLICATE KEY UPDATE password_hash = VALUES(password_hash)",
+                2L,
+                "x"
+        );
+
+        Task other = new Task();
+        other.setUserId(2L);
+        other.setTitle("OTHER_TASK");
+        other.setStatus("todo");
+        other.setIsRecurring(false);
+        other.setSortOrder(1);
+        other.setPriority("none");
+        taskMapper.insert(other);
+
+        TaskDeleteRequest del = new TaskDeleteRequest();
+        del.setTaskId(other.getTaskId());
+        mockMvc.perform(post("/api/reminder/task/delete")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(del))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(403));
     }
 }

@@ -10,7 +10,7 @@ import com.charles.server.reminder.entity.Task;
 import com.charles.server.reminder.mapper.TaskMapper;
 import com.charles.server.reminder.service.TaskService;
 import com.charles.server.reminder.service.RecurrenceService;
-import com.charles.server.reminder.exception.TaskAccessException;
+import com.charles.server.reminder.exception.TaskException;
 
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,10 +62,10 @@ public class TaskServiceImpl implements TaskService {
     private Task validatedFindTaskById(Long userId, Long taskId) {
         Task task = taskMapper.findById(taskId);
         if (task == null) {
-            throw TaskAccessException.notFound(taskId);
+            throw TaskException.notFound(taskId);
         }
         if (!task.getUserId().equals(userId)) {
-            throw TaskAccessException.permissionDenied(userId, taskId);
+            throw TaskException.permissionDenied(userId, taskId);
         }
         return task;
     }
@@ -88,18 +88,21 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
-    private boolean updateById(Task task) {
+    private void updateById(Task task) {
         log.info("Updating task with id: {}", task.getTaskId());
-        // Validate task existence and ownership
         Task existingTask = taskMapper.findById(task.getTaskId());
-        if (existingTask == null || !existingTask.getUserId().equals(task.getUserId())) {
-            log.warn("Task not found or permission denied for task id: {}", task.getTaskId());
-            return false;
+        if (existingTask == null) {
+            throw TaskException.notFound(task.getTaskId());
+        }
+        if (!existingTask.getUserId().equals(task.getUserId())) {
+            throw TaskException.permissionDenied(task.getUserId(), task.getTaskId());
         }
         int result = taskMapper.update(task);
         boolean success = result > 0;
         log.info("Task update {} for task id: {}", success ? "successful" : "failed", task.getTaskId());
-        return success;
+        if (!success) {
+            throw new RuntimeException("Task update failed");
+        }
     }
 
     @Transactional
@@ -120,9 +123,7 @@ public class TaskServiceImpl implements TaskService {
         if (dto.getStartDate() != null) task.setStartDate(dto.getStartDate());
         if (dto.getReminderSentAt() != null) task.setReminderSentAt(dto.getReminderSentAt());
         if (dto.getPriority() != null) task.setPriority(dto.getPriority());
-        if (!updateById(task)) {
-            throw new RuntimeException("Task update failed or no permission");
-        }
+        updateById(task);
     }
 
     @Override

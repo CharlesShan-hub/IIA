@@ -202,4 +202,50 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
             Assertions.assertEquals(i + 1, active.get(i).getSortOrder());
         }
     }
+
+    @Test
+    void scenario_project_error_responses() throws Exception {
+        // 1) Duplicate name → expect conflict (409 in body)
+        ProjectCreateRequest first = new ProjectCreateRequest();
+        first.setName("DUP");
+        mockMvc.perform(post("/api/reminder/projects/create")
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(first))))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(200));
+
+        ProjectCreateRequest dup = new ProjectCreateRequest();
+        dup.setName("DUP");
+        mockMvc.perform(post("/api/reminder/projects/create")
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(dup))))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(409))
+            .andExpect(result -> {
+                String c = result.getResponse().getContentAsString();
+                com.fasterxml.jackson.databind.JsonNode root = objectMapper.readTree(c);
+                String msg = root.path("msg").asText().toLowerCase();
+                org.junit.jupiter.api.Assertions.assertTrue(msg.contains("conflict") || msg.contains("exist"));
+            });
+
+        // 2) Delete non-existent project → expect not found (404 in body)
+        ProjectDeleteRequest del = new ProjectDeleteRequest();
+        del.setProjectId(999999L);
+        del.setKeepTasks(false);
+        del.setTargetProject(false);
+        del.setTargetProjectId(0L);
+        mockMvc.perform(post("/api/reminder/projects/delete")
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(del))))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(404));
+
+        // 3) Bad JSON payload → expect bad request (400 in body)
+        mockMvc.perform(post("/api/reminder/projects/create")
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content("{invalid_json"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(400));
+    }
 }
+

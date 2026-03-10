@@ -34,52 +34,36 @@ public class TagController {
     // Create Tag
     @PostMapping("create")
     public Map<String, Object> create(@RequestBody @Valid TagCreateRequest dto, HttpServletRequest request) {
-        try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            tagService.create(userId, dto);
-            return ResponseUtils.buildEmptySuccessResponse("Tag created successfully");
-        } catch (Exception e) {
-            log.error("Failed to create tag: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
+        Long userId = tokenService.getUserIdFromRequest(request);
+        log.info("Create tag for user {}: {}", userId, dto);
+        tagService.create(userId, dto);
+        return ResponseUtils.buildEmptySuccessResponse("Tag created successfully");
     }
 
     // Update Tag
     @PutMapping("update")
     public Map<String, Object> update(@RequestBody @Valid TagUpdateRequest dto, HttpServletRequest request) {
-        try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            tagService.update(userId, dto);
-            return ResponseUtils.buildEmptySuccessResponse("Tag updated successfully");
-        } catch (Exception e) {
-            log.error("更新标签失败: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
+        Long userId = tokenService.getUserIdFromRequest(request);
+        log.info("Update tag for user {}: {}", userId, dto);
+        tagService.update(userId, dto);
+        return ResponseUtils.buildEmptySuccessResponse("Tag updated successfully");
     }
     
     // Delete Tag
     @PostMapping("delete")
     public Map<String, Object> delete(@RequestBody @Valid TagDeleteRequest dto, HttpServletRequest request) {
-        try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            tagService.delete(userId, dto.getTagId());
-            return ResponseUtils.buildEmptySuccessResponse("Tag deleted successfully");
-        } catch (Exception e) {
-            log.error("Failed to delete tag: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
+        Long userId = tokenService.getUserIdFromRequest(request);
+        log.info("Delete tag for user {}: {}", userId, dto);
+        tagService.delete(userId, dto.getTagId());
+        return ResponseUtils.buildEmptySuccessResponse("Tag deleted successfully");
     }
 
     // Get all tags for a user
     @GetMapping("get-all")
     public Map<String, Object> getAll(HttpServletRequest request) {
-        try {
-            Long userId = tokenService.getUserIdFromRequest(request);
-            List<Tag> tags = tagService.getAll(userId);
-            return ResponseUtils.buildSuccessResponse(tags, "Tags retrieved successfully");
-        } catch (Exception e) {
-            log.error("Failed to retrieve tags: {}", e.getMessage(), e);
-            return ResponseUtils.buildErrorResponse(e.getMessage());
-        }
+        Long userId = tokenService.getUserIdFromRequest(request);
+        log.info("Get all tags for user {}", userId);
+        List<Tag> tags = tagService.getAll(userId);
+        return ResponseUtils.buildSuccessResponse(tags, "Tags retrieved successfully");
     }
 }

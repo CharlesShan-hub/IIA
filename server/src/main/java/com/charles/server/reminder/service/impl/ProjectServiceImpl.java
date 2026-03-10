@@ -9,7 +9,7 @@ import com.charles.server.reminder.dto.ProjectUpdateRequest;
 import com.charles.server.reminder.dto.ProjectGetAllRequest;
 import com.charles.server.reminder.dto.ProjectDeleteRequest;
 import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
-import com.charles.server.reminder.exception.ProjectAccessException;
+import com.charles.server.reminder.exception.ProjectException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Project;
@@ -40,10 +40,10 @@ public class ProjectServiceImpl implements ProjectService {
     private Project validatedFindProjectById(Long userId, Long projectId) {
         Project project = projectMapper.findById(projectId);
         if (project == null) {
-            throw ProjectAccessException.notFound(projectId);
+            throw ProjectException.notFound(projectId);
         }
         if (!project.getUserId().equals(userId)) {
-            throw ProjectAccessException.permissionDenied(userId, projectId);
+            throw ProjectException.permissionDenied(userId, projectId);
         }
         return project;
     }
@@ -54,6 +54,10 @@ public class ProjectServiceImpl implements ProjectService {
     
     @Override
     public void create(Long userId, ProjectCreateRequest dto) {
+        Project existed = projectMapper.findByUserIdAndName(userId, dto.getName());
+        if (existed != null) {
+            throw ProjectException.nameAlreadyExists(userId, dto.getName());
+        }
         Project project = convertToEntity(dto);
         project.setUserId(userId);
         project.setSortOrder(getNextSortOrder(userId, false));

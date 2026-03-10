@@ -24,6 +24,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -40,6 +41,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
     @Autowired TaskMapper taskMapper;
     @Autowired TagMapper tagMapper;
     @Autowired TaskTagMapper taskTagMapper;
+    @Autowired JdbcTemplate jdbc;
 
     @TestConfiguration
     static class TestConfig {
@@ -291,6 +293,54 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertNull(taskTagMapper.findByTaskIdAndTagId(idB, t2));
         Assertions.assertNull(taskTagMapper.findByTaskIdAndTagId(idB, t3));
         Assertions.assertNotNull(taskTagMapper.findByTaskIdAndTagId(idB, t4));
+    }
+
+    @Test
+    void scenario_task_tag_error_task_not_found() throws Exception {
+        createTag("E", "#EEEEEE");
+        Long tagId = tagIdByName("E");
+
+        TaskTagCreateRequest dto = new TaskTagCreateRequest();
+        dto.setTaskId(999999L);
+        dto.setTagId(tagId);
+        dto.setIncludeSubtasks(false);
+        mockMvc.perform(post("/api/reminder/task-tags/create")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(dto))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(404));
+    }
+
+    @Test
+    void scenario_task_tag_error_task_permission_denied() throws Exception {
+        createTag("F", "#FFFFFF");
+        Long tagId = tagIdByName("F");
+
+        jdbc.update(
+                "INSERT INTO iia_auth(user_id, password_hash) VALUES (?, ?) " +
+                        "ON DUPLICATE KEY UPDATE password_hash = VALUES(password_hash)",
+                2L,
+                "x"
+        );
+
+        Task other = new Task();
+        other.setUserId(2L);
+        other.setTitle("OTHER_TASK");
+        other.setStatus("todo");
+        other.setIsRecurring(false);
+        other.setSortOrder(1);
+        other.setPriority("none");
+        taskMapper.insert(other);
+
+        TaskTagCreateRequest dto = new TaskTagCreateRequest();
+        dto.setTaskId(other.getTaskId());
+        dto.setTagId(tagId);
+        dto.setIncludeSubtasks(false);
+        mockMvc.perform(post("/api/reminder/task-tags/create")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(dto))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(403));
     }
 }
 

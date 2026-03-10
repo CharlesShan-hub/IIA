@@ -32,4 +32,7 @@ public interface ProjectMapper {
 
     @Delete("DELETE FROM reminder_project WHERE project_id = #{projectId}")
     int deleteById(@Param("projectId") Long projectId);
+
+    @Select("SELECT * FROM reminder_project WHERE user_id = #{userId} AND name = #{name} LIMIT 1")
+    Project findByUserIdAndName(@Param("userId") Long userId, @Param("name") String name);
 }
