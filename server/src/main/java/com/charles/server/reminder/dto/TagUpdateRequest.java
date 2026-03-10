@@ -1,6 +1,5 @@
 package com.charles.server.reminder.dto;
 
-import com.charles.server.utils.ColorUtils;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -18,6 +17,6 @@ public class TagUpdateRequest {
     private String color;
 
     public void setColor(String color) {
-        this.color = ColorUtils.getColorOrDefault(color, "#409EFF");
+        this.color = (color == null || color.trim().isEmpty()) ? null : color;
     }
 }

@@ -384,16 +384,16 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertNotNull(afterDone.getCompletedAt(), "completedAt should be set on done");
 
         // 恢复为待办
-        // TaskStatusUpdateRequest dtoTodo = new TaskStatusUpdateRequest();
-        // dtoTodo.setTaskId(taskZ.getTaskId());
-        // dtoTodo.setStatus("todo");
-        // mockMvc.perform(patch("/api/reminder/task/update-status")
-        //                 .contentType(MediaType.APPLICATION_JSON)
-        //                 .content(objectMapper.writeValueAsString(dtoTodo)))
-        //         .andExpect(status().isOk())
-        //         .andExpect(jsonPath("$.code", is(200)));
-        // Task afterTodo = taskMapper.findById(taskZ.getTaskId());
-        // Assertions.assertEquals("todo", afterTodo.getStatus());
-        // Assertions.assertNull(afterTodo.getCompletedAt(), "completedAt should be cleared on todo");
+         TaskStatusUpdateRequest dtoTodo = new TaskStatusUpdateRequest();
+         dtoTodo.setTaskId(taskZ.getTaskId());
+         dtoTodo.setStatus("todo");
+         mockMvc.perform(patch("/api/reminder/task/update-status")
+                         .contentType(MediaType.APPLICATION_JSON)
+                         .content(objectMapper.writeValueAsString(dtoTodo)))
+                 .andExpect(status().isOk())
+                 .andExpect(jsonPath("$.code", is(200)));
+         Task afterTodo = taskMapper.findById(taskZ.getTaskId());
+         Assertions.assertEquals("todo", afterTodo.getStatus());
+         Assertions.assertNull(afterTodo.getCompletedAt(), "completedAt should be cleared on todo");
     }
 }

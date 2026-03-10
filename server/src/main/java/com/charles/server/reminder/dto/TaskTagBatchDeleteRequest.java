@@ -2,14 +2,15 @@ package com.charles.server.reminder.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import java.util.List;
 
 @Data
-public class TaskTagCreateRequest {
+public class TaskTagBatchDeleteRequest {
     @NotNull(message = "Task ID is Required")
     private Long taskId;
 
-    @NotNull(message = "Tag ID is Required")
-    private Long tagId;
+    @NotNull(message = "Tag IDs are Required")
+    private List<Long> tagIds;
 
     private Boolean includeSubtasks;
 }

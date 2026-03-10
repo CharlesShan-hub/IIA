@@ -38,8 +38,8 @@ docker exec -it iia-redis redis-cli
   - [x] Task
   - [ ] Recurrence
   - [ ] History
-  - [ ] Tag
-  - [ ] TaskTag
+  - [x] Tag
+  - [x] TaskTag
 
 完成了从task到recurrence的转换
 还需要完成循环任务子任务的管理
