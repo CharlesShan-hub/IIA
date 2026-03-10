@@ -28,7 +28,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -58,10 +57,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         ProjectCreateRequest pReq = new ProjectCreateRequest();
         pReq.setName("Default");
         mockMvc.perform(post("/api/reminder/projects/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(pReq)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(pReq))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         List<Project> projects = projectMapper.findByUserIdAndArchived(1L, false);
         Optional<Project> opt = projects.stream().filter(p -> "Default".equals(p.getName())).findFirst();
@@ -74,20 +73,20 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         t1.setTitle("T1");
         t1.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(t1)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(t1))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         TaskCreateRequest t2 = new TaskCreateRequest();
         t2.setProjectId(projectId);
         t2.setTitle("T2");
         t2.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(t2)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(t2))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         List<Task> roots = taskMapper.findByUserIdAndProjectId(1L, projectId);
         Assertions.assertTrue(roots.size() >= 2, "At least two root tasks should exist in the project");
@@ -105,10 +104,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         c1.setTitle("T1-1");
         c1.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(c1)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(c1))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         List<Task> children = taskMapper.findByUserIdAndParentTaskId(1L, first.getTaskId());
         Assertions.assertFalse(children.isEmpty(), "Child tasks for T1 should exist");
@@ -124,10 +123,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         c2.setTitle("T1-1-1");
         c2.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(c2)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(c2))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         // 验证二级子任务存在
         List<Task> grandChildren = taskMapper.findByUserIdAndParentTaskId(1L, c1Entity.getTaskId());
@@ -137,10 +136,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         TaskDeleteRequest del = new TaskDeleteRequest();
         del.setTaskId(first.getTaskId());
         mockMvc.perform(post("/api/reminder/task/delete")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(del)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(del))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         // 校验 T1 已删除
         Task t1After = taskMapper.findById(first.getTaskId());
@@ -164,18 +163,18 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         ProjectCreateRequest p1Req = new ProjectCreateRequest();
         p1Req.setName("MoveP1");
         mockMvc.perform(post("/api/reminder/projects/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(p1Req)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(p1Req))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         ProjectCreateRequest p2Req = new ProjectCreateRequest();
         p2Req.setName("MoveP2");
         mockMvc.perform(post("/api/reminder/projects/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(p2Req)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(p2Req))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         List<Project> projectsAll = projectMapper.findByUserIdAndArchived(1L, false);
         Long p1Id = projectsAll.stream().filter(p -> "MoveP1".equals(p.getName())).findFirst().orElseThrow().getProjectId();
@@ -187,10 +186,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         c.setTitle("C");
         c.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(c)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(c))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
         Task taskCBefore = taskMapper.findByUserIdAndProjectId(1L, p2Id).stream()
                 .filter(t -> "C".equals(t.getTitle())).findFirst().orElseThrow();
         int cOrderBefore = taskCBefore.getSortOrder();
@@ -201,15 +200,15 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         a.setTitle("A");
         a.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(a)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(a))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         // 获取 A 的 id
         Task taskA = taskMapper.findByUserIdAndProjectId(1L, p1Id).stream()
                 .filter(t -> "A".equals(t.getTitle())).findFirst().orElseThrow();
-        int aOrderBefore = taskA.getSortOrder();
+        
 
         // 在 P1 下创建任务 B，父任务=A
         TaskCreateRequest b = new TaskCreateRequest();
@@ -218,10 +217,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         b.setIsRecurring(false);
         b.setParentTaskId(taskA.getTaskId());
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(b)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(b))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         // 验证父子关系存在于 P1 下
         Task taskB = taskMapper.findByUserIdAndProjectId(1L, p1Id).stream()
@@ -235,10 +234,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         del.setTargetProject(true);
         del.setTargetProjectId(p2Id);
         mockMvc.perform(post("/api/reminder/projects/delete")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(del)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(del))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         // P1 应被删除
         Assertions.assertNull(projectMapper.findById(p1Id));
@@ -271,10 +270,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         d.setTitle("D");
         d.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(d)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(d))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
         Task taskDBefore = taskMapper.findByUserIdAndProjectIdIsNull(1L).stream()
                 .filter(t -> "D".equals(t.getTitle())).findFirst().orElseThrow();
         int dOrderBefore = taskDBefore.getSortOrder();
@@ -283,10 +282,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         ProjectCreateRequest p3Req = new ProjectCreateRequest();
         p3Req.setName("MoveP3");
         mockMvc.perform(post("/api/reminder/projects/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(p3Req)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(p3Req))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
         Long p3Id = projectMapper.findByUserIdAndArchived(1L, false).stream()
                 .filter(p -> "MoveP3".equals(p.getName())).findFirst().orElseThrow().getProjectId();
 
@@ -296,10 +295,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         x.setTitle("X");
         x.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(x)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(x))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
         Task taskX = taskMapper.findByUserIdAndProjectId(1L, p3Id).stream()
                 .filter(t -> "X".equals(t.getTitle())).findFirst().orElseThrow();
 
@@ -310,10 +309,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         y.setIsRecurring(false);
         y.setParentTaskId(taskX.getTaskId());
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(y)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(y))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
         Task taskY = taskMapper.findByUserIdAndProjectId(1L, p3Id).stream()
                 .filter(t -> "Y".equals(t.getTitle())).findFirst().orElseThrow();
         org.junit.jupiter.api.Assertions.assertEquals(taskX.getTaskId(), taskY.getParentTaskId());
@@ -325,10 +324,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         del.setTargetProject(false);
         del.setTargetProjectId(0L);
         mockMvc.perform(post("/api/reminder/projects/delete")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(del)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(del))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         // P3 应被删除
         org.junit.jupiter.api.Assertions.assertNull(projectMapper.findById(p3Id));
@@ -351,10 +350,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         ProjectCreateRequest p = new ProjectCreateRequest();
         p.setName("StatusP");
         mockMvc.perform(post("/api/reminder/projects/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(p)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(p))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
         Long pId = projectMapper.findByUserIdAndArchived(1L, false).stream()
                 .filter(pp -> "StatusP".equals(pp.getName())).findFirst().orElseThrow().getProjectId();
 
@@ -363,10 +362,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         z.setTitle("Z");
         z.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(z)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(z))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
         Task taskZ = taskMapper.findByUserIdAndProjectId(1L, pId).stream()
                 .filter(t -> "Z".equals(t.getTitle())).findFirst().orElseThrow();
 
@@ -375,10 +374,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         dtoDone.setTaskId(taskZ.getTaskId());
         dtoDone.setStatus("done");
         mockMvc.perform(patch("/api/reminder/task/update-status")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(dtoDone)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(dtoDone))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
         Task afterDone = taskMapper.findById(taskZ.getTaskId());
         Assertions.assertEquals("done", afterDone.getStatus());
         Assertions.assertNotNull(afterDone.getCompletedAt(), "completedAt should be set on done");
@@ -388,10 +387,10 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
          dtoTodo.setTaskId(taskZ.getTaskId());
          dtoTodo.setStatus("todo");
          mockMvc.perform(patch("/api/reminder/task/update-status")
-                         .contentType(MediaType.APPLICATION_JSON)
-                         .content(objectMapper.writeValueAsString(dtoTodo)))
+         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+         .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(dtoTodo))))
                  .andExpect(status().isOk())
-                 .andExpect(jsonPath("$.code", is(200)));
+                 .andExpect(jsonPath("$.code").value(200));
          Task afterTodo = taskMapper.findById(taskZ.getTaskId());
          Assertions.assertEquals("todo", afterTodo.getStatus());
          Assertions.assertNull(afterTodo.getCompletedAt(), "completedAt should be cleared on todo");

@@ -23,7 +23,7 @@ public class TaskTagController {
     private final TaskTagService taskTagService;
     private final TokenService tokenService;
 
-    // 创建任务-标签关联
+    // Create a new task-tag association
     @PostMapping("create")
     public Map<String, Object> create(@RequestBody TaskTagCreateRequest dto, HttpServletRequest request) {
         try {
@@ -37,7 +37,7 @@ public class TaskTagController {
         }
     }
 
-    // 删除任务-标签关联
+    // Delete a task-tag association
     @PostMapping("delete")
     public Map<String, Object> delete(@RequestBody TaskTagDeleteRequest dto, HttpServletRequest request) {
         try {
@@ -51,6 +51,7 @@ public class TaskTagController {
         }
     }
 
+    // Create multiple task-tag associations in batch
     @PostMapping("batch-create")
     public Map<String, Object> batchCreate(@RequestBody TaskTagBatchCreateRequest dto, HttpServletRequest request) {
         try {
@@ -64,6 +65,7 @@ public class TaskTagController {
         }
     }
 
+    // Delete multiple task-tag associations in batch
     @PostMapping("batch-delete")
     public Map<String, Object> batchDelete(@RequestBody TaskTagBatchDeleteRequest dto, HttpServletRequest request) {
         try {

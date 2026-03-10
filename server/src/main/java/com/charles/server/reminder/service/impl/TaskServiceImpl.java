@@ -1,23 +1,20 @@
 package com.charles.server.reminder.service.impl;
 
-import java.util.List;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.dto.ProjectDeleteRequest;
 import com.charles.server.reminder.dto.TaskCreateRequest;
 import com.charles.server.reminder.dto.TaskUpdateRequest;
 import com.charles.server.reminder.dto.TaskGetAllRequest;
 import com.charles.server.reminder.dto.TaskStatusUpdateRequest;
-
-import org.springframework.stereotype.Service;
-
 import com.charles.server.reminder.entity.Task;
 import com.charles.server.reminder.mapper.TaskMapper;
 import com.charles.server.reminder.service.TaskService;
 import com.charles.server.reminder.service.RecurrenceService;
 import com.charles.server.reminder.exception.TaskAccessException;
 
+import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -116,7 +113,7 @@ public class TaskServiceImpl implements TaskService {
         if (dto.getIsRecurring() != null){
             task.setIsRecurring(dto.getIsRecurring());
             if(dto.getIsRecurring()) recurrenceService.create(task.getTaskId(), dto);
-            else recurrenceService.deleteByTaskId(task.getTaskId());
+            else recurrenceService.delete(task.getTaskId());
         }
         if (dto.getParentTaskId() != null) task.setParentTaskId(dto.getParentTaskId());
         if (dto.getDueDate() != null) task.setDueDate(dto.getDueDate());

@@ -18,7 +18,7 @@ public interface RecurrenceService {
     /**
      * Delete recurrence and history occurrences
     */
-    void deleteByTaskId(Long taskId);
+    void delete(Long taskId);
     
     // /**
     //  * 根据任务ID查询循环配置

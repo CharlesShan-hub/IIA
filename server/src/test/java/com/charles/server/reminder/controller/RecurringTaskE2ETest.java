@@ -23,7 +23,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
 
-import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -60,10 +59,10 @@ class RecurringTaskE2ETest extends BaseE2eDatabaseTest {
         req.setRecurrenceSchedule("[1,15]"); // 每月1号和15号
 
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(req)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(req))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         Task created = taskMapper.findByUserIdAndProjectIdIsNull(1L).stream()
                 .filter(t -> "R-MONTHLY".equals(t.getTitle()))
@@ -76,16 +75,19 @@ class RecurringTaskE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertEquals(1, r.getInterval());
         Assertions.assertEquals(6, r.getCount());
         Assertions.assertEquals(next, r.getNextTime());
+        Assertions.assertEquals(Boolean.FALSE, r.getIsPaused());
+        Assertions.assertEquals(Boolean.TRUE, r.getIsSkipOverdue());
+        Assertions.assertEquals(Boolean.TRUE, r.getIsRepeatFromDue());
         // Assertions.assertEquals("[1,15]", r.getSchedule());
 
         // Delete the recurring task and verify cascade deletion of recurrence
         com.charles.server.reminder.dto.TaskDeleteRequest del = new com.charles.server.reminder.dto.TaskDeleteRequest();
         del.setTaskId(created.getTaskId());
         mockMvc.perform(post("/api/reminder/task/delete")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(del)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(del))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
         Assertions.assertNull(taskMapper.findById(created.getTaskId()));
         Assertions.assertNull(recurrenceMapper.findByTaskId(created.getTaskId()));
     }
@@ -100,10 +102,10 @@ class RecurringTaskE2ETest extends BaseE2eDatabaseTest {
         a.setTitle("TASK-A");
         a.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(a)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(a))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         // Create recurring task B (daily)
         TaskCreateRequest b = new TaskCreateRequest();
@@ -114,10 +116,10 @@ class RecurringTaskE2ETest extends BaseE2eDatabaseTest {
         b.setRecurrenceCount(5);
         b.setRecurrenceNextTime(nextB);
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(b)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(b))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         Task taskA = taskMapper.findByUserIdAndProjectIdIsNull(1L).stream()
                 .filter(t -> "TASK-A".equals(t.getTitle()))
@@ -139,21 +141,25 @@ class RecurringTaskE2ETest extends BaseE2eDatabaseTest {
         upA.setRecurrenceCount(4);
         upA.setRecurrenceNextTime(nextA);
         upA.setRecurrenceSchedule("[1,3,5]");
+        upA.setRecurrenceIsPaused(false);
+        upA.setRecurrenceIsSkipOverdue(true);
+        upA.setRecurrenceIsRepeatFromDue(true);
+
         mockMvc.perform(post("/api/reminder/task/update")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(upA)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(upA))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         // B: recurring -> single
         com.charles.server.reminder.dto.TaskUpdateRequest upB = new com.charles.server.reminder.dto.TaskUpdateRequest();
         upB.setTaskId(taskB.getTaskId());
         upB.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/update")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(upB)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(upB))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         // Assertions
         Task updatedA = taskMapper.findById(taskA.getTaskId());

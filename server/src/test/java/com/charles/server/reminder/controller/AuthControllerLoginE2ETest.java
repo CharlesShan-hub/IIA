@@ -17,8 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -55,10 +55,10 @@ class AuthControllerLoginE2ETest extends BaseE2eDatabaseTest {
         req.setPassword("123456");
 
         mockMvc.perform(post("/api/auth/login")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(req)))
+                        .contentType(Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(Objects.requireNonNull(objectMapper.writeValueAsString(req))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)))
+                .andExpect(jsonPath("$.code").value(200))
                 .andExpect(jsonPath("$.data.token").value("test-access"))
                 .andExpect(jsonPath("$.data.refreshToken").value("test-refresh"));
     }

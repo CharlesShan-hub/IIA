@@ -20,13 +20,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
 import java.util.List;
 
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -67,37 +62,37 @@ class TagControllerTest extends BaseE2eDatabaseTest {
         t1.setName("Tag1");
         t1.setColor("#111111");
         mockMvc.perform(post("/api/reminder/tags/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(t1)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(t1))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         TagCreateRequest t2 = new TagCreateRequest();
         t2.setName("Tag2");
         t2.setColor("#222222");
         mockMvc.perform(post("/api/reminder/tags/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(t2)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(t2))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         TagCreateRequest t3 = new TagCreateRequest();
         t3.setName("Tag3");
         t3.setColor("#333333");
         mockMvc.perform(post("/api/reminder/tags/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(t3)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(t3))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         TagCreateRequest t4 = new TagCreateRequest();
         t4.setName("Tag4");
         t4.setColor("#444444");
         mockMvc.perform(post("/api/reminder/tags/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(t4)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(t4))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         List<Tag> created = tagMapper.findByUserId(1L);
         Assertions.assertEquals(4, created.size());
@@ -111,11 +106,15 @@ class TagControllerTest extends BaseE2eDatabaseTest {
         t5.setName("Tag4");
         t5.setColor("#555555");
         mockMvc.perform(post("/api/reminder/tags/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(t5)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(t5))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(400)))
-                .andExpect(jsonPath("$.msg", containsString("already exists")));
+                .andExpect(jsonPath("$.code").value(400))
+                .andExpect(result -> {
+                    String c = result.getResponse().getContentAsString();
+                    com.fasterxml.jackson.databind.JsonNode root = objectMapper.readTree(c);
+                    org.junit.jupiter.api.Assertions.assertTrue(root.path("msg").asText().contains("already exists"));
+                });
         Assertions.assertEquals(4, tagMapper.findByUserId(1L).size());
 
         // 3) 第一个只改名
@@ -123,11 +122,15 @@ class TagControllerTest extends BaseE2eDatabaseTest {
         u1.setTagId(tag1.getTagId());
         u1.setName("Tag1-Renamed");
         mockMvc.perform(put("/api/reminder/tags/update")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(u1)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(u1))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)))
-                .andExpect(jsonPath("$.msg", containsString("updated")));
+                .andExpect(jsonPath("$.code").value(200))
+                .andExpect(result -> {
+                    String c = result.getResponse().getContentAsString();
+                    com.fasterxml.jackson.databind.JsonNode root = objectMapper.readTree(c);
+                    org.junit.jupiter.api.Assertions.assertTrue(root.path("msg").asText().contains("updated"));
+                });
         Tag tag1After = tagMapper.findById(tag1.getTagId());
         Assertions.assertEquals("Tag1-Renamed", tag1After.getName());
         Assertions.assertEquals("#111111", tag1After.getColor());
@@ -137,10 +140,10 @@ class TagControllerTest extends BaseE2eDatabaseTest {
         u2.setTagId(tag2.getTagId());
         u2.setColor("#000000");
         mockMvc.perform(put("/api/reminder/tags/update")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(u2)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(u2))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
         Tag tag2After = tagMapper.findById(tag2.getTagId());
         Assertions.assertEquals("Tag2", tag2After.getName());
         Assertions.assertEquals("#000000", tag2After.getColor());
@@ -151,10 +154,10 @@ class TagControllerTest extends BaseE2eDatabaseTest {
         u3.setName("Tag3-Renamed");
         u3.setColor("#999999");
         mockMvc.perform(put("/api/reminder/tags/update")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(u3)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(u3))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
         Tag tag3After = tagMapper.findById(tag3.getTagId());
         Assertions.assertEquals("Tag3-Renamed", tag3After.getName());
         Assertions.assertEquals("#999999", tag3After.getColor());
@@ -163,20 +166,35 @@ class TagControllerTest extends BaseE2eDatabaseTest {
         TagDeleteRequest d4 = new TagDeleteRequest();
         d4.setTagId(tag4.getTagId());
         mockMvc.perform(post("/api/reminder/tags/delete")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(d4)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(d4))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)))
-                .andExpect(jsonPath("$.msg", containsString("deleted")));
+                .andExpect(jsonPath("$.code").value(200))
+                .andExpect(result -> {
+                    String c = result.getResponse().getContentAsString();
+                    com.fasterxml.jackson.databind.JsonNode root = objectMapper.readTree(c);
+                    org.junit.jupiter.api.Assertions.assertTrue(root.path("msg").asText().contains("deleted"));
+                });
         Assertions.assertNull(tagMapper.findById(tag4.getTagId()));
 
         // 7) 最终 get-all：应剩 3 个标签，且名称符合预期
         mockMvc.perform(get("/api/reminder/tags/get-all"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)))
-                .andExpect(jsonPath("$.msg", containsString("retrieved")))
-                .andExpect(jsonPath("$.data", notNullValue()))
-                .andExpect(jsonPath("$.data.length()", is(3)))
-                .andExpect(jsonPath("$.data[*].name", containsInAnyOrder("Tag1-Renamed", "Tag2", "Tag3-Renamed")));
+                .andExpect(jsonPath("$.code").value(200))
+                .andExpect(result -> {
+                    String c = result.getResponse().getContentAsString();
+                    com.fasterxml.jackson.databind.JsonNode root = objectMapper.readTree(c);
+                    org.junit.jupiter.api.Assertions.assertTrue(root.path("msg").asText().contains("retrieved"));
+                })
+                .andExpect(result -> {
+                    String c = result.getResponse().getContentAsString();
+                    com.fasterxml.jackson.databind.JsonNode root = objectMapper.readTree(c);
+                    com.fasterxml.jackson.databind.JsonNode data = root.path("data");
+                    org.junit.jupiter.api.Assertions.assertTrue(!data.isMissingNode() && !data.isNull());
+                    org.junit.jupiter.api.Assertions.assertEquals(3, data.size());
+                    java.util.Set<String> names = new java.util.HashSet<>();
+                    data.forEach(n -> names.add(n.path("name").asText()));
+                    org.junit.jupiter.api.Assertions.assertEquals(java.util.Set.of("Tag1-Renamed", "Tag2", "Tag3-Renamed"), names);
+                });
     }
 }

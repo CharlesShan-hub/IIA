@@ -62,6 +62,9 @@ CREATE TABLE reminder_recurrence (
     `interval` INT DEFAULT 1 COMMENT '间隔数值 - days/weeks类型使用',
     `count` INT NOT NULL COMMENT '总重复次数',
     next_time DATETIME NOT NULL COMMENT '下一次发生时间',
+    is_paused BOOLEAN NOT NULL DEFAULT FALSE COMMENT '是否暂停循环',
+    is_skip_overdue BOOLEAN NOT NULL DEFAULT TRUE COMMENT '完成后跳过已过期的排队实例',
+    is_repeat_from_due BOOLEAN NOT NULL DEFAULT TRUE COMMENT '按计划日期+周期(true)还是完成日期+周期(false)',
     schedule JSON COMMENT '规则: weekly=[1,3]; monthly=[1,15]; yearly=["MM-dd"]; days/weeks=无; ebbinghaus=无',
     FOREIGN KEY (task_id) REFERENCES reminder_task(task_id) ON DELETE CASCADE
 ) ENGINE=InnoDB COMMENT '提醒模块 - 重复任务表';

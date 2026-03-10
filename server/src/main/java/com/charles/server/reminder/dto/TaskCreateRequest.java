@@ -20,4 +20,7 @@ public class TaskCreateRequest {
     private Integer recurrenceCount;
     private LocalDateTime recurrenceNextTime;
     private String recurrenceSchedule;
+    private Boolean recurrenceIsPaused;
+    private Boolean recurrenceIsSkipOverdue;
+    private Boolean recurrenceIsRepeatFromDue;
 }

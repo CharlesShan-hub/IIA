@@ -28,7 +28,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -88,10 +87,10 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         add1.setTagId(tag1);
         add1.setIncludeSubtasks(false);
         mockMvc.perform(post("/api/reminder/task-tags/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(add1)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(add1))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         // Task 2 add Tag-1 and Tag-2 with cascade
         TaskTagCreateRequest add31 = new TaskTagCreateRequest();
@@ -99,20 +98,20 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         add31.setTagId(tag1);
         add31.setIncludeSubtasks(true);
         mockMvc.perform(post("/api/reminder/task-tags/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(add31)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(add31))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         TaskTagCreateRequest add32 = new TaskTagCreateRequest();
         add32.setTaskId(id2);
         add32.setTagId(tag2);
         add32.setIncludeSubtasks(true);
         mockMvc.perform(post("/api/reminder/task-tags/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(add32)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(add32))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         // Task 3 and 4 add Tag-2 with cascade
         TaskTagCreateRequest add22 = new TaskTagCreateRequest();
@@ -120,20 +119,20 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         add22.setTagId(tag2);
         add22.setIncludeSubtasks(true);
         mockMvc.perform(post("/api/reminder/task-tags/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(add22)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(add22))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         TaskTagCreateRequest add42 = new TaskTagCreateRequest();
         add42.setTaskId(id4);
         add42.setTagId(tag2);
         add42.setIncludeSubtasks(true);
         mockMvc.perform(post("/api/reminder/task-tags/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(add42)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(add42))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         // Assertions before deletion
         Assertions.assertNotNull(taskTagMapper.findByTaskIdAndTagId(id1, tag1));
@@ -155,10 +154,10 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         del3.setTagId(tag2);
         del3.setIncludeSubtasks(false);
         mockMvc.perform(post("/api/reminder/task-tags/delete")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(del3)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(del3))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         // Delete: Task 4 remove Tag-2 with cascade (4 and 4s)
         TaskTagDeleteRequest del4 = new TaskTagDeleteRequest();
@@ -166,10 +165,10 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         del4.setTagId(tag2);
         del4.setIncludeSubtasks(true);
         mockMvc.perform(post("/api/reminder/task-tags/delete")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(del4)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(del4))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         // Assertions after deletion
         Assertions.assertNull(taskTagMapper.findByTaskIdAndTagId(id3, tag2));
@@ -185,10 +184,10 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         req.setIsRecurring(false);
         if (parentId != null) req.setParentTaskId(parentId);
         mockMvc.perform(post("/api/reminder/task/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(req)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(req))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
     }
 
     private void createTag(String name, String color) throws Exception {
@@ -196,10 +195,10 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         req.setName(name);
         req.setColor(color);
         mockMvc.perform(post("/api/reminder/tags/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(req)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(req))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
     }
 
     private Long taskIdByTitle(String title) {
@@ -239,10 +238,10 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         bc.setTagIds(List.of(t1, t2, t3, t4));
         bc.setIncludeSubtasks(true);
         mockMvc.perform(post("/api/reminder/task-tags/batch-create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(bc)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(bc))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         Assertions.assertNotNull(taskTagMapper.findByTaskIdAndTagId(idA, t1));
         Assertions.assertNotNull(taskTagMapper.findByTaskIdAndTagId(idA, t2));
@@ -258,30 +257,30 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         bd.setTagIds(List.of(t1, t2));
         bd.setIncludeSubtasks(true);
         mockMvc.perform(post("/api/reminder/task-tags/batch-delete")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(bd)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(bd))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         TaskTagDeleteRequest delB3 = new TaskTagDeleteRequest();
         delB3.setTaskId(idB);
         delB3.setTagId(t3);
         delB3.setIncludeSubtasks(false);
         mockMvc.perform(post("/api/reminder/task-tags/delete")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(delB3)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(delB3))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         TaskTagDeleteRequest delA4 = new TaskTagDeleteRequest();
         delA4.setTaskId(idA);
         delA4.setTagId(t4);
         delA4.setIncludeSubtasks(false);
         mockMvc.perform(post("/api/reminder/task-tags/delete")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(delA4)))
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(delA4))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
 
         Assertions.assertNull(taskTagMapper.findByTaskIdAndTagId(idA, t1));
         Assertions.assertNull(taskTagMapper.findByTaskIdAndTagId(idA, t2));
@@ -294,3 +293,5 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertNotNull(taskTagMapper.findByTaskIdAndTagId(idB, t4));
     }
 }
+
+// select task.title, tag.name from reminder_task_tag tt join reminder_tag tag on tt.tag_id = tag.tag_id join reminder_task task on task.task_id = tt.task_id;

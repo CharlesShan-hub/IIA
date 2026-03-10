@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -79,10 +78,10 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
             ProjectCreateRequest req = new ProjectCreateRequest();
             req.setName("P" + i);
             mockMvc.perform(post("/api/reminder/projects/create")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(req)))
+                    .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                    .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(req))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
         }
 
         List<Project> active = new ArrayList<>(projectMapper.findByUserIdAndArchived(1L, false));
@@ -101,10 +100,10 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
             del.setTargetProject(false);
             del.setTargetProjectId(0L);
             mockMvc.perform(post("/api/reminder/projects/delete")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(del)))
+                    .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                    .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(del))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
         }
 
         // Reorder remaining projects
@@ -124,10 +123,10 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
         }
         batch.setPos(pos);
         mockMvc.perform(post("/api/reminder/projects/batch-update-position")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(batch)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(batch))))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.code", is(200)));
+            .andExpect(jsonPath("$.code").value(200));
 
         // Verify order contiguous
         active = new ArrayList<>(projectMapper.findByUserIdAndArchived(1L, false));
@@ -143,10 +142,10 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
         upd.setName(first.getName() + "-Renamed");
         upd.setColor("#123456");
         mockMvc.perform(post("/api/reminder/projects/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(upd)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(upd))))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.code", is(200)));
+            .andExpect(jsonPath("$.code").value(200));
 
         Project updated = projectMapper.findById(first.getProjectId());
         Assertions.assertEquals(first.getName() + "-Renamed", updated.getName());
@@ -164,10 +163,10 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
             archiveReq.setName(toArchive.getName());
             archiveReq.setIsArchived(true);
             mockMvc.perform(post("/api/reminder/projects/update")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(archiveReq)))
+                    .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                    .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(archiveReq))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code", is(200)));
+                .andExpect(jsonPath("$.code").value(200));
         }
 
         // Verify archived and active sizes
@@ -191,10 +190,10 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
         }
         batch.setPos(pos);
         mockMvc.perform(post("/api/reminder/projects/batch-update-position")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(batch)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(batch))))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.code", is(200)));
+            .andExpect(jsonPath("$.code").value(200));
 
         // Verify final order
         active = new ArrayList<>(projectMapper.findByUserIdAndArchived(1L, false));

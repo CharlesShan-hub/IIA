@@ -73,8 +73,11 @@ public abstract class BaseE2eDatabaseTest {
                 String sanitized = Pattern.compile("(?im)^\\s*USE\\s+[^;]+;\\s*$")
                         .matcher(content)
                         .replaceAll("");
-                return new org.springframework.core.io.ByteArrayResource(
-                        sanitized.getBytes(StandardCharsets.UTF_8), path);
+                byte[] sqlBytes = java.util.Objects.requireNonNull(
+                        java.util.Objects.requireNonNull(sanitized, "SQL content must not be null")
+                                .getBytes(StandardCharsets.UTF_8),
+                        "SQL bytes must not be null");
+                return new org.springframework.core.io.ByteArrayResource(sqlBytes, path);
             } catch (java.io.IOException ex) {
                 throw new RuntimeException("Failed to read SQL file: " + path, ex);
             }
@@ -84,7 +87,7 @@ public abstract class BaseE2eDatabaseTest {
                 new org.springframework.jdbc.datasource.init.ResourceDatabasePopulator(
                         sanitize.apply(sqlDir.resolve("create_auth.sql").toString()),
                         sanitize.apply(sqlDir.resolve("create_task.sql").toString()));
-        pop.execute(dataSource);
+        pop.execute(java.util.Objects.requireNonNull(dataSource, "DataSource must not be null"));
     }
 
     private void seedBaseUser(JdbcTemplate jdbc, PasswordEncoder passwordEncoder) {

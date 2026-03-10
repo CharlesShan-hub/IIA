@@ -17,7 +17,7 @@ public class RecurrenceServiceImpl implements RecurrenceService {
     private final RecurrenceMapper recurrenceMapper;
     // private final TaskMapper taskMapper;
 
-    /**************************************************************************************/
+    /************************************************************************************/
     /*                                      Utils                                         */
     /**************************************************************************************/
 
@@ -28,6 +28,9 @@ public class RecurrenceServiceImpl implements RecurrenceService {
         r.setInterval(dto.getRecurrenceInterval());
         r.setCount(dto.getRecurrenceCount());
         r.setNextTime(dto.getRecurrenceNextTime());
+        r.setIsPaused(dto.getRecurrenceIsPaused() != null ? dto.getRecurrenceIsPaused() : Boolean.FALSE);
+        r.setIsSkipOverdue(dto.getRecurrenceIsSkipOverdue() != null ? dto.getRecurrenceIsSkipOverdue() : Boolean.TRUE);
+        r.setIsRepeatFromDue(dto.getRecurrenceIsRepeatFromDue() != null ? dto.getRecurrenceIsRepeatFromDue() : Boolean.TRUE);
         r.setSchedule(dto.getRecurrenceSchedule());
         return r;
     }
@@ -39,6 +42,9 @@ public class RecurrenceServiceImpl implements RecurrenceService {
         r.setInterval(dto.getRecurrenceInterval());
         r.setCount(dto.getRecurrenceCount());
         r.setNextTime(dto.getRecurrenceNextTime());
+        r.setIsPaused(dto.getRecurrenceIsPaused());
+        r.setIsSkipOverdue(dto.getRecurrenceIsSkipOverdue());
+        r.setIsRepeatFromDue(dto.getRecurrenceIsRepeatFromDue());
         r.setSchedule(dto.getRecurrenceSchedule());
         return r;
     }
@@ -69,7 +75,17 @@ public class RecurrenceServiceImpl implements RecurrenceService {
             if (existing == null) {
                 recurrenceMapper.insert(recurrence);
             } else {
-                recurrenceMapper.update(recurrence);
+                Recurrence merged = new Recurrence();
+                merged.setTaskId(taskId);
+                merged.setCategory(recurrence.getCategory() != null ? recurrence.getCategory() : existing.getCategory());
+                merged.setInterval(recurrence.getInterval() != null ? recurrence.getInterval() : existing.getInterval());
+                merged.setCount(recurrence.getCount() != null ? recurrence.getCount() : existing.getCount());
+                merged.setNextTime(recurrence.getNextTime() != null ? recurrence.getNextTime() : existing.getNextTime());
+                merged.setIsPaused(recurrence.getIsPaused() != null ? recurrence.getIsPaused() : existing.getIsPaused());
+                merged.setIsSkipOverdue(recurrence.getIsSkipOverdue() != null ? recurrence.getIsSkipOverdue() : existing.getIsSkipOverdue());
+                merged.setIsRepeatFromDue(recurrence.getIsRepeatFromDue() != null ? recurrence.getIsRepeatFromDue() : existing.getIsRepeatFromDue());
+                merged.setSchedule(recurrence.getSchedule() != null ? recurrence.getSchedule() : existing.getSchedule());
+                recurrenceMapper.update(merged);
             }
         } catch (Exception e) {
             log.error("Create recurrence config failed: {}", e.getMessage(), e);
@@ -88,7 +104,7 @@ public class RecurrenceServiceImpl implements RecurrenceService {
     }
 
     @Override
-    public void deleteByTaskId(Long taskId) {
+    public void delete(Long taskId) {
         try {
             log.info("Deleting recurrence config for taskId={}", taskId);
             recurrenceMapper.deleteByTaskId(taskId);
