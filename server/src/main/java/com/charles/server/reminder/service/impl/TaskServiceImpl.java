@@ -9,6 +9,7 @@ import com.charles.server.reminder.dto.TaskStatusUpdateRequest;
 import com.charles.server.reminder.entity.Task;
 import com.charles.server.reminder.mapper.TaskMapper;
 import com.charles.server.reminder.service.TaskService;
+import com.charles.server.reminder.service.PermissionService;
 import com.charles.server.reminder.service.RecurrenceService;
 import com.charles.server.reminder.exception.TaskException;
 
@@ -25,6 +26,7 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskMapper taskMapper;
     private final RecurrenceService recurrenceService;
+    private final PermissionService permissionService;
 
     /**************************************************************************************/
     /*                                      Utils                                         */
@@ -57,17 +59,6 @@ public class TaskServiceImpl implements TaskService {
             Integer max = taskMapper.findMaxSortOrderByUserIdAndParentTaskId(userId, parentTaskId);
             return (max == null ? 0 : max) + 1;
         }
-    }
-
-    private Task validatedFindTaskById(Long userId, Long taskId) {
-        Task task = taskMapper.findById(taskId);
-        if (task == null) {
-            throw TaskException.notFound(taskId);
-        }
-        if (!task.getUserId().equals(userId)) {
-            throw TaskException.permissionDenied(userId, taskId);
-        }
-        return task;
     }
 
     /**************************************************************************************/
@@ -128,7 +119,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void delete(Long userId, Long taskId) {
-        deleteRecursively(validatedFindTaskById(userId, taskId));
+        deleteRecursively(permissionService.getTask(userId, taskId));
     }
 
     private void deleteRecursively(Task task){
@@ -144,7 +135,7 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     @Override
     public void batchUpdatePosition(Long userId, BatchUpdatePositionRequest request) {
-        request.getPos().forEach(t -> validatedFindTaskById(userId, t.getItemId()));
+        request.getPos().forEach(t -> permissionService.validTask(userId, t.getItemId()));
         request.getPos().forEach(t -> {
             Task task = new Task();
             task.setTaskId(t.getItemId());
@@ -170,7 +161,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void updateStatus(Long userId, TaskStatusUpdateRequest dto) {
-        Task existing = validatedFindTaskById(userId, dto.getTaskId());
+        Task existing = permissionService.getTask(userId, dto.getTaskId());
         String status = dto.getStatus();
         java.time.LocalDateTime completedAt = null;
         if ("done".equals(status)) {

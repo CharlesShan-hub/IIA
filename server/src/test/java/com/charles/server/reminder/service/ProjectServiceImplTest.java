@@ -17,13 +17,15 @@ class ProjectServiceImplTest {
     private ProjectMapper projectMapper;
     @Mock
     private TaskService taskService;
+    @Mock
+    private PermissionService permissionService;
 
     private ProjectServiceImpl service;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        service = new ProjectServiceImpl(projectMapper, taskService);
+        service = new ProjectServiceImpl(projectMapper, taskService, permissionService);
     }
 
     @Test

@@ -2,17 +2,14 @@ package com.charles.server.reminder.service.impl;
 
 import com.charles.server.reminder.entity.TaskTag;
 import com.charles.server.reminder.entity.Task;
-import com.charles.server.reminder.entity.Tag;
 import com.charles.server.reminder.mapper.TaskTagMapper;
 import com.charles.server.reminder.mapper.TaskMapper;
-import com.charles.server.reminder.mapper.TagMapper;
 import com.charles.server.reminder.service.TaskTagService;
+import com.charles.server.reminder.service.PermissionService;
 import com.charles.server.reminder.dto.TaskTagCreateRequest;
 import com.charles.server.reminder.dto.TaskTagDeleteRequest;
 import com.charles.server.reminder.dto.TaskTagBatchCreateRequest;
 import com.charles.server.reminder.dto.TaskTagBatchDeleteRequest;
-import com.charles.server.reminder.exception.TagException;
-import com.charles.server.reminder.exception.TaskException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -26,33 +23,13 @@ public class TaskTagServiceImpl implements TaskTagService {
 
     private final TaskTagMapper taskTagMapper;
     private final TaskMapper taskMapper;
-    private final TagMapper tagMapper;
+    private final PermissionService permissionService;
 
     private TaskTag convertToEntity(TaskTagCreateRequest dto) {
         return TaskTag.builder()
                 .taskId(dto.getTaskId())
                 .tagId(dto.getTagId())
                 .build();
-    }
-
-    private void validatedFindTaskById(Long userId, Long taskId) {
-        Task task = taskMapper.findById(taskId);
-        if (task == null) {
-            throw TaskException.notFound(taskId);
-        }
-        if (!task.getUserId().equals(userId)) {
-            throw TaskException.permissionDenied(userId, taskId);
-        }
-    }
-
-    private void validatedFindTagById(Long userId, Long tagId) {
-        Tag tag = tagMapper.findById(tagId);
-        if (tag == null) {
-            throw TagException.notFound(tagId);
-        }
-        if (!tag.getUserId().equals(userId)) {
-            throw TagException.permissionDenied(userId, tagId);
-        }
     }
 
     private List<Task> getSubTasks(Long userId, Long parentTaskId) {
@@ -63,8 +40,8 @@ public class TaskTagServiceImpl implements TaskTagService {
     @Override
     public void create(Long userId, TaskTagCreateRequest dto) {
         try{
-            validatedFindTagById(userId, dto.getTagId());
-            validatedFindTaskById(userId, dto.getTaskId());
+            permissionService.validTag(userId, dto.getTagId());
+            permissionService.validTask(userId, dto.getTaskId());
             TaskTag taskTag = convertToEntity(dto);
             if (dto.getIncludeSubtasks())
                 createRecursive(userId, taskTag);
@@ -104,8 +81,8 @@ public class TaskTagServiceImpl implements TaskTagService {
     @Override
     public void delete(Long userId, TaskTagDeleteRequest dto) {
         try{
-            validatedFindTagById(userId, dto.getTagId());
-            validatedFindTaskById(userId, dto.getTaskId());
+            permissionService.validTag(userId, dto.getTagId());
+            permissionService.validTask(userId, dto.getTaskId());
             if (dto.getIncludeSubtasks())
                 deleteRecursive(userId, dto.getTaskId(), dto.getTagId());
             else

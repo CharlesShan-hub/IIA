@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.mapper.ProjectMapper;
-
+import com.charles.server.reminder.service.PermissionService;
 import com.charles.server.reminder.service.TaskService;
 import com.charles.server.reminder.service.ProjectService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +27,7 @@ public class ProjectServiceImpl implements ProjectService {
     
     private final ProjectMapper projectMapper;
     private final TaskService taskService;
+    private final PermissionService permissionService;
 
     private Project convertToEntity(ProjectCreateRequest dto) {
         Project project = new Project();
@@ -34,17 +35,6 @@ public class ProjectServiceImpl implements ProjectService {
         project.setDescription(dto.getDescription());
         project.setColor(dto.getColor());
         project.setIcon(dto.getIcon());
-        return project;
-    }
-
-    private Project validatedFindProjectById(Long userId, Long projectId) {
-        Project project = projectMapper.findById(projectId);
-        if (project == null) {
-            throw ProjectException.notFound(projectId);
-        }
-        if (!project.getUserId().equals(userId)) {
-            throw ProjectException.permissionDenied(userId, projectId);
-        }
         return project;
     }
 
@@ -67,7 +57,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void update(Long userId, ProjectUpdateRequest dto) {
-        Project project = validatedFindProjectById(userId, dto.getProjectId());
+        Project project = permissionService.getProject(userId, dto.getProjectId());
         if (dto.getName() != null) project.setName(dto.getName());
         if (dto.getDescription() != null) project.setDescription(dto.getDescription());
         if (dto.getColor() != null) project.setColor(dto.getColor());
@@ -98,7 +88,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional
     @Override
     public void batchUpdatePosition(Long userId, BatchUpdatePositionRequest request) {
-        request.getPos().forEach(p -> validatedFindProjectById(userId, p.getItemId()));
+        request.getPos().forEach(p -> permissionService.validProject(userId, p.getItemId()));
 
         List<BatchUpdatePositionRequest.Position> sorted = new ArrayList<>(request.getPos());
         sorted.sort(Comparator.comparing(BatchUpdatePositionRequest.Position::getSortOrder)
@@ -117,12 +107,12 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional
     public void delete(Long userId, ProjectDeleteRequest dto) {
         Long projectId = dto.getProjectId();
-        validatedFindProjectById(userId, projectId);
+        permissionService.validProject(userId, projectId);
         if (Boolean.FALSE.equals(dto.getKeepTasks())) {
             taskService.deleteByProjectId(userId, projectId);
         } else {
             if(Boolean.TRUE.equals(dto.getTargetProject())){
-                validatedFindProjectById(userId, dto.getTargetProjectId());
+                permissionService.validProject(userId, dto.getTargetProjectId());
             }
             taskService.batchUpdateProjectId(userId, dto);
         }

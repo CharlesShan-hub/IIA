@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Tag;
 import com.charles.server.reminder.mapper.TagMapper;
 import com.charles.server.reminder.service.TagService;
+import com.charles.server.reminder.service.PermissionService;
 import com.charles.server.reminder.exception.TagException;
 import com.charles.server.reminder.dto.TagCreateRequest;
 import com.charles.server.reminder.dto.TagUpdateRequest;
@@ -18,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TagServiceImpl implements TagService {
     
     private final TagMapper tagMapper;
+    private final PermissionService permissionService;
 
     private Tag convertToEntity(Long userId, TagCreateRequest dto) {
         return Tag.builder()
@@ -29,17 +31,6 @@ public class TagServiceImpl implements TagService {
 
     private boolean existsByName(Long userId, String name) {
         return tagMapper.existsByNameAndUserId(name, userId);
-    }
-    
-    private Tag validatedFindTagById(Long userId, Long tagId) {
-        Tag tag = tagMapper.findById(tagId);
-        if (tag == null) {
-            throw TagException.notFound(tagId);
-        }
-        if (!tag.getUserId().equals(userId)) {
-            throw TagException.permissionDenied(userId, tagId);
-        }
-        return tag;
     }
     
     @Override
@@ -59,7 +50,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public void update(Long userId, TagUpdateRequest dto) {
-        Tag tag = validatedFindTagById(userId, dto.getTagId());
+        Tag tag = permissionService.getTag(userId, dto.getTagId());
         if (dto.getName() != null) {
             if(!dto.getName().equals(tag.getName()) && existsByName(userId, dto.getName()))
                 throw TagException.nameAlreadyExists(userId, dto.getName());
@@ -78,7 +69,7 @@ public class TagServiceImpl implements TagService {
     
     @Override
     public void delete(Long userId, Long tagId) {
-        validatedFindTagById(userId, tagId);
+        permissionService.validTag(userId, tagId);
         try {
             tagMapper.deleteById(tagId);
         } catch (Exception e) {
