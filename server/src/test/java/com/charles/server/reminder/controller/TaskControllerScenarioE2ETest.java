@@ -583,4 +583,201 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         System.out.println("4. 父任务取消完成时，只有被该父任务完成操作影响的子任务才会被取消完成");
         System.out.println("5. 操作批次跟踪正确：任务A和任务B使用相同的操作ID");
     }
+
+    @Test
+    void scenario_abandoned_status_propagation_and_smart_recovery() throws Exception {
+        // 创建默认项目
+        ProjectCreateRequest pReq = new ProjectCreateRequest();
+        pReq.setName("AbandonedTestProject");
+        mockMvc.perform(post("/api/reminder/projects/create")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(pReq))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        List<Project> projects = projectMapper.findByUserIdAndArchived(1L, false);
+        Optional<Project> opt = projects.stream().filter(p -> "AbandonedTestProject".equals(p.getName())).findFirst();
+        Assertions.assertTrue(opt.isPresent(), "Project 'AbandonedTestProject' should be created");
+        Long projectId = opt.get().getProjectId();
+
+        // 创建父任务A
+        TaskCreateRequest taskAReq = new TaskCreateRequest();
+        taskAReq.setProjectId(projectId);
+        taskAReq.setTitle("Task A");
+        taskAReq.setIsRecurring(false);
+        mockMvc.perform(post("/api/reminder/task/create")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(taskAReq))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 获取父任务A
+        Task taskA = taskMapper.findByUserIdAndProjectId(1L, projectId).stream()
+                .filter(t -> "Task A".equals(t.getTitle())).findFirst().orElseThrow();
+        Long taskAId = taskA.getTaskId();
+
+        // 创建子任务B
+        TaskCreateRequest taskBReq = new TaskCreateRequest();
+        taskBReq.setProjectId(projectId);
+        taskBReq.setParentTaskId(taskAId);
+        taskBReq.setTitle("Task B");
+        taskBReq.setIsRecurring(false);
+        mockMvc.perform(post("/api/reminder/task/create")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(taskBReq))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 创建子任务C
+        TaskCreateRequest taskCReq = new TaskCreateRequest();
+        taskCReq.setProjectId(projectId);
+        taskCReq.setParentTaskId(taskAId);
+        taskCReq.setTitle("Task C");
+        taskCReq.setIsRecurring(false);
+        mockMvc.perform(post("/api/reminder/task/create")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(taskCReq))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 创建子任务D
+        TaskCreateRequest taskDReq = new TaskCreateRequest();
+        taskDReq.setProjectId(projectId);
+        taskDReq.setParentTaskId(taskAId);
+        taskDReq.setTitle("Task D");
+        taskDReq.setIsRecurring(false);
+        mockMvc.perform(post("/api/reminder/task/create")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(taskDReq))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 获取所有子任务
+        Task taskB = taskMapper.findByUserIdAndParentTaskId(1L, taskAId).stream()
+                .filter(t -> "Task B".equals(t.getTitle())).findFirst().orElseThrow();
+        Long taskBId = taskB.getTaskId();
+        
+        Task taskC = taskMapper.findByUserIdAndParentTaskId(1L, taskAId).stream()
+                .filter(t -> "Task C".equals(t.getTitle())).findFirst().orElseThrow();
+        Long taskCId = taskC.getTaskId();
+        
+        Task taskD = taskMapper.findByUserIdAndParentTaskId(1L, taskAId).stream()
+                .filter(t -> "Task D".equals(t.getTitle())).findFirst().orElseThrow();
+        Long taskDId = taskD.getTaskId();
+
+        // 验证初始状态
+        Assertions.assertFalse(taskA.getIsAbandoned(), "任务A初始应为未废弃");
+        Assertions.assertFalse(taskB.getIsAbandoned(), "任务B初始应为未废弃");
+        Assertions.assertFalse(taskC.getIsAbandoned(), "任务C初始应为未废弃");
+        Assertions.assertFalse(taskD.getIsAbandoned(), "任务D初始应为未废弃");
+
+        // 步骤1：将任务D单独设置为废弃
+        TaskUpdateAbandonedRequest abandonD = new TaskUpdateAbandonedRequest();
+        abandonD.setTaskId(taskDId);
+        abandonD.setIsAbandoned(true);
+        mockMvc.perform(patch("/api/reminder/task/update-abandoned")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(abandonD))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 验证任务D已废弃
+        Task updatedD = taskMapper.findById(taskDId);
+        Assertions.assertTrue(updatedD.getIsAbandoned(), "任务D应已废弃");
+
+        // 步骤2：将父任务A设置为废弃（应连带废弃B和C，但不会影响已废弃的D）
+        TaskUpdateAbandonedRequest abandonA = new TaskUpdateAbandonedRequest();
+        abandonA.setTaskId(taskAId);
+        abandonA.setIsAbandoned(true);
+        mockMvc.perform(patch("/api/reminder/task/update-abandoned")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(abandonA))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 验证任务A已废弃
+        Task abandonedA = taskMapper.findById(taskAId);
+        Assertions.assertTrue(abandonedA.getIsAbandoned(), "任务A应已废弃");
+
+        // 验证任务B被连带废弃
+        Task abandonedB = taskMapper.findById(taskBId);
+        Assertions.assertTrue(abandonedB.getIsAbandoned(), "任务B应被连带废弃");
+
+        // 验证任务C被连带废弃
+        Task abandonedC = taskMapper.findById(taskCId);
+        Assertions.assertTrue(abandonedC.getIsAbandoned(), "任务C应被连带废弃");
+
+        // 验证任务D状态不变（之前已废弃）
+        Task stillAbandonedD = taskMapper.findById(taskDId);
+        Assertions.assertTrue(stillAbandonedD.getIsAbandoned(), "任务D应保持废弃状态");
+
+        // 获取历史记录Mapper
+        HistoryMapper historyMapper = applicationContext.getBean(HistoryMapper.class);
+        
+        // 获取任务A废弃时的操作ID
+        List<History> aHistories = historyMapper.findByTaskId(taskAId);
+        Assertions.assertEquals(1, aHistories.size(), "任务A应有1条历史记录");
+        Long aOperationId = aHistories.get(0).getOperationId();
+        
+        // 获取任务B的历史记录
+        List<History> bHistories = historyMapper.findByTaskId(taskBId);
+        Assertions.assertEquals(1, bHistories.size(), "任务B应有1条历史记录");
+        Long bOperationId = bHistories.get(0).getOperationId();
+        
+        // 获取任务C的历史记录
+        List<History> cHistories = historyMapper.findByTaskId(taskCId);
+        Assertions.assertEquals(1, cHistories.size(), "任务C应有1条历史记录");
+        Long cOperationId = cHistories.get(0).getOperationId();
+        
+        // 验证任务A、B、C使用相同的操作ID（表示是同一个操作批次）
+        Assertions.assertEquals(aOperationId, bOperationId, "任务A和任务B应使用相同的操作ID");
+        Assertions.assertEquals(aOperationId, cOperationId, "任务A和任务C应使用相同的操作ID");
+
+        // 步骤3：将任务B单独恢复（不是通过A恢复）
+        TaskUpdateAbandonedRequest recoverB = new TaskUpdateAbandonedRequest();
+        recoverB.setTaskId(taskBId);
+        recoverB.setIsAbandoned(false);
+        mockMvc.perform(patch("/api/reminder/task/update-abandoned")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(recoverB))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 验证任务B已恢复
+        Task recoveredB = taskMapper.findById(taskBId);
+        Assertions.assertFalse(recoveredB.getIsAbandoned(), "任务B应已恢复");
+
+        // 步骤4：将父任务A恢复（应只恢复C，因为B是被单独操作恢复的）
+        TaskUpdateAbandonedRequest recoverA = new TaskUpdateAbandonedRequest();
+        recoverA.setTaskId(taskAId);
+        recoverA.setIsAbandoned(false);
+        mockMvc.perform(patch("/api/reminder/task/update-abandoned")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(recoverA))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 验证任务A已恢复
+        Task recoveredA = taskMapper.findById(taskAId);
+        Assertions.assertFalse(recoveredA.getIsAbandoned(), "任务A应已恢复");
+
+        // 验证任务B状态不变（之前已单独恢复）
+        Task stillRecoveredB = taskMapper.findById(taskBId);
+        Assertions.assertFalse(stillRecoveredB.getIsAbandoned(), "任务B应保持恢复状态");
+
+        // 验证任务C被恢复（因为是被A连带废弃的）
+        Task recoveredC = taskMapper.findById(taskCId);
+        Assertions.assertFalse(recoveredC.getIsAbandoned(), "任务C应被恢复");
+
+        // 验证任务D状态不变（保持废弃）
+        Task finalD = taskMapper.findById(taskDId);
+        Assertions.assertTrue(finalD.getIsAbandoned(), "任务D应保持废弃状态");
+
+        System.out.println("废弃状态测试通过！验证了：");
+        System.out.println("1. 废弃的任务不会被父任务废弃操作重复废弃");
+        System.out.println("2. 父任务废弃时会连带废弃所有未废弃的子任务");
+        System.out.println("3. 操作批次跟踪正确：任务A、B、C使用相同的操作ID");
+        System.out.println("4. 单独恢复的子任务不会被父任务恢复操作影响");
+        System.out.println("5. 父任务恢复时，只有被该父任务废弃操作影响的子任务才会被恢复");
+    }
 }
