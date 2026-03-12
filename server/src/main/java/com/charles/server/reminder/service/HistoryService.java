@@ -1,38 +1,48 @@
 package com.charles.server.reminder.service;
 
-import java.time.LocalDateTime;
+import com.charles.server.reminder.entity.History;
 import java.util.List;
 
-import com.charles.server.reminder.entity.History;
-
 public interface HistoryService {
-    // 创建新的历史记录
-    History create(History history);
     
-    // 根据ID获取历史记录
-    History getById(Long historyId);
+    /**
+     * 生成新的操作ID
+     */
+    Long generateNextOperationId();
     
-    // 根据任务ID和当前次数获取历史记录
-    History getByTaskIdAndCurrent(Long taskId, Integer current);
+    /**
+     * 创建状态变更历史记录
+     * @param history 历史记录实体
+     */
+    void create(History history);
     
-    // 获取任务的所有历史记录
-    List<History> getByTaskId(Long taskId);
+    /**
+     * 根据操作ID查询历史记录
+     */
+    List<History> findByOperationId(Long operationId);
     
-    // 获取用户的所有历史记录
-    List<History> getByUserId(Long userId);
+    /**
+     * 查询任务的最新历史记录
+     */
+    History findLatestByTaskId(Long taskId);
     
-    // 获取用户特定状态的历史记录
-    List<History> getByUserIdAndStatus(Long userId, String status);
+    /**
+     * 根据任务ID查询所有历史记录
+     */
+    List<History> findByTaskId(Long taskId);
     
-    // 更新历史记录
-    History updateById(History history);
+    /**
+     * 查找任务的上次完成历史记录
+     */
+    History findLastCompletedHistory(Long taskId);
     
-    // 更新历史记录状态
-    int updateStatus(Long historyId, String status);
+    /**
+     * 检查操作ID是否在任务的历史记录中
+     */
+    boolean isOperationIdInTaskHistory(Long taskId, Long operationId);
     
-    // 获取用户在日期范围内的历史记录
-    List<History> getByUserIdAndDateRange(Long userId, LocalDateTime startDate, LocalDateTime endDate);
-    
-    // 删除任务的所有历史记录
-    int deleteByTaskId(Long taskId);
+    /**
+     * 根据操作ID批量撤销状态变更
+     */
+    void undoByOperationId(Long operationId);
 }

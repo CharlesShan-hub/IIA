@@ -8,9 +8,9 @@ import java.util.List;
 public interface TaskMapper {
     
     // 插入新任务
-    @Insert("INSERT INTO reminder_task(user_id, project_id, title, status, parent_task_id, "+
+    @Insert("INSERT INTO reminder_task(user_id, project_id, title, is_completed, is_abandoned, is_skipped, parent_task_id, "+
             "sort_order, due_date, start_date, completed_at, reminder_sent_at, priority, is_recurring) "+
-            "VALUES(#{userId}, #{projectId}, #{title}, #{status}, #{parentTaskId}, "+
+            "VALUES(#{userId}, #{projectId}, #{title}, #{isCompleted}, #{isAbandoned}, #{isSkipped}, #{parentTaskId}, "+
             "#{sortOrder}, #{dueDate}, #{startDate}, #{completedAt}, #{reminderSentAt}, #{priority}, #{isRecurring})")
     @Options(useGeneratedKeys = true, keyProperty = "taskId", keyColumn = "task_id")
     int insert(Task task);
@@ -23,9 +23,17 @@ public interface TaskMapper {
     @Select("SELECT * FROM reminder_task WHERE user_id = #{userId}")
     List<Task> findByUserId(Long userId);
     
-    // 查询用户的任务（按状态筛选）
-    @Select("SELECT * FROM reminder_task WHERE user_id = #{userId} AND status = #{status}")
-    List<Task> findByUserIdAndStatus(@Param("userId") Long userId, @Param("status") String status);
+    // 查询用户的任务（按完成状态筛选）
+    @Select("SELECT * FROM reminder_task WHERE user_id = #{userId} AND is_completed = #{isCompleted}")
+    List<Task> findByUserIdAndCompleted(@Param("userId") Long userId, @Param("isCompleted") Boolean isCompleted);
+    
+    // 查询用户的任务（按废弃状态筛选）
+    @Select("SELECT * FROM reminder_task WHERE user_id = #{userId} AND is_abandoned = #{isAbandoned}")
+    List<Task> findByUserIdAndAbandoned(@Param("userId") Long userId, @Param("isAbandoned") Boolean isAbandoned);
+    
+    // 查询用户的任务（按跳过状态筛选）
+    @Select("SELECT * FROM reminder_task WHERE user_id = #{userId} AND is_skipped = #{isSkipped}")
+    List<Task> findByUserIdAndSkipped(@Param("userId") Long userId, @Param("isSkipped") Boolean isSkipped);
     
     // 查询用户的任务（按项目筛选）
     @Select("SELECT * FROM reminder_task WHERE user_id = #{userId} AND project_id = #{projectId}")
@@ -58,7 +66,9 @@ public interface TaskMapper {
         "<set>",
         "  <if test='projectId != null'>project_id = #{projectId},</if>",
         "  <if test='title != null'>title = #{title},</if>",
-        "  <if test='status != null'>status = #{status},</if>",
+        "<if test='isCompleted != null'>is_completed = #{isCompleted},</if>",
+        "<if test='isAbandoned != null'>is_abandoned = #{isAbandoned},</if>",
+        "<if test='isSkipped != null'>is_skipped = #{isSkipped},</if>",
         "  <if test='parentTaskId != null'>parent_task_id = #{parentTaskId},</if>",
         "  <if test='sortOrder != null'>sort_order = #{sortOrder},</if>",
         "  <if test='dueDate != null'>due_date = #{dueDate},</if>",
@@ -73,11 +83,21 @@ public interface TaskMapper {
     })
     int update(Task task);
     
-    // 同时更新状态与完成时间
-    @Update("UPDATE reminder_task SET status = #{status}, completed_at = #{completedAt} WHERE task_id = #{taskId}")
-    int updateStatusAndCompletedAt(@Param("taskId") Long taskId,
-                                   @Param("status") String status,
-                                   @Param("completedAt") java.time.LocalDateTime completedAt);
+    // 更新完成状态与完成时间
+    @Update("UPDATE reminder_task SET is_completed = #{isCompleted}, completed_at = #{completedAt} WHERE task_id = #{taskId}")
+    int updateCompletedStatus(@Param("taskId") Long taskId,
+                              @Param("isCompleted") Boolean isCompleted,
+                              @Param("completedAt") java.time.LocalDateTime completedAt);
+    
+    // 更新废弃状态
+    @Update("UPDATE reminder_task SET is_abandoned = #{isAbandoned} WHERE task_id = #{taskId}")
+    int updateAbandonedStatus(@Param("taskId") Long taskId,
+                              @Param("isAbandoned") Boolean isAbandoned);
+    
+    // 更新跳过状态
+    @Update("UPDATE reminder_task SET is_skipped = #{isSkipped} WHERE task_id = #{taskId}")
+    int updateSkippedStatus(@Param("taskId") Long taskId,
+                            @Param("isSkipped") Boolean isSkipped);
 
     // 更新位置
     @Update("UPDATE reminder_task SET sort_order = #{sortOrder} WHERE task_id = #{taskId}")

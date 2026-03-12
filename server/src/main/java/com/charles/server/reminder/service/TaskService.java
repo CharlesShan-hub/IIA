@@ -7,7 +7,9 @@ import com.charles.server.reminder.dto.TaskCreateRequest;
 import com.charles.server.reminder.dto.TaskUpdateRequest;
 import com.charles.server.reminder.dto.ProjectDeleteRequest;
 import com.charles.server.reminder.dto.TaskGetAllRequest;
-import com.charles.server.reminder.dto.TaskStatusUpdateRequest;
+import com.charles.server.reminder.dto.TaskUpdateCompletedRequest;
+import com.charles.server.reminder.dto.TaskUpdateAbandonedRequest;
+
 import com.charles.server.reminder.entity.Task;
 
 public interface TaskService {
@@ -56,11 +58,18 @@ public interface TaskService {
     /**************************************************************************************/
 
     /**
-     * Update Task Status (taskId & status [done|todo|abandoned])
+     * Update Task Completed Status
      * @param userId
-     * @param dto the task status update request
+     * @param dto the task update completed request
      */
-    void updateStatus(Long userId, TaskStatusUpdateRequest dto);
+    void updateCompletedStatus(Long userId, TaskUpdateCompletedRequest dto);
+    
+    /**
+     * Update Task Abandoned Status
+     * @param userId
+     * @param dto the task update abandoned request
+     */
+    void updateAbandonedStatus(Long userId, TaskUpdateAbandonedRequest dto);
 
     /**************************************************************************************/
     /*                                   Recurrence Task                                  */

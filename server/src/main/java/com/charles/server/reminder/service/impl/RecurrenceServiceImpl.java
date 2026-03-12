@@ -49,21 +49,6 @@ public class RecurrenceServiceImpl implements RecurrenceService {
         return r;
     }
 
-    // private void validateTaskOwnership(Long userId, Long taskId) {
-    //     com.charles.server.reminder.entity.Task task = taskMapper.findById(taskId);
-    //     if (task == null) {
-    //         throw com.charles.server.reminder.exception.TaskAccessException.notFound(taskId);
-    //     }
-    //     if (!task.getUserId().equals(userId)) {
-    //         throw com.charles.server.reminder.exception.TaskAccessException.permissionDenied(userId, taskId);
-    //     }
-    // }
-
-    // private Recurrence validatedFindByTaskId(Long userId, Long taskId) {
-    //     validateTaskOwnership(userId, taskId);
-    //     return recurrenceMapper.findByTaskId(taskId);
-    // }
-
     /**************************************************************************************/
     /*                                    Basic CRUD                                      */
     /**************************************************************************************/
@@ -99,11 +84,6 @@ public class RecurrenceServiceImpl implements RecurrenceService {
     }
 
     @Override
-    public void create(Long taskId, TaskUpdateRequest dto) {
-        create(taskId, convertToEntity(taskId, dto));
-    }
-
-    @Override
     public void delete(Long taskId) {
         try {
             log.info("Deleting recurrence config for taskId={}", taskId);
@@ -114,69 +94,32 @@ public class RecurrenceServiceImpl implements RecurrenceService {
         }
     }
     
-    // @Override
-    // public Recurrence getByTaskId(Long taskId) {
-    //     try {
-    //         log.info("根据任务ID查询循环配置: taskId={}", taskId);
-    //         return recurrenceMapper.findByTaskId(taskId);
-    //     } catch (Exception e) {
-    //         log.error("根据任务ID查询循环配置失败: taskId={}, error={}", taskId, e.getMessage(), e);
-    //         throw e;
-    //     }
-    // }
-    
-    // @Override
-    // public int update(Recurrence recurrence) {
-    //     try {
-    //         log.info("更新循环任务配置: {}", recurrence);
-    //         return recurrenceMapper.update(recurrence);
-    //     } catch (Exception e) {
-    //         log.error("更新循环任务配置失败: {}", e.getMessage(), e);
-    //         throw e;
-    //     }
-    // }
-    
-    // @Override
-    // public int updateNextTime(Long taskId, LocalDateTime nextTime) {
-    //     try {
-    //         log.info("更新循环任务下一次发生时间: taskId={}, nextTime={}", taskId, nextTime);
-    //         return recurrenceMapper.updateNextTime(taskId, nextTime);
-    //     } catch (Exception e) {
-    //         log.error("更新循环任务下一次发生时间失败: taskId={}, error={}", taskId, e.getMessage(), e);
-    //         throw e;
-    //     }
-    // }
-    
-    // @Override
-    // public int updateCount(Long taskId, Integer count) {
-    //     try {
-    //         log.info("更新循环任务重复次数: taskId={}, count={}", taskId, count);
-    //         return recurrenceMapper.updateCount(taskId, count);
-    //     } catch (Exception e) {
-    //         log.error("更新循环任务重复次数失败: taskId={}, error={}", taskId, e.getMessage(), e);
-    //         throw e;
-    //     }
-    // }
-    
-    // @Override
-    // public int deleteByTaskId(Long taskId) {
-    //     try {
-    //         log.info("删除循环任务配置: taskId={}", taskId);
-    //         return recurrenceMapper.deleteByTaskId(taskId);
-    //     } catch (Exception e) {
-    //         log.error("删除循环任务配置失败: taskId={}, error={}", taskId, e.getMessage(), e);
-    //         throw e;
-    //     }
-    // }
-    
-    // @Override
-    // public List<Recurrence> getUpcomingByUserId(Long userId, LocalDateTime deadline) {
-    //     try {
-    //         log.info("查询用户即将发生的循环任务: userId={}, deadline={}", userId, deadline);
-    //         return recurrenceMapper.findUpcomingByUserId(userId, deadline);
-    //     } catch (Exception e) {
-    //         log.error("查询用户即将发生的循环任务失败: userId={}, error={}", userId, e.getMessage(), e);
-    //         throw e;
-    //     }
-    // }
+    @Override
+    public void update(Long taskId, TaskUpdateRequest dto) {
+        try {
+            log.info("Updating recurrence config for taskId={}", taskId);
+            
+            Recurrence existing = recurrenceMapper.findByTaskId(taskId);
+            Recurrence recurrence = convertToEntity(taskId, dto);
+            
+            if (existing == null) {
+                // Not exists → Create
+                log.info("Creating new recurrence config for taskId={}", taskId);
+                recurrenceMapper.insert(recurrence);
+            } else {
+                // Exists → Update
+                log.info("Recurrence config already exists for taskId={}, skipping update for now", taskId);
+                // TODO
+                // 现在还不支持修改已存在的循环配置
+                // recurrenceMapper.update(mergeRecurrence(existing, recurrence));
+            }
+        } catch (Exception e) {
+            log.error("Update recurrence config failed: {}", e.getMessage(), e);
+            throw e;
+        }
+    }
+
+    @Override
+    public void complete(Long taskId) {
+    }
 }

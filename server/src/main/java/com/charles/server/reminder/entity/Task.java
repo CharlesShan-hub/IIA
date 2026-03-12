@@ -12,7 +12,11 @@ public class Task {
     // 核心元数据
     private String title; // NOT NULL
     private Boolean isRecurring = false; // DEFAULT FALSE
-    private String status; // 'todo', 'done' 或 'abandoned' NOT NULL DEFAULT 'todo'
+    
+    // 状态字段（新设计）
+    private Boolean isCompleted = false; // 是否完成
+    private Boolean isAbandoned = false; // 是否废弃
+    private Boolean isSkipped = false; // 是否跳过（仅对循环任务有效）
     
     // 层级结构
     private Long parentTaskId; // NULL

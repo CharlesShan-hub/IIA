@@ -326,7 +326,6 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         Task other = new Task();
         other.setUserId(2L);
         other.setTitle("OTHER_TASK");
-        other.setStatus("todo");
         other.setIsRecurring(false);
         other.setSortOrder(1);
         other.setPriority("none");

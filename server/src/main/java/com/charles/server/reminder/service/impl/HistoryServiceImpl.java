@@ -6,78 +6,108 @@ import com.charles.server.reminder.service.HistoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class HistoryServiceImpl implements HistoryService {
-
+    
     private final HistoryMapper historyMapper;
-
+    
     @Override
-    public History create(History history) {
-        log.info("Creating history record: {}", history);
+    public Long generateNextOperationId() {
+        // 使用数据库序列或时间戳生成操作ID
+        // 这里使用简单的自增方式
+        Long maxOperationId = historyMapper.getMaxOperationId();
+        return (maxOperationId == null) ? 1L : maxOperationId + 1;
+    }
+
+    // private Long getLastOperationId(Long taskId) {
+    //     History lastHistory = historyMapper.findLatestByTaskId(taskId);
+    //     if (lastHistory != null) {
+    //         return lastHistory.getOperationId();
+    //     }
+    //     return null;
+    // }
+    
+    @Override
+    @Transactional
+    public void create(History history) {
+        // 设置创建时间
+        history.setCreatedAt(LocalDateTime.now());
+        
+        // 插入历史记录
         historyMapper.insert(history);
-        log.info("Created history record with ID: {}", history.getHistoryId());
-        return history;
+        log.debug("创建状态变更历史: taskId={}, isCompleted={}, isAbandoned={}, isSkipped={}, operationId={}", 
+                 history.getTaskId(), history.getIsCompleted(), history.getIsAbandoned(), 
+                 history.getIsSkipped(), history.getOperationId());
     }
-
+    
     @Override
-    public History getById(Long historyId) {
-        log.info("Getting history record by ID: {}", historyId);
-        return historyMapper.findById(historyId);
+    public List<History> findByOperationId(Long operationId) {
+        return historyMapper.findByOperationId(operationId);
     }
-
+    
     @Override
-    public History getByTaskIdAndCurrent(Long taskId, Integer current) {
-        log.info("Getting history record by task ID: {} and current: {}", taskId, current);
-        return historyMapper.findByTaskIdAndCurrent(taskId, current);
+    public History findLatestByTaskId(Long taskId) {
+        return historyMapper.findLatestByTaskId(taskId);
     }
-
+    
     @Override
-    public List<History> getByTaskId(Long taskId) {
-        log.info("Getting all history records by task ID: {}", taskId);
+    public List<History> findByTaskId(Long taskId) {
         return historyMapper.findByTaskId(taskId);
     }
-
+    
     @Override
-    public List<History> getByUserId(Long userId) {
-        log.info("Getting all history records by user ID: {}", userId);
-        return historyMapper.findByUserId(userId);
+    public History findLastCompletedHistory(Long taskId) {
+        List<History> histories = historyMapper.findByTaskId(taskId);
+        // 从最新到最旧查找第一个完成的历史记录
+        for (int i = histories.size() - 1; i >= 0; i--) {
+            History history = histories.get(i);
+            if(Boolean.TRUE.equals(history.getIsCompleted())) {
+                return history;
+            }
+        }
+        return null;
     }
-
+    
     @Override
-    public List<History> getByUserIdAndStatus(Long userId, String status) {
-        log.info("Getting history records by user ID: {} and status: {}", userId, status);
-        return historyMapper.findByUserIdAndStatus(userId, status);
+    public boolean isOperationIdInTaskHistory(Long taskId, Long operationId) {
+        List<History> histories = historyMapper.findByTaskId(taskId);
+        for (History history : histories) {
+            if(operationId.equals(history.getOperationId())) {
+                return true;
+            }
+        }
+        return false;
     }
-
+    
     @Override
-    public History updateById(History history) {
-        log.info("Updating history record: {}", history);
-        historyMapper.update(history);
-        log.info("Updated history record with ID: {}", history.getHistoryId());
-        return historyMapper.findById(history.getHistoryId());
-    }
-
-    @Override
-    public int updateStatus(Long historyId, String status) {
-        log.info("Updating status of history record ID: {} to {}", historyId, status);
-        return historyMapper.updateStatus(historyId, status);
-    }
-
-    @Override
-    public List<History> getByUserIdAndDateRange(Long userId, LocalDateTime startDate, LocalDateTime endDate) {
-        log.info("Getting history records by user ID: {} between {} and {}", userId, startDate, endDate);
-        return historyMapper.findByUserIdAndDateRange(userId, startDate, endDate);
-    }
-
-    @Override
-    public int deleteByTaskId(Long taskId) {
-        log.info("Deleting all history records by task ID: {}", taskId);
-        return historyMapper.deleteByTaskId(taskId);
+    @Transactional
+    public void undoByOperationId(Long operationId) {
+        // 1. 找到该操作批次的所有历史记录
+        List<History> histories = historyMapper.findByOperationId(operationId);
+        
+        // 2. 生成撤销操作ID
+        Long undoOperationId = generateNextOperationId();
+        
+        // 3. 为每个历史记录创建撤销记录
+        for (History history : histories) {
+            // 创建撤销记录（状态反向变更）
+            create(History.builder()
+                .taskId(history.getTaskId())
+                .isCompleted(history.getIsCompleted())  // 当前完成状态
+                .isAbandoned(history.getIsAbandoned())  // 当前废弃状态
+                .isSkipped(history.getIsSkipped())      // 当前跳过状态
+                .current(history.getCurrent())
+                .operationId(undoOperationId)
+                .build());
+        }
+        
+        log.info("撤销操作批次: operationId={}, 生成撤销操作ID={}", operationId, undoOperationId);
     }
 }

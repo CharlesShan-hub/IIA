@@ -8,7 +8,8 @@ import com.charles.server.reminder.dto.TaskCreateRequest;
 import com.charles.server.reminder.dto.TaskUpdateRequest;
 import com.charles.server.reminder.dto.TaskDeleteRequest;
 import com.charles.server.reminder.dto.TaskGetAllRequest;
-import com.charles.server.reminder.dto.TaskStatusUpdateRequest;
+import com.charles.server.reminder.dto.TaskUpdateCompletedRequest;
+import com.charles.server.reminder.dto.TaskUpdateAbandonedRequest;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,13 +75,24 @@ public class TaskController {
         log.info("Get All Tasks Successfully for user: {}", userId);
         return ResponseUtils.buildSuccessResponse(tasks, "Get All Tasks Successfully");
     }
-
-    // Update Task Status (taskId & status [done|todo|abandoned])
-    @PatchMapping("update-status")
-    public Map<String, Object> updateStatus(@RequestBody @Valid TaskStatusUpdateRequest dto, HttpServletRequest request) {
+    
+    // Update Task Completed Status
+    @PatchMapping("update-completed")
+    public Map<String, Object> updateCompletedStatus(@RequestBody @Valid TaskUpdateCompletedRequest dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
-        taskService.updateStatus(userId, dto);
-        log.info("Update Task Status Successfully for user: {}, taskId: {}, status: {}", userId, dto.getTaskId(), dto.getStatus());
-        return ResponseUtils.buildEmptySuccessResponse("Update Task Status Successfully");
+        taskService.updateCompletedStatus(userId, dto);
+        log.info("Update Task Completed Status Successfully for user: {}, taskId: {}, isCompleted: {}", 
+                userId, dto.getTaskId(), dto.getIsCompleted());
+        return ResponseUtils.buildEmptySuccessResponse("Update Task Completed Status Successfully");
+    }
+    
+    // Update Task Abandoned Status
+    @PatchMapping("update-abandoned")
+    public Map<String, Object> updateAbandonedStatus(@RequestBody @Valid TaskUpdateAbandonedRequest dto, HttpServletRequest request) {
+        Long userId = tokenService.getUserIdFromRequest(request);
+        taskService.updateAbandonedStatus(userId, dto);
+        log.info("Update Task Abandoned Status Successfully for user: {}, taskId: {}, isAbandoned: {}", 
+                userId, dto.getTaskId(), dto.getIsAbandoned());
+        return ResponseUtils.buildEmptySuccessResponse("Update Task Abandoned Status Successfully");
     }
 }

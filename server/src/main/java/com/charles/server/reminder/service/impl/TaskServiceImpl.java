@@ -5,10 +5,13 @@ import com.charles.server.reminder.dto.ProjectDeleteRequest;
 import com.charles.server.reminder.dto.TaskCreateRequest;
 import com.charles.server.reminder.dto.TaskUpdateRequest;
 import com.charles.server.reminder.dto.TaskGetAllRequest;
-import com.charles.server.reminder.dto.TaskStatusUpdateRequest;
+import com.charles.server.reminder.dto.TaskUpdateCompletedRequest;
+import com.charles.server.reminder.dto.TaskUpdateAbandonedRequest;
 import com.charles.server.reminder.entity.Task;
+import com.charles.server.reminder.entity.History;
 import com.charles.server.reminder.mapper.TaskMapper;
 import com.charles.server.reminder.service.TaskService;
+import com.charles.server.reminder.service.HistoryService;
 import com.charles.server.reminder.service.PermissionService;
 import com.charles.server.reminder.service.RecurrenceService;
 import com.charles.server.reminder.exception.TaskException;
@@ -25,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskMapper taskMapper;
+    private final HistoryService historyService;
     private final RecurrenceService recurrenceService;
     private final PermissionService permissionService;
 
@@ -69,7 +73,9 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void create(Long userId, TaskCreateRequest dto) {
         Task task = convertToEntity(userId, dto);
-        task.setStatus("todo");
+        task.setIsCompleted(Boolean.FALSE);
+        task.setIsAbandoned(Boolean.FALSE);
+        task.setIsSkipped(Boolean.FALSE);
         Long projectId = task.getProjectId();
         Long parentTaskId = task.getParentTaskId();
         task.setSortOrder(getNextSortOrder(userId, projectId, parentTaskId));
@@ -106,7 +112,7 @@ public class TaskServiceImpl implements TaskService {
         if (dto.getTitle() != null) task.setTitle(dto.getTitle());
         if (dto.getIsRecurring() != null){
             task.setIsRecurring(dto.getIsRecurring());
-            if(dto.getIsRecurring()) recurrenceService.create(task.getTaskId(), dto);
+            if(dto.getIsRecurring()) recurrenceService.update(task.getTaskId(), dto);
             else recurrenceService.delete(task.getTaskId());
         }
         if (dto.getParentTaskId() != null) task.setParentTaskId(dto.getParentTaskId());
@@ -160,28 +166,132 @@ public class TaskServiceImpl implements TaskService {
     /**************************************************************************************/
 
     @Override
-    public void updateStatus(Long userId, TaskStatusUpdateRequest dto) {
+    @Transactional
+    public void updateCompletedStatus(Long userId, TaskUpdateCompletedRequest dto) {
         Task existing = permissionService.getTask(userId, dto.getTaskId());
-        String status = dto.getStatus();
-        java.time.LocalDateTime completedAt = null;
-        if ("done".equals(status)) {
-            completedAt = java.time.LocalDateTime.now();
-        }
-        taskMapper.updateStatusAndCompletedAt(existing.getTaskId(), status, completedAt);
-        if (Boolean.TRUE.equals(dto.getCascade())) {
-            updateStatusRecursively(userId, existing.getTaskId(), status, completedAt);
-        }
+        // 如果任务已废弃，直接忽略
+        if(Boolean.TRUE.equals(existing.getIsAbandoned())) return;
+        // 如果状态没有变化，直接忽略
+        if(dto.getIsCompleted().equals(existing.getIsCompleted())) return;
+        // 只有激活中的任务，且状态发生变化时才处理
+        java.time.LocalDateTime operationTime = java.time.LocalDateTime.now();
+        Long operationId = historyService.generateNextOperationId();
+        // 上次的操作ID（如果没有历史记录，则使用0L）
+        History lastHistory = historyService.findLatestByTaskId(existing.getTaskId());
+        Long lastOperationId = (lastHistory != null) ? lastHistory.getOperationId() : 0L;
+        // 记录状态变更历史
+        historyService.create(History.builder()
+            .taskId(existing.getTaskId())
+            .isCompleted(dto.getIsCompleted())
+            .isAbandoned(existing.getIsAbandoned())
+            .isSkipped(existing.getIsSkipped())
+            .operationId(operationId)
+            .createdAt(operationTime)
+            .build());
+        // 更新主任务完成状态
+        // 如果任务完成，设置完成时间；如果取消完成，清空完成时间
+        java.time.LocalDateTime completedAt = dto.getIsCompleted() ? operationTime : null;
+        taskMapper.updateCompletedStatus(existing.getTaskId(), dto.getIsCompleted(), completedAt);
+        // 递归更新子任务完成状态
+        updateCompletedStatusRecursively(userId, existing.getTaskId(), dto.getIsCompleted(), operationTime, completedAt, operationId, lastOperationId);
     }
 
-    private void updateStatusRecursively(Long userId, Long parentTaskId, String status, java.time.LocalDateTime completedAt) {
+    private void updateCompletedStatusRecursively(Long userId, Long parentTaskId, Boolean isCompleted, 
+                                                 java.time.LocalDateTime operationTime,java.time.LocalDateTime completedAt, Long operationId, Long parentLastOperationId) {
         List<Task> children = taskMapper.findByUserIdAndParentTaskId(userId, parentTaskId);
         for (Task child : children) {
-            java.time.LocalDateTime childCompletedAt = null;  // todo | abandoned
-            if ("done".equals(status)) {
-                childCompletedAt = (child.getCompletedAt() != null) ? child.getCompletedAt() : completedAt;
+            // 如果子任务已废弃，直接忽略
+            if(Boolean.TRUE.equals(child.getIsAbandoned())) continue;
+            // 只有当子任务的完成状态实际发生变化时才处理
+            if(isCompleted.equals(child.getIsCompleted())) continue;
+            
+            // 对于取消完成，需要智能判断：
+            // 只有由父任务完成操作完成的子任务才取消完成
+            if(!isCompleted) {
+                // parentLastOperationId应该总是有值的，因为父任务必须曾经被完成过才能取消完成
+                // 检查父任务的上次完成操作ID是否在子任务的历史记录中
+                // 这样可以处理：A完成时同步了B，后来B被单独操作过，现在取消A时B也应该被取消
+                boolean foundInChildHistory = historyService.isOperationIdInTaskHistory(child.getTaskId(), parentLastOperationId);
+                if(!foundInChildHistory) {
+                    // 父任务的完成操作没有影响这个子任务，跳过
+                    continue;
+                }
             }
-            taskMapper.updateStatusAndCompletedAt(child.getTaskId(), status, childCompletedAt);
-            updateStatusRecursively(userId, child.getTaskId(), status, completedAt);
+            // 记录子任务状态变更历史
+            historyService.create(History.builder()
+                .taskId(child.getTaskId())
+                .isCompleted(isCompleted) // 子任务使用与父任务相同的完成状态
+                .isAbandoned(child.getIsAbandoned()) // 保持原有废弃状态
+                .isSkipped(child.getIsSkipped())     // 保持原有跳过状态
+                .operationId(operationId)
+                .createdAt(operationTime)
+                .build());
+            // 更新子任务完成状态
+            taskMapper.updateCompletedStatus(child.getTaskId(), isCompleted, completedAt);
+            // 递归更新孙子任务，传递当前操作ID作为parentLastOperationId
+            updateCompletedStatusRecursively(userId, child.getTaskId(), isCompleted, operationTime, completedAt, operationId, operationId);
+        }
+    }
+    
+
+    
+    @Override
+    @Transactional
+    public void updateAbandonedStatus(Long userId, TaskUpdateAbandonedRequest dto) {
+        Task existing = permissionService.getTask(userId, dto.getTaskId());
+        // 如果任务已废弃，直接忽略
+        if(Boolean.TRUE.equals(existing.getIsAbandoned())) return;
+        
+        // 如果状态没有变化，直接返回
+        if(dto.getIsAbandoned().equals(existing.getIsAbandoned())) return;
+        
+        java.time.LocalDateTime operationTime = java.time.LocalDateTime.now();
+        Long operationId = historyService.generateNextOperationId();
+        
+        // 记录状态变更历史
+        historyService.create(History.builder()
+            .taskId(existing.getTaskId())
+            .isCompleted(existing.getIsCompleted())
+            .isAbandoned(dto.getIsAbandoned())
+            .isSkipped(existing.getIsSkipped())
+            .operationId(operationId)
+            .createdAt(operationTime)
+            .build());
+        
+        // 更新主任务废弃状态
+        taskMapper.updateAbandonedStatus(existing.getTaskId(), dto.getIsAbandoned());
+        
+        // 递归更新子任务废弃状态
+        updateAbandonedStatusRecursively(userId, existing.getTaskId(), dto.getIsAbandoned(), operationId);
+    }
+    
+    private void updateAbandonedStatusRecursively(Long userId, Long parentTaskId, Boolean isAbandoned, Long operationId) {
+        List<Task> children = taskMapper.findByUserIdAndParentTaskId(userId, parentTaskId);
+        for (Task child : children) {
+            // 只有当子任务的废弃状态实际发生变化时才处理
+            if (!isAbandoned.equals(child.getIsAbandoned())) {
+                // 获取子任务的上一个操作ID
+                History childLastHistory = historyService.findLatestByTaskId(child.getTaskId());
+                Long childLastOperationId = (childLastHistory != null) ? childLastHistory.getOperationId() : null;
+
+                java.time.LocalDateTime operationTime = java.time.LocalDateTime.now();
+                
+                // 记录子任务状态变更历史
+                historyService.create(History.builder()
+                    .taskId(child.getTaskId())
+                    .isCompleted(child.getIsCompleted()) // 保持原有完成状态
+                    .isAbandoned(isAbandoned)            // 子任务使用与父任务相同的废弃状态
+                    .isSkipped(child.getIsSkipped())     // 保持原有跳过状态
+                    .operationId(operationId)
+                    .createdAt(operationTime)
+                    .build());
+                
+                // 更新子任务废弃状态
+                taskMapper.updateAbandonedStatus(child.getTaskId(), isAbandoned);
+                
+                // 递归更新孙子任务
+                updateAbandonedStatusRecursively(userId, child.getTaskId(), isAbandoned, operationId);
+            }
         }
     }
 

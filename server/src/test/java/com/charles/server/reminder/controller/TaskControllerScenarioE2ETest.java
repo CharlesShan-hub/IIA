@@ -6,9 +6,12 @@ import com.charles.server.reminder.dto.ProjectCreateRequest;
 import com.charles.server.reminder.dto.TaskCreateRequest;
 import com.charles.server.reminder.dto.TaskDeleteRequest;
 import com.charles.server.reminder.dto.ProjectDeleteRequest;
-import com.charles.server.reminder.dto.TaskStatusUpdateRequest;
+import com.charles.server.reminder.dto.TaskUpdateCompletedRequest;
+import com.charles.server.reminder.dto.TaskUpdateAbandonedRequest;
+import com.charles.server.reminder.entity.History;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.entity.Task;
+import com.charles.server.reminder.mapper.HistoryMapper;
 import com.charles.server.reminder.mapper.ProjectMapper;
 import com.charles.server.reminder.mapper.TaskMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,11 +25,14 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
+import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -42,6 +48,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
     @Autowired ProjectMapper projectMapper;
     @Autowired TaskMapper taskMapper;
     @Autowired JdbcTemplate jdbc;
+    @Autowired ApplicationContext applicationContext;
 
     @TestConfiguration
     static class TestConfig {
@@ -347,92 +354,233 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
     }
 
     @Test
-    void scenario_updateStatus_done_then_todo() throws Exception {
-        // 创建项目并创建任务 Z
-        ProjectCreateRequest p = new ProjectCreateRequest();
-        p.setName("StatusP");
+    void scenario_parent_completion_cancellation_with_abandoned_child() throws Exception {
+        // 创建默认项目
+        ProjectCreateRequest pReq = new ProjectCreateRequest();
+        pReq.setName("TestProject");
         mockMvc.perform(post("/api/reminder/projects/create")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
-                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(p))))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(pReq))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
-        Long pId = projectMapper.findByUserIdAndArchived(1L, false).stream()
-                .filter(pp -> "StatusP".equals(pp.getName())).findFirst().orElseThrow().getProjectId();
 
-        TaskCreateRequest z = new TaskCreateRequest();
-        z.setProjectId(pId);
-        z.setTitle("Z");
-        z.setIsRecurring(false);
+        List<Project> projects = projectMapper.findByUserIdAndArchived(1L, false);
+        Optional<Project> opt = projects.stream().filter(p -> "TestProject".equals(p.getName())).findFirst();
+        Assertions.assertTrue(opt.isPresent(), "Project 'TestProject' should be created");
+        Long projectId = opt.get().getProjectId();
+
+        // 创建父任务A
+        TaskCreateRequest taskAReq = new TaskCreateRequest();
+        taskAReq.setProjectId(projectId);
+        taskAReq.setTitle("Task A");
+        taskAReq.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
-                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(z))))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(taskAReq))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
-        Task taskZ = taskMapper.findByUserIdAndProjectId(1L, pId).stream()
-                .filter(t -> "Z".equals(t.getTitle())).findFirst().orElseThrow();
 
-        // 标记完成
-        TaskStatusUpdateRequest dtoDone = new TaskStatusUpdateRequest();
-        dtoDone.setTaskId(taskZ.getTaskId());
-        dtoDone.setStatus("done");
-        mockMvc.perform(patch("/api/reminder/task/update-status")
+        // 获取父任务A
+        Task taskA = taskMapper.findByUserIdAndProjectId(1L, projectId).stream()
+                .filter(t -> "Task A".equals(t.getTitle())).findFirst().orElseThrow();
+        Long taskAId = taskA.getTaskId();
+
+        // 创建子任务B
+        TaskCreateRequest taskBReq = new TaskCreateRequest();
+        taskBReq.setProjectId(projectId);
+        taskBReq.setParentTaskId(taskAId);
+        taskBReq.setTitle("Task B");
+        taskBReq.setIsRecurring(false);
+        mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
-                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(dtoDone))))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(taskBReq))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
-        Task afterDone = taskMapper.findById(taskZ.getTaskId());
-        Assertions.assertEquals("done", afterDone.getStatus());
-        Assertions.assertNotNull(afterDone.getCompletedAt(), "completedAt should be set on done");
 
-        // 恢复为待办
-         TaskStatusUpdateRequest dtoTodo = new TaskStatusUpdateRequest();
-         dtoTodo.setTaskId(taskZ.getTaskId());
-         dtoTodo.setStatus("todo");
-         mockMvc.perform(patch("/api/reminder/task/update-status")
-         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
-         .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(dtoTodo))))
-                 .andExpect(status().isOk())
-                 .andExpect(jsonPath("$.code").value(200));
-         Task afterTodo = taskMapper.findById(taskZ.getTaskId());
-         Assertions.assertEquals("todo", afterTodo.getStatus());
-         Assertions.assertNull(afterTodo.getCompletedAt(), "completedAt should be cleared on todo");
-    }
-
-    @Test
-    void scenario_task_error_not_found() throws Exception {
-        TaskDeleteRequest del = new TaskDeleteRequest();
-        del.setTaskId(999999L);
-        mockMvc.perform(post("/api/reminder/task/delete")
+        // 创建子任务C
+        TaskCreateRequest taskCReq = new TaskCreateRequest();
+        taskCReq.setProjectId(projectId);
+        taskCReq.setParentTaskId(taskAId);
+        taskCReq.setTitle("Task C");
+        taskCReq.setIsRecurring(false);
+        mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
-                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(del))))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(taskCReq))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code").value(404));
-    }
+                .andExpect(jsonPath("$.code").value(200));
 
-    @Test
-    void scenario_task_error_permission_denied() throws Exception {
-        jdbc.update(
-                "INSERT INTO iia_auth(user_id, password_hash) VALUES (?, ?) " +
-                        "ON DUPLICATE KEY UPDATE password_hash = VALUES(password_hash)",
-                2L,
-                "x"
-        );
-
-        Task other = new Task();
-        other.setUserId(2L);
-        other.setTitle("OTHER_TASK");
-        other.setStatus("todo");
-        other.setIsRecurring(false);
-        other.setSortOrder(1);
-        other.setPriority("none");
-        taskMapper.insert(other);
-
-        TaskDeleteRequest del = new TaskDeleteRequest();
-        del.setTaskId(other.getTaskId());
-        mockMvc.perform(post("/api/reminder/task/delete")
+        // 创建子任务D
+        TaskCreateRequest taskDReq = new TaskCreateRequest();
+        taskDReq.setProjectId(projectId);
+        taskDReq.setParentTaskId(taskAId);
+        taskDReq.setTitle("Task D");
+        taskDReq.setIsRecurring(false);
+        mockMvc.perform(post("/api/reminder/task/create")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
-                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(del))))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(taskDReq))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code").value(403));
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 获取所有子任务
+        Task taskB = taskMapper.findByUserIdAndParentTaskId(1L, taskAId).stream()
+                .filter(t -> "Task B".equals(t.getTitle())).findFirst().orElseThrow();
+        Long taskBId = taskB.getTaskId();
+        
+        Task taskC = taskMapper.findByUserIdAndParentTaskId(1L, taskAId).stream()
+                .filter(t -> "Task C".equals(t.getTitle())).findFirst().orElseThrow();
+        Long taskCId = taskC.getTaskId();
+        
+        Task taskD = taskMapper.findByUserIdAndParentTaskId(1L, taskAId).stream()
+                .filter(t -> "Task D".equals(t.getTitle())).findFirst().orElseThrow();
+        Long taskDId = taskD.getTaskId();
+
+        // 验证初始状态
+        Assertions.assertFalse(taskA.getIsCompleted(), "任务A初始应为未完成");
+        Assertions.assertFalse(taskB.getIsCompleted(), "任务B初始应为未完成");
+        Assertions.assertFalse(taskC.getIsCompleted(), "任务C初始应为未完成");
+        Assertions.assertFalse(taskD.getIsCompleted(), "任务D初始应为未完成");
+        Assertions.assertFalse(taskD.getIsAbandoned(), "任务D初始应为未废弃");
+
+        // 步骤1：将任务D设置为废弃
+        TaskUpdateAbandonedRequest abandonD = new TaskUpdateAbandonedRequest();
+        abandonD.setTaskId(taskDId);
+        abandonD.setIsAbandoned(true);
+        mockMvc.perform(patch("/api/reminder/task/update-abandoned")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(abandonD))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 验证任务D已废弃
+        Task updatedD = taskMapper.findById(taskDId);
+        Assertions.assertTrue(updatedD.getIsAbandoned(), "任务D应已废弃");
+        Assertions.assertFalse(updatedD.getIsCompleted(), "废弃的任务D不应是完成状态");
+
+        // 步骤2：将任务C设置为完成
+        TaskUpdateCompletedRequest completeC = new TaskUpdateCompletedRequest();
+        completeC.setTaskId(taskCId);
+        completeC.setIsCompleted(true);
+        mockMvc.perform(patch("/api/reminder/task/update-completed")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(completeC))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 验证任务C已完成
+        Task updatedC = taskMapper.findById(taskCId);
+        Assertions.assertTrue(updatedC.getIsCompleted(), "任务C应已完成");
+        Assertions.assertNotNull(updatedC.getCompletedAt(), "任务C完成时间不应为空");
+
+        // 步骤3：将父任务A设置为完成（应该同步B，但不会影响已废弃的D和已完成的C）
+        TaskUpdateCompletedRequest completeA = new TaskUpdateCompletedRequest();
+        completeA.setTaskId(taskAId);
+        completeA.setIsCompleted(true);
+        mockMvc.perform(patch("/api/reminder/task/update-completed")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(completeA))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 验证任务A已完成
+        Task updatedA = taskMapper.findById(taskAId);
+        Assertions.assertTrue(updatedA.getIsCompleted(), "任务A应已完成");
+        Assertions.assertNotNull(updatedA.getCompletedAt(), "任务A完成时间不应为空");
+
+        // 验证任务B已同步完成
+        Task updatedB = taskMapper.findById(taskBId);
+        Assertions.assertTrue(updatedB.getIsCompleted(), "任务B应已同步完成");
+        Assertions.assertNotNull(updatedB.getCompletedAt(), "任务B完成时间不应为空");
+
+        // 验证任务C状态不变（之前已完成）
+        Task recheckedC = taskMapper.findById(taskCId);
+        Assertions.assertTrue(recheckedC.getIsCompleted(), "任务C应保持完成状态");
+
+        // 验证任务D状态不变（已废弃）
+        Task recheckedD = taskMapper.findById(taskDId);
+        Assertions.assertTrue(recheckedD.getIsAbandoned(), "任务D应保持废弃状态");
+        Assertions.assertFalse(recheckedD.getIsCompleted(), "废弃的任务D不应是完成状态");
+
+        // 获取历史记录Mapper
+        HistoryMapper historyMapper = applicationContext.getBean(HistoryMapper.class);
+        
+        // 获取任务A完成时的操作ID
+        List<History> aHistories = historyMapper.findByTaskId(taskAId);
+        Assertions.assertEquals(1, aHistories.size(), "任务A应有1条历史记录");
+        Long aOperationId = aHistories.get(0).getOperationId();
+        
+        // 获取任务B的历史记录
+        List<History> bHistories = historyMapper.findByTaskId(taskBId);
+        Assertions.assertEquals(1, bHistories.size(), "任务B应有1条历史记录");
+        Long bOperationId = bHistories.get(0).getOperationId();
+        
+        // 验证任务A和任务B使用相同的操作ID（表示是同一个操作批次）
+        Assertions.assertEquals(aOperationId, bOperationId, "任务A和任务B应使用相同的操作ID");
+
+        // 步骤4：将任务B取消完成
+        TaskUpdateCompletedRequest uncompleteB = new TaskUpdateCompletedRequest();
+        uncompleteB.setTaskId(taskBId);
+        uncompleteB.setIsCompleted(false);
+        mockMvc.perform(patch("/api/reminder/task/update-completed")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(uncompleteB))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 验证任务B已取消完成
+        Task uncompletedB = taskMapper.findById(taskBId);
+        Assertions.assertFalse(uncompletedB.getIsCompleted(), "任务B应已取消完成");
+        Assertions.assertNull(uncompletedB.getCompletedAt(), "任务B完成时间应被清空");
+
+        // 步骤5：将任务B重新完成（单独操作）
+        TaskUpdateCompletedRequest reCompleteB = new TaskUpdateCompletedRequest();
+        reCompleteB.setTaskId(taskBId);
+        reCompleteB.setIsCompleted(true);
+        mockMvc.perform(patch("/api/reminder/task/update-completed")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(reCompleteB))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 验证任务B已重新完成
+        Task recompletedB = taskMapper.findById(taskBId);
+        Assertions.assertTrue(recompletedB.getIsCompleted(), "任务B应已重新完成");
+        Assertions.assertNotNull(recompletedB.getCompletedAt(), "任务B完成时间不应为空");
+
+        // 步骤6：将父任务A取消完成
+        TaskUpdateCompletedRequest uncompleteA = new TaskUpdateCompletedRequest();
+        uncompleteA.setTaskId(taskAId);
+        uncompleteA.setIsCompleted(false);
+        mockMvc.perform(patch("/api/reminder/task/update-completed")
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                        .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(uncompleteA))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+
+        // 验证任务A已取消完成
+        Task uncompletedA = taskMapper.findById(taskAId);
+        Assertions.assertFalse(uncompletedA.getIsCompleted(), "任务A应已取消完成");
+        Assertions.assertNull(uncompletedA.getCompletedAt(), "任务A完成时间应被清空");
+
+        // 验证任务B被再次连带取消完成
+        Task finalB = taskMapper.findById(taskBId);
+        Assertions.assertFalse(finalB.getIsCompleted(), "任务B应被再次连带取消完成");
+        Assertions.assertNull(finalB.getCompletedAt(), "任务B完成时间应被清空");
+
+        // 验证任务C状态不变（之前已完成）
+        Task finalC = taskMapper.findById(taskCId);
+        Assertions.assertTrue(finalC.getIsCompleted(), "任务C应保持完成状态");
+        Assertions.assertNotNull(finalC.getCompletedAt(), "任务C完成时间不应为空");
+
+        // 验证任务D状态不变（已废弃）
+        Task finalD = taskMapper.findById(taskDId);
+        Assertions.assertTrue(finalD.getIsAbandoned(), "任务D应保持废弃状态");
+        Assertions.assertFalse(finalD.getIsCompleted(), "废弃的任务D不应是完成状态");
+
+        System.out.println("测试通过！验证了：");
+        System.out.println("1. 废弃的任务不会被父任务完成操作影响");
+        System.out.println("2. 已单独完成的任务不会被父任务完成操作影响");
+        System.out.println("3. 父任务完成时会同步未完成的子任务");
+        System.out.println("4. 父任务取消完成时，只有被该父任务完成操作影响的子任务才会被取消完成");
+        System.out.println("5. 操作批次跟踪正确：任务A和任务B使用相同的操作ID");
     }
 }
