@@ -733,7 +733,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertEquals(aOperationId, bOperationId, "任务A和任务B应使用相同的操作ID");
         Assertions.assertEquals(aOperationId, cOperationId, "任务A和任务C应使用相同的操作ID");
 
-        // 步骤3：将任务B单独恢复（不是通过A恢复）
+        // 步骤3：尝试恢复任务B（父任务A已废弃，预期应该不能恢复）
         TaskUpdateAbandonedRequest recoverB = new TaskUpdateAbandonedRequest();
         recoverB.setTaskId(taskBId);
         recoverB.setIsAbandoned(false);
@@ -743,9 +743,9 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
-        // 验证任务B已恢复
-        Task recoveredB = taskMapper.findById(taskBId);
-        Assertions.assertFalse(recoveredB.getIsAbandoned(), "任务B应已恢复");
+        // 验证任务B仍然保持废弃状态（因为父任务A已废弃）
+        Task stillAbandonedB = taskMapper.findById(taskBId);
+        Assertions.assertTrue(stillAbandonedB.getIsAbandoned(), "任务B应保持废弃状态（父任务已废弃）");
 
         // 步骤4：将父任务A恢复（应只恢复C，因为B是被单独操作恢复的）
         TaskUpdateAbandonedRequest recoverA = new TaskUpdateAbandonedRequest();

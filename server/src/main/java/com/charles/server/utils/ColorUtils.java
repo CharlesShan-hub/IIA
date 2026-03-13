@@ -12,6 +12,19 @@ public class ColorUtils {
     private static final Pattern HEX_LONG_PATTERN = Pattern.compile("^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$");
     private static final Pattern RGB_A_PATTERN = Pattern.compile("rgba?\\((\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})(?:\\s*,\\s*([\\d.]+))?\\)", Pattern.CASE_INSENSITIVE);
 
+    private static volatile String defaultColor = "#409EFF";
+
+    public static String getDefaultColor() {
+        return defaultColor;
+    }
+
+    public static void setDefaultColor(String color) {
+        String normalized = normalizeColor(color);
+        if (normalized != null) {
+            defaultColor = normalized;
+        }
+    }
+
     /**
      * 转换颜色字符串为十六进制格式
      * 如果是#开头的十六进制格式，则直接返回

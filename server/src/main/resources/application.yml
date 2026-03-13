@@ -35,3 +35,7 @@ jwt:
 logging:
     level:
         root: INFO
+
+reminder:
+    color:
+        default: "#409EFF"

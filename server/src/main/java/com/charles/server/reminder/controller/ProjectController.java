@@ -16,7 +16,7 @@ import com.charles.server.utils.ResponseUtils;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/reminder/projects")
+@RequestMapping("/api/reminder/project")
 @RequiredArgsConstructor
 public class ProjectController {
     

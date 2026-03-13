@@ -21,6 +21,6 @@ public class ProjectUpdateRequest {
     private Long projectId;
 
     public void setColor(String color) {
-        this.color = ColorUtils.getColorOrDefault(color, "#409EFF");
+        this.color = ColorUtils.getColorOrDefault(color, ColorUtils.getDefaultColor());
     }
 }
