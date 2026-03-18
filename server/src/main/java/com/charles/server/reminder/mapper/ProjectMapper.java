@@ -8,13 +8,13 @@ import java.util.List;
 @Mapper
 public interface ProjectMapper {
     
-    @Insert("INSERT INTO reminder_project(user_id, name, description, color, icon, sort_order, is_archived)"+
-            "VALUES(#{userId}, #{name}, #{description}, #{color}, #{icon}, #{sortOrder}, #{isArchived})")
+    @Insert("INSERT INTO reminder_project(user_id, name, description, color, icon, sort_order, is_archived, operation_id)"+
+            "VALUES(#{userId}, #{name}, #{description}, #{color}, #{icon}, #{sortOrder}, #{isArchived}, #{operationId})")
     @Options(useGeneratedKeys = true, keyProperty = "projectId", keyColumn = "project_id")
     int insert(Project project);
 
     @Update("UPDATE reminder_project SET name = #{name}, description = #{description}, color = #{color}, "+
-            "icon = #{icon}, sort_order = #{sortOrder}, is_archived = #{isArchived} "+
+            "icon = #{icon}, sort_order = #{sortOrder}, is_archived = #{isArchived}, operation_id = #{operationId} "+
             "WHERE project_id = #{projectId}")
     int update(Project project);
     

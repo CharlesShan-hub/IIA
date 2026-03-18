@@ -152,8 +152,8 @@ public abstract class BaseE2eDatabaseTest {
         request.setName(projectName);
 
         mockMvc.perform(post("/api/reminder/project/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(expectCode));
 
@@ -182,8 +182,8 @@ public abstract class BaseE2eDatabaseTest {
 
     protected void updateProject(ProjectUpdateRequest request, int expectCode) throws Exception {
         mockMvc.perform(post("/api/reminder/project/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(expectCode));
     }
@@ -194,8 +194,8 @@ public abstract class BaseE2eDatabaseTest {
 
     protected void deleteProject(ProjectDeleteRequest request, int expectCode) throws Exception {
         mockMvc.perform(post("/api/reminder/project/delete")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(expectCode));
     }
@@ -211,8 +211,8 @@ public abstract class BaseE2eDatabaseTest {
         request.setTitle(title);
 
         mockMvc.perform(post("/api/reminder/task/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
@@ -244,8 +244,8 @@ public abstract class BaseE2eDatabaseTest {
         request.setParentTaskId(parentTaskId);
         
         mockMvc.perform(post("/api/reminder/task/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
         
@@ -268,8 +268,8 @@ public abstract class BaseE2eDatabaseTest {
         request.setIsCompleted(completed);
         
         mockMvc.perform(post("/api/reminder/tasks/update/completed")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
     }
@@ -283,8 +283,8 @@ public abstract class BaseE2eDatabaseTest {
         request.setIsAbandoned(abandoned);
         
         mockMvc.perform(post("/api/reminder/tasks/update/abandoned")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
     }

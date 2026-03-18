@@ -27,9 +27,8 @@ class TaskControllerScenarioE2ETestImproved extends BaseE2eDatabaseTest {
         // 1. 创建项目
         Long projectId = createProject("Default");
         
-        // 2. 创建两个根任务
+        // 2. 创建根任务
         Long task1Id = createRootTask(projectId, "T1");
-        Long task2Id = createRootTask(projectId, "T2");
         
         // 3. 创建子任务
         Long subtaskId = createSubTask(task1Id, "T1-1");

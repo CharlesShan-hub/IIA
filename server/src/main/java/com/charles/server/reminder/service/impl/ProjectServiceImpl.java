@@ -13,10 +13,12 @@ import com.charles.server.reminder.exception.ProjectException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Project;
+import com.charles.server.reminder.entity.Operation;
 import com.charles.server.reminder.mapper.ProjectMapper;
 import com.charles.server.reminder.service.PermissionService;
 import com.charles.server.reminder.service.TaskService;
 import com.charles.server.reminder.service.ProjectService;
+import com.charles.server.reminder.service.OperationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +30,7 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectMapper projectMapper;
     private final TaskService taskService;
     private final PermissionService permissionService;
+    private final OperationService operationService;
 
     private Project convertToEntity(ProjectCreateRequest dto) {
         Project project = new Project();
@@ -43,16 +46,33 @@ public class ProjectServiceImpl implements ProjectService {
     }
     
     @Override
+    @Transactional
     public void create(Long userId, ProjectCreateRequest dto) {
         Project existed = projectMapper.findByUserIdAndName(userId, dto.getName());
         if (existed != null) {
             throw ProjectException.nameAlreadyExists(userId, dto.getName());
         }
+        
+        // 生成操作ID
+        Long operationId = operationService.getId(userId);
+        
+        // 创建操作记录
+        operationService.create(Operation.builder()
+                .operationId(operationId)
+                .userId(userId)
+                .isReminderProject(true)
+                .build());
+        
+        // 创建项目
         Project project = convertToEntity(dto);
         project.setUserId(userId);
         project.setSortOrder(getNextSortOrder(userId, false));
         project.setIsArchived(false);
+        project.setOperationId(operationId);
+        
         projectMapper.insert(project);
+        
+        log.info("创建项目: userId={}, projectId={}, operationId={}", userId, project.getProjectId(), operationId);
     }
 
     @Override

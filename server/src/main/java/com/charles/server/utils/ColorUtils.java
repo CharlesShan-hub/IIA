@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 颜色处理工具类，用于颜色格式转换
+ * Utility class for color processing and format normalization.
  */
 public class ColorUtils {
 
@@ -26,11 +26,11 @@ public class ColorUtils {
     }
 
     /**
-     * 转换颜色字符串为十六进制格式
-     * 如果是#开头的十六进制格式，则直接返回
-     * 如果是rgb格式，则转换为十六进制格式
-     * @param color 颜色字符串
-     * @return 十六进制格式的颜色字符串
+     * Normalize a color string into hexadecimal format.
+     * If the input is already a valid hex color (starting with #), it is normalized and returned.
+     * If the input is rgb/rgba format, it is converted to hex format.
+     * @param color input color string
+     * @return normalized hex color string
      */
     public static String normalizeColor(String color) {
         if (color == null) {
@@ -41,19 +41,19 @@ public class ColorUtils {
             return null;
         }
 
-        // 长十六进制示例（大小写均可）：
-        //   #RRGGBB   如 #1a2b3c -> #1A2B3C
-        //   #RRGGBBAA 如 #1a2b3c80 -> #1A2B3C80
-        // 输出：保持长度不变，统一为大写
+        // Long hex examples (case-insensitive):
+        //   #RRGGBB   e.g. #1a2b3c -> #1A2B3C
+        //   #RRGGBBAA e.g. #1a2b3c80 -> #1A2B3C80
+        // Output keeps original length and normalizes to uppercase
         if (HEX_LONG_PATTERN.matcher(color).matches()) {
             String hex = color.substring(1);
             return "#" + hex.toUpperCase();
         }
 
         Matcher shortHex = HEX_SHORT_PATTERN.matcher(color);
-        // 短十六进制示例：
-        //   #RGB  如 #f0a  -> #FF00AA
-        //   #RGBA 如 #f0a8 -> #FF00AA88（每位重复一次并大写）
+        // Short hex examples:
+        //   #RGB  e.g. #f0a  -> #FF00AA
+        //   #RGBA e.g. #f0a8 -> #FF00AA88 (each digit is duplicated and uppercased)
         if (shortHex.matches()) {
             String s = shortHex.group(1);
             StringBuilder sb = new StringBuilder("#");
@@ -64,10 +64,10 @@ public class ColorUtils {
             return sb.toString();
         }
 
-        // rgb/rgba 示例（大小写不敏感，逗号与空格可变）：
+        // rgb/rgba examples (case-insensitive; flexible spaces and commas):
         //   rgb(255, 0, 128)      -> #FF0080
-        //   rgba(255,0,0,0.5)     -> #FF000080（alpha 为 0–1 小数）
-        //   rgba(34,12,64,128)    -> #220C4080（alpha 为 0–255 整数）
+        //   rgba(255,0,0,0.5)     -> #FF000080 (alpha as 0–1 decimal)
+        //   rgba(34,12,64,128)    -> #220C4080 (alpha as 0–255 integer)
         Matcher m = RGB_A_PATTERN.matcher(color);
         if (m.matches()) {
             try {
@@ -106,10 +106,10 @@ public class ColorUtils {
     }
 
     /**
-     * 安全地获取颜色值，提供默认值
-     * @param color 原始颜色值
-     * @param defaultValue 默认颜色值
-     * @return 标准化后的颜色值或默认值
+     * Safely resolve a color value with fallback default.
+     * @param color raw input color
+     * @param defaultValue fallback color value
+     * @return normalized color if valid; otherwise defaultValue
      */
     public static String getColorOrDefault(String color, String defaultValue) {
         String normalizedColor = normalizeColor(color);

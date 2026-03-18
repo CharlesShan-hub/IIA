@@ -12,4 +12,5 @@ public class Project {
     private String icon;
     private Integer sortOrder;
     private Boolean isArchived;
+    private Long operationId;
 }

@@ -12,10 +12,12 @@ CREATE TABLE reminder_project (
     icon VARCHAR(50) COMMENT '项目图标',
     sort_order INT DEFAULT 0 COMMENT '排序顺序',
     is_archived BOOLEAN DEFAULT FALSE COMMENT '是否归档',
+    operation_id BIGINT DEFAULT 0 COMMENT '操作批次ID，用于标识创建或最后修改该记录的操作',
     FOREIGN KEY (user_id) REFERENCES iia_auth(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB COMMENT='提醒模块 - 项目表';
 
 CREATE INDEX idx_reminder_project_user_id ON reminder_project(user_id);
+CREATE INDEX idx_reminder_project_operation_id ON reminder_project(operation_id);
 
 -- 提醒模块 - 任务表
 CREATE TABLE reminder_task (
@@ -137,3 +139,25 @@ CREATE TABLE reminder_task_tag (
 
 CREATE INDEX idx_reminder_task_tag_task_id ON reminder_task_tag(task_id);
 CREATE INDEX idx_reminder_task_tag_tag_id ON reminder_task_tag(tag_id);
+
+-- 提醒模块 - 操作记录表
+CREATE TABLE reminder_operation (
+    operation_id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '操作ID',
+    user_id BIGINT NOT NULL COMMENT '用户ID',
+    performed_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '操作执行时间',
+    
+    -- 操作信息
+    is_reminder_project BOOLEAN DEFAULT FALSE COMMENT '是否影响项目表',
+    is_reminder_task BOOLEAN DEFAULT FALSE COMMENT '是否影响任务表',
+    is_reminder_recurrence BOOLEAN DEFAULT FALSE COMMENT '是否影响重复任务表',
+    is_reminder_history BOOLEAN DEFAULT FALSE COMMENT '是否影响任务状态变更历史表',
+    is_reminder_tag BOOLEAN DEFAULT FALSE COMMENT '是否影响标签表',
+    is_reminder_task_tag BOOLEAN DEFAULT FALSE COMMENT '是否影响任务-标签关联表',
+    
+    -- 索引
+    INDEX idx_reminder_operation_user_id (user_id),
+    INDEX idx_reminder_operation_performed_at (performed_at),
+    
+    -- 外键约束
+    FOREIGN KEY (user_id) REFERENCES iia_auth(user_id) ON DELETE CASCADE
+) ENGINE=InnoDB COMMENT='提醒模块 - 操作记录表，用于记录所有用户操作以便追溯和撤销';

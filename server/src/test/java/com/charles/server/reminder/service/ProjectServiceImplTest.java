@@ -2,6 +2,7 @@ package com.charles.server.reminder.service;
 
 import com.charles.server.reminder.dto.*;
 import com.charles.server.reminder.entity.Project;
+import com.charles.server.reminder.entity.Operation;
 import com.charles.server.reminder.mapper.ProjectMapper;
 import com.charles.server.reminder.service.impl.ProjectServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,13 +20,15 @@ class ProjectServiceImplTest {
     private TaskService taskService;
     @Mock
     private PermissionService permissionService;
+    @Mock
+    private OperationService operationService;
 
     private ProjectServiceImpl service;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        service = new ProjectServiceImpl(projectMapper, taskService, permissionService);
+        service = new ProjectServiceImpl(projectMapper, taskService, permissionService, operationService);
     }
 
     @Test
@@ -34,18 +37,29 @@ class ProjectServiceImplTest {
         ProjectCreateRequest dto = new ProjectCreateRequest();
         dto.setName("Inbox");
         when(projectMapper.findMaxSortOrderByUserIdAndArchived(1L, false)).thenReturn(5);
-
+        when(operationService.getId(1L)).thenReturn(100L);
+        
         // when
         service.create(1L, dto);
 
         // then
-        ArgumentCaptor<Project> captor = ArgumentCaptor.forClass(Project.class);
-        verify(projectMapper).insert(captor.capture());
-        Project inserted = captor.getValue();
+        // 验证操作记录
+        ArgumentCaptor<Operation> operationCaptor = ArgumentCaptor.forClass(Operation.class);
+        verify(operationService).create(operationCaptor.capture());
+        Operation operation = operationCaptor.getValue();
+        assertEquals(100L, operation.getOperationId());
+        assertEquals(1L, operation.getUserId());
+        assertTrue(Boolean.TRUE.equals(operation.getIsReminderProject()));
+        
+        // 验证项目创建
+        ArgumentCaptor<Project> projectCaptor = ArgumentCaptor.forClass(Project.class);
+        verify(projectMapper).insert(projectCaptor.capture());
+        Project inserted = projectCaptor.getValue();
         assertEquals(1L, inserted.getUserId());
         assertEquals(6, inserted.getSortOrder());
         assertFalse(Boolean.TRUE.equals(inserted.getIsArchived()));
         assertEquals("Inbox", inserted.getName());
+        assertEquals(100L, inserted.getOperationId());
     }
 
     @Test

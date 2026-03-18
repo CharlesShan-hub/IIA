@@ -9,12 +9,10 @@ import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.entity.Task;
 import com.charles.server.reminder.mapper.ProjectMapper;
 import com.charles.server.reminder.mapper.TaskMapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.Comparator;
 import java.util.List;
@@ -32,8 +30,6 @@ public class TaskTestUtils extends BaseE2eDatabaseTest {
     @Autowired
     protected MockMvc mockMvc;
     
-    @Autowired
-    protected ObjectMapper objectMapper;
     
     @Autowired
     protected ProjectMapper projectMapper;
@@ -51,8 +47,8 @@ public class TaskTestUtils extends BaseE2eDatabaseTest {
         request.setName(projectName);
         
         mockMvc.perform(post("/api/reminder/projects/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
         
@@ -81,8 +77,8 @@ public class TaskTestUtils extends BaseE2eDatabaseTest {
         request.setIsRecurring(false);
         
         mockMvc.perform(post("/api/reminder/task/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
         
@@ -113,8 +109,8 @@ public class TaskTestUtils extends BaseE2eDatabaseTest {
         request.setIsRecurring(false);
         
         mockMvc.perform(post("/api/reminder/task/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
         
@@ -141,8 +137,8 @@ public class TaskTestUtils extends BaseE2eDatabaseTest {
         request.setIsCompleted(isCompleted);
         
         mockMvc.perform(patch("/api/reminder/task/update/completed")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
     }
@@ -158,8 +154,8 @@ public class TaskTestUtils extends BaseE2eDatabaseTest {
         request.setIsAbandoned(isAbandoned);
         
         mockMvc.perform(patch("/api/reminder/task/update/abandoned")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
     }
