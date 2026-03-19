@@ -13,9 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class ProjectServiceImplTest {
-
     @Mock
     private ProjectMapper projectMapper;
+    @Mock
+    private ProjectLogService projectLogService;
     @Mock
     private TaskService taskService;
     @Mock
@@ -28,7 +29,7 @@ class ProjectServiceImplTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        service = new ProjectServiceImpl(projectMapper, taskService, permissionService, operationService);
+        service = new ProjectServiceImpl(projectMapper, projectLogService, taskService, permissionService, operationService);
     }
 
     @Test
@@ -72,8 +73,12 @@ class ProjectServiceImplTest {
         Project existing = new Project();
         existing.setProjectId(100L);
         existing.setUserId(1L);
+        existing.setName("Original");
+        existing.setColor("#000000");
+        existing.setOperationId(50L);
         existing.setIsArchived(false);
-        when(projectMapper.findById(100L)).thenReturn(existing);
+        when(permissionService.getProject(1L, 100L)).thenReturn(existing);
+        when(operationService.getId(1L)).thenReturn(51L);
 
         // when
         service.update(1L, dto);
@@ -96,14 +101,29 @@ class ProjectServiceImplTest {
         Project existing = new Project();
         existing.setProjectId(200L);
         existing.setUserId(1L);
+        existing.setSortOrder(3);
+        existing.setOperationId(60L);
         existing.setIsArchived(false);
-        when(projectMapper.findById(200L)).thenReturn(existing);
+        when(permissionService.getProject(1L, 200L)).thenReturn(existing);
+        when(operationService.getId(1L)).thenReturn(61L);
         when(projectMapper.findMaxSortOrderByUserIdAndArchived(1L, true)).thenReturn(7);
 
         // when
         service.update(1L, dto);
 
         // then
+        // 验证历史记录保存
+        verify(projectLogService).save(existing);
+        
+        // 验证操作记录
+        ArgumentCaptor<Operation> operationCaptor = ArgumentCaptor.forClass(Operation.class);
+        verify(operationService).create(operationCaptor.capture());
+        Operation operation = operationCaptor.getValue();
+        assertEquals(61L, operation.getOperationId());
+        assertEquals(1L, operation.getUserId());
+        assertTrue(Boolean.TRUE.equals(operation.getIsReminderProject()));
+        
+        // 验证项目更新
         ArgumentCaptor<Project> captor = ArgumentCaptor.forClass(Project.class);
         verify(projectMapper).update(captor.capture());
         Project updated = captor.getValue();

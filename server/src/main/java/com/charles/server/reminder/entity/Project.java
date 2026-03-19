@@ -12,5 +12,5 @@ public class Project {
     private String icon;
     private Integer sortOrder;
     private Boolean isArchived;
-    private Long operationId;
+    private Long operationId;  // 当前版本的操作ID
 }

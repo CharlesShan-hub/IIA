@@ -8,8 +8,19 @@ import java.util.List;
 @Mapper
 public interface ProjectMapper {
     
-    @Insert("INSERT INTO reminder_project(user_id, name, description, color, icon, sort_order, is_archived, operation_id)"+
-            "VALUES(#{userId}, #{name}, #{description}, #{color}, #{icon}, #{sortOrder}, #{isArchived}, #{operationId})")
+    @Insert({
+            "<script>",
+            "INSERT INTO reminder_project",
+            "<trim prefix='(' suffix=')' suffixOverrides=','>",
+            "  <if test='projectId != null'>project_id,</if>",
+            "  user_id, name, description, color, icon, sort_order, is_archived, operation_id",
+            "</trim>",
+            "<trim prefix='VALUES(' suffix=')' suffixOverrides=','>",
+            "  <if test='projectId != null'>#{projectId},</if>",
+            "  #{userId}, #{name}, #{description}, #{color}, #{icon}, #{sortOrder}, #{isArchived}, #{operationId}",
+            "</trim>",
+            "</script>"
+    })
     @Options(useGeneratedKeys = true, keyProperty = "projectId", keyColumn = "project_id")
     int insert(Project project);
 
@@ -35,4 +46,29 @@ public interface ProjectMapper {
 
     @Select("SELECT * FROM reminder_project WHERE user_id = #{userId} AND name = #{name} LIMIT 1")
     Project findByUserIdAndName(@Param("userId") Long userId, @Param("name") String name);
+    
+    /**
+     * 根据操作ID查找项目
+     * @param operationId 操作ID
+     * @return 项目列表
+     */
+    @Select("SELECT * FROM reminder_project WHERE operation_id = #{operationId}")
+    List<Project> findByOperationId(@Param("operationId") Long operationId);
+    
+    /**
+     * 根据项目ID和操作ID删除项目
+     * @param projectId 项目ID
+     * @param operationId 操作ID
+     * @return 删除的行数
+     */
+    @Delete("DELETE FROM reminder_project WHERE project_id = #{projectId} AND operation_id = #{operationId}")
+    int deleteByProjectIdAndOperationId(@Param("projectId") Long projectId, @Param("operationId") Long operationId);
+    
+    /**
+     * 根据操作ID删除项目
+     * @param operationId 操作ID
+     * @return 删除的行数
+     */
+    @Delete("DELETE FROM reminder_project WHERE operation_id = #{operationId}")
+    int deleteByOperationId(@Param("operationId") Long operationId);
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.entity.Operation;
 import com.charles.server.reminder.mapper.ProjectMapper;
+import com.charles.server.reminder.service.ProjectLogService;
 import com.charles.server.reminder.service.PermissionService;
 import com.charles.server.reminder.service.TaskService;
 import com.charles.server.reminder.service.ProjectService;
@@ -28,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ProjectServiceImpl implements ProjectService {
     
     private final ProjectMapper projectMapper;
+    private final ProjectLogService projectLogService;
     private final TaskService taskService;
     private final PermissionService permissionService;
     private final OperationService operationService;
@@ -48,6 +50,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     @Transactional
     public void create(Long userId, ProjectCreateRequest dto) {
+        // 检查项目名是否已存在
         Project existed = projectMapper.findByUserIdAndName(userId, dto.getName());
         if (existed != null) {
             throw ProjectException.nameAlreadyExists(userId, dto.getName());
@@ -56,14 +59,14 @@ public class ProjectServiceImpl implements ProjectService {
         // 生成操作ID
         Long operationId = operationService.getId(userId);
         
-        // 创建操作记录
+        // 记录操作
         operationService.create(Operation.builder()
                 .operationId(operationId)
                 .userId(userId)
                 .isReminderProject(true)
                 .build());
         
-        // 创建项目
+        // 创建项目（第一个版本）
         Project project = convertToEntity(dto);
         project.setUserId(userId);
         project.setSortOrder(getNextSortOrder(userId, false));
@@ -76,18 +79,44 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @Transactional
     public void update(Long userId, ProjectUpdateRequest dto) {
-        Project project = permissionService.getProject(userId, dto.getProjectId());
-        if (dto.getName() != null) project.setName(dto.getName());
-        if (dto.getDescription() != null) project.setDescription(dto.getDescription());
-        if (dto.getColor() != null) project.setColor(dto.getColor());
-        if (dto.getIcon() != null) project.setIcon(dto.getIcon());
-        if (dto.getIsArchived() != null && !dto.getIsArchived().equals(project.getIsArchived())) {
+        // 1. 获取当前项目
+        Project currentProject = permissionService.getProject(userId, dto.getProjectId());
+
+        // 2. 保存修改前的版本到历史表
+        projectLogService.save(currentProject);
+        
+        // 3. 生成新的操作ID
+        Long newOperationId = operationService.getId(userId);
+        
+        // 4. 记录操作
+        Operation operation = Operation.builder()
+                .operationId(newOperationId)
+                .userId(userId)
+                .isReminderProject(true)
+                .build();
+        operationService.create(operation);
+        
+        // 5. 应用修改到当前项目
+        if (dto.getName() != null) currentProject.setName(dto.getName());
+        if (dto.getDescription() != null) currentProject.setDescription(dto.getDescription());
+        if (dto.getColor() != null) currentProject.setColor(dto.getColor());
+        if (dto.getIcon() != null) currentProject.setIcon(dto.getIcon());
+        if (dto.getIsArchived() != null && !dto.getIsArchived().equals(currentProject.getIsArchived())) {
             boolean archived = dto.getIsArchived();
-            project.setIsArchived(archived);
-            project.setSortOrder(getNextSortOrder(userId, archived));
+            currentProject.setIsArchived(archived);
+            currentProject.setSortOrder(getNextSortOrder(userId, archived));
         }
-        projectMapper.update(project);
+        
+        // 6. 设置新的操作ID
+        currentProject.setOperationId(newOperationId);
+        
+        // 7. 更新主表
+        projectMapper.update(currentProject);
+        
+        log.info("更新项目: userId={}, projectId={}, oldOperationId={}, newOperationId={}", 
+                userId, currentProject.getProjectId(), currentProject.getOperationId(), newOperationId);
     }
     
     @Override

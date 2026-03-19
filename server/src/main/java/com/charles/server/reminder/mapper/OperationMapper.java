@@ -17,4 +17,16 @@ public interface OperationMapper {
     
     @Select("SELECT MAX(operation_id) FROM reminder_operation WHERE user_id = #{userId}")
     Long getMaxOperationIdByUserId(@Param("userId") Long userId);
+    
+    @Select("SELECT MAX(operation_id) FROM reminder_operation WHERE user_id = #{userId}")
+    Long getLatestOperationIdByUserId(@Param("userId") Long userId);
+    
+    @Select("SELECT * FROM reminder_operation WHERE operation_id = #{operationId} AND user_id = #{userId}")
+    Operation findByIdAndUserId(@Param("operationId") Long operationId, @Param("userId") Long userId);
+    
+    @Select("SELECT MAX(operation_id) FROM reminder_operation WHERE user_id = #{userId} AND operation_id < #{operationId}")
+    Long getPreviousOperationId(@Param("userId") Long userId, @Param("operationId") Long operationId);
+    
+    @Delete("DELETE FROM reminder_operation WHERE operation_id = #{operationId}")
+    int deleteById(@Param("operationId") Long operationId);
 }

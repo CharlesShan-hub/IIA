@@ -2,7 +2,7 @@
 
 USE iia;
 
--- 提醒模块 - 项目表
+-- 提醒模块 - 项目表（当前版本）
 CREATE TABLE reminder_project (
     project_id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '项目ID',
     user_id BIGINT NOT NULL COMMENT '用户ID',
@@ -12,9 +12,28 @@ CREATE TABLE reminder_project (
     icon VARCHAR(50) COMMENT '项目图标',
     sort_order INT DEFAULT 0 COMMENT '排序顺序',
     is_archived BOOLEAN DEFAULT FALSE COMMENT '是否归档',
-    operation_id BIGINT DEFAULT 0 COMMENT '操作批次ID，用于标识创建或最后修改该记录的操作',
+    operation_id BIGINT NOT NULL COMMENT '当前版本的操作ID',
     FOREIGN KEY (user_id) REFERENCES iia_auth(user_id) ON DELETE CASCADE
-) ENGINE=InnoDB COMMENT='提醒模块 - 项目表';
+) ENGINE=InnoDB COMMENT='提醒模块 - 项目表（当前版本）';
+
+-- 提醒模块 - 项目历史表（存储所有历史版本）
+CREATE TABLE reminder_project_log (
+    log_id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '日志ID',
+    project_id BIGINT NOT NULL COMMENT '项目ID',
+    operation_id BIGINT NOT NULL COMMENT '操作ID',
+    user_id BIGINT NOT NULL COMMENT '用户ID',
+    name VARCHAR(255) NOT NULL COMMENT '项目名称',
+    description TEXT COMMENT '项目描述',
+    color VARCHAR(20) COMMENT '项目颜色',
+    icon VARCHAR(50) COMMENT '项目图标',
+    sort_order INT DEFAULT 0 COMMENT '排序顺序',
+    is_archived BOOLEAN DEFAULT FALSE COMMENT '是否归档',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '版本创建时间',
+    INDEX idx_reminder_project_log_project (project_id),
+    INDEX idx_reminder_project_log_operation (operation_id),
+    INDEX idx_reminder_project_log_created (created_at),
+    UNIQUE KEY uk_reminder_project_log_version (project_id, operation_id) COMMENT '同一项目的同一操作只能有一个历史版本'
+) ENGINE=InnoDB COMMENT='提醒模块 - 项目历史表（存储所有历史版本）';
 
 CREATE INDEX idx_reminder_project_user_id ON reminder_project(user_id);
 CREATE INDEX idx_reminder_project_operation_id ON reminder_project(operation_id);
