@@ -116,10 +116,7 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
         int order = 1;
         for (int i = active.size() - 1; i >= 0; i--) {
             Project p = active.get(i);
-            BatchUpdatePositionRequest.Position e = new BatchUpdatePositionRequest.Position();
-            e.setItemId(p.getProjectId());
-            e.setSortOrder(order++);
-            pos.add(e);
+            pos.add(new BatchUpdatePositionRequest.Position(p.getProjectId(), order++));
         }
         batch.setPos(pos);
         mockMvc.perform(post("/api/reminder/projects/batch-update-position")
@@ -183,10 +180,7 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
         pos = new ArrayList<>();
         order = 1;
         for (Project p : active) {
-            BatchUpdatePositionRequest.Position e = new BatchUpdatePositionRequest.Position();
-            e.setItemId(p.getProjectId());
-            e.setSortOrder(order++);
-            pos.add(e);
+            pos.add(new BatchUpdatePositionRequest.Position(p.getProjectId(), order++));
         }
         batch.setPos(pos);
         mockMvc.perform(post("/api/reminder/projects/batch-update-position")

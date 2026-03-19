@@ -111,10 +111,8 @@ class ProjectControllerTest {
 
     @Test
     void batchUpdatePosition_ok() throws Exception {
-        BatchUpdatePositionRequest.Position p1 = new BatchUpdatePositionRequest.Position();
-        p1.setItemId(10L); p1.setSortOrder(3);
-        BatchUpdatePositionRequest.Position p2 = new BatchUpdatePositionRequest.Position();
-        p2.setItemId(20L); p2.setSortOrder(7);
+        BatchUpdatePositionRequest.Position p1 = new BatchUpdatePositionRequest.Position(10L, 3);
+        BatchUpdatePositionRequest.Position p2 = new BatchUpdatePositionRequest.Position(20L, 7);
         BatchUpdatePositionRequest req = new BatchUpdatePositionRequest();
         req.setPos(List.of(p1, p2));
 

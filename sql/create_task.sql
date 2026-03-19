@@ -21,6 +21,7 @@ CREATE TABLE reminder_project_log (
     log_id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '日志ID',
     project_id BIGINT NOT NULL COMMENT '项目ID',
     operation_id BIGINT NOT NULL COMMENT '操作ID',
+    batch_operation_id BIGINT NULL COMMENT '批量操作ID',
     user_id BIGINT NOT NULL COMMENT '用户ID',
     name VARCHAR(255) NOT NULL COMMENT '项目名称',
     description TEXT COMMENT '项目描述',

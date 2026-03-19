@@ -8,6 +8,7 @@ public class ProjectLog {
     private Long logId;
     private Long projectId;
     private Long operationId;
+    private Long batchOperationId;
     private Long userId;
     private String name;
     private String description;
@@ -23,9 +24,20 @@ public class ProjectLog {
      * @return 项目日志实体
      */
     public static ProjectLog fromProject(Project project) {
+        return fromProject(project, null);
+    }
+    
+    /**
+     * 从Project实体创建ProjectLog（带批量操作ID）
+     * @param project 项目实体
+     * @param batchOperationId 批量操作ID
+     * @return 项目日志实体
+     */
+    public static ProjectLog fromProject(Project project, Long batchOperationId) {
         ProjectLog log = new ProjectLog();
         log.setProjectId(project.getProjectId());
         log.setOperationId(project.getOperationId());
+        log.setBatchOperationId(batchOperationId);
         log.setUserId(project.getUserId());
         log.setName(project.getName());
         log.setDescription(project.getDescription());

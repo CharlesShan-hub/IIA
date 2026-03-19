@@ -4,7 +4,6 @@ import com.charles.server.reminder.entity.Operation;
 import com.charles.server.reminder.mapper.OperationMapper;
 import com.charles.server.reminder.service.OperationService;
 import com.charles.server.reminder.service.ProjectLogService;
-import com.charles.server.reminder.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -36,11 +35,8 @@ public class OperationServiceImpl implements OperationService {
         // 2. 获取操作详情（用于判断影响哪些表）
         Operation operation = operationMapper.findByIdAndUserId(latestOperationId, userId);
         
-        // 3. 找到上一次的操作ID
+        // 3. 找到上一次的操作ID（对于新增操作，可能为null）
         Long previousOperationId = operationMapper.getPreviousOperationId(userId, latestOperationId);
-        if (previousOperationId == null) {
-            throw new IllegalStateException("没有可撤回的上一次操作");
-        }
         
         // 4. 根据受影响表恢复数据
         if (Boolean.TRUE.equals(operation.getIsReminderProject())) {

@@ -3,6 +3,7 @@ package com.charles.server;
 import com.charles.server.reminder.dto.ProjectCreateRequest;
 import com.charles.server.reminder.dto.ProjectDeleteRequest;
 import com.charles.server.reminder.dto.ProjectUpdateRequest;
+import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.dto.TaskCreateRequest;
 import com.charles.server.reminder.dto.TaskUpdateCompletedRequest;
 import com.charles.server.reminder.dto.TaskUpdateAbandonedRequest;
@@ -194,6 +195,21 @@ public abstract class BaseE2eDatabaseTest {
 
     protected void deleteProject(ProjectDeleteRequest request, int expectCode) throws Exception {
         mockMvc.perform(post("/api/reminder/project/delete")
+                .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
+                .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(expectCode));
+    }
+
+    /**
+     * 批量更新项目位置
+     */
+    protected void batchUpdateProjectPosition(BatchUpdatePositionRequest request) throws Exception {
+        batchUpdateProjectPosition(request, 200);
+    }
+
+    protected void batchUpdateProjectPosition(BatchUpdatePositionRequest request, int expectCode) throws Exception {
+        mockMvc.perform(post("/api/reminder/project/batch-update-position")
                 .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
                 .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
                 .andExpect(status().isOk())

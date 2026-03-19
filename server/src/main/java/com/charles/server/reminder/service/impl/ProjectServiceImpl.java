@@ -50,29 +50,28 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     @Transactional
     public void create(Long userId, ProjectCreateRequest dto) {
-        // 检查项目名是否已存在
+        // Check if project name already exists
         Project existed = projectMapper.findByUserIdAndName(userId, dto.getName());
         if (existed != null) {
             throw ProjectException.nameAlreadyExists(userId, dto.getName());
         }
         
-        // 生成操作ID
+        // Get operation ID
         Long operationId = operationService.getId(userId);
         
-        // 记录操作
+        // Record operation
         operationService.create(Operation.builder()
                 .operationId(operationId)
                 .userId(userId)
                 .isReminderProject(true)
                 .build());
         
-        // 创建项目（第一个版本）
+        // Create project
         Project project = convertToEntity(dto);
         project.setUserId(userId);
         project.setSortOrder(getNextSortOrder(userId, false));
         project.setIsArchived(false);
         project.setOperationId(operationId);
-        
         projectMapper.insert(project);
         
         log.info("创建项目: userId={}, projectId={}, operationId={}", userId, project.getProjectId(), operationId);
@@ -99,6 +98,7 @@ public class ProjectServiceImpl implements ProjectService {
         operationService.create(operation);
         
         // 5. 应用修改到当前项目
+        currentProject.setOperationId(newOperationId);
         if (dto.getName() != null) currentProject.setName(dto.getName());
         if (dto.getDescription() != null) currentProject.setDescription(dto.getDescription());
         if (dto.getColor() != null) currentProject.setColor(dto.getColor());
@@ -109,10 +109,7 @@ public class ProjectServiceImpl implements ProjectService {
             currentProject.setSortOrder(getNextSortOrder(userId, archived));
         }
         
-        // 6. 设置新的操作ID
-        currentProject.setOperationId(newOperationId);
-        
-        // 7. 更新主表
+        // 6. 更新主表
         projectMapper.update(currentProject);
         
         log.info("更新项目: userId={}, projectId={}, oldOperationId={}, newOperationId={}", 
@@ -137,7 +134,12 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional
     @Override
     public void batchUpdatePosition(Long userId, BatchUpdatePositionRequest request) {
-        request.getPos().forEach(p -> permissionService.validProject(userId, p.getItemId()));
+        Long operationId = operationService.getId(userId);
+        operationService.create(Operation.builder()
+                .operationId(operationId)
+                .userId(userId)
+                .isReminderProject(true)
+                .build());
 
         List<BatchUpdatePositionRequest.Position> sorted = new ArrayList<>(request.getPos());
         sorted.sort(Comparator.comparing(BatchUpdatePositionRequest.Position::getSortOrder)
@@ -145,11 +147,17 @@ public class ProjectServiceImpl implements ProjectService {
 
         int next = 1;
         for (BatchUpdatePositionRequest.Position p : sorted) {
-            Project project = new Project();
-            project.setProjectId(p.getItemId());
+            Project project = permissionService.getProject(userId, p.getItemId());
+
+            // 保存历史版本，记录这个日志是由哪个批量操作创建的
+            projectLogService.save(project, operationId);
+
             project.setSortOrder(next++);
-            projectMapper.updateSortOrder(project);
+            project.setOperationId(operationId);
+            projectMapper.update(project);
         }
+
+        log.info("批量更新项目位置: userId={}, operationId={}, count={}", userId, operationId, sorted.size());
     }
 
     @Override

@@ -12,9 +12,9 @@ import java.util.List;
 @Mapper
 public interface ProjectLogMapper {
     
-    @Insert("INSERT INTO reminder_project_log(project_id, operation_id, user_id, name, " +
+    @Insert("INSERT INTO reminder_project_log(project_id, operation_id, batch_operation_id, user_id, name, " +
             "description, color, icon, sort_order, is_archived) " +
-            "VALUES(#{projectId}, #{operationId}, #{userId}, #{name}, " +
+            "VALUES(#{projectId}, #{operationId}, #{batchOperationId}, #{userId}, #{name}, " +
             "#{description}, #{color}, #{icon}, #{sortOrder}, #{isArchived})")
     int insert(ProjectLog projectLog);
     
@@ -23,6 +23,9 @@ public interface ProjectLogMapper {
     
     @Select("SELECT * FROM reminder_project_log WHERE operation_id = #{operationId}")
     List<ProjectLog> findByOperationId(@Param("operationId") Long operationId);
+    
+    @Select("SELECT * FROM reminder_project_log WHERE batch_operation_id = #{batchOperationId}")
+    List<ProjectLog> findByBatchOperationId(@Param("batchOperationId") Long batchOperationId);
     
     @Select("SELECT * FROM reminder_project_log WHERE project_id = #{projectId} AND operation_id = #{operationId}")
     ProjectLog findByProjectIdAndOperationId(@Param("projectId") Long projectId, @Param("operationId") Long operationId);
@@ -34,4 +37,12 @@ public interface ProjectLogMapper {
      */
     @Delete("DELETE FROM reminder_project_log WHERE operation_id = #{operationId}")
     int deleteByOperationId(@Param("operationId") Long operationId);
+
+    /**
+     * 删除指定批量操作ID的历史记录
+     * @param batchOperationId 批量操作ID
+     * @return 删除的行数
+     */
+    @Delete("DELETE FROM reminder_project_log WHERE batch_operation_id = #{batchOperationId}")
+    int deleteByBatchOperationId(@Param("batchOperationId") Long batchOperationId);
 }

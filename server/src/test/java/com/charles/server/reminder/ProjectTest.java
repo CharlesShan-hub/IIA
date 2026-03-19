@@ -3,6 +3,7 @@ package com.charles.server.reminder;
 import com.charles.server.BaseE2eDatabaseTest;
 import com.charles.server.reminder.dto.ProjectDeleteRequest;
 import com.charles.server.reminder.dto.ProjectUpdateRequest;
+import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
 import com.charles.server.reminder.entity.Operation;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.entity.Task;
@@ -38,11 +39,10 @@ class ProjectTest extends BaseE2eDatabaseTest {
         }
         projectMapper.findByUserIdAndArchived(1L, false).forEach(p -> projectMapper.deleteById(p.getProjectId()));
         projectMapper.findByUserIdAndArchived(1L, true).forEach(p -> projectMapper.deleteById(p.getProjectId()));
-        
     }
 
     @Test
-    void create_project_persists_row() throws Exception {
+    void create() throws Exception {
         Long projectId = createProject("P1", 200);
         assertNotNull(projectId);
 
@@ -53,7 +53,7 @@ class ProjectTest extends BaseE2eDatabaseTest {
     }
 
     @Test
-    void update_project_rename() throws Exception {
+    void update_name() throws Exception {
         Long projectId = createProject("P1", 200);
 
         ProjectUpdateRequest req = new ProjectUpdateRequest();
@@ -67,6 +67,30 @@ class ProjectTest extends BaseE2eDatabaseTest {
         assertEquals("P1-Renamed", updated.getName());
     }
 
+    @Test
+    void update_sort_order() throws Exception {
+        Long projectId1 = createProject("P1", 200);
+        Long projectId2 = createProject("P2", 200);
+        Long projectId3 = createProject("P3", 200);
+        Long projectId4 = createProject("P4", 200);
+
+        BatchUpdatePositionRequest req1 = new BatchUpdatePositionRequest();
+        req1.setPos(List.of(
+            new BatchUpdatePositionRequest.Position(projectId1, 400),
+            new BatchUpdatePositionRequest.Position(projectId2, 300),
+            new BatchUpdatePositionRequest.Position(projectId3, 200),
+            new BatchUpdatePositionRequest.Position(projectId4, 100)
+        ));
+        batchUpdateProjectPosition(req1, 200);
+
+        operationService.revert(1L);
+        operationService.revert(1L);
+
+
+        // Project updated1 = projectMapper.findById(projectId1);
+        // assertNotNull(updated1);
+        // assertEquals(100, updated1.getSortOrder());
+    }
     @Test
     void delete_project_keep_tasks_moves_tasks_to_default_area() throws Exception {
         Long projectId = createProject("P1", 200);
