@@ -51,37 +51,63 @@ public class ProjectLogServiceImpl implements ProjectLogService {
     @Override
     @Transactional
     public void revert(Long userId, Long operationId, Long previousOperationId) {
-        // 处理新增操作的撤回（previousOperationId为null）
-        if (previousOperationId == null || previousOperationId == 0) {
-            // 新增操作：直接删除所有operationId = operationId的项目
-            int deletedCount = projectMapper.deleteByOperationId(operationId);
-            
-            // 删除相关的日志记录
-            projectLogMapper.deleteByOperationId(operationId);
-            
-            log.info("撤回新增操作完成: userId={}, operationId={}, deletedCount={}", 
-                    userId, operationId, deletedCount);
-            return;
-        }
-        
-        // 1. 查找需要恢复的日志记录
-        // 先尝试根据batch_operation_id查找（批量操作）
+        // 1. 先尝试根据batch_operation_id查找（批量操作）
         List<ProjectLog> logsToRestore = projectLogMapper.findByBatchOperationId(operationId);
         
         boolean isBatchOperation = !logsToRestore.isEmpty();
         
-        // 如果没有找到批量操作的日志，则根据operation_id查找（单个操作）
+        // 2. 如果不是批量操作，处理单个操作
         if (!isBatchOperation) {
-            logsToRestore = projectLogMapper.findByOperationId(previousOperationId);
+            // 查找当前操作ID下的所有项目
+            List<Project> currentProjects = projectMapper.findByOperationId(operationId);
+            
+            if (currentProjects.isEmpty()) {
+                log.warn("没有找到需要撤回的项目: userId={}, operationId={}, previousOperationId={}", 
+                        userId, operationId, previousOperationId);
+                return;
+            }
+            
+            int deletedCount = 0;
+            int restoredCount = 0;
+            
+            for (Project currentProject : currentProjects) {
+                Long projectId = currentProject.getProjectId();
+                
+                // 检查在previousOperationId下是否有该项目的日志记录
+                ProjectLog previousLog = projectLogMapper.findByProjectIdAndOperationId(projectId, previousOperationId);
+                
+                if (previousLog == null) {
+                    // 新增操作：删除该项目
+                    projectMapper.deleteByProjectIdAndOperationId(projectId, operationId);
+                    deletedCount++;
+                } else {
+                    // 更新操作：恢复之前的版本
+                    // 删除当前版本
+                    projectMapper.deleteByProjectIdAndOperationId(projectId, operationId);
+                    
+                    // 使用日志中的状态恢复项目
+                    Project restoredProject = previousLog.toProject(userId, previousOperationId);
+                    projectMapper.insert(restoredProject);
+                    restoredCount++;
+                }
+            }
+            
+            // 删除相关的日志记录（撤回后不可再撤回）
+            projectLogMapper.deleteByOperationId(operationId);
+            
+            log.info("撤回单个操作完成: userId={}, operationId={}, previousOperationId={}, deletedCount={}, restoredCount={}", 
+                    userId, operationId, previousOperationId, deletedCount, restoredCount);
+            return;
         }
         
+        // 3. 处理批量操作
         if (logsToRestore.isEmpty()) {
-            log.warn("没有找到可恢复的日志记录: userId={}, operationId={}, previousOperationId={}", 
+            log.warn("没有找到可恢复的批量操作日志记录: userId={}, operationId={}, previousOperationId={}", 
                     userId, operationId, previousOperationId);
             return;
         }
         
-        // 2. 恢复之前的记录
+        // 恢复之前的记录
         int restoredCount = 0;
         for (ProjectLog log : logsToRestore) {
             // 根据project_id删除当前版本
@@ -93,19 +119,10 @@ public class ProjectLogServiceImpl implements ProjectLogService {
             restoredCount++;
         }
         
-        // 3. 删除相关的日志记录（撤回后不可再撤回）
-        if (isBatchOperation) {
-            // 批量操作：删除batch_operation_id = operationId的记录
-            projectLogMapper.deleteByBatchOperationId(operationId);
-        } else {
-            // 单个操作：删除operation_id = previousOperationId的记录
-            projectLogMapper.deleteByOperationId(previousOperationId);
-        }
+        // 删除相关的日志记录（撤回后不可再撤回）
+        projectLogMapper.deleteByBatchOperationId(operationId);
         
-        // 4. 注意：撤回操作本身不创建新的操作记录
-        // 这样设计实现了"只能撤回一次"的功能
-        
-        log.info("撤回操作完成（只能撤回一次）: userId={}, operationId={}, previousOperationId={}, isBatchOperation={}, restoredCount={}", 
-                userId, operationId, previousOperationId, isBatchOperation, restoredCount);
+        log.info("撤回批量操作完成: userId={}, operationId={}, previousOperationId={}, restoredCount={}", 
+                userId, operationId, previousOperationId, restoredCount);
     }
 }

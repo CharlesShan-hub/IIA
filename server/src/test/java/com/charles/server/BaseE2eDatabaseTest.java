@@ -46,11 +46,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 public abstract class BaseE2eDatabaseTest {
 
     @Autowired
-    private javax.sql.DataSource dataSource;
+    protected javax.sql.DataSource dataSource;
+
     @Autowired
-    private JdbcTemplate jdbc;
+    protected JdbcTemplate jdbc;
+
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    protected PasswordEncoder passwordEncoder;
     
     @Autowired
     protected MockMvc mockMvc;
@@ -65,7 +67,7 @@ public abstract class BaseE2eDatabaseTest {
     static void dbProps(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", () -> System.getProperty(
                 "test.db.url",
-                "jdbc:mysql://127.0.0.1:3306/iia_test?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+                "jdbc:mysql://127.0.0.1:3306/iia_test?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
         ));
         registry.add("spring.datasource.username", () -> System.getProperty("test.db.username", "root"));
         registry.add("spring.datasource.password", () -> System.getProperty("test.db.password", ""));
@@ -86,21 +88,51 @@ public abstract class BaseE2eDatabaseTest {
     protected String seedUsername() { return "test_user"; }
     protected String seedPassword() { return "test"; }
 
-    private void recreateDatabase() {
+    protected void recreateDatabase() {
         String adminUrl = System.getProperty("test.db.admin.url",
                 "jdbc:mysql://127.0.0.1:3306/?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
         String user = System.getProperty("test.db.username", "root");
         String pass = System.getProperty("test.db.password", "");
-        try (Connection conn = java.sql.DriverManager.getConnection(adminUrl, user, pass);
-             Statement st = conn.createStatement()) {
-            st.execute("DROP DATABASE IF EXISTS iia_test");
-            st.execute("CREATE DATABASE iia_test DEFAULT CHARACTER SET utf8mb4");
+        System.out.println("[BaseE2eDatabaseTest] Connecting to: " + adminUrl + " as " + user);
+        try (Connection conn = java.sql.DriverManager.getConnection(adminUrl, user, pass)) {
+            // 使用 Docker MySQL 已有的 iia_test 数据库，删除表然后重新创建
+            System.out.println("[BaseE2eDatabaseTest] Using existing iia_test database (Docker MySQL)");
+            System.out.println("[BaseE2eDatabaseTest] Dropping all tables in iia_test database");
+            
+            // 禁用外键约束
+            try (Statement st1 = conn.createStatement()) {
+                st1.execute("SET FOREIGN_KEY_CHECKS = 0");
+            }
+            
+            // 获取所有表名
+            java.util.List<String> tableNames = new java.util.ArrayList<>();
+            try (Statement st2 = conn.createStatement();
+                 var rs = st2.executeQuery("SHOW TABLES FROM iia_test")) {
+                while (rs.next()) {
+                    tableNames.add(rs.getString(1));
+                }
+            }
+            
+            // 删除每个表
+            for (String tableName : tableNames) {
+                try (Statement st3 = conn.createStatement()) {
+                    System.out.println("[BaseE2eDatabaseTest] Dropping table: " + tableName);
+                    st3.execute("DROP TABLE IF EXISTS iia_test." + tableName);
+                }
+            }
+            
+            // 重新启用外键约束
+            try (Statement st4 = conn.createStatement()) {
+                st4.execute("SET FOREIGN_KEY_CHECKS = 1");
+            }
+            
         } catch (java.sql.SQLException e) {
-            throw new RuntimeException("Failed to recreate iia_test database", e);
+            System.err.println("[BaseE2eDatabaseTest] SQL error: " + e.getMessage());
+            throw new RuntimeException("Failed to clear iia_test database", e);
         }
     }
 
-    private void executeSqlFiles(DataSource dataSource) {
+    protected void executeSqlFiles(DataSource dataSource) {
         Function<String, org.springframework.core.io.Resource> sanitize = (path) -> {
             try {
                 String content = java.nio.file.Files.readString(java.nio.file.Path.of(path));
@@ -124,7 +156,7 @@ public abstract class BaseE2eDatabaseTest {
         pop.execute(java.util.Objects.requireNonNull(dataSource, "DataSource must not be null"));
     }
 
-    private void seedBaseUser(JdbcTemplate jdbc, PasswordEncoder passwordEncoder) {
+    protected void seedBaseUser(JdbcTemplate jdbc, PasswordEncoder passwordEncoder) {
         long userId = seedUserId();
         String email = seedEmail();
         String username = seedUsername();
