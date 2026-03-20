@@ -6,10 +6,10 @@ import com.charles.server.reminder.mapper.TaskTagMapper;
 import com.charles.server.reminder.mapper.TaskMapper;
 import com.charles.server.reminder.service.TaskTagService;
 import com.charles.server.reminder.service.PermissionService;
-import com.charles.server.reminder.dto.TaskTagCreateRequest;
-import com.charles.server.reminder.dto.TaskTagDeleteRequest;
-import com.charles.server.reminder.dto.TaskTagBatchCreateRequest;
-import com.charles.server.reminder.dto.TaskTagBatchDeleteRequest;
+import com.charles.server.reminder.dto.TaskTagCreateDTO;
+import com.charles.server.reminder.dto.TaskTagDeleteDTO;
+import com.charles.server.reminder.dto.TaskTagBatchCreateDTO;
+import com.charles.server.reminder.dto.TaskTagBatchDeleteDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class TaskTagServiceImpl implements TaskTagService {
     private final TaskMapper taskMapper;
     private final PermissionService permissionService;
 
-    private TaskTag convertToEntity(TaskTagCreateRequest dto) {
+    private TaskTag convertToEntity(TaskTagCreateDTO dto) {
         return TaskTag.builder()
                 .taskId(dto.getTaskId())
                 .tagId(dto.getTagId())
@@ -38,7 +38,7 @@ public class TaskTagServiceImpl implements TaskTagService {
 
     @Transactional
     @Override
-    public void create(Long userId, TaskTagCreateRequest dto) {
+    public void create(Long userId, TaskTagCreateDTO dto) {
         try{
             permissionService.validTag(userId, dto.getTagId());
             permissionService.validTask(userId, dto.getTaskId());
@@ -55,9 +55,9 @@ public class TaskTagServiceImpl implements TaskTagService {
 
     @Transactional
     @Override
-    public void createBatch(Long userId, TaskTagBatchCreateRequest dto) {
+    public void createBatch(Long userId, TaskTagBatchCreateDTO dto) {
         for (Long tagId : dto.getTagIds()) {
-            TaskTagCreateRequest single = new TaskTagCreateRequest();
+            TaskTagCreateDTO single = new TaskTagCreateDTO();
             single.setTaskId(dto.getTaskId());
             single.setTagId(tagId);
             single.setIncludeSubtasks(dto.getIncludeSubtasks());
@@ -79,7 +79,7 @@ public class TaskTagServiceImpl implements TaskTagService {
 
     @Transactional
     @Override
-    public void delete(Long userId, TaskTagDeleteRequest dto) {
+    public void delete(Long userId, TaskTagDeleteDTO dto) {
         try{
             permissionService.validTag(userId, dto.getTagId());
             permissionService.validTask(userId, dto.getTaskId());
@@ -95,9 +95,9 @@ public class TaskTagServiceImpl implements TaskTagService {
 
     @Transactional
     @Override
-    public void deleteBatch(Long userId, TaskTagBatchDeleteRequest dto) {
+    public void deleteBatch(Long userId, TaskTagBatchDeleteDTO dto) {
         for (Long tagId : dto.getTagIds()) {
-            TaskTagDeleteRequest single = new TaskTagDeleteRequest();
+            TaskTagDeleteDTO single = new TaskTagDeleteDTO();
             single.setTaskId(dto.getTaskId());
             single.setTagId(tagId);
             single.setIncludeSubtasks(dto.getIncludeSubtasks());

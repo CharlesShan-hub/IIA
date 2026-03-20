@@ -2,8 +2,9 @@ package com.charles.server.reminder.controller;
 
 import com.charles.server.BaseE2eDatabaseTest;
 import com.charles.server.auth.service.TokenService;
-import com.charles.server.reminder.dto.TaskCreateRequest;
-import com.charles.server.reminder.dto.TaskUpdateRequest;
+import com.charles.server.reminder.dto.TaskCreateDTO;
+import com.charles.server.reminder.dto.TaskDeleteDTO;
+import com.charles.server.reminder.dto.TaskUpdateDTO;
 import com.charles.server.reminder.entity.Task;
 import com.charles.server.reminder.entity.Recurrence;
 import com.charles.server.reminder.mapper.TaskMapper;
@@ -49,7 +50,7 @@ class RecurringTaskE2ETest extends BaseE2eDatabaseTest {
     void should_create_monthly_recurring_task_with_schedule() throws Exception {
         LocalDateTime next = LocalDateTime.of(2026, 4, 1, 7, 0);
 
-        TaskCreateRequest req = new TaskCreateRequest();
+        TaskCreateDTO req = new TaskCreateDTO();
         req.setTitle("R-MONTHLY");
         req.setIsRecurring(true);
         req.setRecurrenceCategory("monthly");
@@ -81,7 +82,7 @@ class RecurringTaskE2ETest extends BaseE2eDatabaseTest {
         // Assertions.assertEquals("[1,15]", r.getSchedule());
 
         // Delete the recurring task and verify cascade deletion of recurrence
-        com.charles.server.reminder.dto.TaskDeleteRequest del = new com.charles.server.reminder.dto.TaskDeleteRequest();
+        TaskDeleteDTO del = new TaskDeleteDTO();
         del.setTaskId(created.getTaskId());
         mockMvc.perform(post("/api/reminder/task/delete")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
@@ -98,7 +99,7 @@ class RecurringTaskE2ETest extends BaseE2eDatabaseTest {
         LocalDateTime nextB = LocalDateTime.of(2026, 4, 3, 9, 0);
 
         // Create normal task A
-        TaskCreateRequest a = new TaskCreateRequest();
+        TaskCreateDTO a = new TaskCreateDTO();
         a.setTitle("TASK-A");
         a.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
@@ -108,7 +109,7 @@ class RecurringTaskE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(jsonPath("$.code").value(200));
 
         // Create recurring task B (daily)
-        TaskCreateRequest b = new TaskCreateRequest();
+        TaskCreateDTO b = new TaskCreateDTO();
         b.setTitle("TASK-B");
         b.setIsRecurring(true);
         b.setRecurrenceCategory("days");
@@ -132,7 +133,7 @@ class RecurringTaskE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertNotNull(recurrenceMapper.findByTaskId(taskB.getTaskId()));
 
         // A: single -> recurring (weekly)
-        TaskUpdateRequest upA = new TaskUpdateRequest();
+        TaskUpdateDTO upA = new TaskUpdateDTO();
         upA.setTaskId(taskA.getTaskId());
         upA.setTitle("TASK-A-changed");
         upA.setIsRecurring(true);
@@ -152,7 +153,7 @@ class RecurringTaskE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(jsonPath("$.code").value(200));
 
         // B: recurring -> single
-        com.charles.server.reminder.dto.TaskUpdateRequest upB = new com.charles.server.reminder.dto.TaskUpdateRequest();
+        TaskUpdateDTO upB = new TaskUpdateDTO();
         upB.setTaskId(taskB.getTaskId());
         upB.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/update")

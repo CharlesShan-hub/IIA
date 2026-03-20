@@ -25,7 +25,7 @@ public class ProjectController {
     
     // Create Project
     @PostMapping("create")
-    public Map<String, Object> create(@RequestBody @Valid ProjectCreateRequest dto, HttpServletRequest request) {
+    public Map<String, Object> create(@RequestBody @Valid ProjectCreateDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         projectService.create(userId, dto);
         log.info("User {} create project {} successfully", userId, dto.getName());
@@ -34,7 +34,7 @@ public class ProjectController {
 
     // Delete Project
     @PostMapping("delete")
-    public Map<String, Object> delete(@RequestBody @Valid ProjectDeleteRequest dto, HttpServletRequest request) {
+    public Map<String, Object> delete(@RequestBody @Valid ProjectDeleteDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         projectService.delete(userId, dto);
         log.info("User {} delete project {} successfully, keepTasks: {}, targetProjectId: {}", 
@@ -44,7 +44,7 @@ public class ProjectController {
 
     // Update Project
     @PostMapping("update")
-    public Map<String, Object> updateById(@RequestBody @Valid ProjectUpdateRequest dto, HttpServletRequest request) {
+    public Map<String, Object> updateById(@RequestBody @Valid ProjectUpdateDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         projectService.update(userId, dto);
         log.info("User {} update project {} successfully", userId, dto.getProjectId());
@@ -53,7 +53,7 @@ public class ProjectController {
 
     // Batch Update Project Positions
     @PostMapping("batch-update-position")
-    public Map<String, Object> batchUpdatePosition(@RequestBody @Valid BatchUpdatePositionRequest dto, HttpServletRequest httpRequest) {
+    public Map<String, Object> batchUpdatePosition(@RequestBody @Valid BatchUpdatePositionDTO dto, HttpServletRequest httpRequest) {
         Long userId = tokenService.getUserIdFromRequest(httpRequest);
         projectService.batchUpdatePosition(userId, dto);
         log.info("User {} batch update project positions successfully, updated projects: {}", 
@@ -63,7 +63,7 @@ public class ProjectController {
 
     // Query projects by archived flag and isAll flag
     @GetMapping("get-all")
-    public Map<String, Object> getAll(@RequestBody @Valid ProjectGetAllRequest dto, HttpServletRequest request) {
+    public Map<String, Object> getAll(@RequestBody @Valid ProjectGetAllDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         List<Project> projects = projectService.getAll(userId, dto);
         log.info("User {} query projects successfully, archived: {}, isAll: {}", userId, dto.getArchived(), dto.getIsAll());

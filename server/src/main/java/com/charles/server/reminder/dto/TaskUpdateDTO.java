@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class TaskUpdateRequest {
+public class TaskUpdateDTO {
     // task config
     @NotNull(message = "taskId is required")
     private Long taskId;

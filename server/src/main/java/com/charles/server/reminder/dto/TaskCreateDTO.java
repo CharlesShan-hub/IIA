@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class TaskCreateRequest {
+public class TaskCreateDTO {
     // task config
     private Long projectId;
     private String title;

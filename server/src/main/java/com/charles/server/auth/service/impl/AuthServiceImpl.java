@@ -32,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public LoginResponse login(LoginRequest dto) {
+    public LoginVO login(LoginDTO dto) {
         // 1. Check all user profile
         UserAll userAll = authMapper.findAllByEmail(dto.getEmail());
         if (userAll == null) {
@@ -49,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
         Map<String, String> tokens = tokenService.get(userId);
 
         // 4. Return LoginResponse
-        LoginResponse response = new LoginResponse();
+        LoginVO response = new LoginVO();
         response.setToken(tokens.get("accessToken"));
         response.setRefreshToken(tokens.get("refreshToken"));
         response.setUserId(userId);
@@ -57,13 +57,13 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ProfileResponse profile(String userId) {
+    public ProfileVO profile(String userId) {
         Profile profile = profileMapper.findById(Long.valueOf(userId));
         if (profile == null) {
             throw AuthException.userNotFound(userId);
         }
 
-        ProfileResponse response = new ProfileResponse();
+        ProfileVO response = new ProfileVO();
         response.setUserName(profile.getUsername());
         response.setUserId(profile.getUserId());
         return response;
@@ -71,7 +71,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public RegisterResponse register(RegisterRequest dto) {
+    public RegisterVO register(RegisterDTO dto) {
         // 1. Check if email already exists
         if (mailMapper.existsByEmail(dto.getEmail())) {
             throw AuthException.emailAlreadyRegistered(dto.getEmail());
@@ -99,7 +99,7 @@ public class AuthServiceImpl implements AuthService {
         Map<String, String> tokens = tokenService.get(account.getUserId().toString());
         
         // 6. Build response
-        RegisterResponse response = new RegisterResponse();
+        RegisterVO response = new RegisterVO();
         response.setUserId(account.getUserId());
         response.setToken(tokens.get("accessToken"));
         response.setRefreshToken(tokens.get("refreshToken"));
@@ -108,7 +108,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public void resetPassword(ResetPasswordRequest dto) {
+    public void resetPassword(ResetPasswordDTO dto) {
         // 1. Verify Code
         mailService.verifyCode(dto.getEmail(), dto.getCode());
         

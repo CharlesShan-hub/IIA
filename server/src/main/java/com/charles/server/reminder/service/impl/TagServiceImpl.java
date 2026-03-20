@@ -7,8 +7,8 @@ import com.charles.server.reminder.mapper.TagMapper;
 import com.charles.server.reminder.service.TagService;
 import com.charles.server.reminder.service.PermissionService;
 import com.charles.server.reminder.exception.TagException;
-import com.charles.server.reminder.dto.TagCreateRequest;
-import com.charles.server.reminder.dto.TagUpdateRequest;
+import com.charles.server.reminder.dto.TagCreateDTO;
+import com.charles.server.reminder.dto.TagUpdateDTO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class TagServiceImpl implements TagService {
     private final TagMapper tagMapper;
     private final PermissionService permissionService;
 
-    private Tag convertToEntity(Long userId, TagCreateRequest dto) {
+    private Tag convertToEntity(Long userId, TagCreateDTO dto) {
         return Tag.builder()
                 .userId(userId)
                 .name(dto.getName())
@@ -34,7 +34,7 @@ public class TagServiceImpl implements TagService {
     }
     
     @Override
-    public void create(Long userId, TagCreateRequest dto) {
+    public void create(Long userId, TagCreateDTO dto) {
         if (existsByName(userId, dto.getName())) {
             throw TagException.nameAlreadyExists(userId, dto.getName());
         }
@@ -49,7 +49,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public void update(Long userId, TagUpdateRequest dto) {
+    public void update(Long userId, TagUpdateDTO dto) {
         Tag tag = permissionService.getTag(userId, dto.getTagId());
         if (dto.getName() != null) {
             if(!dto.getName().equals(tag.getName()) && existsByName(userId, dto.getName()))

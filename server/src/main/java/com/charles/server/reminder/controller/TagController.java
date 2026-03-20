@@ -15,9 +15,9 @@ import com.charles.server.auth.service.TokenService;
 import com.charles.server.reminder.entity.Tag;
 import com.charles.server.reminder.service.TagService;
 import com.charles.server.utils.ResponseUtils;
-import com.charles.server.reminder.dto.TagCreateRequest;
-import com.charles.server.reminder.dto.TagUpdateRequest;
-import com.charles.server.reminder.dto.TagDeleteRequest;
+import com.charles.server.reminder.dto.TagCreateDTO;
+import com.charles.server.reminder.dto.TagUpdateDTO;
+import com.charles.server.reminder.dto.TagDeleteDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class TagController {
     
     // Create Tag
     @PostMapping("create")
-    public Map<String, Object> create(@RequestBody @Valid TagCreateRequest dto, HttpServletRequest request) {
+    public Map<String, Object> create(@RequestBody @Valid TagCreateDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("Create tag for user {}: {}", userId, dto);
         tagService.create(userId, dto);
@@ -42,7 +42,7 @@ public class TagController {
 
     // Update Tag
     @PutMapping("update")
-    public Map<String, Object> update(@RequestBody @Valid TagUpdateRequest dto, HttpServletRequest request) {
+    public Map<String, Object> update(@RequestBody @Valid TagUpdateDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("Update tag for user {}: {}", userId, dto);
         tagService.update(userId, dto);
@@ -51,7 +51,7 @@ public class TagController {
     
     // Delete Tag
     @PostMapping("delete")
-    public Map<String, Object> delete(@RequestBody @Valid TagDeleteRequest dto, HttpServletRequest request) {
+    public Map<String, Object> delete(@RequestBody @Valid TagDeleteDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("Delete tag for user {}: {}", userId, dto);
         tagService.delete(userId, dto.getTagId());

@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TaskUpdateCompletedRequest {
+public class TaskUpdateAbandonedDTO {
     @NotNull(message = "taskId is required")
     private Long taskId;
 
-    @NotNull(message = "isCompleted is required")
-    private Boolean isCompleted;
+    @NotNull(message = "isAbandoned is required")
+    private Boolean isAbandoned;
 }

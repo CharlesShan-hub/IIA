@@ -1,10 +1,10 @@
 package com.charles.server.reminder.controller;
 
 import com.charles.server.auth.service.TokenService;
-import com.charles.server.reminder.dto.TaskTagCreateRequest;
-import com.charles.server.reminder.dto.TaskTagDeleteRequest;
-import com.charles.server.reminder.dto.TaskTagBatchCreateRequest;
-import com.charles.server.reminder.dto.TaskTagBatchDeleteRequest;
+import com.charles.server.reminder.dto.TaskTagCreateDTO;
+import com.charles.server.reminder.dto.TaskTagDeleteDTO;
+import com.charles.server.reminder.dto.TaskTagBatchCreateDTO;
+import com.charles.server.reminder.dto.TaskTagBatchDeleteDTO;
 import com.charles.server.reminder.service.TaskTagService;
 import com.charles.server.utils.ResponseUtils;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class TaskTagController {
 
     // Create a new task-tag association
     @PostMapping("create")
-    public Map<String, Object> create(@RequestBody TaskTagCreateRequest dto, HttpServletRequest request) {
+    public Map<String, Object> create(@RequestBody TaskTagCreateDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("User {} creating task-tag association: taskId={}, tagId={}, cascade={}", userId, dto.getTaskId(), dto.getTagId(), dto.getIncludeSubtasks());
         taskTagService.create(userId, dto);
@@ -34,7 +34,7 @@ public class TaskTagController {
 
     // Delete a task-tag association
     @PostMapping("delete")
-    public Map<String, Object> delete(@RequestBody TaskTagDeleteRequest dto, HttpServletRequest request) {
+    public Map<String, Object> delete(@RequestBody TaskTagDeleteDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("User {} deleting task-tag association: taskId={}, tagId={}, cascade={}", userId, dto.getTaskId(), dto.getTagId(), dto.getIncludeSubtasks());
         taskTagService.delete(userId, dto);
@@ -43,7 +43,7 @@ public class TaskTagController {
 
     // Create multiple task-tag associations in batch
     @PostMapping("batch-create")
-    public Map<String, Object> batchCreate(@RequestBody TaskTagBatchCreateRequest dto, HttpServletRequest request) {
+    public Map<String, Object> batchCreate(@RequestBody TaskTagBatchCreateDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("User {} batch creating task-tag associations: taskId={}, tagIds={}, cascade={}", userId, dto.getTaskId(), dto.getTagIds(), dto.getIncludeSubtasks());
         taskTagService.createBatch(userId, dto);
@@ -52,7 +52,7 @@ public class TaskTagController {
 
     // Delete multiple task-tag associations in batch
     @PostMapping("batch-delete")
-    public Map<String, Object> batchDelete(@RequestBody TaskTagBatchDeleteRequest dto, HttpServletRequest request) {
+    public Map<String, Object> batchDelete(@RequestBody TaskTagBatchDeleteDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("User {} batch deleting task-tag associations: taskId={}, tagIds={}, cascade={}", userId, dto.getTaskId(), dto.getTagIds(), dto.getIncludeSubtasks());
         taskTagService.deleteBatch(userId, dto);

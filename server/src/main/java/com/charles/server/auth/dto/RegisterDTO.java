@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class RegisterRequest {
+public class RegisterDTO {
 
     @NotBlank(message = "Email is required")
     @Email(message = "Email format is invalid")

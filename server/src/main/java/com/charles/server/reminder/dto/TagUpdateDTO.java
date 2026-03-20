@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class TagUpdateRequest {
+public class TagUpdateDTO {
     @NotNull(message = "Tag ID is Required")
     private Long tagId;
 

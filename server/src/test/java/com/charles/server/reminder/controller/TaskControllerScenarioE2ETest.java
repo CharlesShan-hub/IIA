@@ -2,12 +2,12 @@ package com.charles.server.reminder.controller;
 
 import com.charles.server.BaseE2eDatabaseTest;
 import com.charles.server.auth.service.TokenService;
-import com.charles.server.reminder.dto.ProjectCreateRequest;
-import com.charles.server.reminder.dto.TaskCreateRequest;
-import com.charles.server.reminder.dto.TaskDeleteRequest;
-import com.charles.server.reminder.dto.ProjectDeleteRequest;
-import com.charles.server.reminder.dto.TaskUpdateCompletedRequest;
-import com.charles.server.reminder.dto.TaskUpdateAbandonedRequest;
+import com.charles.server.reminder.dto.ProjectCreateDTO;
+import com.charles.server.reminder.dto.TaskCreateDTO;
+import com.charles.server.reminder.dto.TaskDeleteDTO;
+import com.charles.server.reminder.dto.ProjectDeleteDTO;
+import com.charles.server.reminder.dto.TaskUpdateCompletedDTO;
+import com.charles.server.reminder.dto.TaskUpdateAbandonedDTO;
 import com.charles.server.reminder.entity.History;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.entity.Task;
@@ -61,7 +61,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
     @Test
     void scenario_createProject_then_twoRootTasks_then_oneSubTask() throws Exception {
         // 1) 创建默认项目
-        ProjectCreateRequest pReq = new ProjectCreateRequest();
+        ProjectCreateDTO pReq = new ProjectCreateDTO();
         pReq.setName("Default");
         mockMvc.perform(post("/api/reminder/projects/create")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
@@ -75,7 +75,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Long projectId = opt.get().getProjectId();
 
         // 2) 创建两个根任务（同一项目）
-        TaskCreateRequest t1 = new TaskCreateRequest();
+        TaskCreateDTO t1 = new TaskCreateDTO();
         t1.setProjectId(projectId);
         t1.setTitle("T1");
         t1.setIsRecurring(false);
@@ -85,7 +85,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
-        TaskCreateRequest t2 = new TaskCreateRequest();
+        TaskCreateDTO t2 = new TaskCreateDTO();
         t2.setProjectId(projectId);
         t2.setTitle("T2");
         t2.setIsRecurring(false);
@@ -105,7 +105,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertEquals("T2", roots.get(1).getTitle());
 
         // 3) 创建第三个任务，父任务是第一个任务
-        TaskCreateRequest c1 = new TaskCreateRequest();
+        TaskCreateDTO c1 = new TaskCreateDTO();
         c1.setProjectId(projectId);
         c1.setParentTaskId(first.getTaskId());
         c1.setTitle("T1-1");
@@ -124,7 +124,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
 
         // 再创建二级子任务 T1-1-1（父：T1-1）
         Task c1Entity = children.stream().filter(t -> "T1-1".equals(t.getTitle())).findFirst().orElseThrow();
-        TaskCreateRequest c2 = new TaskCreateRequest();
+        TaskCreateDTO c2 = new TaskCreateDTO();
         c2.setProjectId(projectId);
         c2.setParentTaskId(c1Entity.getTaskId());
         c2.setTitle("T1-1-1");
@@ -140,7 +140,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertTrue(grandChildren.stream().anyMatch(t -> "T1-1-1".equals(t.getTitle())), "Should contain grandchild 'T1-1-1'");
 
         // 4) 删除任务一（应级联删除其子任务），保留任务二
-        TaskDeleteRequest del = new TaskDeleteRequest();
+        TaskDeleteDTO del = new TaskDeleteDTO();
         del.setTaskId(first.getTaskId());
         mockMvc.perform(post("/api/reminder/task/delete")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
@@ -167,7 +167,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
     @Test
     void scenario_deleteProject_keepTasks_transferToAnotherProject() throws Exception {
         // 创建两个项目：MoveP1 与 MoveP2
-        ProjectCreateRequest p1Req = new ProjectCreateRequest();
+        ProjectCreateDTO p1Req = new ProjectCreateDTO();
         p1Req.setName("MoveP1");
         mockMvc.perform(post("/api/reminder/projects/create")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
@@ -175,7 +175,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
-        ProjectCreateRequest p2Req = new ProjectCreateRequest();
+        ProjectCreateDTO p2Req = new ProjectCreateDTO();
         p2Req.setName("MoveP2");
         mockMvc.perform(post("/api/reminder/projects/create")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
@@ -188,7 +188,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Long p2Id = projectsAll.stream().filter(p -> "MoveP2".equals(p.getName())).findFirst().orElseThrow().getProjectId();
 
         // 在 P2 下预先创建任务 C，用于观察迁移后的 sort_order 关系
-        TaskCreateRequest c = new TaskCreateRequest();
+        TaskCreateDTO c = new TaskCreateDTO();
         c.setProjectId(p2Id);
         c.setTitle("C");
         c.setIsRecurring(false);
@@ -202,7 +202,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         int cOrderBefore = taskCBefore.getSortOrder();
 
         // 在 P1 下创建任务 A
-        TaskCreateRequest a = new TaskCreateRequest();
+        TaskCreateDTO a = new TaskCreateDTO();
         a.setProjectId(p1Id);
         a.setTitle("A");
         a.setIsRecurring(false);
@@ -218,7 +218,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         
 
         // 在 P1 下创建任务 B，父任务=A
-        TaskCreateRequest b = new TaskCreateRequest();
+        TaskCreateDTO b = new TaskCreateDTO();
         b.setProjectId(p1Id);
         b.setTitle("B");
         b.setIsRecurring(false);
@@ -235,7 +235,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertEquals(taskA.getTaskId(), taskB.getParentTaskId());
 
         // 删除 P1，保留任务并迁移到 P2
-        ProjectDeleteRequest del = new ProjectDeleteRequest();
+        ProjectDeleteDTO del = new ProjectDeleteDTO();
         del.setProjectId(p1Id);
         del.setKeepTasks(true);
         del.setTargetProject(true);
@@ -273,7 +273,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
     @Test
     void scenario_deleteProject_to_inbox_appends_after_existing() throws Exception {
         // 在收件箱（project_id=NULL）先创建任务 D，记录其排序
-        TaskCreateRequest d = new TaskCreateRequest();
+        TaskCreateDTO d = new TaskCreateDTO();
         d.setTitle("D");
         d.setIsRecurring(false);
         mockMvc.perform(post("/api/reminder/task/create")
@@ -286,7 +286,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         int dOrderBefore = taskDBefore.getSortOrder();
 
         // 创建项目 MoveP3
-        ProjectCreateRequest p3Req = new ProjectCreateRequest();
+        ProjectCreateDTO p3Req = new ProjectCreateDTO();
         p3Req.setName("MoveP3");
         mockMvc.perform(post("/api/reminder/projects/create")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
@@ -297,7 +297,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
                 .filter(p -> "MoveP3".equals(p.getName())).findFirst().orElseThrow().getProjectId();
 
         // 在 P3 下创建根任务 X
-        TaskCreateRequest x = new TaskCreateRequest();
+        TaskCreateDTO x = new TaskCreateDTO();
         x.setProjectId(p3Id);
         x.setTitle("X");
         x.setIsRecurring(false);
@@ -310,7 +310,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
                 .filter(t -> "X".equals(t.getTitle())).findFirst().orElseThrow();
 
         // 在 P3 下创建子任务 Y，父任务=X
-        TaskCreateRequest y = new TaskCreateRequest();
+        TaskCreateDTO y = new TaskCreateDTO();
         y.setProjectId(p3Id);
         y.setTitle("Y");
         y.setIsRecurring(false);
@@ -325,7 +325,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         org.junit.jupiter.api.Assertions.assertEquals(taskX.getTaskId(), taskY.getParentTaskId());
 
         // 删除 P3，保留任务并迁入收件箱（project_id=NULL）
-        ProjectDeleteRequest del = new ProjectDeleteRequest();
+        ProjectDeleteDTO del = new ProjectDeleteDTO();
         del.setProjectId(p3Id);
         del.setKeepTasks(true);
         del.setTargetProject(false);
@@ -354,7 +354,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
     @Test
     void scenario_parent_completion_cancellation_with_abandoned_child() throws Exception {
         // 创建默认项目
-        ProjectCreateRequest pReq = new ProjectCreateRequest();
+        ProjectCreateDTO pReq = new ProjectCreateDTO();
         pReq.setName("TestProject");
         mockMvc.perform(post("/api/reminder/projects/create")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
@@ -368,7 +368,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Long projectId = opt.get().getProjectId();
 
         // 创建父任务A
-        TaskCreateRequest taskAReq = new TaskCreateRequest();
+        TaskCreateDTO taskAReq = new TaskCreateDTO();
         taskAReq.setProjectId(projectId);
         taskAReq.setTitle("Task A");
         taskAReq.setIsRecurring(false);
@@ -384,7 +384,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Long taskAId = taskA.getTaskId();
 
         // 创建子任务B
-        TaskCreateRequest taskBReq = new TaskCreateRequest();
+        TaskCreateDTO taskBReq = new TaskCreateDTO();
         taskBReq.setProjectId(projectId);
         taskBReq.setParentTaskId(taskAId);
         taskBReq.setTitle("Task B");
@@ -396,7 +396,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(jsonPath("$.code").value(200));
 
         // 创建子任务C
-        TaskCreateRequest taskCReq = new TaskCreateRequest();
+        TaskCreateDTO taskCReq = new TaskCreateDTO();
         taskCReq.setProjectId(projectId);
         taskCReq.setParentTaskId(taskAId);
         taskCReq.setTitle("Task C");
@@ -408,7 +408,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(jsonPath("$.code").value(200));
 
         // 创建子任务D
-        TaskCreateRequest taskDReq = new TaskCreateRequest();
+        TaskCreateDTO taskDReq = new TaskCreateDTO();
         taskDReq.setProjectId(projectId);
         taskDReq.setParentTaskId(taskAId);
         taskDReq.setTitle("Task D");
@@ -440,7 +440,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertFalse(taskD.getIsAbandoned(), "任务D初始应为未废弃");
 
         // 步骤1：将任务D设置为废弃
-        TaskUpdateAbandonedRequest abandonD = new TaskUpdateAbandonedRequest();
+        TaskUpdateAbandonedDTO abandonD = new TaskUpdateAbandonedDTO();
         abandonD.setTaskId(taskDId);
         abandonD.setIsAbandoned(true);
         mockMvc.perform(patch("/api/reminder/task/update-abandoned")
@@ -455,7 +455,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertFalse(updatedD.getIsCompleted(), "废弃的任务D不应是完成状态");
 
         // 步骤2：将任务C设置为完成
-        TaskUpdateCompletedRequest completeC = new TaskUpdateCompletedRequest();
+        TaskUpdateCompletedDTO completeC = new TaskUpdateCompletedDTO();
         completeC.setTaskId(taskCId);
         completeC.setIsCompleted(true);
         mockMvc.perform(patch("/api/reminder/task/update-completed")
@@ -470,7 +470,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertNotNull(updatedC.getCompletedAt(), "任务C完成时间不应为空");
 
         // 步骤3：将父任务A设置为完成（应该同步B，但不会影响已废弃的D和已完成的C）
-        TaskUpdateCompletedRequest completeA = new TaskUpdateCompletedRequest();
+        TaskUpdateCompletedDTO completeA = new TaskUpdateCompletedDTO();
         completeA.setTaskId(taskAId);
         completeA.setIsCompleted(true);
         mockMvc.perform(patch("/api/reminder/task/update-completed")
@@ -515,7 +515,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertEquals(aOperationId, bOperationId, "任务A和任务B应使用相同的操作ID");
 
         // 步骤4：将任务B取消完成
-        TaskUpdateCompletedRequest uncompleteB = new TaskUpdateCompletedRequest();
+        TaskUpdateCompletedDTO uncompleteB = new TaskUpdateCompletedDTO();
         uncompleteB.setTaskId(taskBId);
         uncompleteB.setIsCompleted(false);
         mockMvc.perform(patch("/api/reminder/task/update-completed")
@@ -530,7 +530,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertNull(uncompletedB.getCompletedAt(), "任务B完成时间应被清空");
 
         // 步骤5：将任务B重新完成（单独操作）
-        TaskUpdateCompletedRequest reCompleteB = new TaskUpdateCompletedRequest();
+        TaskUpdateCompletedDTO reCompleteB = new TaskUpdateCompletedDTO();
         reCompleteB.setTaskId(taskBId);
         reCompleteB.setIsCompleted(true);
         mockMvc.perform(patch("/api/reminder/task/update-completed")
@@ -545,7 +545,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertNotNull(recompletedB.getCompletedAt(), "任务B完成时间不应为空");
 
         // 步骤6：将父任务A取消完成
-        TaskUpdateCompletedRequest uncompleteA = new TaskUpdateCompletedRequest();
+        TaskUpdateCompletedDTO uncompleteA = new TaskUpdateCompletedDTO();
         uncompleteA.setTaskId(taskAId);
         uncompleteA.setIsCompleted(false);
         mockMvc.perform(patch("/api/reminder/task/update-completed")
@@ -585,7 +585,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
     @Test
     void scenario_abandoned_status_propagation_and_smart_recovery() throws Exception {
         // 创建默认项目
-        ProjectCreateRequest pReq = new ProjectCreateRequest();
+        ProjectCreateDTO pReq = new ProjectCreateDTO();
         pReq.setName("AbandonedTestProject");
         mockMvc.perform(post("/api/reminder/projects/create")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
@@ -599,7 +599,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Long projectId = opt.get().getProjectId();
 
         // 创建父任务A
-        TaskCreateRequest taskAReq = new TaskCreateRequest();
+        TaskCreateDTO taskAReq = new TaskCreateDTO();
         taskAReq.setProjectId(projectId);
         taskAReq.setTitle("Task A");
         taskAReq.setIsRecurring(false);
@@ -615,7 +615,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Long taskAId = taskA.getTaskId();
 
         // 创建子任务B
-        TaskCreateRequest taskBReq = new TaskCreateRequest();
+        TaskCreateDTO taskBReq = new TaskCreateDTO();
         taskBReq.setProjectId(projectId);
         taskBReq.setParentTaskId(taskAId);
         taskBReq.setTitle("Task B");
@@ -627,7 +627,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(jsonPath("$.code").value(200));
 
         // 创建子任务C
-        TaskCreateRequest taskCReq = new TaskCreateRequest();
+        TaskCreateDTO taskCReq = new TaskCreateDTO();
         taskCReq.setProjectId(projectId);
         taskCReq.setParentTaskId(taskAId);
         taskCReq.setTitle("Task C");
@@ -639,7 +639,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(jsonPath("$.code").value(200));
 
         // 创建子任务D
-        TaskCreateRequest taskDReq = new TaskCreateRequest();
+        TaskCreateDTO taskDReq = new TaskCreateDTO();
         taskDReq.setProjectId(projectId);
         taskDReq.setParentTaskId(taskAId);
         taskDReq.setTitle("Task D");
@@ -670,7 +670,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertFalse(taskD.getIsAbandoned(), "任务D初始应为未废弃");
 
         // 步骤1：将任务D单独设置为废弃
-        TaskUpdateAbandonedRequest abandonD = new TaskUpdateAbandonedRequest();
+        TaskUpdateAbandonedDTO abandonD = new TaskUpdateAbandonedDTO();
         abandonD.setTaskId(taskDId);
         abandonD.setIsAbandoned(true);
         mockMvc.perform(patch("/api/reminder/task/update-abandoned")
@@ -684,7 +684,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertTrue(updatedD.getIsAbandoned(), "任务D应已废弃");
 
         // 步骤2：将父任务A设置为废弃（应连带废弃B和C，但不会影响已废弃的D）
-        TaskUpdateAbandonedRequest abandonA = new TaskUpdateAbandonedRequest();
+        TaskUpdateAbandonedDTO abandonA = new TaskUpdateAbandonedDTO();
         abandonA.setTaskId(taskAId);
         abandonA.setIsAbandoned(true);
         mockMvc.perform(patch("/api/reminder/task/update-abandoned")
@@ -732,7 +732,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertEquals(aOperationId, cOperationId, "任务A和任务C应使用相同的操作ID");
 
         // 步骤3：尝试恢复任务B（父任务A已废弃，预期应该不能恢复）
-        TaskUpdateAbandonedRequest recoverB = new TaskUpdateAbandonedRequest();
+        TaskUpdateAbandonedDTO recoverB = new TaskUpdateAbandonedDTO();
         recoverB.setTaskId(taskBId);
         recoverB.setIsAbandoned(false);
         mockMvc.perform(patch("/api/reminder/task/update-abandoned")
@@ -746,7 +746,7 @@ class TaskControllerScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertTrue(stillAbandonedB.getIsAbandoned(), "任务B应保持废弃状态（父任务已废弃）");
 
         // 步骤4：将父任务A恢复（应只恢复C，因为B是被单独操作恢复的）
-        TaskUpdateAbandonedRequest recoverA = new TaskUpdateAbandonedRequest();
+        TaskUpdateAbandonedDTO recoverA = new TaskUpdateAbandonedDTO();
         recoverA.setTaskId(taskAId);
         recoverA.setIsAbandoned(false);
         mockMvc.perform(patch("/api/reminder/task/update-abandoned")

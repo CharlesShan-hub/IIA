@@ -1,10 +1,10 @@
 package com.charles.server.reminder.controller;
 
 import com.charles.server.auth.service.TokenService;
-import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
-import com.charles.server.reminder.dto.ProjectCreateRequest;
-import com.charles.server.reminder.dto.ProjectDeleteRequest;
-import com.charles.server.reminder.dto.ProjectUpdateRequest;
+import com.charles.server.reminder.dto.BatchUpdatePositionDTO;
+import com.charles.server.reminder.dto.ProjectCreateDTO;
+import com.charles.server.reminder.dto.ProjectDeleteDTO;
+import com.charles.server.reminder.dto.ProjectUpdateDTO;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.mapper.ProjectMapper;
 import com.charles.server.reminder.service.TaskService;
@@ -75,7 +75,7 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
     void scenario_create10_delete246_archive35_reorder_update() throws Exception {
         // Create 10 projects
         for (int i = 1; i <= 10; i++) {
-            ProjectCreateRequest req = new ProjectCreateRequest();
+            ProjectCreateDTO req = new ProjectCreateDTO();
             req.setName("P" + i);
             mockMvc.perform(post("/api/reminder/projects/create")
                     .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
@@ -94,7 +94,7 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
         for (String n : delNames) {
             Project toDelete = active.stream().filter(p -> n.equals(p.getName())).findFirst().orElse(null);
             Assertions.assertNotNull(toDelete);
-            ProjectDeleteRequest del = new ProjectDeleteRequest();
+            ProjectDeleteDTO del = new ProjectDeleteDTO();
             del.setProjectId(toDelete.getProjectId());
             del.setKeepTasks(false);
             del.setTargetProject(false);
@@ -111,12 +111,12 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
         active.sort(Comparator.comparing(Project::getSortOrder));
         Assertions.assertEquals(7, active.size());
 
-        BatchUpdatePositionRequest batch = new BatchUpdatePositionRequest();
-        List<BatchUpdatePositionRequest.Position> pos = new ArrayList<>();
+        BatchUpdatePositionDTO batch = new BatchUpdatePositionDTO();
+        List<BatchUpdatePositionDTO.Position> pos = new ArrayList<>();
         int order = 1;
         for (int i = active.size() - 1; i >= 0; i--) {
             Project p = active.get(i);
-            pos.add(new BatchUpdatePositionRequest.Position(p.getProjectId(), order++));
+            pos.add(new BatchUpdatePositionDTO.Position(p.getProjectId(), order++));
         }
         batch.setPos(pos);
         mockMvc.perform(post("/api/reminder/projects/batch-update-position")
@@ -134,7 +134,7 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
 
         // Update first project
         Project first = active.get(0);
-        ProjectUpdateRequest upd = new ProjectUpdateRequest();
+        ProjectUpdateDTO upd = new ProjectUpdateDTO();
         upd.setProjectId(first.getProjectId());
         upd.setName(first.getName() + "-Renamed");
         upd.setColor("#123456");
@@ -155,7 +155,7 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
         for (String n : archiveNames) {
             Project toArchive = active.stream().filter(p -> n.equals(p.getName())).findFirst().orElse(null);
             Assertions.assertNotNull(toArchive);
-            ProjectUpdateRequest archiveReq = new ProjectUpdateRequest();
+            ProjectUpdateDTO archiveReq = new ProjectUpdateDTO();
             archiveReq.setProjectId(toArchive.getProjectId());
             archiveReq.setName(toArchive.getName());
             archiveReq.setIsArchived(true);
@@ -176,11 +176,11 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
         active.sort(Comparator.comparing(Project::getSortOrder));
         Assertions.assertEquals(5, active.size());
 
-        batch = new BatchUpdatePositionRequest();
+        batch = new BatchUpdatePositionDTO();
         pos = new ArrayList<>();
         order = 1;
         for (Project p : active) {
-            pos.add(new BatchUpdatePositionRequest.Position(p.getProjectId(), order++));
+            pos.add(new BatchUpdatePositionDTO.Position(p.getProjectId(), order++));
         }
         batch.setPos(pos);
         mockMvc.perform(post("/api/reminder/projects/batch-update-position")
@@ -200,7 +200,7 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
     @Test
     void scenario_project_error_responses() throws Exception {
         // 1) Duplicate name → expect conflict (409 in body)
-        ProjectCreateRequest first = new ProjectCreateRequest();
+        ProjectCreateDTO first = new ProjectCreateDTO();
         first.setName("DUP");
         mockMvc.perform(post("/api/reminder/projects/create")
                 .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
@@ -208,7 +208,7 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.code").value(200));
 
-        ProjectCreateRequest dup = new ProjectCreateRequest();
+        ProjectCreateDTO dup = new ProjectCreateDTO();
         dup.setName("DUP");
         mockMvc.perform(post("/api/reminder/projects/create")
                 .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
@@ -223,7 +223,7 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
             });
 
         // 2) Delete non-existent project → expect not found (404 in body)
-        ProjectDeleteRequest del = new ProjectDeleteRequest();
+        ProjectDeleteDTO del = new ProjectDeleteDTO();
         del.setProjectId(999999L);
         del.setKeepTasks(false);
         del.setTargetProject(false);

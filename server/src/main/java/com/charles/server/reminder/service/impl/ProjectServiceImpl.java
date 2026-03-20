@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import com.charles.server.reminder.dto.ProjectCreateRequest;
-import com.charles.server.reminder.dto.ProjectUpdateRequest;
-import com.charles.server.reminder.dto.ProjectGetAllRequest;
-import com.charles.server.reminder.dto.ProjectDeleteRequest;
-import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
+import com.charles.server.reminder.dto.ProjectCreateDTO;
+import com.charles.server.reminder.dto.ProjectUpdateDTO;
+import com.charles.server.reminder.dto.ProjectGetAllDTO;
+import com.charles.server.reminder.dto.ProjectDeleteDTO;
+import com.charles.server.reminder.dto.BatchUpdatePositionDTO;
 import com.charles.server.reminder.exception.ProjectException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class ProjectServiceImpl implements ProjectService {
     private final PermissionService permissionService;
     private final OperationService operationService;
 
-    private Project convertToEntity(ProjectCreateRequest dto) {
+    private Project convertToEntity(ProjectCreateDTO dto) {
         Project project = new Project();
         project.setName(dto.getName());
         project.setDescription(dto.getDescription());
@@ -49,7 +49,7 @@ public class ProjectServiceImpl implements ProjectService {
     
     @Override
     @Transactional
-    public void create(Long userId, ProjectCreateRequest dto) {
+    public void create(Long userId, ProjectCreateDTO dto) {
         // Check if project name already exists
         Project existed = projectMapper.findByUserIdAndName(userId, dto.getName());
         if (existed != null) {
@@ -79,7 +79,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional
-    public void update(Long userId, ProjectUpdateRequest dto) {
+    public void update(Long userId, ProjectUpdateDTO dto) {
         // 1. 获取当前项目
         Project currentProject = permissionService.getProject(userId, dto.getProjectId());
 
@@ -117,7 +117,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
     
     @Override
-    public List<Project> getAll(Long userId, ProjectGetAllRequest dto) {
+    public List<Project> getAll(Long userId, ProjectGetAllDTO dto) {
         if (Boolean.TRUE.equals(dto.getIsAll())) {
             List<Project> activeList = projectMapper.findByUserIdAndArchived(userId, false);
             List<Project> archivedList = projectMapper.findByUserIdAndArchived(userId, true);
@@ -133,7 +133,7 @@ public class ProjectServiceImpl implements ProjectService {
     
     @Transactional
     @Override
-    public void batchUpdatePosition(Long userId, BatchUpdatePositionRequest request) {
+    public void batchUpdatePosition(Long userId, BatchUpdatePositionDTO request) {
         Long operationId = operationService.getId(userId);
         operationService.create(Operation.builder()
                 .operationId(operationId)
@@ -141,12 +141,12 @@ public class ProjectServiceImpl implements ProjectService {
                 .isReminderProject(true)
                 .build());
 
-        List<BatchUpdatePositionRequest.Position> sorted = new ArrayList<>(request.getPos());
-        sorted.sort(Comparator.comparing(BatchUpdatePositionRequest.Position::getSortOrder)
-                .thenComparing(BatchUpdatePositionRequest.Position::getItemId));
+        List<BatchUpdatePositionDTO.Position> sorted = new ArrayList<>(request.getPos());
+        sorted.sort(Comparator.comparing(BatchUpdatePositionDTO.Position::getSortOrder)
+                .thenComparing(BatchUpdatePositionDTO.Position::getItemId));
 
         int next = 1;
-        for (BatchUpdatePositionRequest.Position p : sorted) {
+        for (BatchUpdatePositionDTO.Position p : sorted) {
             Project project = permissionService.getProject(userId, p.getItemId());
 
             // 保存历史版本，记录这个日志是由哪个批量操作创建的
@@ -162,7 +162,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional
-    public void delete(Long userId, ProjectDeleteRequest dto) {
+    public void delete(Long userId, ProjectDeleteDTO dto) {
         Long projectId = dto.getProjectId();
         permissionService.validProject(userId, projectId);
         if (Boolean.FALSE.equals(dto.getKeepTasks())) {

@@ -1,12 +1,12 @@
 package com.charles.server.reminder.service.impl;
 
-import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
-import com.charles.server.reminder.dto.ProjectDeleteRequest;
-import com.charles.server.reminder.dto.TaskCreateRequest;
-import com.charles.server.reminder.dto.TaskUpdateRequest;
-import com.charles.server.reminder.dto.TaskGetAllRequest;
-import com.charles.server.reminder.dto.TaskUpdateCompletedRequest;
-import com.charles.server.reminder.dto.TaskUpdateAbandonedRequest;
+import com.charles.server.reminder.dto.BatchUpdatePositionDTO;
+import com.charles.server.reminder.dto.ProjectDeleteDTO;
+import com.charles.server.reminder.dto.TaskCreateDTO;
+import com.charles.server.reminder.dto.TaskUpdateDTO;
+import com.charles.server.reminder.dto.TaskGetAllDTO;
+import com.charles.server.reminder.dto.TaskUpdateCompletedDTO;
+import com.charles.server.reminder.dto.TaskUpdateAbandonedDTO;
 import com.charles.server.reminder.entity.Task;
 import com.charles.server.reminder.entity.History;
 import com.charles.server.reminder.mapper.TaskMapper;
@@ -36,7 +36,7 @@ public class TaskServiceImpl implements TaskService {
     /*                                      Utils                                         */
     /**************************************************************************************/
 
-    private Task convertToEntity(Long userId, TaskCreateRequest dto) {
+    private Task convertToEntity(Long userId, TaskCreateDTO dto) {
         Task task = new Task();
         task.setUserId(userId);
         task.setProjectId(dto.getProjectId());
@@ -71,7 +71,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Transactional
     @Override
-    public void create(Long userId, TaskCreateRequest dto) {
+    public void create(Long userId, TaskCreateDTO dto) {
         Task task = convertToEntity(userId, dto);
         task.setIsCompleted(Boolean.FALSE);
         task.setIsAbandoned(Boolean.FALSE);
@@ -104,7 +104,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Transactional
     @Override
-    public void update(Long userId, TaskUpdateRequest dto) {
+    public void update(Long userId, TaskUpdateDTO dto) {
         Task task = new Task();
         task.setTaskId(dto.getTaskId());
         task.setUserId(userId);
@@ -140,7 +140,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Transactional
     @Override
-    public void batchUpdatePosition(Long userId, BatchUpdatePositionRequest request) {
+    public void batchUpdatePosition(Long userId, BatchUpdatePositionDTO request) {
         request.getPos().forEach(t -> permissionService.validTask(userId, t.getItemId()));
         request.getPos().forEach(t -> {
             Task task = new Task();
@@ -151,7 +151,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getAll(Long userId, TaskGetAllRequest dto) {
+    public List<Task> getAll(Long userId, TaskGetAllDTO dto) {
         if (Boolean.TRUE.equals(dto.getIsAll())) {
             return taskMapper.findByUserId(userId);
         }
@@ -182,7 +182,7 @@ public class TaskServiceImpl implements TaskService {
      */
     @Override
     @Transactional
-    public void updateCompletedStatus(Long userId, TaskUpdateCompletedRequest dto) {
+    public void updateCompletedStatus(Long userId, TaskUpdateCompletedDTO dto) {
         Task existing = permissionService.getTask(userId, dto.getTaskId());
         // if task is abandoned, do nothing
         if(Boolean.TRUE.equals(existing.getIsAbandoned())) return;
@@ -298,7 +298,7 @@ public class TaskServiceImpl implements TaskService {
     
     @Override
     @Transactional
-    public void updateAbandonedStatus(Long userId, TaskUpdateAbandonedRequest dto) {
+    public void updateAbandonedStatus(Long userId, TaskUpdateAbandonedDTO dto) {
         Task existing = permissionService.getTask(userId, dto.getTaskId());
         // if status has not changed, do nothing
         if(dto.getIsAbandoned().equals(existing.getIsAbandoned())) return;
@@ -390,7 +390,7 @@ public class TaskServiceImpl implements TaskService {
     /**************************************************************************************/
 
     @Override
-    public void batchUpdateProjectId(Long userId, ProjectDeleteRequest dto) {
+    public void batchUpdateProjectId(Long userId, ProjectDeleteDTO dto) {
         if (dto == null || dto.getProjectId() == null) return;
         Long fromProjectId = dto.getProjectId();
         // Capture source root tasks (for order preservation)

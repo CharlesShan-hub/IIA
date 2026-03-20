@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class TaskTagBatchDeleteRequest {
+public class TaskTagBatchDeleteDTO {
     @NotNull(message = "Task ID is Required")
     private Long taskId;
 

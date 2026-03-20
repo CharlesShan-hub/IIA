@@ -3,7 +3,7 @@ package com.charles.server.auth.service.impl;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import com.charles.server.auth.dto.RefreshResponse;
+import com.charles.server.auth.dto.RefreshVO;
 import com.charles.server.auth.exception.TokenException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -99,7 +99,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public RefreshResponse refresh(String token) {
+    public RefreshVO refresh(String token) {
         // 1. Validate Refresh Token format and signature
         if (token == null || !jwtUtils.validateRefreshToken(token)) {
             throw TokenException.invalid();
@@ -119,7 +119,7 @@ public class TokenServiceImpl implements TokenService {
         
         // 5. Generate and return new tokens
         Map<String, String> tokens = get(userId);
-        return new RefreshResponse(tokens.get("accessToken"), tokens.get("refreshToken"));
+        return new RefreshVO(tokens.get("accessToken"), tokens.get("refreshToken"));
     }
     
     private boolean validateAccessToken(String userId, String token) {

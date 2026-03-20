@@ -1,12 +1,12 @@
 package com.charles.server;
 
-import com.charles.server.reminder.dto.ProjectCreateRequest;
-import com.charles.server.reminder.dto.ProjectDeleteRequest;
-import com.charles.server.reminder.dto.ProjectUpdateRequest;
-import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
-import com.charles.server.reminder.dto.TaskCreateRequest;
-import com.charles.server.reminder.dto.TaskUpdateCompletedRequest;
-import com.charles.server.reminder.dto.TaskUpdateAbandonedRequest;
+import com.charles.server.reminder.dto.ProjectCreateDTO;
+import com.charles.server.reminder.dto.ProjectDeleteDTO;
+import com.charles.server.reminder.dto.ProjectUpdateDTO;
+import com.charles.server.reminder.dto.BatchUpdatePositionDTO;
+import com.charles.server.reminder.dto.TaskCreateDTO;
+import com.charles.server.reminder.dto.TaskUpdateCompletedDTO;
+import com.charles.server.reminder.dto.TaskUpdateAbandonedDTO;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.entity.Task;
 import com.charles.server.reminder.mapper.ProjectMapper;
@@ -181,7 +181,7 @@ public abstract class BaseE2eDatabaseTest {
     }
 
     protected Long createProject(String projectName, int expectCode) throws Exception {
-        ProjectCreateRequest request = new ProjectCreateRequest();
+        ProjectCreateDTO request = new ProjectCreateDTO();
         request.setName(projectName);
 
         mockMvc.perform(post("/api/reminder/project/create")
@@ -209,11 +209,11 @@ public abstract class BaseE2eDatabaseTest {
     /**
      * 更新项目
      */
-    protected void updateProject(ProjectUpdateRequest request) throws Exception {
+    protected void updateProject(ProjectUpdateDTO request) throws Exception {
         updateProject(request, 200);
     }
 
-    protected void updateProject(ProjectUpdateRequest request, int expectCode) throws Exception {
+    protected void updateProject(ProjectUpdateDTO request, int expectCode) throws Exception {
         mockMvc.perform(post("/api/reminder/project/update")
                 .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
                 .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
@@ -221,11 +221,11 @@ public abstract class BaseE2eDatabaseTest {
                 .andExpect(jsonPath("$.code").value(expectCode));
     }
 
-    protected void deleteProject(ProjectDeleteRequest request) throws Exception {
+    protected void deleteProject(ProjectDeleteDTO request) throws Exception {
         deleteProject(request, 200);
     }
 
-    protected void deleteProject(ProjectDeleteRequest request, int expectCode) throws Exception {
+    protected void deleteProject(ProjectDeleteDTO request, int expectCode) throws Exception {
         mockMvc.perform(post("/api/reminder/project/delete")
                 .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
                 .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
@@ -236,11 +236,11 @@ public abstract class BaseE2eDatabaseTest {
     /**
      * 批量更新项目位置
      */
-    protected void batchUpdateProjectPosition(BatchUpdatePositionRequest request) throws Exception {
+    protected void batchUpdateProjectPosition(BatchUpdatePositionDTO request) throws Exception {
         batchUpdateProjectPosition(request, 200);
     }
 
-    protected void batchUpdateProjectPosition(BatchUpdatePositionRequest request, int expectCode) throws Exception {
+    protected void batchUpdateProjectPosition(BatchUpdatePositionDTO request, int expectCode) throws Exception {
         mockMvc.perform(post("/api/reminder/project/batch-update-position")
                 .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
                 .content(java.util.Objects.requireNonNull(objectMapper.writeValueAsString(request))))
@@ -252,7 +252,7 @@ public abstract class BaseE2eDatabaseTest {
      * 创建根任务
      */
     protected Long createRootTask(Long projectId, String title) throws Exception {
-        TaskCreateRequest request = new TaskCreateRequest();
+        TaskCreateDTO request = new TaskCreateDTO();
         if (projectId != null) {
             request.setProjectId(projectId);
         }
@@ -286,7 +286,7 @@ public abstract class BaseE2eDatabaseTest {
             throw new RuntimeException("父任务不存在: " + parentTaskId);
         }
         
-        TaskCreateRequest request = new TaskCreateRequest();
+        TaskCreateDTO request = new TaskCreateDTO();
         request.setProjectId(parentTask.getProjectId());
         request.setTitle(title);
         request.setParentTaskId(parentTaskId);
@@ -311,7 +311,7 @@ public abstract class BaseE2eDatabaseTest {
      * 更新任务完成状态
      */
     protected void updateTaskCompletedStatus(Long taskId, Boolean completed) throws Exception {
-        TaskUpdateCompletedRequest request = new TaskUpdateCompletedRequest();
+        TaskUpdateCompletedDTO request = new TaskUpdateCompletedDTO();
         request.setTaskId(taskId);
         request.setIsCompleted(completed);
         
@@ -326,7 +326,7 @@ public abstract class BaseE2eDatabaseTest {
      * 更新任务废弃状态
      */
     protected void updateTaskAbandonedStatus(Long taskId, Boolean abandoned) throws Exception {
-        TaskUpdateAbandonedRequest request = new TaskUpdateAbandonedRequest();
+        TaskUpdateAbandonedDTO request = new TaskUpdateAbandonedDTO();
         request.setTaskId(taskId);
         request.setIsAbandoned(abandoned);
         

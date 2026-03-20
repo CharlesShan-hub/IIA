@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class TaskDeleteRequest {
-    @NotNull(message = "taskId is required")
-    private Long taskId;
+public class TagDeleteDTO {
+    @NotNull(message = "tagId is required")
+    private Long tagId;
 }

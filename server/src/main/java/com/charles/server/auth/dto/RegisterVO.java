@@ -3,7 +3,8 @@ package com.charles.server.auth.dto;
 import lombok.Data;
 
 @Data
-public class ProfileResponse {
+public class RegisterVO {
     private Long userId;
-    private String userName;
+    private String token;
+    private String refreshToken;
 }

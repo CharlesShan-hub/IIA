@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Email;
 import lombok.Data;
 
 @Data
-public class SendCodeRequest {
+public class SendCodeDTO {
     @Email(message = "email format is incorrect")
     private String email;
 }

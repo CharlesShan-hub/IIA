@@ -1,9 +1,9 @@
 package com.charles.server.reminder.service;
 
-import com.charles.server.reminder.dto.TaskTagCreateRequest;
-import com.charles.server.reminder.dto.TaskTagDeleteRequest;
-import com.charles.server.reminder.dto.TaskTagBatchCreateRequest;
-import com.charles.server.reminder.dto.TaskTagBatchDeleteRequest;
+import com.charles.server.reminder.dto.TaskTagCreateDTO;
+import com.charles.server.reminder.dto.TaskTagDeleteDTO;
+import com.charles.server.reminder.dto.TaskTagBatchCreateDTO;
+import com.charles.server.reminder.dto.TaskTagBatchDeleteDTO;
 
 public interface TaskTagService {
     /**
@@ -11,26 +11,26 @@ public interface TaskTagService {
      * @param userId
      * @param dto the request body containing task ID and tag ID
      */
-    void create(Long userId, TaskTagCreateRequest dto);
+    void create(Long userId, TaskTagCreateDTO dto);
 
     /**
      * Create multiple task-tag associations in batch
      * @param userId
      * @param dto the request body containing task ID and tag ID list
      */
-    void createBatch(Long userId, TaskTagBatchCreateRequest dto);
+    void createBatch(Long userId, TaskTagBatchCreateDTO dto);
 
     /**
      * Delete a task-tag association
      * @param userId
      * @param dto the request body containing task ID and tag ID
      */
-    void delete(Long userId, TaskTagDeleteRequest dto);
+    void delete(Long userId, TaskTagDeleteDTO dto);
     
     /**
      * Delete multiple task-tag associations in batch
      * @param userId
      * @param dto the request body containing task ID and tag ID list
      */
-    void deleteBatch(Long userId, TaskTagBatchDeleteRequest dto);
+    void deleteBatch(Long userId, TaskTagBatchDeleteDTO dto);
 }

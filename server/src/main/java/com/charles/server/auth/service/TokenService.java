@@ -3,7 +3,7 @@ package com.charles.server.auth.service;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Map;
-import com.charles.server.auth.dto.RefreshResponse;
+import com.charles.server.auth.dto.RefreshVO;
 
 public interface TokenService {
 
@@ -12,7 +12,7 @@ public interface TokenService {
      * @param token JWT Refresh Token
      * @return New tokens
      */
-    RefreshResponse refresh(String token);
+    RefreshVO refresh(String token);
 
     /**
      * Generate, store and get tokens

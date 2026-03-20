@@ -2,12 +2,12 @@ package com.charles.server.reminder.controller;
 
 import com.charles.server.BaseE2eDatabaseTest;
 import com.charles.server.auth.service.TokenService;
-import com.charles.server.reminder.dto.TagCreateRequest;
-import com.charles.server.reminder.dto.TaskCreateRequest;
-import com.charles.server.reminder.dto.TaskTagCreateRequest;
-import com.charles.server.reminder.dto.TaskTagDeleteRequest;
-import com.charles.server.reminder.dto.TaskTagBatchCreateRequest;
-import com.charles.server.reminder.dto.TaskTagBatchDeleteRequest;
+import com.charles.server.reminder.dto.TagCreateDTO;
+import com.charles.server.reminder.dto.TaskCreateDTO;
+import com.charles.server.reminder.dto.TaskTagCreateDTO;
+import com.charles.server.reminder.dto.TaskTagDeleteDTO;
+import com.charles.server.reminder.dto.TaskTagBatchCreateDTO;
+import com.charles.server.reminder.dto.TaskTagBatchDeleteDTO;
 import com.charles.server.reminder.entity.Tag;
 import com.charles.server.reminder.entity.Task;
 import com.charles.server.reminder.mapper.TagMapper;
@@ -84,7 +84,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         Long tag2 = tagIdByName("Tag-2");
 
         // Task 1 add Tag-1 without cascade
-        TaskTagCreateRequest add1 = new TaskTagCreateRequest();
+        TaskTagCreateDTO add1 = new TaskTagCreateDTO();
         add1.setTaskId(id1);
         add1.setTagId(tag1);
         add1.setIncludeSubtasks(false);
@@ -95,7 +95,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(jsonPath("$.code").value(200));
 
         // Task 2 add Tag-1 and Tag-2 with cascade
-        TaskTagCreateRequest add31 = new TaskTagCreateRequest();
+        TaskTagCreateDTO add31 = new TaskTagCreateDTO();
         add31.setTaskId(id2);
         add31.setTagId(tag1);
         add31.setIncludeSubtasks(true);
@@ -105,7 +105,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
-        TaskTagCreateRequest add32 = new TaskTagCreateRequest();
+        TaskTagCreateDTO add32 = new TaskTagCreateDTO();
         add32.setTaskId(id2);
         add32.setTagId(tag2);
         add32.setIncludeSubtasks(true);
@@ -116,7 +116,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(jsonPath("$.code").value(200));
 
         // Task 3 and 4 add Tag-2 with cascade
-        TaskTagCreateRequest add22 = new TaskTagCreateRequest();
+        TaskTagCreateDTO add22 = new TaskTagCreateDTO();
         add22.setTaskId(id3);
         add22.setTagId(tag2);
         add22.setIncludeSubtasks(true);
@@ -126,7 +126,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
-        TaskTagCreateRequest add42 = new TaskTagCreateRequest();
+        TaskTagCreateDTO add42 = new TaskTagCreateDTO();
         add42.setTaskId(id4);
         add42.setTagId(tag2);
         add42.setIncludeSubtasks(true);
@@ -151,7 +151,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertNotNull(taskTagMapper.findByTaskIdAndTagId(id4s, tag2));
 
         // Delete: Task 3 remove Tag-2 without cascade (only 3)
-        TaskTagDeleteRequest del3 = new TaskTagDeleteRequest();
+        TaskTagDeleteDTO del3 = new TaskTagDeleteDTO();
         del3.setTaskId(id3);
         del3.setTagId(tag2);
         del3.setIncludeSubtasks(false);
@@ -162,7 +162,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(jsonPath("$.code").value(200));
 
         // Delete: Task 4 remove Tag-2 with cascade (4 and 4s)
-        TaskTagDeleteRequest del4 = new TaskTagDeleteRequest();
+        TaskTagDeleteDTO del4 = new TaskTagDeleteDTO();
         del4.setTaskId(id4);
         del4.setTagId(tag2);
         del4.setIncludeSubtasks(true);
@@ -181,7 +181,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
     }
 
     private void createTask(String title, Long parentId) throws Exception {
-        TaskCreateRequest req = new TaskCreateRequest();
+        TaskCreateDTO req = new TaskCreateDTO();
         req.setTitle(title);
         req.setIsRecurring(false);
         if (parentId != null) req.setParentTaskId(parentId);
@@ -193,7 +193,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
     }
 
     private void createTag(String name, String color) throws Exception {
-        TagCreateRequest req = new TagCreateRequest();
+        TagCreateDTO req = new TagCreateDTO();
         req.setName(name);
         req.setColor(color);
         mockMvc.perform(post("/api/reminder/tags/create")
@@ -235,7 +235,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         Long t3 = tagIdByName("3");
         Long t4 = tagIdByName("4");
 
-        TaskTagBatchCreateRequest bc = new TaskTagBatchCreateRequest();
+        TaskTagBatchCreateDTO bc = new TaskTagBatchCreateDTO();
         bc.setTaskId(idA);
         bc.setTagIds(List.of(t1, t2, t3, t4));
         bc.setIncludeSubtasks(true);
@@ -254,7 +254,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertNotNull(taskTagMapper.findByTaskIdAndTagId(idB, t3));
         Assertions.assertNotNull(taskTagMapper.findByTaskIdAndTagId(idB, t4));
 
-        TaskTagBatchDeleteRequest bd = new TaskTagBatchDeleteRequest();
+        TaskTagBatchDeleteDTO bd = new TaskTagBatchDeleteDTO();
         bd.setTaskId(idA);
         bd.setTagIds(List.of(t1, t2));
         bd.setIncludeSubtasks(true);
@@ -264,7 +264,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
-        TaskTagDeleteRequest delB3 = new TaskTagDeleteRequest();
+        TaskTagDeleteDTO delB3 = new TaskTagDeleteDTO();
         delB3.setTaskId(idB);
         delB3.setTagId(t3);
         delB3.setIncludeSubtasks(false);
@@ -274,7 +274,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
-        TaskTagDeleteRequest delA4 = new TaskTagDeleteRequest();
+        TaskTagDeleteDTO delA4 = new TaskTagDeleteDTO();
         delA4.setTaskId(idA);
         delA4.setTagId(t4);
         delA4.setIncludeSubtasks(false);
@@ -300,7 +300,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         createTag("E", "#EEEEEE");
         Long tagId = tagIdByName("E");
 
-        TaskTagCreateRequest dto = new TaskTagCreateRequest();
+        TaskTagCreateDTO dto = new TaskTagCreateDTO();
         dto.setTaskId(999999L);
         dto.setTagId(tagId);
         dto.setIncludeSubtasks(false);
@@ -331,7 +331,7 @@ class TaskTagScenarioE2ETest extends BaseE2eDatabaseTest {
         other.setPriority("none");
         taskMapper.insert(other);
 
-        TaskTagCreateRequest dto = new TaskTagCreateRequest();
+        TaskTagCreateDTO dto = new TaskTagCreateDTO();
         dto.setTaskId(other.getTaskId());
         dto.setTagId(tagId);
         dto.setIncludeSubtasks(false);

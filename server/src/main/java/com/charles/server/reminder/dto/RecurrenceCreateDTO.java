@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RecurrenceCreateRequest {
+public class RecurrenceCreateDTO {
     @NotNull(message = "taskId is required")
     private Long taskId;
 

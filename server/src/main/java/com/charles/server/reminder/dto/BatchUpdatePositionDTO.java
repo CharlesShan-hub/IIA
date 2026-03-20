@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import java.util.List;
 
 @Data
-public class BatchUpdatePositionRequest {
+public class BatchUpdatePositionDTO {
     private List<Position> pos;
     
     @Data

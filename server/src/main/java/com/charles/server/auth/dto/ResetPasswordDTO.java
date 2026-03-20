@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class ResetPasswordRequest {
+public class ResetPasswordDTO {
 
     @NotBlank(message = "Email is required")
     @Email(message = "Email format is invalid")

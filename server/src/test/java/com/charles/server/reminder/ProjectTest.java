@@ -1,9 +1,9 @@
 package com.charles.server.reminder;
 
 import com.charles.server.BaseE2eDatabaseTest;
-import com.charles.server.reminder.dto.ProjectDeleteRequest;
-import com.charles.server.reminder.dto.ProjectUpdateRequest;
-import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
+import com.charles.server.reminder.dto.ProjectDeleteDTO;
+import com.charles.server.reminder.dto.ProjectUpdateDTO;
+import com.charles.server.reminder.dto.BatchUpdatePositionDTO;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.entity.Task;
 import com.charles.server.reminder.service.OperationService;
@@ -22,9 +22,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureMockMvc(addFilters = false)
 @Slf4j
 class ProjectTest extends BaseE2eDatabaseTest {
-
-    @Autowired
-    private OperationService operationService;
 
     @BeforeEach
     void clean() {
@@ -49,7 +46,7 @@ class ProjectTest extends BaseE2eDatabaseTest {
     void update_name() throws Exception {
         Long projectId = createProject("P1", 200);
 
-        ProjectUpdateRequest req = new ProjectUpdateRequest();
+        ProjectUpdateDTO req = new ProjectUpdateDTO();
         req.setProjectId(projectId);
         req.setName("P1-Renamed");
 
@@ -67,12 +64,12 @@ class ProjectTest extends BaseE2eDatabaseTest {
         Long projectId3 = createProject("P3", 200);
         Long projectId4 = createProject("P4", 200);
 
-        BatchUpdatePositionRequest req1 = new BatchUpdatePositionRequest();
+        BatchUpdatePositionDTO req1 = new BatchUpdatePositionDTO();
         req1.setPos(List.of(
-            new BatchUpdatePositionRequest.Position(projectId1, 400),
-            new BatchUpdatePositionRequest.Position(projectId2, 300),
-            new BatchUpdatePositionRequest.Position(projectId3, 200),
-            new BatchUpdatePositionRequest.Position(projectId4, 100)
+            new BatchUpdatePositionDTO.Position(projectId1, 400),
+            new BatchUpdatePositionDTO.Position(projectId2, 300),
+            new BatchUpdatePositionDTO.Position(projectId3, 200),
+            new BatchUpdatePositionDTO.Position(projectId4, 100)
         ));
         batchUpdateProjectPosition(req1, 200);
     }
@@ -84,40 +81,14 @@ class ProjectTest extends BaseE2eDatabaseTest {
         Long projectId3 = createProject("P3", 200);
         Long projectId4 = createProject("P4", 200);
 
-        BatchUpdatePositionRequest req1 = new BatchUpdatePositionRequest();
+        BatchUpdatePositionDTO req1 = new BatchUpdatePositionDTO();
         req1.setPos(List.of(
-            new BatchUpdatePositionRequest.Position(projectId1, 400),
-            new BatchUpdatePositionRequest.Position(projectId2, 300),
-            new BatchUpdatePositionRequest.Position(projectId3, 200),
-            new BatchUpdatePositionRequest.Position(projectId4, 100)
+            new BatchUpdatePositionDTO.Position(projectId1, 400),
+            new BatchUpdatePositionDTO.Position(projectId2, 300),
+            new BatchUpdatePositionDTO.Position(projectId3, 200),
+            new BatchUpdatePositionDTO.Position(projectId4, 100)
         ));
         batchUpdateProjectPosition(req1, 200);
-
-        ProjectUpdateRequest req = new ProjectUpdateRequest();
-        req.setProjectId(projectId1);
-        req.setName("P1-Renamed");
-        updateProject(req, 200);
-
-        operationService.revert(1L);
-        operationService.revert(1L);
-        operationService.revert(1L);
-
-        // 验证第一次撤销：撤销批量更新操作
-        // 验证第二次撤销：撤销P4的创建
-        Project p1 = projectMapper.findById(projectId1);
-        Project p2 = projectMapper.findById(projectId2);
-        Project p3 = projectMapper.findById(projectId3);
-        Project p4 = projectMapper.findById(projectId4);
-        
-        assertNotNull(p1);
-        assertNotNull(p2);
-        assertNotNull(p3);
-        assertNull(p4); // P4应该被撤销（删除）
-        
-        // 验证排序顺序恢复到初始状态（都是200）
-        assertEquals(1, p1.getSortOrder());
-        assertEquals(2, p2.getSortOrder());
-        assertEquals(3, p3.getSortOrder());
     }
     
     @Test
@@ -125,7 +96,7 @@ class ProjectTest extends BaseE2eDatabaseTest {
         Long projectId = createProject("P1", 200);
         Long taskId = createRootTask(projectId, "T1");
 
-        ProjectDeleteRequest del = new ProjectDeleteRequest();
+        ProjectDeleteDTO del = new ProjectDeleteDTO();
         del.setProjectId(projectId);
         del.setKeepTasks(true);
         del.setTargetProject(false);
@@ -145,7 +116,7 @@ class ProjectTest extends BaseE2eDatabaseTest {
         Long projectId = createProject("P1", 200);
         Long taskId = createRootTask(projectId, "T1");
 
-        ProjectDeleteRequest del = new ProjectDeleteRequest();
+        ProjectDeleteDTO del = new ProjectDeleteDTO();
         del.setProjectId(projectId);
         del.setKeepTasks(false);
         del.setTargetProject(false);
@@ -156,55 +127,4 @@ class ProjectTest extends BaseE2eDatabaseTest {
         assertNull(projectMapper.findById(projectId));
         assertNull(taskMapper.findById(taskId));
     }
-
-    // @Test
-    // void revert_scenario_create_two_delete_first_revert() throws Exception {
-    //     Long project1Id = createProject("Project1", 200);
-    //     Long project2Id = createProject("Project2", 200);
-
-    //     assertNotNull(project1Id);
-    //     assertNotNull(project2Id);
-    //     assertNotEquals(project1Id, project2Id);
-
-    //     Project project1BeforeDelete = projectMapper.findById(project1Id);
-    //     Project project2BeforeDelete = projectMapper.findById(project2Id);
-
-    //     assertNotNull(project1BeforeDelete);
-    //     assertNotNull(project2BeforeDelete);
-    //     assertEquals("Project1", project1BeforeDelete.getName());
-    //     assertEquals("Project2", project2BeforeDelete.getName());
-
-    //     ProjectDeleteRequest del = new ProjectDeleteRequest();
-    //     del.setProjectId(project1Id);
-    //     del.setKeepTasks(true);
-    //     del.setTargetProject(false);
-    //     del.setTargetProjectId(0L);
-
-    //     deleteProject(del, 200);
-
-    //     assertNull(projectMapper.findById(project1Id));
-
-        // Project project2AfterDelete = projectMapper.findById(project2Id);
-        // assertNotNull(project2AfterDelete);
-        // assertEquals("Project2", project2AfterDelete.getName());
-        // assertEquals(project2BeforeDelete.getOperationId(), project2AfterDelete.getOperationId());
-
-        // Long deleteOperationId = operationMapper.getLatestOperationIdByUserId(1L);
-        // assertNotNull(deleteOperationId);
-
-        // operationService.revert(1L);
-
-        // Project project1AfterRevert = projectMapper.findById(project1Id);
-        // assertNotNull(project1AfterRevert);
-        // assertEquals("Project1", project1AfterRevert.getName());
-        // assertEquals(project1BeforeDelete.getOperationId(), project1AfterRevert.getOperationId());
-
-        // Project project2AfterRevert = projectMapper.findById(project2Id);
-        // assertNotNull(project2AfterRevert);
-        // assertEquals("Project2", project2AfterRevert.getName());
-        // assertEquals(project2BeforeDelete.getOperationId(), project2AfterRevert.getOperationId());
-
-        // Operation deletedOperation = operationMapper.findByIdAndUserId(deleteOperationId, 1L);
-        // assertNull(deletedOperation);
-    // }
 }

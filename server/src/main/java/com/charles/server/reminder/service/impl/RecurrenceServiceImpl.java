@@ -1,7 +1,7 @@
 package com.charles.server.reminder.service.impl;
 
-import com.charles.server.reminder.dto.TaskCreateRequest;
-import com.charles.server.reminder.dto.TaskUpdateRequest;
+import com.charles.server.reminder.dto.TaskCreateDTO;
+import com.charles.server.reminder.dto.TaskUpdateDTO;
 import com.charles.server.reminder.entity.Recurrence;
 import com.charles.server.reminder.mapper.RecurrenceMapper;
 import com.charles.server.reminder.service.RecurrenceService;
@@ -21,7 +21,7 @@ public class RecurrenceServiceImpl implements RecurrenceService {
     /*                                      Utils                                         */
     /**************************************************************************************/
 
-    private Recurrence convertToEntity(Long taskId, TaskCreateRequest dto) {
+    private Recurrence convertToEntity(Long taskId, TaskCreateDTO dto) {
         Recurrence r = new Recurrence();
         r.setTaskId(taskId);
         r.setCategory(dto.getRecurrenceCategory());
@@ -35,7 +35,7 @@ public class RecurrenceServiceImpl implements RecurrenceService {
         return r;
     }
 
-    private Recurrence convertToEntity(Long taskId, TaskUpdateRequest dto) {
+    private Recurrence convertToEntity(Long taskId, TaskUpdateDTO dto) {
         Recurrence r = new Recurrence();
         r.setTaskId(taskId);
         r.setCategory(dto.getRecurrenceCategory());
@@ -79,7 +79,7 @@ public class RecurrenceServiceImpl implements RecurrenceService {
     }
 
     @Override
-    public void create(Long taskId, TaskCreateRequest dto) {
+    public void create(Long taskId, TaskCreateDTO dto) {
         create(taskId, convertToEntity(taskId, dto));
     }
 
@@ -95,7 +95,7 @@ public class RecurrenceServiceImpl implements RecurrenceService {
     }
     
     @Override
-    public void update(Long taskId, TaskUpdateRequest dto) {
+    public void update(Long taskId, TaskUpdateDTO dto) {
         try {
             log.info("Updating recurrence config for taskId={}", taskId);
             

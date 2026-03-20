@@ -1,6 +1,6 @@
 package com.charles.server.reminder.controller;
 
-import com.charles.server.auth.dto.LoginRequest;
+import com.charles.server.auth.dto.LoginDTO;
 import com.charles.server.auth.service.TokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -50,7 +50,7 @@ class AuthControllerLoginE2ETest extends BaseE2eDatabaseTest {
 
     @Test
     void login_success_with_real_bcrypt() throws Exception {
-        LoginRequest req = new LoginRequest();
+        LoginDTO req = new LoginDTO();
         req.setEmail("test@example.com");
         req.setPassword("123456");
 

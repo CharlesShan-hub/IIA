@@ -2,13 +2,13 @@ package com.charles.server.reminder.service;
 
 import java.util.List;
 
-import com.charles.server.reminder.dto.BatchUpdatePositionRequest;
-import com.charles.server.reminder.dto.TaskCreateRequest;
-import com.charles.server.reminder.dto.TaskUpdateRequest;
-import com.charles.server.reminder.dto.ProjectDeleteRequest;
-import com.charles.server.reminder.dto.TaskGetAllRequest;
-import com.charles.server.reminder.dto.TaskUpdateCompletedRequest;
-import com.charles.server.reminder.dto.TaskUpdateAbandonedRequest;
+import com.charles.server.reminder.dto.BatchUpdatePositionDTO;
+import com.charles.server.reminder.dto.TaskCreateDTO;
+import com.charles.server.reminder.dto.TaskUpdateDTO;
+import com.charles.server.reminder.dto.ProjectDeleteDTO;
+import com.charles.server.reminder.dto.TaskGetAllDTO;
+import com.charles.server.reminder.dto.TaskUpdateCompletedDTO;
+import com.charles.server.reminder.dto.TaskUpdateAbandonedDTO;
 
 import com.charles.server.reminder.entity.Task;
 
@@ -23,13 +23,13 @@ public interface TaskService {
      * @param userId
      * @param dto the task creation request
      */
-    void create(Long userId, TaskCreateRequest dto);
+    void create(Long userId, TaskCreateDTO dto);
 
     /** Update Task
      * @param userId
      * @param dto the task update request
      */
-    void update(Long userId, TaskUpdateRequest dto);
+    void update(Long userId, TaskUpdateDTO dto);
 
     /**
      * Delete Task and its sub-tasks
@@ -43,7 +43,7 @@ public interface TaskService {
      * @param userId
      * @param dto the batch update position request
      */
-    void batchUpdatePosition(Long userId, BatchUpdatePositionRequest dto);
+    void batchUpdatePosition(Long userId, BatchUpdatePositionDTO dto);
     
     /**
      * Get all tasks for a user (including tasks in default area)
@@ -51,7 +51,7 @@ public interface TaskService {
      * @param dto the task query request
      * @return the list of tasks matching the filter
      */
-    List<Task> getAll(Long userId, TaskGetAllRequest dto);
+    List<Task> getAll(Long userId, TaskGetAllDTO dto);
 
     /**************************************************************************************/
     /*                                   Task Status                                      */
@@ -62,14 +62,14 @@ public interface TaskService {
      * @param userId
      * @param dto the task update completed request
      */
-    void updateCompletedStatus(Long userId, TaskUpdateCompletedRequest dto);
+    void updateCompletedStatus(Long userId, TaskUpdateCompletedDTO dto);
     
     /**
      * Update Task Abandoned Status
      * @param userId
      * @param dto the task update abandoned request
      */
-    void updateAbandonedStatus(Long userId, TaskUpdateAbandonedRequest dto);
+    void updateAbandonedStatus(Long userId, TaskUpdateAbandonedDTO dto);
 
     /**************************************************************************************/
     /*                                   Recurrence Task                                  */
@@ -85,7 +85,7 @@ public interface TaskService {
      * @param userId
      * @param dto the project deletion request
      */
-    void batchUpdateProjectId(Long userId, ProjectDeleteRequest dto);
+    void batchUpdateProjectId(Long userId, ProjectDeleteDTO dto);
 
     /**
      * Delete all tasks in a project

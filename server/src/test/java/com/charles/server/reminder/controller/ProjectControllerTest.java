@@ -56,7 +56,7 @@ class ProjectControllerTest {
 
     @Test
     void create_ok() throws Exception {
-        ProjectCreateRequest dto = new ProjectCreateRequest();
+        ProjectCreateDTO dto = new ProjectCreateDTO();
         dto.setName("Inbox");
         dto.setColor("#409EFF");
 
@@ -71,14 +71,14 @@ class ProjectControllerTest {
                     org.junit.jupiter.api.Assertions.assertTrue(root.path("msg").asText().contains("Created"));
                 });
 
-        ArgumentCaptor<ProjectCreateRequest> captor = ArgumentCaptor.forClass(ProjectCreateRequest.class);
+        ArgumentCaptor<ProjectCreateDTO> captor = ArgumentCaptor.forClass(ProjectCreateDTO.class);
         verify(projectService).create(eq(1L), captor.capture());
         assert(captor.getValue().getName().equals("Inbox"));
     }
 
     @Test
     void update_ok() throws Exception {
-        ProjectUpdateRequest dto = new ProjectUpdateRequest();
+        ProjectUpdateDTO dto = new ProjectUpdateDTO();
         dto.setProjectId(100L);
         dto.setName("Renamed");
         dto.setIsArchived(Boolean.TRUE);
@@ -89,12 +89,12 @@ class ProjectControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
-        verify(projectService).update(eq(1L), any(ProjectUpdateRequest.class));
+        verify(projectService).update(eq(1L), any(ProjectUpdateDTO.class));
     }
 
     @Test
     void delete_ok() throws Exception {
-        ProjectDeleteRequest dto = new ProjectDeleteRequest();
+        ProjectDeleteDTO dto = new ProjectDeleteDTO();
         dto.setProjectId(200L);
         dto.setKeepTasks(false);
         dto.setTargetProject(false);
@@ -106,14 +106,14 @@ class ProjectControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
-        verify(projectService).delete(eq(1L), any(ProjectDeleteRequest.class));
+        verify(projectService).delete(eq(1L), any(ProjectDeleteDTO.class));
     }
 
     @Test
     void batchUpdatePosition_ok() throws Exception {
-        BatchUpdatePositionRequest.Position p1 = new BatchUpdatePositionRequest.Position(10L, 3);
-        BatchUpdatePositionRequest.Position p2 = new BatchUpdatePositionRequest.Position(20L, 7);
-        BatchUpdatePositionRequest req = new BatchUpdatePositionRequest();
+        BatchUpdatePositionDTO.Position p1 = new BatchUpdatePositionDTO.Position(10L, 3);
+        BatchUpdatePositionDTO.Position p2 = new BatchUpdatePositionDTO.Position(20L, 7);
+        BatchUpdatePositionDTO req = new BatchUpdatePositionDTO();
         req.setPos(List.of(p1, p2));
 
         mockMvc.perform(post("/api/reminder/projects/batch-update-position")
@@ -122,16 +122,16 @@ class ProjectControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
-        verify(projectService).batchUpdatePosition(eq(1L), any(BatchUpdatePositionRequest.class));
+        verify(projectService).batchUpdatePosition(eq(1L), any(BatchUpdatePositionDTO.class));
     }
 
     @Test
     void getAll_isAll_true_ok() throws Exception {
-        ProjectGetAllRequest dto = new ProjectGetAllRequest();
+        ProjectGetAllDTO dto = new ProjectGetAllDTO();
         dto.setIsAll(true);
         dto.setArchived(false);
 
-        when(projectService.getAll(eq(1L), any(ProjectGetAllRequest.class)))
+        when(projectService.getAll(eq(1L), any(ProjectGetAllDTO.class)))
                 .thenReturn(List.of(new Project()));
 
         mockMvc.perform(get("/api/reminder/projects/get-all")
@@ -145,6 +145,6 @@ class ProjectControllerTest {
                     org.junit.jupiter.api.Assertions.assertFalse(root.path("data").isMissingNode() || root.path("data").isNull());
                 });
 
-        verify(projectService).getAll(eq(1L), any(ProjectGetAllRequest.class));
+        verify(projectService).getAll(eq(1L), any(ProjectGetAllDTO.class));
     }
 }

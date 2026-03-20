@@ -8,22 +8,22 @@ public interface AuthService {
      * @param dto login request dto
      * @return login response dto
      */
-    LoginResponse login(LoginRequest dto);
+    LoginVO login(LoginDTO dto);
 
     /**
      * Register via email and password
      * @param dto register request dto
      * @return register response dto
      */
-    RegisterResponse register(RegisterRequest dto);
+    RegisterVO register(RegisterDTO dto);
 
     /**
      * Get user profile
      */
-    ProfileResponse profile(String userId);
+    ProfileVO profile(String userId);
     
     /**
      * Reset user password
      */
-    void resetPassword(ResetPasswordRequest dto);
+    void resetPassword(ResetPasswordDTO dto);
 }

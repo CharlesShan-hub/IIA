@@ -1,10 +1,10 @@
 package com.charles.server.reminder.testutils;
 
 import com.charles.server.BaseE2eDatabaseTest;
-import com.charles.server.reminder.dto.ProjectCreateRequest;
-import com.charles.server.reminder.dto.TaskCreateRequest;
-import com.charles.server.reminder.dto.TaskUpdateCompletedRequest;
-import com.charles.server.reminder.dto.TaskUpdateAbandonedRequest;
+import com.charles.server.reminder.dto.ProjectCreateDTO;
+import com.charles.server.reminder.dto.TaskCreateDTO;
+import com.charles.server.reminder.dto.TaskUpdateCompletedDTO;
+import com.charles.server.reminder.dto.TaskUpdateAbandonedDTO;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.entity.Task;
 import com.charles.server.reminder.mapper.ProjectMapper;
@@ -43,7 +43,7 @@ public class TaskTestUtils extends BaseE2eDatabaseTest {
      * @return 项目ID
      */
     public Long createProject(String projectName) throws Exception {
-        ProjectCreateRequest request = new ProjectCreateRequest();
+        ProjectCreateDTO request = new ProjectCreateDTO();
         request.setName(projectName);
         
         mockMvc.perform(post("/api/reminder/projects/create")
@@ -71,7 +71,7 @@ public class TaskTestUtils extends BaseE2eDatabaseTest {
      * @return 任务ID
      */
     public Long createRootTask(Long projectId, String title) throws Exception {
-        TaskCreateRequest request = new TaskCreateRequest();
+        TaskCreateDTO request = new TaskCreateDTO();
         request.setProjectId(projectId);
         request.setTitle(title);
         request.setIsRecurring(false);
@@ -102,7 +102,7 @@ public class TaskTestUtils extends BaseE2eDatabaseTest {
      * @return 任务ID
      */
     public Long createSubTask(Long projectId, Long parentTaskId, String title) throws Exception {
-        TaskCreateRequest request = new TaskCreateRequest();
+        TaskCreateDTO request = new TaskCreateDTO();
         request.setProjectId(projectId);
         request.setParentTaskId(parentTaskId);
         request.setTitle(title);
@@ -132,7 +132,7 @@ public class TaskTestUtils extends BaseE2eDatabaseTest {
      * @param isCompleted 是否完成
      */
     public void updateTaskCompletedStatus(Long taskId, Boolean isCompleted) throws Exception {
-        TaskUpdateCompletedRequest request = new TaskUpdateCompletedRequest();
+        TaskUpdateCompletedDTO request = new TaskUpdateCompletedDTO();
         request.setTaskId(taskId);
         request.setIsCompleted(isCompleted);
         
@@ -149,7 +149,7 @@ public class TaskTestUtils extends BaseE2eDatabaseTest {
      * @param isAbandoned 是否废弃
      */
     public void updateTaskAbandonedStatus(Long taskId, Boolean isAbandoned) throws Exception {
-        TaskUpdateAbandonedRequest request = new TaskUpdateAbandonedRequest();
+        TaskUpdateAbandonedDTO request = new TaskUpdateAbandonedDTO();
         request.setTaskId(taskId);
         request.setIsAbandoned(isAbandoned);
         

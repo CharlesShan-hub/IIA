@@ -2,9 +2,9 @@ package com.charles.server.reminder.controller;
 
 import com.charles.server.BaseE2eDatabaseTest;
 import com.charles.server.auth.service.TokenService;
-import com.charles.server.reminder.dto.TagCreateRequest;
-import com.charles.server.reminder.dto.TagDeleteRequest;
-import com.charles.server.reminder.dto.TagUpdateRequest;
+import com.charles.server.reminder.dto.TagCreateDTO;
+import com.charles.server.reminder.dto.TagDeleteDTO;
+import com.charles.server.reminder.dto.TagUpdateDTO;
 import com.charles.server.reminder.entity.Tag;
 import com.charles.server.reminder.mapper.TagMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,7 +60,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
     @Test
     void scenario_create5_update_delete() throws Exception {
         // 1) 新建四个标签
-        TagCreateRequest t1 = new TagCreateRequest();
+        TagCreateDTO t1 = new TagCreateDTO();
         t1.setName("Tag1");
         t1.setColor("#111111");
         mockMvc.perform(post("/api/reminder/tags/create")
@@ -69,7 +69,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
-        TagCreateRequest t2 = new TagCreateRequest();
+        TagCreateDTO t2 = new TagCreateDTO();
         t2.setName("Tag2");
         t2.setColor("#222222");
         mockMvc.perform(post("/api/reminder/tags/create")
@@ -78,7 +78,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
-        TagCreateRequest t3 = new TagCreateRequest();
+        TagCreateDTO t3 = new TagCreateDTO();
         t3.setName("Tag3");
         t3.setColor("#333333");
         mockMvc.perform(post("/api/reminder/tags/create")
@@ -87,7 +87,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
-        TagCreateRequest t4 = new TagCreateRequest();
+        TagCreateDTO t4 = new TagCreateDTO();
         t4.setName("Tag4");
         t4.setColor("#444444");
         mockMvc.perform(post("/api/reminder/tags/create")
@@ -104,7 +104,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
         Tag tag4 = created.stream().filter(t -> "Tag4".equals(t.getName())).findFirst().orElseThrow();
 
         // 2) 第五个与第四个重名，应失败
-        TagCreateRequest t5 = new TagCreateRequest();
+        TagCreateDTO t5 = new TagCreateDTO();
         t5.setName("Tag4");
         t5.setColor("#555555");
         mockMvc.perform(post("/api/reminder/tags/create")
@@ -120,7 +120,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
         Assertions.assertEquals(4, tagMapper.findByUserId(1L).size());
 
         // 3) 第一个只改名
-        TagUpdateRequest u1 = new TagUpdateRequest();
+        TagUpdateDTO u1 = new TagUpdateDTO();
         u1.setTagId(tag1.getTagId());
         u1.setName("Tag1-Renamed");
         mockMvc.perform(put("/api/reminder/tags/update")
@@ -138,7 +138,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
         Assertions.assertEquals("#111111", tag1After.getColor());
 
         // 4) 第二个只改颜色
-        TagUpdateRequest u2 = new TagUpdateRequest();
+        TagUpdateDTO u2 = new TagUpdateDTO();
         u2.setTagId(tag2.getTagId());
         u2.setColor("#000000");
         mockMvc.perform(put("/api/reminder/tags/update")
@@ -151,7 +151,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
         Assertions.assertEquals("#000000", tag2After.getColor());
 
         // 5) 第三个名和颜色都改
-        TagUpdateRequest u3 = new TagUpdateRequest();
+        TagUpdateDTO u3 = new TagUpdateDTO();
         u3.setTagId(tag3.getTagId());
         u3.setName("Tag3-Renamed");
         u3.setColor("#999999");
@@ -165,7 +165,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
         Assertions.assertEquals("#999999", tag3After.getColor());
 
         // 6) 第四个删除
-        TagDeleteRequest d4 = new TagDeleteRequest();
+        TagDeleteDTO d4 = new TagDeleteDTO();
         d4.setTagId(tag4.getTagId());
         mockMvc.perform(post("/api/reminder/tags/delete")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
@@ -203,7 +203,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
     @Test
     void scenario_tag_error_responses() throws Exception {
         // 1) Duplicate name -> 409
-        TagCreateRequest first = new TagCreateRequest();
+        TagCreateDTO first = new TagCreateDTO();
         first.setName("DUP");
         first.setColor("#111111");
         mockMvc.perform(post("/api/reminder/tags/create")
@@ -212,7 +212,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
 
-        TagCreateRequest dup = new TagCreateRequest();
+        TagCreateDTO dup = new TagCreateDTO();
         dup.setName("DUP");
         dup.setColor("#222222");
         mockMvc.perform(post("/api/reminder/tags/create")
@@ -222,7 +222,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
                 .andExpect(jsonPath("$.code").value(409));
 
         // 2) Delete non-existent -> 404
-        TagDeleteRequest delMissing = new TagDeleteRequest();
+        TagDeleteDTO delMissing = new TagDeleteDTO();
         delMissing.setTagId(999999L);
         mockMvc.perform(post("/api/reminder/tags/delete")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
@@ -239,7 +239,7 @@ class TagControllerTest extends BaseE2eDatabaseTest {
         );
         Tag otherUsersTag = Tag.builder().userId(2L).name("OTHER").color("#333333").build();
         tagMapper.insert(otherUsersTag);
-        TagDeleteRequest delOther = new TagDeleteRequest();
+        TagDeleteDTO delOther = new TagDeleteDTO();
         delOther.setTagId(otherUsersTag.getTagId());
         mockMvc.perform(post("/api/reminder/tags/delete")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))

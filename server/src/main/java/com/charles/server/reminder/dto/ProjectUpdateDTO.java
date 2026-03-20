@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class ProjectUpdateRequest {
+public class ProjectUpdateDTO {
     @NotBlank(message = "Project Name is Required")
     @Size(min = 1, max = 20, message = "Project Name must be between 1 and 20 characters")
     private String name;
