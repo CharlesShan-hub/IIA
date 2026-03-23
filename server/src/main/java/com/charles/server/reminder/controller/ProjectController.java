@@ -62,10 +62,10 @@ public class ProjectController {
     }
 
     // Query projects by archived flag and isAll flag
-    @GetMapping("get-all")
-    public Map<String, Object> getAll(@RequestBody @Valid ProjectGetAllDTO dto, HttpServletRequest request) {
+    @GetMapping("get")
+    public Map<String, Object> get(@RequestBody @Valid ProjectGetDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
-        List<Project> projects = projectService.getAll(userId, dto);
+        List<Project> projects = projectService.get(userId, dto);
         log.info("User {} query projects successfully, archived: {}, isAll: {}", userId, dto.getArchived(), dto.getIsAll());
         return ResponseUtils.buildSuccessResponse(projects, "Reminder Projects Queried");
     }

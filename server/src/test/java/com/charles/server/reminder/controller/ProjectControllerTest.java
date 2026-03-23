@@ -126,12 +126,12 @@ class ProjectControllerTest {
     }
 
     @Test
-    void getAll_isAll_true_ok() throws Exception {
-        ProjectGetAllDTO dto = new ProjectGetAllDTO();
+    void get_true_ok() throws Exception {
+        ProjectGetDTO dto = new ProjectGetDTO();
         dto.setIsAll(true);
         dto.setArchived(false);
 
-        when(projectService.getAll(eq(1L), any(ProjectGetAllDTO.class)))
+        when(projectService.get(eq(1L), any(ProjectGetDTO.class)))
                 .thenReturn(List.of(new Project()));
 
         mockMvc.perform(get("/api/reminder/projects/get-all")
@@ -145,6 +145,6 @@ class ProjectControllerTest {
                     org.junit.jupiter.api.Assertions.assertFalse(root.path("data").isMissingNode() || root.path("data").isNull());
                 });
 
-        verify(projectService).getAll(eq(1L), any(ProjectGetAllDTO.class));
+        verify(projectService).get(eq(1L), any(ProjectGetDTO.class));
     }
 }

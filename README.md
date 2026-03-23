@@ -23,7 +23,7 @@ docker compose up -d
 docker exec -it iia-mysql mysql -u root -p
 ```
 
-进入redis容器
+进入redis容器,然后进去输入 auth 123456
 ```shell
 docker exec -it iia-redis redis-cli
 ```

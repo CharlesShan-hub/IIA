@@ -23,7 +23,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.web.servlet.MockMvc;
-
+import com.charles.server.reminder.service.OperationService;
 import javax.sql.DataSource;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -62,6 +62,8 @@ public abstract class BaseE2eDatabaseTest {
     protected ProjectMapper projectMapper;
     @Autowired
     protected TaskMapper taskMapper;
+    @Autowired
+    protected OperationService operationService;
 
     @org.springframework.test.context.DynamicPropertySource
     static void dbProps(DynamicPropertyRegistry registry) {
@@ -172,7 +174,14 @@ public abstract class BaseE2eDatabaseTest {
     }
     
     // ========== 基础测试函数 ==========
-    
+
+    /**
+     * 撤回操作
+     */
+    protected void revertOperation() throws Exception {
+        operationService.revert(1L);
+    }
+
     /**
      * 创建项目
      */

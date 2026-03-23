@@ -6,10 +6,8 @@ import com.charles.server.reminder.dto.ProjectUpdateDTO;
 import com.charles.server.reminder.dto.BatchUpdatePositionDTO;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.entity.Task;
-import com.charles.server.reminder.service.OperationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import lombok.extern.slf4j.Slf4j;
@@ -72,6 +70,22 @@ class ProjectTest extends BaseE2eDatabaseTest {
             new BatchUpdatePositionDTO.Position(projectId4, 100)
         ));
         batchUpdateProjectPosition(req1, 200);
+    }
+
+    @Test
+    void delete() throws Exception {
+        Long projectId = createProject("P1", 200);
+
+        ProjectDeleteDTO del = ProjectDeleteDTO.builder()
+                .projectId(projectId)
+                .keepTasks(false)
+                .build();
+
+        deleteProject(del, 200);
+
+        assertNull(projectMapper.findById(projectId));
+
+        revertOperation();
     }
 
     @Test
