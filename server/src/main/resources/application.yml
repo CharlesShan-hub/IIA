@@ -8,11 +8,21 @@ spring:
         username: root
         password:
         driver-class-name: com.mysql.cj.jdbc.Driver
-    redis:
-        host: localhost
-        port: 6379
-        password: 123456
-        timeout: 60000 # 连接超时时间（毫秒）
+    data:
+        redis:
+            host: localhost
+            port: 6379
+            username: iia-app
+            password: 123456
+            timeout: 60000 # 连接超时时间（毫秒）
+            key-prefix: "iia:" # Redis key统一前缀
+            # 连接池配置
+            lettuce:
+            pool:
+                max-active: 8
+                max-idle: 8
+                min-idle: 0
+                max-wait: -1ms
     mail:
         host: smtp.qq.com           # QQ邮箱SMTP服务器
         username: inforassistant@foxmail.com  # 发送方邮箱

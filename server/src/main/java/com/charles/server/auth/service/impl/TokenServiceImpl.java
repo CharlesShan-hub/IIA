@@ -30,65 +30,89 @@ public class TokenServiceImpl implements TokenService {
     @Value("${jwt.refresh-expiration}")
     private long refreshTokenExpiration;
 
+    @Value("${spring.redis.key-prefix:iia:}")
+    private String redisKeyPrefix;
+
+    private String withPrefix(String key) {
+        String safeKey = Objects.requireNonNull(key, "key must not be null");
+        if (!StringUtils.hasText(redisKeyPrefix)) {
+            return safeKey;
+        }
+        if (redisKeyPrefix.endsWith(":")) {
+            return redisKeyPrefix + safeKey;
+        }
+        return redisKeyPrefix + ":" + safeKey;
+    }
+
     private void storeAccessToken(String userId, String token) {
-        String key = "token:access:user:" + userId;
-        redisTemplate.opsForValue().set(key, Objects.requireNonNull(token), tokenExpiration, TimeUnit.HOURS);
+        String safeUserId = Objects.requireNonNull(userId, "userId must not be null");
+        String safeToken = Objects.requireNonNull(token, "token must not be null");
+        String key = Objects.requireNonNull(withPrefix("token:access:user:" + safeUserId), "redis key must not be null");
+        redisTemplate.opsForValue().set(key, safeToken, tokenExpiration, TimeUnit.HOURS);
         
         // Add reverse mapping: accessToken -> userId
-        String reverseKey = "token:access:reverse:" + Objects.requireNonNull(token);
-        redisTemplate.opsForValue().set(reverseKey, Objects.requireNonNull(userId), tokenExpiration, TimeUnit.HOURS);
+        String reverseKey = Objects.requireNonNull(withPrefix("token:access:reverse:" + safeToken), "redis key must not be null");
+        redisTemplate.opsForValue().set(reverseKey, safeUserId, tokenExpiration, TimeUnit.HOURS);
     }
     
     private void storeRefreshToken(String userId, String refreshToken) {
-        String key = "token:refresh:user:" + userId;
-        redisTemplate.opsForValue().set(key, Objects.requireNonNull(refreshToken), refreshTokenExpiration, TimeUnit.HOURS);
+        String safeUserId = Objects.requireNonNull(userId, "userId must not be null");
+        String safeRefreshToken = Objects.requireNonNull(refreshToken, "refreshToken must not be null");
+        String key = Objects.requireNonNull(withPrefix("token:refresh:user:" + safeUserId), "redis key must not be null");
+        redisTemplate.opsForValue().set(key, safeRefreshToken, refreshTokenExpiration, TimeUnit.HOURS);
         
         // Add reverse mapping: refreshToken -> userId
-        String reverseKey = "token:refresh:reverse:" + Objects.requireNonNull(refreshToken);
-        redisTemplate.opsForValue().set(reverseKey, Objects.requireNonNull(userId), refreshTokenExpiration, TimeUnit.HOURS);
+        String reverseKey = Objects.requireNonNull(withPrefix("token:refresh:reverse:" + safeRefreshToken), "redis key must not be null");
+        redisTemplate.opsForValue().set(reverseKey, safeUserId, refreshTokenExpiration, TimeUnit.HOURS);
     }
     
     private String getAccessToken(String userId) {
-        String key = "token:access:user:" + userId;
+        String safeUserId = Objects.requireNonNull(userId, "userId must not be null");
+        String key = Objects.requireNonNull(withPrefix("token:access:user:" + safeUserId), "redis key must not be null");
         return redisTemplate.opsForValue().get(key);
     }
     
     private String getRefreshToken(String userId) {
-        String key = "token:refresh:user:" + userId;
+        String safeUserId = Objects.requireNonNull(userId, "userId must not be null");
+        String key = Objects.requireNonNull(withPrefix("token:refresh:user:" + safeUserId), "redis key must not be null");
         return redisTemplate.opsForValue().get(key);
     }
 
     @Override
     public Map<String, String> get(String userId) {
+        String safeUserId = Objects.requireNonNull(userId, "userId must not be null");
+
         // Generate Tokens
-        String accessToken = jwtUtils.generateAccessToken(userId);
-        String refreshToken = jwtUtils.generateRefreshToken(userId);
+        String accessToken = Objects.requireNonNull(jwtUtils.generateAccessToken(safeUserId), "accessToken must not be null");
+        String refreshToken = Objects.requireNonNull(jwtUtils.generateRefreshToken(safeUserId), "refreshToken must not be null");
 
         // Store Tokens to Redis
-        storeAccessToken(userId, accessToken);
-        storeRefreshToken(userId, refreshToken);
+        storeAccessToken(safeUserId, accessToken);
+        storeRefreshToken(safeUserId, refreshToken);
 
         return Map.of("accessToken", accessToken, "refreshToken", refreshToken);
     }
 
     private void deleteAccessToken(String userId) {
-        String key = "token:access:user:" + userId;
+        String safeUserId = Objects.requireNonNull(userId, "userId must not be null");
+        String key = Objects.requireNonNull(withPrefix("token:access:user:" + safeUserId), "redis key must not be null");
         String token = redisTemplate.opsForValue().get(key);
         redisTemplate.delete(key);
         if (token != null) {
             // if the token exists, delete the reverse mapping
-            String reverseKey = "token:access:reverse:" + token;
+            String reverseKey = Objects.requireNonNull(withPrefix("token:access:reverse:" + token), "redis key must not be null");
             redisTemplate.delete(reverseKey);
         }
     }
 
     private void deleteRefreshToken(String userId) {
-        String key = "token:refresh:user:" + userId;
+        String safeUserId = Objects.requireNonNull(userId, "userId must not be null");
+        String key = Objects.requireNonNull(withPrefix("token:refresh:user:" + safeUserId), "redis key must not be null");
         String token = redisTemplate.opsForValue().get(key);
         redisTemplate.delete(key);
         if (token != null) {
             // if the token exists, delete the reverse mapping
-            String reverseKey = "token:refresh:reverse:" + token;
+            String reverseKey = Objects.requireNonNull(withPrefix("token:refresh:reverse:" + token), "redis key must not be null");
             redisTemplate.delete(reverseKey);
         }
     }

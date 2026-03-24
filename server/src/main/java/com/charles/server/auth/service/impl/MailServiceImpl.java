@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -30,6 +31,19 @@ public class MailServiceImpl implements MailService {
     @Value("${spring.mail.expiration}")
     private int codeExpiration;
 
+    @Value("${spring.redis.key-prefix:iia:}")
+    private String redisKeyPrefix;
+
+    private String withPrefix(String key) {
+        if (!StringUtils.hasText(redisKeyPrefix)) {
+            return key;
+        }
+        if (redisKeyPrefix.endsWith(":")) {
+            return redisKeyPrefix + key;
+        }
+        return redisKeyPrefix + ":" + key;
+    }
+
     private String generateVerificationCode(){
         return String.format("%06d", new Random().nextInt(999999));
     }
@@ -42,7 +56,7 @@ public class MailServiceImpl implements MailService {
         String code = requireNonNull(generateVerificationCode(), "verification code must not be null");
         
         // 2. Cache the code in Redis with an n-minute expiration
-        String key = "email:code:" + requireNonNull(email, "email must not be null");
+        String key = requireNonNull(withPrefix("email:code:" + requireNonNull(email, "email must not be null")), "redis key must not be null");
         redisTemplate.opsForValue().set(key, code, codeExpiration, TimeUnit.MINUTES);
         
         // 3. Send the email with the verification code
@@ -70,7 +84,7 @@ public class MailServiceImpl implements MailService {
     public void verifyCode(String email, String inputCode) {
         log.info("Verifying code for email: {}", email);
         
-        String key = "email:code:" + email;
+        String key = requireNonNull(withPrefix("email:code:" + requireNonNull(email, "email must not be null")), "redis key must not be null");
         String correctCode = redisTemplate.opsForValue().get(key);
         
         if (correctCode == null) {
@@ -84,7 +98,7 @@ public class MailServiceImpl implements MailService {
         }
         
         // Delete the code from Redis after successful verification
-        redisTemplate.delete(key);
+        redisTemplate.delete(requireNonNull(key, "redis key must not be null"));
         log.info("Verification code validated successfully for email: {}", email);
     }
 

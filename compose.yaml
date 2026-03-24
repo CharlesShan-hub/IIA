@@ -21,10 +21,17 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - ./redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis.conf:/usr/local/etc/redis/redis.conf # Redis配置文件
+      - ./users.acl:/usr/local/etc/redis/users.acl  # ACL用户文件
       - redis_data:/data
     command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
     restart: unless-stopped
+    healthcheck:
+      # 使用管理员账户进行健康检查
+      test: ["CMD", "redis-cli", "--no-auth-warning", "-a", "123456", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   client:
     container_name: iia-client
