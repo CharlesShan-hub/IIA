@@ -89,7 +89,7 @@ public class ProjectServiceImpl implements ProjectService {
         // 3. Generate new operation ID
         Long newOperationId = operationService.getId(userId);
         
-        // 4. Record operation
+        // 4. New Record operation
         Operation operation = Operation.builder()
                 .operationId(newOperationId)
                 .userId(userId)
