@@ -1,7 +1,6 @@
 package com.charles.server.reminder.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import com.charles.server.reminder.dto.BatchUpdatePositionDTO;
 import com.charles.server.reminder.dto.TaskCreateDTO;
@@ -33,7 +32,7 @@ public class TaskController {
 
     // Create Task
     @PostMapping("create")
-    public Map<String, Object> create(@RequestBody @Valid TaskCreateDTO dto, HttpServletRequest request) {
+    public ResponseUtils<Void> create(@RequestBody @Valid TaskCreateDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         taskService.create(userId, dto);
         log.info("Task created successfully for user: {}", userId);
@@ -42,7 +41,7 @@ public class TaskController {
 
     // Delete Task
     @PostMapping("delete")
-    public Map<String, Object> delete(@RequestBody @Valid TaskDeleteDTO dto, HttpServletRequest request) {
+    public ResponseUtils<Void> delete(@RequestBody @Valid TaskDeleteDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         taskService.delete(userId, dto.getTaskId());
         log.info("Task deleted successfully for user: {}, taskId: {}", userId, dto.getTaskId());
@@ -51,7 +50,7 @@ public class TaskController {
 
     // Update Task
     @PostMapping("update")
-    public Map<String, Object> update(@RequestBody @Valid TaskUpdateDTO dto, HttpServletRequest request) {
+    public ResponseUtils<Void> update(@RequestBody @Valid TaskUpdateDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         taskService.update(userId, dto);
         return ResponseUtils.buildEmptySuccessResponse("Task updated successfully");
@@ -59,7 +58,7 @@ public class TaskController {
 
     // Batch Update Task Positions
     @PostMapping("batch-update-position")
-    public Map<String, Object> batchUpdatePosition(@RequestBody @Valid BatchUpdatePositionDTO dto, HttpServletRequest httpRequest) {
+    public ResponseUtils<Void> batchUpdatePosition(@RequestBody @Valid BatchUpdatePositionDTO dto, HttpServletRequest httpRequest) {
         Long userId = tokenService.getUserIdFromRequest(httpRequest);
         taskService.batchUpdatePosition(userId, dto);
         log.info("User {} batch update task positions successfully, updated tasks: {}",
@@ -69,7 +68,7 @@ public class TaskController {
 
     // Get All Tasks
     @GetMapping("get-all")
-    public Map<String, Object> getAll(@RequestBody @Valid TaskGetAllDTO dto, HttpServletRequest request) {
+    public ResponseUtils<List<Task>> getAll(@RequestBody @Valid TaskGetAllDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         List<Task> tasks = taskService.getAll(userId, dto);
         log.info("Get All Tasks Successfully for user: {}", userId);
@@ -78,7 +77,7 @@ public class TaskController {
     
     // Update Task Completed Status
     @PatchMapping("update-completed")
-    public Map<String, Object> updateCompletedStatus(@RequestBody @Valid TaskUpdateCompletedDTO dto, HttpServletRequest request) {
+    public ResponseUtils<Void> updateCompletedStatus(@RequestBody @Valid TaskUpdateCompletedDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         taskService.updateCompletedStatus(userId, dto);
         log.info("Update Task Completed Status Successfully for user: {}, taskId: {}, isCompleted: {}", 
@@ -88,7 +87,7 @@ public class TaskController {
     
     // Update Task Abandoned Status
     @PatchMapping("update-abandoned")
-    public Map<String, Object> updateAbandonedStatus(@RequestBody @Valid TaskUpdateAbandonedDTO dto, HttpServletRequest request) {
+    public ResponseUtils<Void> updateAbandonedStatus(@RequestBody @Valid TaskUpdateAbandonedDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         taskService.updateAbandonedStatus(userId, dto);
         log.info("Update Task Abandoned Status Successfully for user: {}, taskId: {}, isAbandoned: {}", 

@@ -20,7 +20,7 @@
     </properties>
 
     <dependencies>
-        <!-- springboot 起步依赖 -->
+        <!-- springboot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -66,11 +66,17 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
-        <!-- 简化 JWT 依赖 -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.12.7</version>
+        </dependency>
+
+        <!-- SpringDoc OpenAPI 3 (Swagger) -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.8.5</version>
         </dependency>
 
         <dependency>
@@ -84,11 +90,13 @@
             <artifactId>spring-boot-testcontainers</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
+        
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>mysql</artifactId>

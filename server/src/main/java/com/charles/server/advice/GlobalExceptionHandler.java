@@ -5,7 +5,6 @@ import com.charles.server.reminder.exception.TaskException;
 import com.charles.server.reminder.exception.TagException;
 import com.charles.server.auth.exception.TokenException;
 import com.charles.server.auth.exception.AuthException;
-
 import com.charles.server.utils.ResponseUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -13,38 +12,36 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.Map;
-
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(TokenException.class)
-    public ResponseEntity<Map<String,Object>> handleToken(TokenException ex) {
+    public ResponseEntity<ResponseUtils<Object>> handleToken(TokenException ex) {
         return ResponseEntity.ok(ResponseUtils.buildErrorResponse(ex.getCode(), ex.getMessage()));
     }
 
     @ExceptionHandler(AuthException.class)
-    public ResponseEntity<Map<String,Object>> handleAuth(AuthException ex) {
+    public ResponseEntity<ResponseUtils<Object>> handleAuth(AuthException ex) {
         return ResponseEntity.ok(ResponseUtils.buildErrorResponse(ex.getCode(), ex.getMessage()));
     }
 
     @ExceptionHandler(ProjectException.class)
-    public ResponseEntity<Map<String,Object>> handleProject(ProjectException ex) {
+    public ResponseEntity<ResponseUtils<Object>> handleProject(ProjectException ex) {
         return ResponseEntity.ok(ResponseUtils.buildErrorResponse(ex.getCode(), ex.getMessage()));
     }
 
     @ExceptionHandler(TagException.class)
-    public ResponseEntity<Map<String,Object>> handleTag(TagException ex) {
+    public ResponseEntity<ResponseUtils<Object>> handleTag(TagException ex) {
         return ResponseEntity.ok(ResponseUtils.buildErrorResponse(ex.getCode(), ex.getMessage()));
     }
 
     @ExceptionHandler(TaskException.class)
-    public ResponseEntity<Map<String,Object>> handleTask(TaskException ex) {
+    public ResponseEntity<ResponseUtils<Object>> handleTask(TaskException ex) {
         return ResponseEntity.ok(ResponseUtils.buildErrorResponse(ex.getCode(), ex.getMessage()));
     }
 
     @ExceptionHandler({HttpMessageNotReadableException.class, MissingServletRequestParameterException.class})
-    public ResponseEntity<Map<String,Object>> handleBadRequest(Exception ex) {
+    public ResponseEntity<ResponseUtils<Object>> handleBadRequest(Exception ex) {
         return ResponseEntity.ok(ResponseUtils.buildErrorResponse(400, "Bad Request"));
     }
 

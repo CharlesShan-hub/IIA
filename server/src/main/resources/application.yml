@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9424
 spring:
     application:
         name: iia
@@ -14,38 +14,53 @@ spring:
             port: 6379
             username: iia-app
             password: 123456
-            timeout: 60000 # 连接超时时间（毫秒）
-            key-prefix: "iia:" # Redis key统一前缀
-            # 连接池配置
+            timeout: 60000 # Connection timeout (milliseconds)
+            key-prefix: "iia:" # Redis key prefix
+            # Connection pool configuration
             lettuce:
-            pool:
-                max-active: 8
-                max-idle: 8
-                min-idle: 0
-                max-wait: -1ms
+                pool:
+                    max-active: 8
+                    max-idle: 8
+                    min-idle: 0
+                    max-wait: -1ms
     mail:
-        host: smtp.qq.com           # QQ邮箱SMTP服务器
-        username: inforassistant@foxmail.com  # 发送方邮箱
-        password: gtpjjuyufsracihj   # 邮箱授权码（非登录密码）
-        expiration: 5 # 验证码5分钟过期
+        host: smtp.qq.com           # QQ email SMTP server
+        username: inforassistant@foxmail.com  # Sender email
+        password: gtpjjuyufsracihj   # Email authorization code (not login password)
+        expiration: 5 # Verification code expires in 5 minutes
         properties:
             mail.smtp.auth: true
             mail.smtp.starttls.enable: true
             mail.smtp.starttls.required: true
 mybatis:
-    mapper-locations: classpath:mapper/*.xml  # XML SQL ??????
-    type-aliases-package: com.charles.server.iia.auth.entity  # ?????
+    mapper-locations: classpath:mapper/*.xml  # XML SQL mapping files
+    type-aliases-package: com.charles.server.iia.auth.entity  # Entity package
     configuration:
-        map-underscore-to-camel-case: true  # ??????????????
-# JWT配置
+        map-underscore-to-camel-case: true  # Map underscore to camel case
+# JWT Configuration
 jwt:
     secret: ThisIsASecretKeyForJWTThatIsAtLeast64BytesLongEnoughForHS512AlgorithmSecurityRequirements!
-    expiration: 86400000 # Token有效期，这里设置为24小时
-    refresh-expiration: 604800000 # Refresh Token有效期，这里设置为7天
+    expiration: 86400000 # Token validity period, set to 24 hours here
+    refresh-expiration: 604800000 # Refresh Token validity period, set to 7 days here
 
+# SpringDoc OpenAPI 3 (Swagger) Configuration
+springdoc:
+    api-docs:
+        path: /v3/api-docs          # OpenAPI JSON document path
+    swagger-ui:
+        path: /swagger-ui.html      # Swagger UI interface path
+        enabled: true               # Enable Swagger UI
+        operations-sorter: method   # Sort by HTTP method
+        tags-sorter: alpha          # Sort tags alphabetically
+        try-it-out-enabled: true    # Enable "Try it out" feature
+        filter: true                # Enable search filter
+    show-actuator: false            # Do not show Actuator endpoints
+    default-consumes-media-type: application/json
+    default-produces-media-type: application/json
+    paths-to-match: /api/**         # Only match paths starting with /api
 logging:
     level:
-        root: INFO
+        org.springdoc: DEBUG        # Enable SpringDoc debug logging
 
 reminder:
     color:

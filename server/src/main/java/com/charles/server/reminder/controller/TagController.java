@@ -1,7 +1,6 @@
 package com.charles.server.reminder.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +32,7 @@ public class TagController {
     
     // Create Tag
     @PostMapping("create")
-    public Map<String, Object> create(@RequestBody @Valid TagCreateDTO dto, HttpServletRequest request) {
+    public ResponseUtils<Void> create(@RequestBody @Valid TagCreateDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("Create tag for user {}: {}", userId, dto);
         tagService.create(userId, dto);
@@ -42,7 +41,7 @@ public class TagController {
 
     // Update Tag
     @PutMapping("update")
-    public Map<String, Object> update(@RequestBody @Valid TagUpdateDTO dto, HttpServletRequest request) {
+    public ResponseUtils<Void> update(@RequestBody @Valid TagUpdateDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("Update tag for user {}: {}", userId, dto);
         tagService.update(userId, dto);
@@ -51,7 +50,7 @@ public class TagController {
     
     // Delete Tag
     @PostMapping("delete")
-    public Map<String, Object> delete(@RequestBody @Valid TagDeleteDTO dto, HttpServletRequest request) {
+    public ResponseUtils<Void> delete(@RequestBody @Valid TagDeleteDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("Delete tag for user {}: {}", userId, dto);
         tagService.delete(userId, dto.getTagId());
@@ -60,7 +59,7 @@ public class TagController {
 
     // Get all tags for a user
     @GetMapping("get-all")
-    public Map<String, Object> getAll(HttpServletRequest request) {
+    public ResponseUtils<List<Tag>> getAll(HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("Get all tags for user {}", userId);
         List<Tag> tags = tagService.getAll(userId);
