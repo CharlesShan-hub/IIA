@@ -9,5 +9,5 @@ try {
         pm.collectionVariables.set("userId", userId);
     }
 } catch (error) {
-    console.error("Error processing login response:", error.message);
+    console.error("Error processing register response:", error.message);
 }

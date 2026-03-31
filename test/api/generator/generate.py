@@ -2,15 +2,30 @@ import json
 import os
 import sys
 from pathlib import Path
+import argparse
+import urllib.request
+import urllib.error
 
 def find_script(scripts_dir, method, path):
     clean_path = path.replace('/api/', '').replace('/', '-').strip('-')
-    script_name = f"after-{clean_path}.js"
-    script_path = scripts_dir / script_name
     
-    if script_path.exists():
-        with open(script_path, 'r', encoding='utf-8') as f:
-            return f.read().splitlines()
+    script_names = [
+        f"after-{clean_path}.js",
+    ]
+    
+    parts = clean_path.split('-')
+    if len(parts) > 1:
+        module = parts[0]
+        method_name = '-'.join(parts[1:])
+        method_name_no_dash = method_name.replace('-', '')
+        script_names.append(f"after-{module}-{method_name_no_dash}.js")
+    
+    for script_name in script_names:
+        script_path = scripts_dir / script_name
+        if script_path.exists():
+            with open(script_path, 'r', encoding='utf-8') as f:
+                return f.read().splitlines()
+    
     return None
 
 def load_environment(env_path):
@@ -116,7 +131,13 @@ def generate_collection(openapi_path, scripts_dir, env_path, output_path):
         "item": []
     }
     
-    path_groups = {}
+    def get_or_create_group(parent, name):
+        for item in parent.get("item", []):
+            if item["name"] == name:
+                return item
+        new_group = {"name": name, "item": []}
+        parent["item"].append(new_group)
+        return new_group
     
     for path, methods in openapi.get("paths", {}).items():
         for method, details in methods.items():
@@ -126,28 +147,13 @@ def generate_collection(openapi_path, scripts_dir, env_path, output_path):
             path_parts = [p for p in path.strip("/").split("/") if p]
             
             if len(path_parts) >= 3:
-                module_name = path_parts[1] if len(path_parts) > 1 else "other"
+                current_group = api_group
+                
+                for i in range(1, len(path_parts) - 1):
+                    part = path_parts[i]
+                    current_group = get_or_create_group(current_group, part)
+                
                 endpoint_name = path_parts[-1]
-                
-                if module_name not in path_groups:
-                    path_groups[module_name] = {
-                        "name": module_name,
-                        "item": []
-                    }
-                
-                endpoint_group = None
-                for item in path_groups[module_name]["item"]:
-                    if item["name"] == endpoint_name:
-                        endpoint_group = item
-                        break
-                
-                if not endpoint_group:
-                    endpoint_group = {
-                        "name": endpoint_name,
-                        "item": []
-                    }
-                    path_groups[module_name]["item"].append(endpoint_group)
-                
                 item_name = details.get("summary")
                 if not item_name:
                     item_name = f"{method.upper()} {endpoint_name.replace('-', ' ').title()}"
@@ -172,6 +178,19 @@ def generate_collection(openapi_path, scripts_dir, env_path, output_path):
                     "description": details.get("description", "")
                 }
                 
+                security = details.get("security")
+                if security:
+                    request["auth"] = {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{bearerToken}}",
+                                "type": "string"
+                            }
+                        ]
+                    }
+                
                 body = generate_body_from_schema(openapi, details)
                 if body:
                     request["body"] = body
@@ -194,16 +213,8 @@ def generate_collection(openapi_path, scripts_dir, env_path, output_path):
                         }
                     ]
                 
-                endpoint_group["item"].append(item)
+                current_group["item"].append(item)
             else:
-                module_name = "other"
-                
-                if module_name not in path_groups:
-                    path_groups[module_name] = {
-                        "name": module_name,
-                        "item": []
-                    }
-                
                 item_name = details.get("summary")
                 if not item_name:
                     item_name = f"{method.upper()} {path}"
@@ -250,9 +261,7 @@ def generate_collection(openapi_path, scripts_dir, env_path, output_path):
                         }
                     ]
                 
-                path_groups[module_name]["item"].append(item)
-    
-    api_group["item"] = list(path_groups.values())
+                api_group["item"].append(item)
     collection["item"] = [api_group]
     
     output_dir = Path(output_path).parent
@@ -263,16 +272,35 @@ def generate_collection(openapi_path, scripts_dir, env_path, output_path):
     
     return output_path
 
+def download_openapi_json(url, dest_path):
+    req = urllib.request.Request(url, headers={"Accept": "application/json"})
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        raw = resp.read()
+    data = json.loads(raw.decode("utf-8"))
+    dest_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(dest_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+    return dest_path
+
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--download", action="store_true")
+    parser.add_argument("--openapi-url", default=os.environ.get("OPENAPI_URL", "http://localhost:9424/v3/api-docs"))
+    args = parser.parse_args()
+
     current_dir = Path(__file__).parent
     openapi_path = current_dir.parent / "env" / "api-docs.json"
     scripts_dir = current_dir.parent / "script"
     env_path = current_dir.parent / "env" / "iia-dev.postman_environment.json"
     output_path = current_dir / "generated" / "iia-server-collection.json"
     
-    if not openapi_path.exists():
-        print(f"Error: OpenAPI file not found: {openapi_path}")
-        sys.exit(1)
+    if args.download or not openapi_path.exists():
+        try:
+            download_openapi_json(args.openapi_url, openapi_path)
+        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, json.JSONDecodeError) as e:
+            print(f"Error: Failed to download OpenAPI json from {args.openapi_url}: {e}")
+            if not openapi_path.exists():
+                sys.exit(1)
     
     result = generate_collection(openapi_path, scripts_dir, env_path, output_path)
     print(f"Generated: {result}")

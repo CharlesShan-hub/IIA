@@ -1,1 +1,2073 @@
-{"openapi":"3.1.0","info":{"title":"IIA Server API","description":"IIA (Intelligent Information Assistant) Server API Documentation","contact":{"name":"Charles","email":"inforassistant@foxmail.com"},"license":{"name":"Apache 2.0","url":"http://www.apache.org/licenses/LICENSE-2.0.html"},"version":"1.0.0"},"servers":[{"url":"http://localhost:9424","description":"Local Development Environment"},{"url":"http://10.15.0.21:9424","description":"Test Environment"}],"security":[{"bearer-jwt":[]}],"tags":[{"name":"Authentication Management","description":"User authentication, registration, password reset APIs"}],"paths":{"/api/reminder/tags/update":{"put":{"tags":["tag-controller"],"operationId":"update","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TagUpdateDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/task/update":{"post":{"tags":["task-controller"],"operationId":"update_1","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TaskUpdateDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/task/delete":{"post":{"tags":["task-controller"],"operationId":"delete","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TaskDeleteDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/task/create":{"post":{"tags":["task-controller"],"operationId":"create","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TaskCreateDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/task/batch-update-position":{"post":{"tags":["task-controller"],"operationId":"batchUpdatePosition","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/BatchUpdatePositionDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/task-tags/delete":{"post":{"tags":["task-tag-controller"],"operationId":"delete_1","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TaskTagDeleteDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/task-tags/create":{"post":{"tags":["task-tag-controller"],"operationId":"create_1","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TaskTagCreateDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/task-tags/batch-delete":{"post":{"tags":["task-tag-controller"],"operationId":"batchDelete","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TaskTagBatchDeleteDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/task-tags/batch-create":{"post":{"tags":["task-tag-controller"],"operationId":"batchCreate","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TaskTagBatchCreateDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/tags/delete":{"post":{"tags":["tag-controller"],"operationId":"delete_2","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TagDeleteDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/tags/create":{"post":{"tags":["tag-controller"],"operationId":"create_2","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TagCreateDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/project/update":{"post":{"tags":["project-controller"],"operationId":"updateById","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ProjectUpdateDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/project/delete":{"post":{"tags":["project-controller"],"operationId":"delete_3","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ProjectDeleteDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/project/create":{"post":{"tags":["project-controller"],"operationId":"create_3","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ProjectCreateDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/project/batch-update-position":{"post":{"tags":["project-controller"],"operationId":"batchUpdatePosition_1","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/BatchUpdatePositionDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/auth/send-code":{"post":{"tags":["Authentication Management"],"summary":"Send Verification Code","description":"Send a verification code to the user's email address for password reset. In development environment, the code is returned in the response for testing.","operationId":"sendCode","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SendCodeDTO"}}},"required":true},"responses":{"200":{"description":"Verification code sent successfully","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsSendCodeVO"}}}},"400":{"description":"Invalid email address","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsSendCodeVO"}}}},"404":{"description":"User not found","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsSendCodeVO"}}}}}}},"/api/auth/reset-password":{"post":{"tags":["Authentication Management"],"summary":"Reset Password","description":"Reset user password using verification code","operationId":"resetPassword","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResetPasswordDTO"}}},"required":true},"responses":{"200":{"description":"Password reset successful","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}},"400":{"description":"Invalid request parameters or verification code","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}},"404":{"description":"User not found","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/auth/register":{"post":{"tags":["Authentication Management"],"summary":"User Registration","description":"Register a new user account","operationId":"register","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/RegisterDTO"}}},"required":true},"responses":{"200":{"description":"Registration successful","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsRegisterVO"}}}},"400":{"description":"Invalid request parameters or email already exists","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsRegisterVO"}}}}}}},"/api/auth/refresh":{"post":{"tags":["Authentication Management"],"summary":"Refresh Access Token","description":"Get new access token using refresh token","operationId":"refreshToken","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/RefreshDTO"}}},"required":true},"responses":{"200":{"description":"Token refresh successful","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsRefreshVO"}}}},"401":{"description":"Refresh token is invalid or expired","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsRefreshVO"}}}}}}},"/api/auth/logout":{"post":{"tags":["Authentication Management"],"summary":"User Logout","description":"Logout current user, invalidate token","operationId":"logout","responses":{"200":{"description":"Logout successful","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}},"401":{"description":"Unauthorized or invalid token","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}},"security":[{"bearer-jwt":[]}]}},"/api/auth/login":{"post":{"tags":["Authentication Management"],"summary":"User Login","description":"Login to the system using email and password, returns access token and refresh token","operationId":"login","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/LoginDTO"}}},"required":true},"responses":{"200":{"description":"Login successful","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsLoginVO"}}}},"400":{"description":"Invalid request parameters","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsLoginVO"}}}},"401":{"description":"Authentication failed, invalid email or password","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsLoginVO"}}}}}}},"/api/reminder/task/update-completed":{"patch":{"tags":["task-controller"],"operationId":"updateCompletedStatus","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TaskUpdateCompletedDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/task/update-abandoned":{"patch":{"tags":["task-controller"],"operationId":"updateAbandonedStatus","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TaskUpdateAbandonedDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsVoid"}}}}}}},"/api/reminder/task/get-all":{"get":{"tags":["task-controller"],"operationId":"getAll","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TaskGetAllDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsListTask"}}}}}}},"/api/reminder/tags/get-all":{"get":{"tags":["tag-controller"],"operationId":"getAll_1","responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsListTag"}}}}}}},"/api/reminder/project/get":{"get":{"tags":["project-controller"],"operationId":"get","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ProjectGetDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsListProject"}}}}}}},"/api/auth/profile":{"get":{"tags":["Authentication Management"],"summary":"Get User Profile","description":"Get detailed information of the currently logged-in user, requires Bearer Token authentication","operationId":"profile","responses":{"200":{"description":"Successfully retrieved","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsProfileVO"}}}},"401":{"description":"Unauthorized or invalid token","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ResponseUtilsProfileVO"}}}}},"security":[{"bearer-jwt":[]}]}}},"components":{"schemas":{"TagUpdateDTO":{"type":"object","properties":{"tagId":{"type":"integer","format":"int64"},"name":{"type":"string","maxLength":20,"minLength":1,"pattern":"^(?!\\s*$).+"},"color":{"type":"string"}},"required":["tagId"]},"ResponseUtilsVoid":{"type":"object","description":"Standard API response structure","properties":{"code":{"type":"integer","format":"int32","description":"Response status code","example":200,"maximum":599,"minimum":100},"msg":{"type":"string","description":"Response message","example":"success"},"data":{"type":"object","description":"Response data payload, can be null for error responses"}}},"TaskUpdateDTO":{"type":"object","properties":{"taskId":{"type":"integer","format":"int64"},"projectId":{"type":"integer","format":"int64"},"title":{"type":"string"},"isRecurring":{"type":"boolean"},"parentTaskId":{"type":"integer","format":"int64"},"dueDate":{"type":"string","format":"date-time"},"startDate":{"type":"string","format":"date-time"},"completedAt":{"type":"string","format":"date-time"},"reminderSentAt":{"type":"string","format":"date-time"},"priority":{"type":"string"},"recurrenceCategory":{"type":"string"},"recurrenceInterval":{"type":"integer","format":"int32"},"recurrenceCount":{"type":"integer","format":"int32"},"recurrenceNextTime":{"type":"string","format":"date-time"},"recurrenceSchedule":{"type":"string"},"recurrenceIsPaused":{"type":"boolean"},"recurrenceIsSkipOverdue":{"type":"boolean"},"recurrenceIsRepeatFromDue":{"type":"boolean"}},"required":["taskId"]},"TaskDeleteDTO":{"type":"object","properties":{"taskId":{"type":"integer","format":"int64"}},"required":["taskId"]},"TaskCreateDTO":{"type":"object","properties":{"projectId":{"type":"integer","format":"int64"},"title":{"type":"string"},"parentTaskId":{"type":"integer","format":"int64"},"dueDate":{"type":"string","format":"date-time"},"startDate":{"type":"string","format":"date-time"},"reminderSentAt":{"type":"string","format":"date-time"},"priority":{"type":"string"},"isRecurring":{"type":"boolean"},"recurrenceCategory":{"type":"string"},"recurrenceInterval":{"type":"integer","format":"int32"},"recurrenceCount":{"type":"integer","format":"int32"},"recurrenceNextTime":{"type":"string","format":"date-time"},"recurrenceSchedule":{"type":"string"},"recurrenceIsPaused":{"type":"boolean"},"recurrenceIsSkipOverdue":{"type":"boolean"},"recurrenceIsRepeatFromDue":{"type":"boolean"}}},"BatchUpdatePositionDTO":{"type":"object","properties":{"pos":{"type":"array","items":{"$ref":"#/components/schemas/Position"}}}},"Position":{"type":"object","properties":{"itemId":{"type":"integer","format":"int64"},"sortOrder":{"type":"integer","format":"int32"}}},"TaskTagDeleteDTO":{"type":"object","properties":{"taskId":{"type":"integer","format":"int64"},"tagId":{"type":"integer","format":"int64"},"includeSubtasks":{"type":"boolean"}},"required":["tagId","taskId"]},"TaskTagCreateDTO":{"type":"object","properties":{"taskId":{"type":"integer","format":"int64"},"tagId":{"type":"integer","format":"int64"},"includeSubtasks":{"type":"boolean"}},"required":["tagId","taskId"]},"TaskTagBatchDeleteDTO":{"type":"object","properties":{"taskId":{"type":"integer","format":"int64"},"tagIds":{"type":"array","items":{"type":"integer","format":"int64"}},"includeSubtasks":{"type":"boolean"}},"required":["tagIds","taskId"]},"TaskTagBatchCreateDTO":{"type":"object","properties":{"taskId":{"type":"integer","format":"int64"},"tagIds":{"type":"array","items":{"type":"integer","format":"int64"}},"includeSubtasks":{"type":"boolean"}},"required":["tagIds","taskId"]},"TagDeleteDTO":{"type":"object","properties":{"tagId":{"type":"integer","format":"int64"}},"required":["tagId"]},"TagCreateDTO":{"type":"object","properties":{"name":{"type":"string","maxLength":20,"minLength":1},"color":{"type":"string"}},"required":["name"]},"ProjectUpdateDTO":{"type":"object","properties":{"name":{"type":"string","maxLength":20,"minLength":1},"description":{"type":"string","maxLength":500,"minLength":1},"color":{"type":"string"},"icon":{"type":"string"},"isArchived":{"type":"boolean"},"userId":{"type":"integer","format":"int64"},"projectId":{"type":"integer","format":"int64"}},"required":["name"]},"ProjectDeleteDTO":{"type":"object","properties":{"projectId":{"type":"integer","format":"int64"},"keepTasks":{"type":"boolean"},"targetProject":{"type":"boolean"},"targetProjectId":{"type":"integer","format":"int64"}},"required":["keepTasks","projectId"]},"ProjectCreateDTO":{"type":"object","properties":{"name":{"type":"string","maxLength":20,"minLength":1},"description":{"type":"string","maxLength":500,"minLength":1},"color":{"type":"string"},"icon":{"type":"string"}},"required":["name"]},"SendCodeDTO":{"type":"object","description":"Send verification code request DTO","properties":{"email":{"type":"string","description":"User email address to send verification code","example":"{{email}}"}},"required":["email"]},"ResponseUtilsSendCodeVO":{"type":"object","description":"Standard API response structure","properties":{"code":{"type":"integer","format":"int32","description":"Response status code","example":200,"maximum":599,"minimum":100},"msg":{"type":"string","description":"Response message","example":"success"},"data":{"$ref":"#/components/schemas/SendCodeVO","description":"Response data payload, can be null for error responses"}}},"SendCodeVO":{"type":"object","properties":{"code":{"type":"string"}}},"ResetPasswordDTO":{"type":"object","description":"Reset password request DTO","properties":{"email":{"type":"string","description":"User email address","example":"{{email}}"},"newPassword":{"type":"string","description":"New password","example":"{{newPassword}}","maxLength":20,"minLength":6},"code":{"type":"string","description":"Verification code received via email","example":"{{code}}"}},"required":["code","email","newPassword"]},"RegisterDTO":{"type":"object","description":"User registration request data","properties":{"email":{"type":"string","description":"User email address","example":"{{email}}"},"password":{"type":"string","description":"User password","example":"{{password}}","maxLength":20,"minLength":6},"code":{"type":"string","description":"Verification code sent to email, if app is dev environment, this code is returned to client.","example":"{{code}}"},"username":{"type":"string","description":"User display name","example":"{{username}}","maxLength":20,"minLength":1}},"required":["code","email","password"]},"RegisterVO":{"type":"object","properties":{"userId":{"type":"integer","format":"int64"},"token":{"type":"string"},"refreshToken":{"type":"string"}}},"ResponseUtilsRegisterVO":{"type":"object","description":"Standard API response structure","properties":{"code":{"type":"integer","format":"int32","description":"Response status code","example":200,"maximum":599,"minimum":100},"msg":{"type":"string","description":"Response message","example":"success"},"data":{"$ref":"#/components/schemas/RegisterVO","description":"Response data payload, can be null for error responses"}}},"RefreshDTO":{"type":"object","description":"Refresh token request DTO","properties":{"refreshToken":{"type":"string","description":"Refresh token for getting new access token. Format: JWT token.\nNote: Uses Postman variable syntax {{refreshToken}}. Set this variable in Postman.","example":"{{refreshToken}}"}},"required":["refreshToken"]},"RefreshVO":{"type":"object","properties":{"accessToken":{"type":"string"},"refreshToken":{"type":"string"}}},"ResponseUtilsRefreshVO":{"type":"object","description":"Standard API response structure","properties":{"code":{"type":"integer","format":"int32","description":"Response status code","example":200,"maximum":599,"minimum":100},"msg":{"type":"string","description":"Response message","example":"success"},"data":{"$ref":"#/components/schemas/RefreshVO","description":"Response data payload, can be null for error responses"}}},"LoginDTO":{"type":"object","description":"Login request data","properties":{"email":{"type":"string","description":"User email address","example":"{{email}}"},"password":{"type":"string","description":"User password","example":"{{password}}","maxLength":20,"minLength":6}},"required":["email","password"]},"LoginVO":{"type":"object","properties":{"token":{"type":"string"},"refreshToken":{"type":"string"},"userId":{"type":"string"}}},"ResponseUtilsLoginVO":{"type":"object","description":"Standard API response structure","properties":{"code":{"type":"integer","format":"int32","description":"Response status code","example":200,"maximum":599,"minimum":100},"msg":{"type":"string","description":"Response message","example":"success"},"data":{"$ref":"#/components/schemas/LoginVO","description":"Response data payload, can be null for error responses"}}},"TaskUpdateCompletedDTO":{"type":"object","properties":{"taskId":{"type":"integer","format":"int64"},"isCompleted":{"type":"boolean"}},"required":["isCompleted","taskId"]},"TaskUpdateAbandonedDTO":{"type":"object","properties":{"taskId":{"type":"integer","format":"int64"},"isAbandoned":{"type":"boolean"}},"required":["isAbandoned","taskId"]},"TaskGetAllDTO":{"type":"object","properties":{"isAll":{"type":"boolean"},"projectId":{"type":"integer","format":"int64"}},"required":["isAll"]},"ResponseUtilsListTask":{"type":"object","description":"Standard API response structure","properties":{"code":{"type":"integer","format":"int32","description":"Response status code","example":200,"maximum":599,"minimum":100},"msg":{"type":"string","description":"Response message","example":"success"},"data":{"type":"array","description":"Response data payload, can be null for error responses","items":{"$ref":"#/components/schemas/Task"}}}},"Task":{"type":"object","properties":{"taskId":{"type":"integer","format":"int64"},"userId":{"type":"integer","format":"int64"},"projectId":{"type":"integer","format":"int64"},"title":{"type":"string"},"isRecurring":{"type":"boolean"},"isCompleted":{"type":"boolean"},"isAbandoned":{"type":"boolean"},"isSkipped":{"type":"boolean"},"parentTaskId":{"type":"integer","format":"int64"},"sortOrder":{"type":"integer","format":"int32"},"dueDate":{"type":"string","format":"date-time"},"startDate":{"type":"string","format":"date-time"},"completedAt":{"type":"string","format":"date-time"},"reminderSentAt":{"type":"string","format":"date-time"},"priority":{"type":"string"}}},"ResponseUtilsListTag":{"type":"object","description":"Standard API response structure","properties":{"code":{"type":"integer","format":"int32","description":"Response status code","example":200,"maximum":599,"minimum":100},"msg":{"type":"string","description":"Response message","example":"success"},"data":{"type":"array","description":"Response data payload, can be null for error responses","items":{"$ref":"#/components/schemas/Tag"}}}},"Tag":{"type":"object","properties":{"tagId":{"type":"integer","format":"int64"},"userId":{"type":"integer","format":"int64"},"name":{"type":"string"},"color":{"type":"string"}}},"ProjectGetDTO":{"type":"object","properties":{"archived":{"type":"boolean"},"isAll":{"type":"boolean"}},"required":["archived"]},"Project":{"type":"object","properties":{"projectId":{"type":"integer","format":"int64"},"userId":{"type":"integer","format":"int64"},"name":{"type":"string"},"description":{"type":"string"},"color":{"type":"string"},"icon":{"type":"string"},"sortOrder":{"type":"integer","format":"int32"},"isArchived":{"type":"boolean"},"operationId":{"type":"integer","format":"int64"}}},"ResponseUtilsListProject":{"type":"object","description":"Standard API response structure","properties":{"code":{"type":"integer","format":"int32","description":"Response status code","example":200,"maximum":599,"minimum":100},"msg":{"type":"string","description":"Response message","example":"success"},"data":{"type":"array","description":"Response data payload, can be null for error responses","items":{"$ref":"#/components/schemas/Project"}}}},"ProfileVO":{"type":"object","properties":{"userId":{"type":"integer","format":"int64"},"userName":{"type":"string"}}},"ResponseUtilsProfileVO":{"type":"object","description":"Standard API response structure","properties":{"code":{"type":"integer","format":"int32","description":"Response status code","example":200,"maximum":599,"minimum":100},"msg":{"type":"string","description":"Response message","example":"success"},"data":{"$ref":"#/components/schemas/ProfileVO","description":"Response data payload, can be null for error responses"}}}},"securitySchemes":{"bearer-jwt":{"type":"http","description":"JWT authentication token, format: Bearer {token}","in":"header","scheme":"bearer","bearerFormat":"JWT","x-apifox":{"variable":"access_token"}}}}}
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IIA Server API",
+    "description": "IIA (Intelligent Information Assistant) Server API Documentation",
+    "contact": {
+      "name": "Charles",
+      "email": "inforassistant@foxmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:9424",
+      "description": "Local Development Environment"
+    },
+    {
+      "url": "http://10.15.0.21:9424",
+      "description": "Test Environment"
+    }
+  ],
+  "security": [
+    {
+      "bearer-jwt": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Project Management",
+      "description": "Project creation, update, deletion, and query APIs"
+    },
+    {
+      "name": "Authentication Management",
+      "description": "User authentication, registration, password reset APIs"
+    }
+  ],
+  "paths": {
+    "/api/reminder/tags/update": {
+      "put": {
+        "tags": [
+          "tag-controller"
+        ],
+        "operationId": "update",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagUpdateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/task/update": {
+      "post": {
+        "tags": [
+          "task-controller"
+        ],
+        "operationId": "update_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskUpdateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/task/delete": {
+      "post": {
+        "tags": [
+          "task-controller"
+        ],
+        "operationId": "delete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskDeleteDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/task/create": {
+      "post": {
+        "tags": [
+          "task-controller"
+        ],
+        "operationId": "create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/task/batch-update-position": {
+      "post": {
+        "tags": [
+          "task-controller"
+        ],
+        "operationId": "batchUpdatePosition",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchUpdatePositionDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/task-tags/delete": {
+      "post": {
+        "tags": [
+          "task-tag-controller"
+        ],
+        "operationId": "delete_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskTagDeleteDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/task-tags/create": {
+      "post": {
+        "tags": [
+          "task-tag-controller"
+        ],
+        "operationId": "create_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskTagCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/task-tags/batch-delete": {
+      "post": {
+        "tags": [
+          "task-tag-controller"
+        ],
+        "operationId": "batchDelete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskTagBatchDeleteDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/task-tags/batch-create": {
+      "post": {
+        "tags": [
+          "task-tag-controller"
+        ],
+        "operationId": "batchCreate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskTagBatchCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/tags/delete": {
+      "post": {
+        "tags": [
+          "tag-controller"
+        ],
+        "operationId": "delete_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagDeleteDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/tags/create": {
+      "post": {
+        "tags": [
+          "tag-controller"
+        ],
+        "operationId": "create_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/project/update": {
+      "post": {
+        "tags": [
+          "Project Management"
+        ],
+        "summary": "Update Project",
+        "description": "Update project information including name, description, color, and icon",
+        "operationId": "updateById",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectUpdateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Project updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Project not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
+      }
+    },
+    "/api/reminder/project/get": {
+      "post": {
+        "tags": [
+          "Project Management"
+        ],
+        "summary": "Query Projects",
+        "description": "Query projects by archived flag and isAll flag",
+        "operationId": "get",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectGetDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Projects queried successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsListProject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsListProject"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsListProject"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
+      }
+    },
+    "/api/reminder/project/delete": {
+      "post": {
+        "tags": [
+          "Project Management"
+        ],
+        "summary": "Delete Project",
+        "description": "Delete a project with options to keep tasks or move them to another project",
+        "operationId": "delete_3",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDeleteDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Project deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Project not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
+      }
+    },
+    "/api/reminder/project/create": {
+      "post": {
+        "tags": [
+          "Project Management"
+        ],
+        "summary": "Create Project",
+        "description": "Create a new reminder project with name, description, color, and icon",
+        "operationId": "create_3",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Project created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
+      }
+    },
+    "/api/reminder/project/batch-update-position": {
+      "post": {
+        "tags": [
+          "Project Management"
+        ],
+        "summary": "Batch Update Project Positions",
+        "description": "Update positions of multiple projects in batch",
+        "operationId": "batchUpdatePosition_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchUpdatePositionDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Project positions updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
+      }
+    },
+    "/api/auth/send-code": {
+      "post": {
+        "tags": [
+          "Authentication Management"
+        ],
+        "summary": "Send Verification Code",
+        "description": "Send a verification code to the user's email address for password reset. In development environment, the code is returned in the response for testing.",
+        "operationId": "sendCode",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendCodeDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Verification code sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsSendCodeVO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid email address",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsSendCodeVO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsSendCodeVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/reset-password": {
+      "post": {
+        "tags": [
+          "Authentication Management"
+        ],
+        "summary": "Reset Password",
+        "description": "Reset user password using verification code",
+        "operationId": "resetPassword",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters or verification code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "tags": [
+          "Authentication Management"
+        ],
+        "summary": "User Registration",
+        "description": "Register a new user account",
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Registration successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsRegisterVO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters or email already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsRegisterVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/refresh": {
+      "post": {
+        "tags": [
+          "Authentication Management"
+        ],
+        "summary": "Refresh Access Token",
+        "description": "Get new access token using refresh token",
+        "operationId": "refreshToken",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Token refresh successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsRefreshVO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Refresh token is invalid or expired",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsRefreshVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": [
+          "Authentication Management"
+        ],
+        "summary": "User Logout",
+        "description": "Logout current user, invalidate token",
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "Logout successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "Authentication Management"
+        ],
+        "summary": "User Login",
+        "description": "Login to the system using email and password, returns access token and refresh token",
+        "operationId": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsLoginVO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsLoginVO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed, invalid email or password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsLoginVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/task/update-completed": {
+      "patch": {
+        "tags": [
+          "task-controller"
+        ],
+        "operationId": "updateCompletedStatus",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskUpdateCompletedDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/task/update-abandoned": {
+      "patch": {
+        "tags": [
+          "task-controller"
+        ],
+        "operationId": "updateAbandonedStatus",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskUpdateAbandonedDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/task/get-all": {
+      "get": {
+        "tags": [
+          "task-controller"
+        ],
+        "operationId": "getAll",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskGetAllDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsListTask"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reminder/tags/get-all": {
+      "get": {
+        "tags": [
+          "tag-controller"
+        ],
+        "operationId": "getAll_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsListTag"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/profile": {
+      "get": {
+        "tags": [
+          "Authentication Management"
+        ],
+        "summary": "Get User Profile",
+        "description": "Get detailed information of the currently logged-in user, requires Bearer Token authentication",
+        "operationId": "profile",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsProfileVO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsProfileVO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TagUpdateDTO": {
+        "type": "object",
+        "properties": {
+          "tagId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "pattern": "^(?!\\s*$).+"
+          },
+          "color": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "tagId"
+        ]
+      },
+      "ResponseUtilsVoid": {
+        "type": "object",
+        "description": "Standard API response structure",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Response status code",
+            "example": 200,
+            "maximum": 599,
+            "minimum": 100
+          },
+          "msg": {
+            "type": "string",
+            "description": "Response message",
+            "example": "success"
+          },
+          "data": {
+            "type": "object",
+            "description": "Response data payload, can be null for error responses"
+          }
+        }
+      },
+      "TaskUpdateDTO": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "projectId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "isRecurring": {
+            "type": "boolean"
+          },
+          "parentTaskId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reminderSentAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "priority": {
+            "type": "string"
+          },
+          "recurrenceCategory": {
+            "type": "string"
+          },
+          "recurrenceInterval": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "recurrenceCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "recurrenceNextTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "recurrenceSchedule": {
+            "type": "string"
+          },
+          "recurrenceIsPaused": {
+            "type": "boolean"
+          },
+          "recurrenceIsSkipOverdue": {
+            "type": "boolean"
+          },
+          "recurrenceIsRepeatFromDue": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "taskId"
+        ]
+      },
+      "TaskDeleteDTO": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "taskId"
+        ]
+      },
+      "TaskCreateDTO": {
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "parentTaskId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reminderSentAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "priority": {
+            "type": "string"
+          },
+          "isRecurring": {
+            "type": "boolean"
+          },
+          "recurrenceCategory": {
+            "type": "string"
+          },
+          "recurrenceInterval": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "recurrenceCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "recurrenceNextTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "recurrenceSchedule": {
+            "type": "string"
+          },
+          "recurrenceIsPaused": {
+            "type": "boolean"
+          },
+          "recurrenceIsSkipOverdue": {
+            "type": "boolean"
+          },
+          "recurrenceIsRepeatFromDue": {
+            "type": "boolean"
+          }
+        }
+      },
+      "BatchUpdatePositionDTO": {
+        "type": "object",
+        "properties": {
+          "pos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Position"
+            }
+          }
+        }
+      },
+      "Position": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "TaskTagDeleteDTO": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tagId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "includeSubtasks": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "tagId",
+          "taskId"
+        ]
+      },
+      "TaskTagCreateDTO": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tagId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "includeSubtasks": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "tagId",
+          "taskId"
+        ]
+      },
+      "TaskTagBatchDeleteDTO": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tagIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "includeSubtasks": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "tagIds",
+          "taskId"
+        ]
+      },
+      "TaskTagBatchCreateDTO": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tagIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "includeSubtasks": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "tagIds",
+          "taskId"
+        ]
+      },
+      "TagDeleteDTO": {
+        "type": "object",
+        "properties": {
+          "tagId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "tagId"
+        ]
+      },
+      "TagCreateDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1
+          },
+          "color": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "ProjectUpdateDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1
+          },
+          "color": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "isArchived": {
+            "type": "boolean"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "projectId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "ProjectGetDTO": {
+        "type": "object",
+        "description": "Project query request data",
+        "properties": {
+          "archived": {
+            "type": "boolean",
+            "description": "Whether to query archived projects",
+            "example": false
+          },
+          "isAll": {
+            "type": "boolean",
+            "description": "Whether to return both archived and unarchived projects",
+            "example": false
+          }
+        },
+        "required": [
+          "archived"
+        ]
+      },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isArchived": {
+            "type": "boolean"
+          },
+          "operationId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "ResponseUtilsListProject": {
+        "type": "object",
+        "description": "Standard API response structure",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Response status code",
+            "example": 200,
+            "maximum": 599,
+            "minimum": 100
+          },
+          "msg": {
+            "type": "string",
+            "description": "Response message",
+            "example": "success"
+          },
+          "data": {
+            "type": "array",
+            "description": "Response data payload, can be null for error responses",
+            "items": {
+              "$ref": "#/components/schemas/Project"
+            }
+          }
+        }
+      },
+      "ProjectDeleteDTO": {
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "keepTasks": {
+            "type": "boolean"
+          },
+          "targetProject": {
+            "type": "boolean"
+          },
+          "targetProjectId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "keepTasks",
+          "projectId"
+        ]
+      },
+      "ProjectCreateDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1
+          },
+          "color": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "SendCodeDTO": {
+        "type": "object",
+        "description": "Send verification code request DTO",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User email address to send verification code",
+            "example": "{{email}}"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
+      "ResponseUtilsSendCodeVO": {
+        "type": "object",
+        "description": "Standard API response structure",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Response status code",
+            "example": 200,
+            "maximum": 599,
+            "minimum": 100
+          },
+          "msg": {
+            "type": "string",
+            "description": "Response message",
+            "example": "success"
+          },
+          "data": {
+            "$ref": "#/components/schemas/SendCodeVO",
+            "description": "Response data payload, can be null for error responses"
+          }
+        }
+      },
+      "SendCodeVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          }
+        }
+      },
+      "ResetPasswordDTO": {
+        "type": "object",
+        "description": "Reset password request DTO",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User email address",
+            "example": "{{email}}"
+          },
+          "newPassword": {
+            "type": "string",
+            "description": "New password",
+            "example": "{{newPassword}}",
+            "maxLength": 20,
+            "minLength": 6
+          },
+          "code": {
+            "type": "string",
+            "description": "Verification code received via email",
+            "example": "{{code}}"
+          }
+        },
+        "required": [
+          "code",
+          "email",
+          "newPassword"
+        ]
+      },
+      "RegisterDTO": {
+        "type": "object",
+        "description": "User registration request data",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User email address",
+            "example": "{{email}}"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password",
+            "example": "{{password}}",
+            "maxLength": 20,
+            "minLength": 6
+          },
+          "code": {
+            "type": "string",
+            "description": "Verification code sent to email, if app is dev environment, this code is returned to client.",
+            "example": "{{code}}"
+          },
+          "username": {
+            "type": "string",
+            "description": "User display name",
+            "example": "{{username}}",
+            "maxLength": 20,
+            "minLength": 1
+          }
+        },
+        "required": [
+          "code",
+          "email",
+          "password"
+        ]
+      },
+      "RegisterVO": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "token": {
+            "type": "string"
+          },
+          "refreshToken": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseUtilsRegisterVO": {
+        "type": "object",
+        "description": "Standard API response structure",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Response status code",
+            "example": 200,
+            "maximum": 599,
+            "minimum": 100
+          },
+          "msg": {
+            "type": "string",
+            "description": "Response message",
+            "example": "success"
+          },
+          "data": {
+            "$ref": "#/components/schemas/RegisterVO",
+            "description": "Response data payload, can be null for error responses"
+          }
+        }
+      },
+      "RefreshDTO": {
+        "type": "object",
+        "description": "Refresh token request DTO",
+        "properties": {
+          "refreshToken": {
+            "type": "string",
+            "description": "Refresh token for getting new access token. Format: JWT token.\nNote: Uses Postman variable syntax {{refreshToken}}. Set this variable in Postman.",
+            "example": "{{refreshToken}}"
+          }
+        },
+        "required": [
+          "refreshToken"
+        ]
+      },
+      "RefreshVO": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          },
+          "refreshToken": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseUtilsRefreshVO": {
+        "type": "object",
+        "description": "Standard API response structure",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Response status code",
+            "example": 200,
+            "maximum": 599,
+            "minimum": 100
+          },
+          "msg": {
+            "type": "string",
+            "description": "Response message",
+            "example": "success"
+          },
+          "data": {
+            "$ref": "#/components/schemas/RefreshVO",
+            "description": "Response data payload, can be null for error responses"
+          }
+        }
+      },
+      "LoginDTO": {
+        "type": "object",
+        "description": "Login request data",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User email address",
+            "example": "{{email}}"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password",
+            "example": "{{password}}",
+            "maxLength": 20,
+            "minLength": 6
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "LoginVO": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "refreshToken": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseUtilsLoginVO": {
+        "type": "object",
+        "description": "Standard API response structure",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Response status code",
+            "example": 200,
+            "maximum": 599,
+            "minimum": 100
+          },
+          "msg": {
+            "type": "string",
+            "description": "Response message",
+            "example": "success"
+          },
+          "data": {
+            "$ref": "#/components/schemas/LoginVO",
+            "description": "Response data payload, can be null for error responses"
+          }
+        }
+      },
+      "TaskUpdateCompletedDTO": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "isCompleted": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "isCompleted",
+          "taskId"
+        ]
+      },
+      "TaskUpdateAbandonedDTO": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "isAbandoned": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "isAbandoned",
+          "taskId"
+        ]
+      },
+      "TaskGetAllDTO": {
+        "type": "object",
+        "properties": {
+          "isAll": {
+            "type": "boolean"
+          },
+          "projectId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "isAll"
+        ]
+      },
+      "ResponseUtilsListTask": {
+        "type": "object",
+        "description": "Standard API response structure",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Response status code",
+            "example": 200,
+            "maximum": 599,
+            "minimum": 100
+          },
+          "msg": {
+            "type": "string",
+            "description": "Response message",
+            "example": "success"
+          },
+          "data": {
+            "type": "array",
+            "description": "Response data payload, can be null for error responses",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          }
+        }
+      },
+      "Task": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "projectId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "isRecurring": {
+            "type": "boolean"
+          },
+          "isCompleted": {
+            "type": "boolean"
+          },
+          "isAbandoned": {
+            "type": "boolean"
+          },
+          "isSkipped": {
+            "type": "boolean"
+          },
+          "parentTaskId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reminderSentAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "priority": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseUtilsListTag": {
+        "type": "object",
+        "description": "Standard API response structure",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Response status code",
+            "example": 200,
+            "maximum": 599,
+            "minimum": 100
+          },
+          "msg": {
+            "type": "string",
+            "description": "Response message",
+            "example": "success"
+          },
+          "data": {
+            "type": "array",
+            "description": "Response data payload, can be null for error responses",
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            }
+          }
+        }
+      },
+      "Tag": {
+        "type": "object",
+        "properties": {
+          "tagId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          }
+        }
+      },
+      "ProfileVO": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userName": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseUtilsProfileVO": {
+        "type": "object",
+        "description": "Standard API response structure",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Response status code",
+            "example": 200,
+            "maximum": 599,
+            "minimum": 100
+          },
+          "msg": {
+            "type": "string",
+            "description": "Response message",
+            "example": "success"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ProfileVO",
+            "description": "Response data payload, can be null for error responses"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearer-jwt": {
+        "type": "http",
+        "description": "JWT authentication token, format: Bearer {token}",
+        "in": "header",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "x-apifox": {
+          "variable": "access_token"
+        }
+      }
+    }
+  }
+}
