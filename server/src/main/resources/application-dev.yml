@@ -1,0 +1,85 @@
+# ============================================
+# 开发环境配置文件 (application-dev.yml)
+# ============================================
+
+# 服务器配置
+server:
+  port: 9424
+
+# 数据源配置
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/iia?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
+    username: root
+    password: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  
+  # Redis配置
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      username: iia-app
+      password: 123456
+      timeout: 60000 # 连接超时（毫秒）
+      key-prefix: "iia:" # Redis键前缀
+      # 连接池配置
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+  
+  # 邮件配置
+  mail:
+    host: smtp.qq.com           # QQ邮箱SMTP服务器
+    username: inforassistant@foxmail.com  # 发件人邮箱
+    password: gtpjjuyufsracihj   # 邮箱授权码（不是登录密码）
+    expiration: 5 # 验证码有效期（分钟）
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+      mail.smtp.connectiontimeout: 5000
+      mail.smtp.timeout: 5000
+      mail.smtp.writetimeout: 5000
+
+# ============================================
+# 开发环境特定配置
+# ============================================
+app:
+  env: dev  # 明确指定开发环境
+  verification:
+    code:
+      return-to-client: true  # 开发环境返回验证码到客户端
+  debug: true                 # 启用调试模式
+  mock-email: true            # 开发环境使用模拟邮件发送
+  
+  # 开发环境日志配置
+  logging:
+    sql: true                 # 打印SQL语句
+    request: true             # 打印HTTP请求
+  
+  # 开发环境安全配置（宽松）
+  security:
+    cors:
+      allowed-origins: "http://localhost:3000,http://localhost:8080"
+      allowed-methods: "*"
+      allowed-headers: "*"
+      allow-credentials: true
+
+# 开发环境日志级别
+logging:
+  level:
+    com.charles.server: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

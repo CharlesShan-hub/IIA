@@ -1,7 +1,9 @@
 package com.charles.server.auth.service.impl;
 
+import com.charles.server.auth.dto.SendCodeVO;
 import com.charles.server.auth.exception.AuthException;
 import com.charles.server.auth.service.MailService;
+import com.charles.server.config.AppConfig;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ public class MailServiceImpl implements MailService {
 
     private final StringRedisTemplate redisTemplate;
     private final JavaMailSender mailSender;
+    private final AppConfig appConfig;
 
     @Value("${spring.mail.username}")
     private String fromEmail;
@@ -49,7 +52,7 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendVerificationCode(String email) {
+    public SendCodeVO sendVerificationCode(String email) {
         log.info("Sending verification code to: {}", email);
         
         // 1. Generate a 6-digit verification code
@@ -75,9 +78,14 @@ public class MailServiceImpl implements MailService {
             throw new RuntimeException("Failed to send verification code: " + e.getMessage());
         }
         
-        // 4. Log the code for debugging purposes (remove in production)
-        log.info("Generated verification code for {}: {}", email, code);
-    
+        // 4. Return the generated code
+        if (appConfig.isMockEmail()) {
+            log.info("Mock email mode enabled. Skipping real email sending for: {}", email);
+            log.info("Mock email content: Verification code for {} is: {}", email, code);
+            return new SendCodeVO(code);
+        } else {
+            return new SendCodeVO(null);
+        }
     }
     
     @Override

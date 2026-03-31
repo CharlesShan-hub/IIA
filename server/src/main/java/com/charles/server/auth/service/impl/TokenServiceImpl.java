@@ -47,23 +47,47 @@ public class TokenServiceImpl implements TokenService {
     private void storeAccessToken(String userId, String token) {
         String safeUserId = Objects.requireNonNull(userId, "userId must not be null");
         String safeToken = Objects.requireNonNull(token, "token must not be null");
+        
+        // 1. First, get and delete old reverse mapping if exists
+        String oldToken = getAccessToken(safeUserId);
+        if (oldToken != null && !oldToken.equals(safeToken)) {
+            String oldReverseKey = Objects.requireNonNull(withPrefix("token:access:reverse:" + oldToken), "redis key must not be null");
+            redisTemplate.delete(oldReverseKey);
+            System.out.println("[TOKEN CLEANUP] Deleted old access token reverse mapping: " + oldReverseKey);
+        }
+        
+        // 2. Store new forward mapping
         String key = Objects.requireNonNull(withPrefix("token:access:user:" + safeUserId), "redis key must not be null");
         redisTemplate.opsForValue().set(key, safeToken, tokenExpiration, TimeUnit.HOURS);
         
-        // Add reverse mapping: accessToken -> userId
+        // 3. Add new reverse mapping: accessToken -> userId
         String reverseKey = Objects.requireNonNull(withPrefix("token:access:reverse:" + safeToken), "redis key must not be null");
         redisTemplate.opsForValue().set(reverseKey, safeUserId, tokenExpiration, TimeUnit.HOURS);
+        
+        System.out.println("[TOKEN STORE] Stored new access token for user: " + safeUserId);
     }
     
     private void storeRefreshToken(String userId, String refreshToken) {
         String safeUserId = Objects.requireNonNull(userId, "userId must not be null");
         String safeRefreshToken = Objects.requireNonNull(refreshToken, "refreshToken must not be null");
+        
+        // 1. First, get and delete old reverse mapping if exists
+        String oldRefreshToken = getRefreshToken(safeUserId);
+        if (oldRefreshToken != null && !oldRefreshToken.equals(safeRefreshToken)) {
+            String oldReverseKey = Objects.requireNonNull(withPrefix("token:refresh:reverse:" + oldRefreshToken), "redis key must not be null");
+            redisTemplate.delete(oldReverseKey);
+            System.out.println("[TOKEN CLEANUP] Deleted old refresh token reverse mapping: " + oldReverseKey);
+        }
+        
+        // 2. Store new forward mapping
         String key = Objects.requireNonNull(withPrefix("token:refresh:user:" + safeUserId), "redis key must not be null");
         redisTemplate.opsForValue().set(key, safeRefreshToken, refreshTokenExpiration, TimeUnit.HOURS);
         
-        // Add reverse mapping: refreshToken -> userId
+        // 3. Add new reverse mapping: refreshToken -> userId
         String reverseKey = Objects.requireNonNull(withPrefix("token:refresh:reverse:" + safeRefreshToken), "redis key must not be null");
         redisTemplate.opsForValue().set(reverseKey, safeUserId, refreshTokenExpiration, TimeUnit.HOURS);
+        
+        System.out.println("[TOKEN STORE] Stored new refresh token for user: " + safeUserId);
     }
     
     private String getAccessToken(String userId) {
@@ -81,12 +105,25 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public Map<String, String> get(String userId) {
         String safeUserId = Objects.requireNonNull(userId, "userId must not be null");
-
-        // Generate Tokens
+        
+        System.out.println("[TOKEN GENERATION] Generating new tokens for user: " + safeUserId);
+        
+        // 1. First, delete all old tokens to ensure single sign-on
+        delete(safeUserId);
+        
+        // 2. Generate new Tokens
         String accessToken = Objects.requireNonNull(jwtUtils.generateAccessToken(safeUserId), "accessToken must not be null");
         String refreshToken = Objects.requireNonNull(jwtUtils.generateRefreshToken(safeUserId), "refreshToken must not be null");
+        
+        // DEBUG: Check if tokens are identical
+        System.out.println("[TOKEN DEBUG] User ID: " + safeUserId);
+        System.out.println("[TOKEN DEBUG] Access Token length: " + accessToken.length());
+        System.out.println("[TOKEN DEBUG] Refresh Token length: " + refreshToken.length());
+        System.out.println("[TOKEN DEBUG] Tokens are equal: " + accessToken.equals(refreshToken));
+        System.out.println("[TOKEN DEBUG] Access Token (first 30 chars): " + accessToken.substring(0, Math.min(30, accessToken.length())) + "...");
+        System.out.println("[TOKEN DEBUG] Refresh Token (first 30 chars): " + refreshToken.substring(0, Math.min(30, refreshToken.length())) + "...");
 
-        // Store Tokens to Redis
+        // 3. Store new Tokens to Redis
         storeAccessToken(safeUserId, accessToken);
         storeRefreshToken(safeUserId, refreshToken);
 

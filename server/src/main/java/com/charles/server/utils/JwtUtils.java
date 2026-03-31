@@ -35,6 +35,7 @@ public class JwtUtils {
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .claim("type", "access")
+                .claim("jti", java.util.UUID.randomUUID().toString())
                 .signWith(key, Jwts.SIG.HS512)
                 .compact();
     }
@@ -50,6 +51,7 @@ public class JwtUtils {
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + jwtRefreshExpirationMs))
                 .claim("type", "refresh")
+                .claim("jti", java.util.UUID.randomUUID().toString())
                 .signWith(key, Jwts.SIG.HS512)
                 .compact();
     }

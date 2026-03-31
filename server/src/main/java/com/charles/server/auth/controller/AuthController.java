@@ -125,16 +125,17 @@ public class AuthController {
     @PostMapping("/send-code")
     @Operation(
         summary = "Send Verification Code",
-        description = "Send verification code to user email for password reset"
+        description = "Send a verification code to the user's email address for password reset. " +
+                     "In development environment, the code is returned in the response for testing."
     )
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Verification code sent successfully"),
         @ApiResponse(responseCode = "400", description = "Invalid email address"),
         @ApiResponse(responseCode = "404", description = "User not found")
     })
-    public ResponseUtils<Void> sendCode(@RequestBody @Valid SendCodeDTO dto) {
-        mailService.sendVerificationCode(dto.getEmail());
+    public ResponseUtils<SendCodeVO> sendCode(@RequestBody @Valid SendCodeDTO dto) {
+        SendCodeVO response = mailService.sendVerificationCode(dto.getEmail());
         log.info("Verification code sent to email: {}", dto.getEmail());
-        return ResponseUtils.buildEmptySuccessResponse("Verification code sent");
+        return ResponseUtils.buildSuccessResponse(response, "Verification code sent");
     }
 }

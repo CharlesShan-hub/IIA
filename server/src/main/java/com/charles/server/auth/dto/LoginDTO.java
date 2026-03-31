@@ -13,8 +13,7 @@ public class LoginDTO {
     @Email(message = "email format is incorrect")
     @Schema(
         description = "User email address",
-        defaultValue = "charles.shht@gmail.com",
-        example = "charles.shht@gmail.com",
+        example = "{{email}}",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
     private String email;
@@ -23,8 +22,7 @@ public class LoginDTO {
     @Size(min = 6, max = 20, message = "password length must be between 6 and 20")
     @Schema(
         description = "User password",
-        defaultValue = "263513",
-        example = "263513",
+        example = "{{password}}",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
     private String password;

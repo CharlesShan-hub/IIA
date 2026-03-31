@@ -1,67 +1,61 @@
-server:
-  port: 9424
+# ============================================
+# 主配置文件 - 公共配置
+# ============================================
+
+# Spring Boot 应用配置
 spring:
-    application:
-        name: iia
-    datasource:
-        url: jdbc:mysql://localhost:3306/iia?useSSL=false&serverTimezone=UTC
-        username: root
-        password:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-    data:
-        redis:
-            host: localhost
-            port: 6379
-            username: iia-app
-            password: 123456
-            timeout: 60000 # Connection timeout (milliseconds)
-            key-prefix: "iia:" # Redis key prefix
-            # Connection pool configuration
-            lettuce:
-                pool:
-                    max-active: 8
-                    max-idle: 8
-                    min-idle: 0
-                    max-wait: -1ms
-    mail:
-        host: smtp.qq.com           # QQ email SMTP server
-        username: inforassistant@foxmail.com  # Sender email
-        password: gtpjjuyufsracihj   # Email authorization code (not login password)
-        expiration: 5 # Verification code expires in 5 minutes
-        properties:
-            mail.smtp.auth: true
-            mail.smtp.starttls.enable: true
-            mail.smtp.starttls.required: true
+  application:
+    name: iia
+  profiles:
+    active: dev  # 默认激活开发环境
+
+# MyBatis 配置
 mybatis:
-    mapper-locations: classpath:mapper/*.xml  # XML SQL mapping files
-    type-aliases-package: com.charles.server.iia.auth.entity  # Entity package
-    configuration:
-        map-underscore-to-camel-case: true  # Map underscore to camel case
-# JWT Configuration
+  mapper-locations: classpath:mapper/*.xml  # XML SQL mapping files
+  type-aliases-package: com.charles.server.iia.auth.entity  # Entity package
+  configuration:
+    map-underscore-to-camel-case: true  # Map underscore to camel case
+
+# JWT 配置
 jwt:
-    secret: ThisIsASecretKeyForJWTThatIsAtLeast64BytesLongEnoughForHS512AlgorithmSecurityRequirements!
-    expiration: 86400000 # Token validity period, set to 24 hours here
-    refresh-expiration: 604800000 # Refresh Token validity period, set to 7 days here
+  secret: ThisIsASecretKeyForJWTThatIsAtLeast64BytesLongEnoughForHS512AlgorithmSecurityRequirements!
+  expiration: 86400000 # Token有效期，24小时
+  refresh-expiration: 604800000 # Refresh Token有效期，7天
 
-# SpringDoc OpenAPI 3 (Swagger) Configuration
+# SpringDoc OpenAPI 3 (Swagger) 配置
 springdoc:
-    api-docs:
-        path: /v3/api-docs          # OpenAPI JSON document path
-    swagger-ui:
-        path: /swagger-ui.html      # Swagger UI interface path
-        enabled: true               # Enable Swagger UI
-        operations-sorter: method   # Sort by HTTP method
-        tags-sorter: alpha          # Sort tags alphabetically
-        try-it-out-enabled: true    # Enable "Try it out" feature
-        filter: true                # Enable search filter
-    show-actuator: false            # Do not show Actuator endpoints
-    default-consumes-media-type: application/json
-    default-produces-media-type: application/json
-    paths-to-match: /api/**         # Only match paths starting with /api
-logging:
-    level:
-        org.springdoc: DEBUG        # Enable SpringDoc debug logging
+  api-docs:
+    path: /v3/api-docs          # OpenAPI JSON文档路径
+  swagger-ui:
+    path: /swagger-ui.html      # Swagger UI界面路径
+    enabled: true               # 启用Swagger UI
+    operations-sorter: method   # 按HTTP方法排序
+    tags-sorter: alpha          # 按字母顺序排序标签
+    try-it-out-enabled: true    # 启用"Try it out"功能
+    filter: true                # 启用搜索过滤器
+  show-actuator: false          # 不显示Actuator端点
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  paths-to-match: /api/**       # 只匹配以/api/开头的路径
 
+# 日志配置
+logging:
+  level:
+    org.springdoc: DEBUG        # 启用SpringDoc调试日志
+    com.charles.server: DEBUG   # 项目包调试日志
+
+# 提醒功能颜色配置
 reminder:
-    color:
-        default: "#409EFF"
+  color:
+    default: "#409EFF"
+
+# ============================================
+# 应用自定义配置
+# ============================================
+app:
+  env: ${spring.profiles.active:dev}  # 继承Spring环境
+  verification:
+    code:
+      return-to-client: false  # 默认不返回验证码到客户端
+  debug: false                 # 调试模式
+  mock-email: false            # 模拟邮件发送

@@ -1,11 +1,14 @@
 package com.charles.server.auth.service;
 
+import com.charles.server.auth.dto.SendCodeVO;
+
 public interface MailService {
     /**
      * Send verification code to email
      * @param email recipient email
+     * @return the generated verification code
      */
-    void sendVerificationCode(String email);
+    SendCodeVO sendVerificationCode(String email);
     
     /**
      * Verify the input code against the stored code
