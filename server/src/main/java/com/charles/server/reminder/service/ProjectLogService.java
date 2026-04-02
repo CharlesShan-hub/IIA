@@ -6,36 +6,36 @@ import java.util.List;
 
 public interface ProjectLogService {
     /**
-     * 保存项目到历史表
-     * @param project 项目实体
+     * Save project to history table
+     * @param project project entity
      */
     void save(Project project);
     
     /**
-     * 保存项目到历史表（带批量操作ID）
-     * @param project 项目实体
-     * @param batchOperationId 批量操作ID
+     * Save project to history table with batch operation ID
+     * @param project project entity
+     * @param batchOperationId batch operation ID
      */
     void save(Project project, Long batchOperationId);
     
     /**
-     * 根据项目ID查找历史记录
-     * @param projectId 项目ID
-     * @return 历史记录列表
+     * Find history records by project ID
+     * @param projectId project ID
+     * @return history record list
      */
     List<ProjectLog> findByProjectId(Long projectId);
     
     /**
-     * 根据操作ID查找历史记录
-     * @param operationId 操作ID
-     * @return 历史记录列表
+     * Find history records by operation ID
+     * @param operationId operation ID
+     * @return history record list
      */
     List<ProjectLog> findByOperationId(Long operationId);
     
     /**
-     * 根据批量操作ID查找历史记录
-     * @param batchOperationId 批量操作ID
-     * @return 历史记录列表
+     * Find history records by batch operation ID
+     * @param batchOperationId batch operation ID
+     * @return history record list
      */
     List<ProjectLog> findByBatchOperationId(Long batchOperationId);
     

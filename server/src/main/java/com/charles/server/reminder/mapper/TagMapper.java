@@ -16,7 +16,17 @@ import com.charles.server.reminder.entity.Tag;
 public interface TagMapper {
     
     // 插入新标签
-    @Insert("INSERT INTO reminder_tag(user_id, name, color, operation_id) VALUES(#{userId}, #{name}, #{color}, #{operationId})")
+    @Insert("<script>\n" +
+        "INSERT INTO reminder_tag(user_id, name, color, operation_id\n" +
+        "<if test='tagId != null'>\n" +
+        "  , tag_id\n" +
+        "</if>\n" +
+        ") VALUES(#{userId}, #{name}, #{color}, #{operationId}\n" +
+        "<if test='tagId != null'>\n" +
+        "  , #{tagId}\n" +
+        "</if>\n" +
+        ")\n" +
+        "</script>")
     @Options(useGeneratedKeys = true, keyProperty = "tagId", keyColumn = "tag_id")
     int insert(Tag tag);
     

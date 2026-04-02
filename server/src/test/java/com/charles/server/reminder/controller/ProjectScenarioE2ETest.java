@@ -181,7 +181,7 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
         pos = new ArrayList<>();
         order = 1;
         for (Project p : active) {
-            pos.add(new BatchUpdatePositionDTO.Position(p.getProjectId(), order++));
+            pos.add(new Position(p.getProjectId(), order++));
         }
         batch.setPos(pos);
         mockMvc.perform(post("/api/reminder/projects/batch-update-position")

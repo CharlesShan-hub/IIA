@@ -6,36 +6,36 @@ import java.util.List;
 
 public interface TagLogService {
     /**
-     * 保存标签到历史表
-     * @param tag 标签实体
+     * Save tag to history table
+     * @param tag tag entity
      */
     void save(Tag tag);
     
     /**
-     * 保存标签到历史表（带批量操作ID）
-     * @param tag 标签实体
-     * @param batchOperationId 批量操作ID
+     * Save tag to history table (with batch operation ID)
+     * @param tag tag entity
+     * @param batchOperationId batch operation ID
      */
     void save(Tag tag, Long batchOperationId);
     
     /**
-     * 根据标签ID查找历史记录
-     * @param tagId 标签ID
-     * @return 历史记录列表
+     * Find history records by tag ID
+     * @param tagId tag ID
+     * @return history record list
      */
     List<TagLog> findByTagId(Long tagId);
     
     /**
-     * 根据操作ID查找历史记录
-     * @param operationId 操作ID
-     * @return 历史记录列表
+     * Find history records by operation ID
+     * @param operationId operation ID
+     * @return history record list
      */
     List<TagLog> findByOperationId(Long operationId);
     
     /**
-     * 根据批量操作ID查找历史记录
-     * @param batchOperationId 批量操作ID
-     * @return 历史记录列表
+     * Find history records by batch operation ID
+     * @param batchOperationId batch operation ID
+     * @return history record list
      */
     List<TagLog> findByBatchOperationId(Long batchOperationId);
     
