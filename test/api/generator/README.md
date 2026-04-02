@@ -6,7 +6,22 @@ Simple script to generate Postman Collection from OpenAPI specification.
 
 1. Make sure you have `uv` installed
 2. Run `uv sync` to setup environment
-3. Run `uv run python generate.py`
+3. Run the generator:
+   - **Default (Auto-download & Generate)**:
+     `uv run python generate.py`
+   - **Skip download (Use local cache)**:
+     `uv run python generate.py --skip-download`
+   - **Specify OpenAPI URL**:
+     `uv run python generate.py --openapi-url http://localhost:9424/v3/api-docs`
+
+## Features
+
+- **Auto-sync**: Automatically downloads latest OpenAPI spec from local server.
+- **Dynamic Hierarchy**: Groups APIs into folders based on path depth.
+- **Script Injection**: Matches and injects post-processing scripts from `../script/`.
+- **Environment Sync**: Injects variables from `../env/iia-dev.postman_environment.json`.
+- **DTO Support**: Generates request bodies from DTO definitions with default values.
+- **Auth Support**: Automatically configures Bearer Token authentication.
 
 ## Files
 

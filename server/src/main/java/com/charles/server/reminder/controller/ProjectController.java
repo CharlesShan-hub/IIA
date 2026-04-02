@@ -39,11 +39,11 @@ public class ProjectController {
         @ApiResponse(responseCode = "401", description = "Authentication required")
     })
     @SecurityRequirement(name = "bearer-jwt")
-    public ResponseUtils<Void> create(@RequestBody @Valid ProjectCreateDTO dto, HttpServletRequest request) {
+    public ResponseUtils<Project> create(@RequestBody @Valid ProjectCreateDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
-        projectService.create(userId, dto);
+        Project createdProject = projectService.create(userId, dto);
         log.info("User {} create project {} successfully", userId, dto.getName());
-        return ResponseUtils.buildEmptySuccessResponse("Reminder Project Created");
+        return ResponseUtils.buildSuccessResponse(createdProject, "Reminder Project Created");
     }
 
     @PostMapping("delete")
@@ -78,11 +78,11 @@ public class ProjectController {
         @ApiResponse(responseCode = "404", description = "Project not found")
     })
     @SecurityRequirement(name = "bearer-jwt")
-    public ResponseUtils<Void> updateById(@RequestBody @Valid ProjectUpdateDTO dto, HttpServletRequest request) {
+    public ResponseUtils<Project> updateById(@RequestBody @Valid ProjectUpdateDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
-        projectService.update(userId, dto);
+        Project updatedProject = projectService.update(userId, dto);
         log.info("User {} update project {} successfully", userId, dto.getProjectId());
-        return ResponseUtils.buildEmptySuccessResponse("Reminder Project Updated");
+        return ResponseUtils.buildSuccessResponse(updatedProject, "Reminder Project Updated");
     }
 
     @PostMapping("batch-update-position")

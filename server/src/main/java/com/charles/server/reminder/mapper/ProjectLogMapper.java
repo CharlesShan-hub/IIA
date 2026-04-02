@@ -30,19 +30,9 @@ public interface ProjectLogMapper {
     @Select("SELECT * FROM reminder_project_log WHERE project_id = #{projectId} AND operation_id = #{operationId}")
     ProjectLog findByProjectIdAndOperationId(@Param("projectId") Long projectId, @Param("operationId") Long operationId);
     
-    /**
-     * 删除指定操作ID的历史记录
-     * @param operationId 操作ID
-     * @return 删除的行数
-     */
     @Delete("DELETE FROM reminder_project_log WHERE operation_id = #{operationId}")
     int deleteByOperationId(@Param("operationId") Long operationId);
 
-    /**
-     * 删除指定批量操作ID的历史记录
-     * @param batchOperationId 批量操作ID
-     * @return 删除的行数
-     */
     @Delete("DELETE FROM reminder_project_log WHERE batch_operation_id = #{batchOperationId}")
     int deleteByBatchOperationId(@Param("batchOperationId") Long batchOperationId);
 }

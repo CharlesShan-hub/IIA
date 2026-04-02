@@ -49,7 +49,7 @@ public class ProjectServiceImpl implements ProjectService {
     
     @Override
     @Transactional
-    public void create(Long userId, ProjectCreateDTO dto) {
+    public Project create(Long userId, ProjectCreateDTO dto) {
         // 1.Check if project name already exists
         Project existed = projectMapper.findByUserIdAndName(userId, dto.getName());
         if (existed != null) {
@@ -75,19 +75,20 @@ public class ProjectServiceImpl implements ProjectService {
         projectMapper.insert(project);
         
         log.info("Create project: userId={}, projectId={}, operationId={}", userId, project.getProjectId(), operationId);
+        return project;
     }
 
     @Override
     @Transactional
-    public void update(Long userId, ProjectUpdateDTO dto) {
+    public Project update(Long userId, ProjectUpdateDTO dto) {
         // 1. Get project by ID
         Project currentProject = permissionService.getProject(userId, dto.getProjectId());
 
-        // 2. Save the previous version to history table
-        projectLogService.save(currentProject);
-        
-        // 3. Generate new operation ID
+        // 2. Generate new operation ID
         Long newOperationId = operationService.getId(userId);
+        
+        // 3. Save the previous version to history table
+        projectLogService.save(currentProject, newOperationId);
         
         // 4. New Record operation
         Operation operation = Operation.builder()
@@ -114,6 +115,7 @@ public class ProjectServiceImpl implements ProjectService {
         
         log.info("Update project: userId={}, projectId={}, oldOperationId={}, newOperationId={}", 
                 userId, currentProject.getProjectId(), currentProject.getOperationId(), newOperationId);
+        return currentProject;
     }
     
     @Override
@@ -164,11 +166,11 @@ public class ProjectServiceImpl implements ProjectService {
         Long projectId = dto.getProjectId();
         Project currentProject = permissionService.getProject(userId, projectId);
         
-        // 2. Save the current version to history table (for recovery if needed)
-        projectLogService.save(currentProject);
-        
-        // 3. Generate new operation ID
+        // 2. Generate new operation ID
         Long operationId = operationService.getId(userId);
+        
+        // 3. Save the current version to history table (for recovery if needed)
+        projectLogService.save(currentProject, operationId);
         
         // 4. Record delete operation
         operationService.create(Operation.builder()

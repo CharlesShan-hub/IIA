@@ -12,11 +12,11 @@ import com.charles.server.reminder.entity.Project;
 public interface ProjectService {
     /** Create a new project
     */
-    void create(Long userId, ProjectCreateDTO dto);
+    Project create(Long userId, ProjectCreateDTO dto);
 
     /** Update an existing project
     */
-    void update(Long userId, ProjectUpdateDTO dto);
+    Project update(Long userId, ProjectUpdateDTO dto);
 
     /** Delete a project
      */

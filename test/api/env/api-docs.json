@@ -36,6 +36,14 @@
     {
       "name": "Authentication Management",
       "description": "User authentication, registration, password reset APIs"
+    },
+    {
+      "name": "Debug Utilities",
+      "description": "Development & Debugging tools. Only available in dev/test profiles."
+    },
+    {
+      "name": "Operation",
+      "description": "Operation revert API"
     }
   ],
   "paths": {
@@ -584,7 +592,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                  "$ref": "#/components/schemas/ResponseUtilsProject"
                 }
               }
             }
@@ -594,7 +602,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                  "$ref": "#/components/schemas/ResponseUtilsProject"
                 }
               }
             }
@@ -604,7 +612,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                  "$ref": "#/components/schemas/ResponseUtilsProject"
                 }
               }
             }
@@ -658,6 +666,97 @@
           },
           "401": {
             "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
+      }
+    },
+    "/api/reminder/operation/revert": {
+      "post": {
+        "tags": [
+          "Operation"
+        ],
+        "summary": "Revert Operation",
+        "description": "Revert a reminder operation",
+        "operationId": "revert",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
+      }
+    },
+    "/api/debug/clear-unauth-data": {
+      "post": {
+        "tags": [
+          "Debug Utilities"
+        ],
+        "summary": "Clear Unauthenticated Business Data",
+        "description": "DANGEROUS: Removes all tasks, projects, and tags for the current user.",
+        "operationId": "clearUnauthData",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
+      }
+    },
+    "/api/debug/clear-all-data": {
+      "post": {
+        "tags": [
+          "Debug Utilities"
+        ],
+        "summary": "Clear All System Data",
+        "description": "EXTREMELY DANGEROUS: Wipes entire database tables.",
+        "operationId": "resetSystem",
+        "responses": {
+          "200": {
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1546,50 +1645,95 @@
       },
       "ProjectDeleteDTO": {
         "type": "object",
+        "description": "Project delete request data",
         "properties": {
           "projectId": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "description": "Project ID",
+            "example": 1
           },
           "keepTasks": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Keep tasks when deleting the project",
+            "example": true
           },
           "targetProject": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Delete the target project",
+            "example": false
           },
           "targetProjectId": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "description": "Target project ID"
           }
         },
         "required": [
           "keepTasks",
-          "projectId"
+          "projectId",
+          "targetProject",
+          "targetProjectId"
         ]
       },
       "ProjectCreateDTO": {
         "type": "object",
+        "description": "Project create request data",
         "properties": {
           "name": {
             "type": "string",
+            "description": "Project name",
+            "example": "P1",
             "maxLength": 20,
             "minLength": 1
           },
           "description": {
             "type": "string",
+            "description": "Project description",
+            "example": "Project 1",
             "maxLength": 500,
             "minLength": 1
           },
           "color": {
-            "type": "string"
+            "type": "string",
+            "description": "Project color",
+            "example": "#409EFF"
           },
           "icon": {
-            "type": "string"
+            "type": "string",
+            "description": "Project icon",
+            "example": "icon-1"
           }
         },
         "required": [
+          "color",
+          "description",
+          "icon",
           "name"
         ]
+      },
+      "ResponseUtilsProject": {
+        "type": "object",
+        "description": "Standard API response structure",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Response status code",
+            "example": 200,
+            "maximum": 599,
+            "minimum": 100
+          },
+          "msg": {
+            "type": "string",
+            "description": "Response message",
+            "example": "success"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Project",
+            "description": "Response data payload, can be null for error responses"
+          }
+        }
       },
       "SendCodeDTO": {
         "type": "object",

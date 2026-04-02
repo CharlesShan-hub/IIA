@@ -26,30 +26,35 @@ public class OperationServiceImpl implements OperationService {
 
     @Override
     public void revert(Long userId) {
-        // 1. 获取用户最新的操作ID
+        // 1. Get the latest operation ID of the user
         Long latestOperationId = operationMapper.getLatestOperationIdByUserId(userId);
         if (latestOperationId == null) {
-            throw new IllegalStateException("用户没有可撤回的操作");
+            throw new IllegalStateException("No revertible operation for the user");
         }
-        
-        // 2. 获取操作详情（用于判断影响哪些表）
-        Operation operation = operationMapper.findByIdAndUserId(latestOperationId, userId);
-        
-        // 3. 找到上一次的操作ID（对于新增操作，可能为null）
+
+        // 2. Find the previous operation ID
         Long previousOperationId = operationMapper.getPreviousOperationId(userId, latestOperationId);
-        
-        // 4. 根据受影响表恢复数据
+        if (previousOperationId == null) {
+            // If no previous operation ID exists, it means we are at the earliest "base" state (zero operation), revert is not allowed
+            log.info("User {} attempted to revert the initial state, operation ignored", userId);
+            throw new IllegalStateException("No more operations to revert");
+        }
+
+        // 3. Fetch operation details (to determine which tables are affected)
+        Operation operation = operationMapper.findByIdAndUserId(latestOperationId, userId);
+
+        // 4. Restore data based on affected tables
         if (Boolean.TRUE.equals(operation.getIsReminderProject())) {
             projectLogService.revert(userId, latestOperationId, previousOperationId);
-            log.debug("撤回项目操作完成: userId={}, operationId={}, previousOperationId={}", 
+            log.debug("Project operation reverted: userId={}, operationId={}, previousOperationId={}",
                     userId, latestOperationId, previousOperationId);
         }
-        // TODO: 其他表的撤回逻辑
-        
-        // 5. 删除被撤回的操作记录
+        // TODO: Revert logic for other tables
+
+        // 5. Delete the reverted operation record
         int deletedOperations = operationMapper.deleteById(latestOperationId);
-        
-        log.info("撤回操作完成: userId={}, latestOperationId={}, previousOperationId={}, deletedOperations={}", 
+
+        log.info("Revert operation completed: userId={}, latestOperationId={}, previousOperationId={}, deletedOperations={}",
                 userId, latestOperationId, previousOperationId, deletedOperations);
     }
     
@@ -57,6 +62,6 @@ public class OperationServiceImpl implements OperationService {
     public void create(Operation operation) {
         operation.setPerformedAt(LocalDateTime.now());
         operationMapper.insert(operation);
-        log.debug("记录操作: operationId={}, userId={}", operation.getOperationId(), operation.getUserId());
+        log.debug("Create operation success: operationId={}, userId={}", operation.getOperationId(), operation.getUserId());
     }
 }

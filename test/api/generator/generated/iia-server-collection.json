@@ -742,7 +742,7 @@
                     },
                     "body": {
                       "mode": "raw",
-                      "raw": "{\n    \"projectId\": 0,\n    \"keepTasks\": false,\n    \"targetProject\": false,\n    \"targetProjectId\": 0\n}",
+                      "raw": "{\n    \"projectId\": 1,\n    \"keepTasks\": true,\n    \"targetProject\": false,\n    \"targetProjectId\": 0\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -791,7 +791,7 @@
                     },
                     "body": {
                       "mode": "raw",
-                      "raw": "{\n    \"name\": \"{{name}}\",\n    \"description\": \"{{description}}\",\n    \"color\": \"{{color}}\",\n    \"icon\": \"{{icon}}\"\n}",
+                      "raw": "{\n    \"name\": \"P1\",\n    \"description\": \"Project 1\",\n    \"color\": \"#409EFF\",\n    \"icon\": \"icon-1\"\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -851,6 +851,143 @@
                   "response": []
                 }
               ]
+            },
+            {
+              "name": "operation",
+              "item": [
+                {
+                  "name": "Revert Operation",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/reminder/operation/revert",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "reminder",
+                        "operation",
+                        "revert"
+                      ]
+                    },
+                    "description": "Revert a reminder operation",
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"name\": \"P1\",\n    \"description\": \"Project 1\",\n    \"color\": \"#409EFF\",\n    \"icon\": \"icon-1\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "debug",
+          "item": [
+            {
+              "name": "Clear Unauthenticated Business Data",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/debug/clear-unauth-data",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "debug",
+                    "clear-unauth-data"
+                  ]
+                },
+                "description": "DANGEROUS: Removes all tasks, projects, and tags for the current user.",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Clear All System Data",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/debug/clear-all-data",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "debug",
+                    "clear-all-data"
+                  ]
+                },
+                "description": "EXTREMELY DANGEROUS: Wipes entire database tables.",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": []
             }
           ]
         },

@@ -4,7 +4,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.charles.server.auth.dto.*;
 import com.charles.server.auth.entity.*;
+import com.charles.server.reminder.entity.Operation;
 import com.charles.server.auth.mapper.*;
+import com.charles.server.reminder.mapper.OperationMapper;
 import com.charles.server.auth.service.*;
 import com.charles.server.auth.exception.*;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
     private final MailService mailService;
+    private final OperationMapper operationMapper;
 
     private String generateDefaultUsername(String providedUsername, String email) {
         // If provided username is not empty, use it; otherwise, use email prefix
@@ -95,10 +98,22 @@ public class AuthServiceImpl implements AuthService {
         mail.setUserId(account.getUserId());
         mailMapper.insertMail(mail);
         
-        // 5. Generate and store tokens
+        // 5. Create initial "Zero" operation for data initialization tracking
+        Operation zeroOp = new Operation();
+        zeroOp.setUserId(account.getUserId());
+        zeroOp.setPerformedAt(java.time.LocalDateTime.now());
+        zeroOp.setIsReminderProject(false);
+        zeroOp.setIsReminderTask(false);
+        zeroOp.setIsReminderRecurrence(false);
+        zeroOp.setIsReminderHistory(false);
+        zeroOp.setIsReminderTag(false);
+        zeroOp.setIsReminderTaskTag(false);
+        operationMapper.insert(zeroOp);
+        
+        // 6. Generate and store tokens
         Map<String, String> tokens = tokenService.get(account.getUserId().toString());
         
-        // 6. Build response
+        // 7. Build response
         RegisterVO response = new RegisterVO();
         response.setUserId(account.getUserId());
         response.setToken(tokens.get("accessToken"));

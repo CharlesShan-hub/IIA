@@ -40,3 +40,7 @@ server/target/
 
 /backup
 /assets
+
+# API Generator
+/test/api/env/api-docs.json
+/test/api/generator/generated/

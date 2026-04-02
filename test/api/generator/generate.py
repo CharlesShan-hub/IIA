@@ -284,7 +284,7 @@ def download_openapi_json(url, dest_path):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--download", action="store_true")
+    parser.add_argument("--skip-download", action="store_true", help="Skip downloading OpenAPI json")
     parser.add_argument("--openapi-url", default=os.environ.get("OPENAPI_URL", "http://localhost:9424/v3/api-docs"))
     args = parser.parse_args()
 
@@ -294,13 +294,18 @@ def main():
     env_path = current_dir.parent / "env" / "iia-dev.postman_environment.json"
     output_path = current_dir / "generated" / "iia-server-collection.json"
     
-    if args.download or not openapi_path.exists():
+    # Download by default unless skipped or offline and file exists
+    if not args.skip_download:
         try:
+            print(f"Downloading OpenAPI json from {args.openapi_url}...")
             download_openapi_json(args.openapi_url, openapi_path)
         except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, json.JSONDecodeError) as e:
-            print(f"Error: Failed to download OpenAPI json from {args.openapi_url}: {e}")
+            print(f"Warning: Failed to download OpenAPI json: {e}")
             if not openapi_path.exists():
+                print(f"Error: Local OpenAPI file does not exist and download failed.")
                 sys.exit(1)
+            else:
+                print(f"Using existing local file: {openapi_path}")
     
     result = generate_collection(openapi_path, scripts_dir, env_path, output_path)
     print(f"Generated: {result}")
