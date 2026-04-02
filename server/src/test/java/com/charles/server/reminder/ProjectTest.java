@@ -4,6 +4,7 @@ import com.charles.server.BaseE2eDatabaseTest;
 import com.charles.server.reminder.dto.ProjectDeleteDTO;
 import com.charles.server.reminder.dto.ProjectUpdateDTO;
 import com.charles.server.reminder.dto.BatchUpdatePositionDTO;
+import com.charles.server.reminder.entity.Position;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.entity.Task;
 import org.junit.jupiter.api.BeforeEach;
@@ -64,10 +65,10 @@ class ProjectTest extends BaseE2eDatabaseTest {
 
         BatchUpdatePositionDTO req1 = new BatchUpdatePositionDTO();
         req1.setPos(List.of(
-            new BatchUpdatePositionDTO.Position(projectId1, 400),
-            new BatchUpdatePositionDTO.Position(projectId2, 300),
-            new BatchUpdatePositionDTO.Position(projectId3, 200),
-            new BatchUpdatePositionDTO.Position(projectId4, 100)
+            new Position(projectId1, 400),
+            new Position(projectId2, 300),
+            new Position(projectId3, 200),
+            new Position(projectId4, 100)
         ));
         batchUpdateProjectPosition(req1, 200);
     }
@@ -97,10 +98,10 @@ class ProjectTest extends BaseE2eDatabaseTest {
 
         BatchUpdatePositionDTO req1 = new BatchUpdatePositionDTO();
         req1.setPos(List.of(
-            new BatchUpdatePositionDTO.Position(projectId1, 400),
-            new BatchUpdatePositionDTO.Position(projectId2, 300),
-            new BatchUpdatePositionDTO.Position(projectId3, 200),
-            new BatchUpdatePositionDTO.Position(projectId4, 100)
+            new Position(projectId1, 400),
+            new Position(projectId2, 300),
+            new Position(projectId3, 200),
+            new Position(projectId4, 100)
         ));
         batchUpdateProjectPosition(req1, 200);
     }

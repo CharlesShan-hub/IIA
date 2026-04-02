@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.entity.Operation;
+import com.charles.server.reminder.entity.Position;
 import com.charles.server.reminder.mapper.ProjectMapper;
 import com.charles.server.reminder.service.ProjectLogService;
 import com.charles.server.reminder.service.PermissionService;
@@ -143,12 +144,12 @@ public class ProjectServiceImpl implements ProjectService {
                 .isReminderProject(true)
                 .build());
 
-        List<BatchUpdatePositionDTO.Position> sorted = new ArrayList<>(request.getPos());
-        sorted.sort(Comparator.comparing(BatchUpdatePositionDTO.Position::getSortOrder)
-                .thenComparing(BatchUpdatePositionDTO.Position::getItemId));
+        List<Position> sorted = new ArrayList<>(request.getPos());
+        sorted.sort(Comparator.comparing(Position::getSortOrder)
+                .thenComparing(Position::getItemId));
 
         int next = 1;
-        for (BatchUpdatePositionDTO.Position p : sorted) {
+        for (Position p : sorted) {
             Project project = permissionService.getProject(userId, p.getItemId());
             projectLogService.save(project, operationId);
             project.setSortOrder(next++);

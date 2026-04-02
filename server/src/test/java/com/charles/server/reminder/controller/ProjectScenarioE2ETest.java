@@ -6,6 +6,7 @@ import com.charles.server.reminder.dto.ProjectCreateDTO;
 import com.charles.server.reminder.dto.ProjectDeleteDTO;
 import com.charles.server.reminder.dto.ProjectUpdateDTO;
 import com.charles.server.reminder.entity.Project;
+import com.charles.server.reminder.entity.Position;
 import com.charles.server.reminder.mapper.ProjectMapper;
 import com.charles.server.reminder.service.TaskService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -112,11 +113,11 @@ class ProjectScenarioE2ETest extends BaseE2eDatabaseTest {
         Assertions.assertEquals(7, active.size());
 
         BatchUpdatePositionDTO batch = new BatchUpdatePositionDTO();
-        List<BatchUpdatePositionDTO.Position> pos = new ArrayList<>();
+        List<Position> pos = new ArrayList<>();
         int order = 1;
         for (int i = active.size() - 1; i >= 0; i--) {
             Project p = active.get(i);
-            pos.add(new BatchUpdatePositionDTO.Position(p.getProjectId(), order++));
+            pos.add(new Position(p.getProjectId(), order++));
         }
         batch.setPos(pos);
         mockMvc.perform(post("/api/reminder/projects/batch-update-position")

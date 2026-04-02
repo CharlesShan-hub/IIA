@@ -38,6 +38,10 @@
       "description": "User authentication, registration, password reset APIs"
     },
     {
+      "name": "Tag Management",
+      "description": "Tag creation, update, deletion, and query APIs"
+    },
+    {
       "name": "Debug Utilities",
       "description": "Development & Debugging tools. Only available in dev/test profiles."
     },
@@ -47,11 +51,13 @@
     }
   ],
   "paths": {
-    "/api/reminder/tags/update": {
+    "/api/reminder/tag/update": {
       "put": {
         "tags": [
-          "tag-controller"
+          "Tag Management"
         ],
+        "summary": "Update Tag",
+        "description": "Update tag information including name and color",
         "operationId": "update",
         "requestBody": {
           "content": {
@@ -65,7 +71,37 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Tag updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Tag not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -74,7 +110,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
       }
     },
     "/api/reminder/task/update": {
@@ -317,11 +358,13 @@
         }
       }
     },
-    "/api/reminder/tags/delete": {
+    "/api/reminder/tag/delete": {
       "post": {
         "tags": [
-          "tag-controller"
+          "Tag Management"
         ],
+        "summary": "Delete Tag",
+        "description": "Delete a tag by ID",
         "operationId": "delete_2",
         "requestBody": {
           "content": {
@@ -335,69 +378,7 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseUtilsVoid"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/reminder/tags/create": {
-      "post": {
-        "tags": [
-          "tag-controller"
-        ],
-        "operationId": "create_2",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TagCreateDTO"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseUtilsVoid"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/reminder/project/update": {
-      "post": {
-        "tags": [
-          "Project Management"
-        ],
-        "summary": "Update Project",
-        "description": "Update project information including name, description, color, and icon",
-        "operationId": "updateById",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProjectUpdateDTO"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Project updated successfully",
+            "description": "Tag deleted successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -427,11 +408,135 @@
             }
           },
           "404": {
-            "description": "Project not found",
+            "description": "Tag not found",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
+      }
+    },
+    "/api/reminder/tag/create": {
+      "post": {
+        "tags": [
+          "Tag Management"
+        ],
+        "summary": "Create Tag",
+        "description": "Create a new tag with name and color",
+        "operationId": "create_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Tag created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
+      }
+    },
+    "/api/reminder/project/update": {
+      "post": {
+        "tags": [
+          "Project Management"
+        ],
+        "summary": "Update Project",
+        "description": "Update project information including name, description, color, and icon",
+        "operationId": "updateById",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectUpdateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Project updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsProject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsProject"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsProject"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Project not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsProject"
                 }
               }
             }
@@ -649,7 +754,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                  "$ref": "#/components/schemas/ResponseUtilsListPosition"
                 }
               }
             }
@@ -659,7 +764,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                  "$ref": "#/components/schemas/ResponseUtilsListPosition"
                 }
               }
             }
@@ -669,7 +774,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResponseUtilsVoid"
+                  "$ref": "#/components/schemas/ResponseUtilsListPosition"
                 }
               }
             }
@@ -1140,15 +1245,27 @@
         }
       }
     },
-    "/api/reminder/tags/get-all": {
+    "/api/reminder/tag/get-all": {
       "get": {
         "tags": [
-          "tag-controller"
+          "Tag Management"
         ],
+        "summary": "Get All Tags",
+        "description": "Get all tags for the current user",
         "operationId": "getAll_1",
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Tags retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsListTag"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
             "content": {
               "application/json": {
                 "schema": {
@@ -1157,7 +1274,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
       }
     },
     "/api/auth/profile": {
@@ -1202,22 +1324,31 @@
     "schemas": {
       "TagUpdateDTO": {
         "type": "object",
+        "description": "Tag update request data",
         "properties": {
           "tagId": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "description": "Tag ID",
+            "example": 1
           },
           "name": {
             "type": "string",
+            "description": "Tag name",
+            "example": "Work",
             "maxLength": 20,
             "minLength": 1,
             "pattern": "^(?!\\s*$).+"
           },
           "color": {
-            "type": "string"
+            "type": "string",
+            "description": "Tag color",
+            "example": "#409EFF"
           }
         },
         "required": [
+          "color",
+          "name",
           "tagId"
         ]
       },
@@ -1391,27 +1522,51 @@
       },
       "BatchUpdatePositionDTO": {
         "type": "object",
+        "description": "Batch update position request data",
         "properties": {
           "pos": {
             "type": "array",
+            "description": "Position list",
+            "example": [
+              {
+                "itemId": 1,
+                "sortOrder": 0
+              },
+              {
+                "itemId": 2,
+                "sortOrder": 1
+              }
+            ],
             "items": {
               "$ref": "#/components/schemas/Position"
             }
           }
-        }
+        },
+        "required": [
+          "pos"
+        ]
       },
       "Position": {
         "type": "object",
+        "description": "Position information for sorting items",
         "properties": {
           "itemId": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "description": "Item ID",
+            "example": 1
           },
           "sortOrder": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "description": "Sort order",
+            "example": 0
           }
-        }
+        },
+        "required": [
+          "itemId",
+          "sortOrder"
+        ]
       },
       "TaskTagDeleteDTO": {
         "type": "object",
@@ -1501,10 +1656,13 @@
       },
       "TagDeleteDTO": {
         "type": "object",
+        "description": "Tag delete request data",
         "properties": {
           "tagId": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "description": "Tag ID",
+            "example": 1
           }
         },
         "required": [
@@ -1513,17 +1671,23 @@
       },
       "TagCreateDTO": {
         "type": "object",
+        "description": "Tag create request data",
         "properties": {
           "name": {
             "type": "string",
+            "description": "Tag name",
+            "example": "Work",
             "maxLength": 20,
             "minLength": 1
           },
           "color": {
-            "type": "string"
+            "type": "string",
+            "description": "Tag color",
+            "example": "#409EFF"
           }
         },
         "required": [
+          "color",
           "name"
         ]
       },
@@ -1562,25 +1726,6 @@
           "name"
         ]
       },
-      "ProjectGetDTO": {
-        "type": "object",
-        "description": "Project query request data",
-        "properties": {
-          "archived": {
-            "type": "boolean",
-            "description": "Whether to query archived projects",
-            "example": false
-          },
-          "isAll": {
-            "type": "boolean",
-            "description": "Whether to return both archived and unarchived projects",
-            "example": false
-          }
-        },
-        "required": [
-          "archived"
-        ]
-      },
       "Project": {
         "type": "object",
         "properties": {
@@ -1616,6 +1761,48 @@
             "format": "int64"
           }
         }
+      },
+      "ResponseUtilsProject": {
+        "type": "object",
+        "description": "Standard API response structure",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Response status code",
+            "example": 200,
+            "maximum": 599,
+            "minimum": 100
+          },
+          "msg": {
+            "type": "string",
+            "description": "Response message",
+            "example": "success"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Project",
+            "description": "Response data payload, can be null for error responses"
+          }
+        }
+      },
+      "ProjectGetDTO": {
+        "type": "object",
+        "description": "Project query request data",
+        "properties": {
+          "archived": {
+            "type": "boolean",
+            "description": "Whether to query archived projects",
+            "example": false
+          },
+          "isAll": {
+            "type": "boolean",
+            "description": "Whether to return both archived and unarchived projects",
+            "example": false
+          }
+        },
+        "required": [
+          "archived"
+        ]
       },
       "ResponseUtilsListProject": {
         "type": "object",
@@ -1712,7 +1899,7 @@
           "name"
         ]
       },
-      "ResponseUtilsProject": {
+      "ResponseUtilsListPosition": {
         "type": "object",
         "description": "Standard API response structure",
         "properties": {
@@ -1730,8 +1917,11 @@
             "example": "success"
           },
           "data": {
-            "$ref": "#/components/schemas/Project",
-            "description": "Response data payload, can be null for error responses"
+            "type": "array",
+            "description": "Response data payload, can be null for error responses",
+            "items": {
+              "$ref": "#/components/schemas/Position"
+            }
           }
         }
       },
@@ -2162,6 +2352,10 @@
           },
           "color": {
             "type": "string"
+          },
+          "operationId": {
+            "type": "integer",
+            "format": "int64"
           }
         }
       },

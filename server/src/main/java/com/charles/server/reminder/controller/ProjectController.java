@@ -11,6 +11,7 @@ import com.charles.server.auth.service.TokenService;
 import com.charles.server.reminder.service.ProjectService;
 import com.charles.server.reminder.entity.Project;
 import com.charles.server.reminder.dto.*;
+import com.charles.server.reminder.entity.Position;
 import com.charles.server.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -96,12 +97,12 @@ public class ProjectController {
         @ApiResponse(responseCode = "401", description = "Authentication required")
     })
     @SecurityRequirement(name = "bearer-jwt")
-    public ResponseUtils<Void> batchUpdatePosition(@RequestBody @Valid BatchUpdatePositionDTO dto, HttpServletRequest httpRequest) {
+    public ResponseUtils<List<Position>> batchUpdatePosition(@RequestBody @Valid BatchUpdatePositionDTO dto, HttpServletRequest httpRequest) {
         Long userId = tokenService.getUserIdFromRequest(httpRequest);
         projectService.batchUpdatePosition(userId, dto);
         log.info("User {} batch update project positions successfully, updated projects: {}", 
                  userId, dto.getPos());
-        return ResponseUtils.buildEmptySuccessResponse("Reminder Project Positions Updated");
+        return ResponseUtils.buildSuccessResponse(dto.getPos(), "Reminder Project Positions Updated");
     }
 
     @PostMapping("get")

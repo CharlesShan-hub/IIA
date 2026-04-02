@@ -9,7 +9,7 @@ server:
 # 数据源配置
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/iia?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
+    url: jdbc:mysql://mysql:3306/iia?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
     username: root
     password: 
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -23,9 +23,9 @@ spring:
   # Redis配置
   data:
     redis:
-      host: localhost
+      host: redis
       port: 6379
-      username: iia-app
+      # username: iia-app  # 使用默认用户，不需要用户名
       password: 123456
       timeout: 60000 # 连接超时（毫秒）
       key-prefix: "iia:" # Redis键前缀

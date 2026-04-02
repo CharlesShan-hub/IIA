@@ -139,6 +139,7 @@ CREATE TABLE reminder_tag (
     user_id BIGINT NOT NULL COMMENT '用户ID',
     name VARCHAR(100) NOT NULL COMMENT '标签名称',
     color VARCHAR(20) COMMENT '标签颜色',
+    operation_id BIGINT NOT NULL COMMENT '当前版本的操作ID',
     
     FOREIGN KEY (user_id) REFERENCES iia_auth(user_id) ON DELETE CASCADE,
     UNIQUE KEY uk_reminder_tags_auth_name (user_id, name)
@@ -146,6 +147,23 @@ CREATE TABLE reminder_tag (
 
 CREATE INDEX idx_reminder_tag_user_id ON reminder_tag(user_id);
 CREATE INDEX idx_reminder_tag_name ON reminder_tag(name);
+CREATE INDEX idx_reminder_tag_operation_id ON reminder_tag(operation_id);
+
+-- 提醒模块 - 标签历史表（存储所有历史版本）
+CREATE TABLE reminder_tag_log (
+    log_id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '日志ID',
+    tag_id BIGINT NOT NULL COMMENT '标签ID',
+    operation_id BIGINT NOT NULL COMMENT '操作ID',
+    batch_operation_id BIGINT NULL COMMENT '批量操作ID',
+    user_id BIGINT NOT NULL COMMENT '用户ID',
+    name VARCHAR(100) NOT NULL COMMENT '标签名称',
+    color VARCHAR(20) COMMENT '标签颜色',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '版本创建时间',
+    INDEX idx_reminder_tag_log_tag (tag_id),
+    INDEX idx_reminder_tag_log_operation (operation_id),
+    INDEX idx_reminder_tag_log_created (created_at),
+    UNIQUE KEY uk_reminder_tag_log_version (tag_id, operation_id) COMMENT '同一标签的同一操作只能有一个历史版本'
+) ENGINE=InnoDB COMMENT='提醒模块 - 标签历史表（存储所有历史版本）';
 
 -- 提醒模块 - 任务-标签关联表
 CREATE TABLE reminder_task_tag (

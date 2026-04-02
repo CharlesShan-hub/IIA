@@ -3,6 +3,7 @@ package com.charles.server.reminder.controller;
 import com.charles.server.auth.service.TokenService;
 import com.charles.server.reminder.dto.*;
 import com.charles.server.reminder.entity.Project;
+import com.charles.server.reminder.entity.Position;
 import com.charles.server.reminder.service.ProjectService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -111,8 +112,8 @@ class ProjectControllerTest {
 
     @Test
     void batchUpdatePosition_ok() throws Exception {
-        BatchUpdatePositionDTO.Position p1 = new BatchUpdatePositionDTO.Position(10L, 3);
-        BatchUpdatePositionDTO.Position p2 = new BatchUpdatePositionDTO.Position(20L, 7);
+        Position p1 = new Position(10L, 3);
+        Position p2 = new Position(20L, 7);
         BatchUpdatePositionDTO req = new BatchUpdatePositionDTO();
         req.setPos(List.of(p1, p2));
 

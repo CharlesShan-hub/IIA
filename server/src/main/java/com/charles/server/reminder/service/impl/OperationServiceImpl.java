@@ -4,6 +4,7 @@ import com.charles.server.reminder.entity.Operation;
 import com.charles.server.reminder.mapper.OperationMapper;
 import com.charles.server.reminder.service.OperationService;
 import com.charles.server.reminder.service.ProjectLogService;
+import com.charles.server.reminder.service.TagLogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public class OperationServiceImpl implements OperationService {
     
     private final OperationMapper operationMapper;
     private final ProjectLogService projectLogService;
+    private final TagLogService tagLogService;
     
     @Override
     public Long getId(Long userId) {
@@ -47,6 +49,12 @@ public class OperationServiceImpl implements OperationService {
         if (Boolean.TRUE.equals(operation.getIsReminderProject())) {
             projectLogService.revert(userId, latestOperationId, previousOperationId);
             log.debug("Project operation reverted: userId={}, operationId={}, previousOperationId={}",
+                    userId, latestOperationId, previousOperationId);
+        }
+        
+        if (Boolean.TRUE.equals(operation.getIsReminderTag())) {
+            tagLogService.revert(userId, latestOperationId, previousOperationId);
+            log.debug("Tag operation reverted: userId={}, operationId={}, previousOperationId={}",
                     userId, latestOperationId, previousOperationId);
         }
         // TODO: Revert logic for other tables

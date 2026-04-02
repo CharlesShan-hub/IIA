@@ -21,17 +21,31 @@ import com.charles.server.reminder.dto.TagDeleteDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/reminder/tags")
+@RequestMapping("/api/reminder/tag")
 @RequiredArgsConstructor
+@io.swagger.v3.oas.annotations.tags.Tag(name = "Tag Management", description = "Tag creation, update, deletion, and query APIs")
 public class TagController {
     private final TagService tagService;
     private final TokenService tokenService;
     
-    // Create Tag
     @PostMapping("create")
+    @Operation(
+        summary = "Create Tag",
+        description = "Create a new tag with name and color"
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Tag created successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
+        @ApiResponse(responseCode = "401", description = "Authentication required")
+    })
+    @SecurityRequirement(name = "bearer-jwt")
     public ResponseUtils<Void> create(@RequestBody @Valid TagCreateDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("Create tag for user {}: {}", userId, dto);
@@ -39,8 +53,18 @@ public class TagController {
         return ResponseUtils.buildEmptySuccessResponse("Tag created successfully");
     }
 
-    // Update Tag
     @PutMapping("update")
+    @Operation(
+        summary = "Update Tag",
+        description = "Update tag information including name and color"
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Tag updated successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
+        @ApiResponse(responseCode = "401", description = "Authentication required"),
+        @ApiResponse(responseCode = "404", description = "Tag not found")
+    })
+    @SecurityRequirement(name = "bearer-jwt")
     public ResponseUtils<Void> update(@RequestBody @Valid TagUpdateDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("Update tag for user {}: {}", userId, dto);
@@ -48,8 +72,18 @@ public class TagController {
         return ResponseUtils.buildEmptySuccessResponse("Tag updated successfully");
     }
     
-    // Delete Tag
     @PostMapping("delete")
+    @Operation(
+        summary = "Delete Tag",
+        description = "Delete a tag by ID"
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Tag deleted successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
+        @ApiResponse(responseCode = "401", description = "Authentication required"),
+        @ApiResponse(responseCode = "404", description = "Tag not found")
+    })
+    @SecurityRequirement(name = "bearer-jwt")
     public ResponseUtils<Void> delete(@RequestBody @Valid TagDeleteDTO dto, HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("Delete tag for user {}: {}", userId, dto);
@@ -57,8 +91,16 @@ public class TagController {
         return ResponseUtils.buildEmptySuccessResponse("Tag deleted successfully");
     }
 
-    // Get all tags for a user
     @GetMapping("get-all")
+    @Operation(
+        summary = "Get All Tags",
+        description = "Get all tags for the current user"
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Tags retrieved successfully"),
+        @ApiResponse(responseCode = "401", description = "Authentication required")
+    })
+    @SecurityRequirement(name = "bearer-jwt")
     public ResponseUtils<List<Tag>> getAll(HttpServletRequest request) {
         Long userId = tokenService.getUserIdFromRequest(request);
         log.info("Get all tags for user {}", userId);
