@@ -787,6 +787,73 @@
         ]
       }
     },
+    "/api/reminder/project/archive": {
+      "post": {
+        "tags": [
+          "Project Management"
+        ],
+        "summary": "Archive/Unarchive Project",
+        "description": "Archive or unarchive a project. When archiving, all tasks under the project will be marked as abandoned. When unarchiving, tasks will be restored. Can also update basic project information in the same request.",
+        "operationId": "archive",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectUpdateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Project archive status updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsProject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsProject"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsProject"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Project not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUtilsProject"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer-jwt": []
+          }
+        ]
+      }
+    },
     "/api/reminder/operation/revert": {
       "post": {
         "tags": [
@@ -795,16 +862,6 @@
         "summary": "Revert Operation",
         "description": "Revert a reminder operation",
         "operationId": "revert",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProjectCreateDTO"
-              }
-            }
-          },
-          "required": true
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -1710,9 +1767,6 @@
           "icon": {
             "type": "string"
           },
-          "isArchived": {
-            "type": "boolean"
-          },
           "userId": {
             "type": "integer",
             "format": "int64"
@@ -1720,11 +1774,11 @@
           "projectId": {
             "type": "integer",
             "format": "int64"
+          },
+          "isArchived": {
+            "type": "boolean"
           }
-        },
-        "required": [
-          "name"
-        ]
+        }
       },
       "Project": {
         "type": "object",
@@ -1863,10 +1917,16 @@
           "targetProjectId"
         ]
       },
+      "ColorConfig": {
+        "type": "object"
+      },
       "ProjectCreateDTO": {
         "type": "object",
         "description": "Project create request data",
         "properties": {
+          "colorConfig": {
+            "$ref": "#/components/schemas/ColorConfig"
+          },
           "name": {
             "type": "string",
             "description": "Project name",

@@ -66,8 +66,8 @@ class ColorUtilsTest {
 
     @Test
     void getColorOrDefault_returnsDefaultWhenInvalid() {
-        assertEquals("#112233", ColorUtils.getColorOrDefault("invalid", "#112233"));
-        assertEquals("#AABBCC", ColorUtils.getColorOrDefault("#aabbcc", "#000000"));
-        assertEquals("#FF000080", ColorUtils.getColorOrDefault("rgba(255,0,0,0.5)", "#000000"));
+        assertEquals("#112233", ColorUtils.getColorWithDefault("invalid", "#112233"));
+        assertEquals("#AABBCC", ColorUtils.getColorWithDefault("#aabbcc", "#000000"));
+        assertEquals("#FF000080", ColorUtils.getColorWithDefault("rgba(255,0,0,0.5)", "#000000"));
     }
 }

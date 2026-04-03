@@ -45,9 +45,9 @@ logging:
     com.charles.server: DEBUG   # 项目包调试日志
 
 # 提醒功能颜色配置
-reminder:
-  color:
-    default: "#409EFF"
+color:
+  project: "#409EFF"
+  tag: "#FF9900"
 
 # ============================================
 # 应用自定义配置

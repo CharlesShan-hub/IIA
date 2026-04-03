@@ -57,7 +57,6 @@ public class OperationServiceImpl implements OperationService {
             log.debug("Tag operation reverted: userId={}, operationId={}, previousOperationId={}",
                     userId, latestOperationId, previousOperationId);
         }
-        // TODO: Revert logic for other tables
 
         // 5. Delete the reverted operation record
         int deletedOperations = operationMapper.deleteById(latestOperationId);
@@ -67,9 +66,13 @@ public class OperationServiceImpl implements OperationService {
     }
     
     @Override
-    public void create(Operation operation) {
+    public Long create(Operation operation) {
+        if (operation.getOperationId() == null) {
+            operation.setOperationId(getId(operation.getUserId()));
+        }
         operation.setPerformedAt(LocalDateTime.now());
         operationMapper.insert(operation);
         log.debug("Create operation success: operationId={}, userId={}", operation.getOperationId(), operation.getUserId());
+        return operation.getOperationId();
     }
 }

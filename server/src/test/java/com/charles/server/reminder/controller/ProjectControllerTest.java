@@ -133,7 +133,7 @@ class ProjectControllerTest {
         dto.setArchived(false);
 
         when(projectService.get(eq(1L), any(ProjectGetDTO.class)))
-                .thenReturn(List.of(new Project()));
+                .thenReturn(List.of(Project.builder().build()));
 
         mockMvc.perform(get("/api/reminder/projects/get-all")
                         .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))

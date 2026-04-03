@@ -2,28 +2,18 @@ package com.charles.server.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.springframework.stereotype.Component;
 
 /**
  * Utility class for color processing and format normalization.
  */
+@Component
 public class ColorUtils {
-
     private static final Pattern HEX_SHORT_PATTERN = Pattern.compile("^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{4})$");
     private static final Pattern HEX_LONG_PATTERN = Pattern.compile("^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$");
     private static final Pattern RGB_A_PATTERN = Pattern.compile("rgba?\\((\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})(?:\\s*,\\s*([\\d.]+))?\\)", Pattern.CASE_INSENSITIVE);
 
-    private static volatile String defaultColor = "#409EFF";
 
-    public static String getDefaultColor() {
-        return defaultColor;
-    }
-
-    public static void setDefaultColor(String color) {
-        String normalized = normalizeColor(color);
-        if (normalized != null) {
-            defaultColor = normalized;
-        }
-    }
 
     /**
      * Normalize a color string into hexadecimal format.
@@ -111,8 +101,11 @@ public class ColorUtils {
      * @param defaultValue fallback color value
      * @return normalized color if valid; otherwise defaultValue
      */
-    public static String getColorOrDefault(String color, String defaultValue) {
-        String normalizedColor = normalizeColor(color);
-        return normalizedColor != null ? normalizedColor : defaultValue;
+    public static String getColorWithDefault(String color, String defaultValue) {
+        if (color == null || color.trim().isEmpty()) {
+            return defaultValue;
+        }
+        String normalized = normalizeColor(color);
+        return normalized != null ? normalized : defaultValue;
     }
 }

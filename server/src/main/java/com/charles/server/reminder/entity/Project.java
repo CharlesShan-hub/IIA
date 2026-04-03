@@ -1,8 +1,10 @@
 package com.charles.server.reminder.entity;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class Project {
     private Long projectId;
     private Long userId;
@@ -12,5 +14,5 @@ public class Project {
     private String icon;
     private Integer sortOrder;
     private Boolean isArchived;
-    private Long operationId;  // 当前版本的操作ID
+    private Long operationId;
 }

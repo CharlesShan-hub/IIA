@@ -684,7 +684,7 @@
                     },
                     "body": {
                       "mode": "raw",
-                      "raw": "{\n    \"name\": \"{{name}}\",\n    \"description\": \"{{description}}\",\n    \"color\": \"{{color}}\",\n    \"icon\": \"{{icon}}\",\n    \"isArchived\": false,\n    \"userId\": 0,\n    \"projectId\": 0\n}",
+                      "raw": "{\n    \"name\": \"{{name}}\",\n    \"description\": \"{{description}}\",\n    \"color\": \"{{color}}\",\n    \"icon\": \"{{icon}}\",\n    \"userId\": 0,\n    \"projectId\": 0,\n    \"isArchived\": false\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -886,7 +886,7 @@
                     },
                     "body": {
                       "mode": "raw",
-                      "raw": "{\n    \"name\": \"P1\",\n    \"description\": \"Project 1\",\n    \"color\": \"#409EFF\",\n    \"icon\": \"icon-1\"\n}",
+                      "raw": "{\n    \"colorConfig\": \"{{colorConfig}}\",\n    \"name\": \"P1\",\n    \"description\": \"Project 1\",\n    \"color\": \"#409EFF\",\n    \"icon\": \"icon-1\"\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -1032,6 +1032,55 @@
                     }
                   },
                   "response": []
+                },
+                {
+                  "name": "Archive/Unarchive Project",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/reminder/project/archive",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "reminder",
+                        "project",
+                        "archive"
+                      ]
+                    },
+                    "description": "Archive or unarchive a project. When archiving, all tasks under the project will be marked as abandoned. When unarchiving, tasks will be restored. Can also update basic project information in the same request.",
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"name\": \"{{name}}\",\n    \"description\": \"{{description}}\",\n    \"color\": \"{{color}}\",\n    \"icon\": \"{{icon}}\",\n    \"userId\": 0,\n    \"projectId\": 0,\n    \"isArchived\": false\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    }
+                  },
+                  "response": []
                 }
               ]
             },
@@ -1074,15 +1123,6 @@
                           "type": "string"
                         }
                       ]
-                    },
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n    \"name\": \"P1\",\n    \"description\": \"Project 1\",\n    \"color\": \"#409EFF\",\n    \"icon\": \"icon-1\"\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
                     }
                   },
                   "response": []

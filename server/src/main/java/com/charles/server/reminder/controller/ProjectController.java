@@ -86,6 +86,27 @@ public class ProjectController {
         return ResponseUtils.buildSuccessResponse(updatedProject, "Reminder Project Updated");
     }
 
+    @PostMapping("archive")
+    @Operation(
+        summary = "Archive/Unarchive Project",
+        description = "Archive or unarchive a project. When archiving, all tasks under the project will be marked as abandoned. When unarchiving, tasks will be restored. Can also update basic project information in the same request."
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Project archive status updated successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
+        @ApiResponse(responseCode = "401", description = "Authentication required"),
+        @ApiResponse(responseCode = "404", description = "Project not found")
+    })
+    @SecurityRequirement(name = "bearer-jwt")
+    public ResponseUtils<Project> archive(@RequestBody @Valid ProjectUpdateDTO dto, HttpServletRequest request) {
+        Long userId = tokenService.getUserIdFromRequest(request);
+        Project archivedProject = projectService.archive(userId, dto);
+        
+        String action = Boolean.TRUE.equals(dto.getIsArchived()) ? "archived" : "unarchived";
+        log.info("User {} {} project {} successfully", userId, action, dto.getProjectId());
+        return ResponseUtils.buildSuccessResponse(archivedProject, "Reminder Project " + action.substring(0, 1).toUpperCase() + action.substring(1));
+    }
+
     @PostMapping("batch-update-position")
     @Operation(
         summary = "Batch Update Project Positions",

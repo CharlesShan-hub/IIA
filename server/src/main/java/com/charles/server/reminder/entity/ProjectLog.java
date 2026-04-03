@@ -55,17 +55,17 @@ public class ProjectLog {
      * @return 项目实体
      */
     public Project toProject(Long userId, Long operationId) {
-        Project project = new Project();
-        project.setProjectId(this.projectId);
-        project.setUserId(userId);
-        project.setName(this.name);
-        project.setDescription(this.description);
-        project.setColor(this.color);
-        project.setIcon(this.icon);
-        project.setSortOrder(this.sortOrder);
-        project.setIsArchived(this.isArchived);
-        project.setOperationId(operationId);
-        return project;
+        return Project.builder()
+                .projectId(this.projectId)
+                .userId(userId)
+                .name(this.name)
+                .description(this.description)
+                .color(this.color)
+                .icon(this.icon)
+                .sortOrder(this.sortOrder)
+                .isArchived(this.isArchived)
+                .operationId(operationId)
+                .build();
     }
     
     /**

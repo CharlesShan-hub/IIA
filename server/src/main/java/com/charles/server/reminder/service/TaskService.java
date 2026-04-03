@@ -85,12 +85,20 @@ public interface TaskService {
      * @param userId
      * @param dto the project deletion request
      */
-    void batchUpdateProjectId(Long userId, ProjectDeleteDTO dto);
+    void batchUpdateProjectId(Long userId, ProjectDeleteDTO dto, Long operationId);
 
     /**
      * Delete all tasks in a project
      * @param userId
      * @param projectId the project ID to delete
      */
-    void deleteByProjectId(Long userId, Long projectId);
+    void deleteByProjectId(Long userId, Long projectId, Long operationId);
+
+    /**
+     * Archive all tasks in a project
+     * @param userId
+     * @param projectId the project ID to archive
+     */
+    void archiveByProjectId(Long userId, Long projectId, Long operationId);
+    
 }

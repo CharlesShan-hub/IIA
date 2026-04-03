@@ -390,7 +390,8 @@ public class TaskServiceImpl implements TaskService {
     /**************************************************************************************/
 
     @Override
-    public void batchUpdateProjectId(Long userId, ProjectDeleteDTO dto) {
+    public void batchUpdateProjectId(Long userId, ProjectDeleteDTO dto, Long operationId) {
+        // TODO: Record update operation
         if (dto == null || dto.getProjectId() == null) return;
         Long fromProjectId = dto.getProjectId();
         // Capture source root tasks (for order preservation)
@@ -432,7 +433,13 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void deleteByProjectId(Long userId, Long projectId) {
+    public void deleteByProjectId(Long userId, Long projectId, Long operationId) {
+        // TODO: Record delete operation
         taskMapper.deleteByUserIdAndProjectId(userId, projectId);
+    }
+
+    @Override
+    public void archiveByProjectId(Long userId, Long projectId, Long operationId) {
+        // TODO: Record archive operation
     }
 }

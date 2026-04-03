@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 import lombok.RequiredArgsConstructor;
@@ -58,25 +60,12 @@ public class MailServiceImpl implements MailService {
         // 1. Generate a 6-digit verification code
         String code = requireNonNull(generateVerificationCode(), "verification code must not be null");
         
-        // 2. Cache the code in Redis with an n-minute expiration
+        // 2. Cache the code in Redis with an n-minute expiration (同步操作，确保验证码可用)
         String key = requireNonNull(withPrefix("email:code:" + requireNonNull(email, "email must not be null")), "redis key must not be null");
         redisTemplate.opsForValue().set(key, code, codeExpiration, TimeUnit.MINUTES);
         
-        // 3. Send the email with the verification code
-        try {
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            helper.setFrom(requireNonNull(fromEmail, "fromEmail must not be null"));
-            helper.setTo(email);
-            helper.setSubject("Verification Code - Your Account");
-            String htmlContent = requireNonNull(buildHtmlEmailContent(code), "htmlContent must not be null");
-            helper.setText(htmlContent, true); // true indicates HTML
-            mailSender.send(mimeMessage);
-            log.info("Verification code sent successfully to: {}", email);
-        } catch (MessagingException e) {
-            log.error("Failed to send verification code to: {}, error: {}", email, e.getMessage(), e);
-            throw new RuntimeException("Failed to send verification code: " + e.getMessage());
-        }
+        // 3. Async send email verification code
+        sendEmailAsync(email, code);
         
         // 4. Return the generated code
         if (appConfig.isMockEmail()) {
@@ -85,6 +74,28 @@ public class MailServiceImpl implements MailService {
             return new SendCodeVO(code);
         } else {
             return new SendCodeVO(null);
+        }
+    }
+    
+    @Async("mailTaskExecutor")
+    public CompletableFuture<Void> sendEmailAsync(String email, String code) {
+        try {
+            log.info("Starting async email sending to: {}", email);
+            
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            helper.setFrom(requireNonNull(fromEmail, "fromEmail must not be null"));
+            helper.setTo(requireNonNull(email, "email must not be null"));
+            helper.setSubject("Verification Code - Your Account");
+            String htmlContent = requireNonNull(buildHtmlEmailContent(code), "htmlContent must not be null");
+            helper.setText(htmlContent, true); // true indicates HTML
+            mailSender.send(mimeMessage);
+            
+            log.info("Async email sent successfully to: {}", email);
+            return CompletableFuture.completedFuture(null);
+        } catch (MessagingException e) {
+            log.error("Failed to send async email to: {}, error: {}", email, e.getMessage(), e);
+            return CompletableFuture.failedFuture(e);
         }
     }
     

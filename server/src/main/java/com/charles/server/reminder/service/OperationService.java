@@ -5,20 +5,21 @@ import com.charles.server.reminder.entity.Operation;
 public interface OperationService {
     
     /**
-     * 获取下一个操作ID
-     * @param userId 用户ID
+     * Get next operation ID
+     * @param userId
      */
     Long getId(Long userId);
     
     /**
-     * 记录操作
-     * @param operation 操作实体
+     * Record operation
+     * @param operation
+     * @return operation ID
      */
-    void create(Operation operation);
+    Long create(Operation operation);
     
     /**
-     * 撤回最新的操作
-     * @param userId 用户ID
+     * Revert latest operation
+     * @param userId
      */
     void revert(Long userId);
 }

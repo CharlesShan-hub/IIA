@@ -1,13 +1,11 @@
 package com.charles.server.reminder.dto;
 
-import com.charles.server.utils.ColorUtils;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
 public class ProjectUpdateDTO {
-    @NotBlank(message = "Project Name is Required")
+
     @Size(min = 1, max = 20, message = "Project Name must be between 1 and 20 characters")
     private String name;
 
@@ -16,11 +14,7 @@ public class ProjectUpdateDTO {
 
     private String color;
     private String icon;
-    private Boolean isArchived;
     private Long userId;
     private Long projectId;
-
-    public void setColor(String color) {
-        this.color = ColorUtils.getColorOrDefault(color, ColorUtils.getDefaultColor());
-    }
+    private Boolean isArchived;
 }

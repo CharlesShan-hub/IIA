@@ -18,6 +18,10 @@ public interface ProjectService {
     */
     Project update(Long userId, ProjectUpdateDTO dto);
 
+    /** Archive a project
+     */
+    Project archive(Long userId, ProjectUpdateDTO dto);
+
     /** Delete a project
      */
     void delete(Long userId, ProjectDeleteDTO dto);
