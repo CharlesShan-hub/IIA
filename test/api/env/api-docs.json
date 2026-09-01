@@ -1917,16 +1917,10 @@
           "targetProjectId"
         ]
       },
-      "ColorConfig": {
-        "type": "object"
-      },
       "ProjectCreateDTO": {
         "type": "object",
         "description": "Project create request data",
         "properties": {
-          "colorConfig": {
-            "$ref": "#/components/schemas/ColorConfig"
-          },
           "name": {
             "type": "string",
             "description": "Project name",

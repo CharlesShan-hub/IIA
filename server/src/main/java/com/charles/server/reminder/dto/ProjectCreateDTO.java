@@ -4,15 +4,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import com.charles.server.config.ColorConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Data
 @Schema(description = "Project create request data")
 public class ProjectCreateDTO {
-
-    @Autowired
-    private ColorConfig colorConfig;
     
     @NotBlank(message = "Project Name is Required")
     @Size(min = 1, max = 20, message = "Project Name must be between 1 and 20 characters")

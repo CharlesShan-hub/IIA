@@ -886,7 +886,7 @@
                     },
                     "body": {
                       "mode": "raw",
-                      "raw": "{\n    \"colorConfig\": \"{{colorConfig}}\",\n    \"name\": \"P1\",\n    \"description\": \"Project 1\",\n    \"color\": \"#409EFF\",\n    \"icon\": \"icon-1\"\n}",
+                      "raw": "{\n    \"name\": \"P1\",\n    \"description\": \"Project 1\",\n    \"color\": \"#409EFF\",\n    \"icon\": \"icon-1\"\n}",
                       "options": {
                         "raw": {
                           "language": "json"
