@@ -37,6 +37,10 @@ spring:
           min-idle: 0
           max-wait: -1ms
   
+  # Thymeleaf 配置（邮件模板）
+  thymeleaf:
+    cache: false # 开发环境关闭缓存，模板修改即时生效
+
   # 邮件配置
   mail:
     host: smtp.qq.com           # QQ邮箱SMTP服务器

@@ -14,6 +14,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
@@ -29,6 +31,7 @@ public class MailServiceImpl implements MailService {
     private final StringRedisTemplate redisTemplate;
     private final JavaMailSender mailSender;
     private final AppConfig appConfig;
+    private final TemplateEngine templateEngine;
 
     @Value("${spring.mail.username}")
     private String fromEmail;
@@ -87,7 +90,12 @@ public class MailServiceImpl implements MailService {
             helper.setFrom(requireNonNull(fromEmail, "fromEmail must not be null"));
             helper.setTo(requireNonNull(email, "email must not be null"));
             helper.setSubject("Verification Code - Your Account");
-            String htmlContent = requireNonNull(buildHtmlEmailContent(code), "htmlContent must not be null");
+            Context context = new Context();
+            context.setVariable("code", code);
+            context.setVariable("expiration", codeExpiration);
+            String htmlContent = requireNonNull(
+                templateEngine.process("mail/verification-code", context),
+                "htmlContent must not be null");
             helper.setText(htmlContent, true); // true indicates HTML
             mailSender.send(mimeMessage);
             
@@ -121,110 +129,4 @@ public class MailServiceImpl implements MailService {
         log.info("Verification code validated successfully for email: {}", email);
     }
 
-        private String buildHtmlEmailContent(String verificationCode) {
-        return """
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Verification Code</title>
-                <style>
-                    body {
-                        font-family: 'Arial', sans-serif;
-                        background-color: #f4f4f4;
-                        margin: 0;
-                        padding: 20px;
-                    }
-                    .container {
-                        max-width: 600px;
-                        margin: 0 auto;
-                        background-color: #ffffff;
-                        border-radius: 10px;
-                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                        padding: 30px;
-                    }
-                    .header {
-                        text-align: center;
-                        margin-bottom: 30px;
-                    }
-                    .logo {
-                        font-size: 28px;
-                        font-weight: bold;
-                        color: #4a6cf7;
-                        margin-bottom: 10px;
-                    }
-                    .title {
-                        font-size: 24px;
-                        color: #333;
-                        margin-bottom: 20px;
-                    }
-                    .code-container {
-                        background-color: #f8f9fa;
-                        border: 2px dashed #4a6cf7;
-                        border-radius: 8px;
-                        padding: 20px;
-                        text-align: center;
-                        margin: 25px 0;
-                    }
-                    .verification-code {
-                        font-size: 32px;
-                        font-weight: bold;
-                        letter-spacing: 5px;
-                        color: #4a6cf7;
-                        font-family: 'Courier New', monospace;
-                    }
-                    .instructions {
-                        color: #666;
-                        line-height: 1.6;
-                        margin-bottom: 25px;
-                    }
-                    .footer {
-                        text-align: center;
-                        margin-top: 30px;
-                        padding-top: 20px;
-                        border-top: 1px solid #eee;
-                        color: #888;
-                        font-size: 14px;
-                    }
-                    .warning {
-                        color: #e74c3c;
-                        font-weight: bold;
-                        background-color: #ffeaea;
-                        padding: 10px;
-                        border-radius: 5px;
-                        margin: 15px 0;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <div class="header">
-                        <div class="logo">Intelligent Information Assistant</div>
-                        <h1 class="title">Email Verification</h1>
-                    </div>
-                    <p class="instructions">
-                        Hello,<br><br>
-                        You've requested a verification code for your account.
-                        Please use the code below to complete your verification process.
-                    </p>
-                    <div class="code-container">
-                        <div class="verification-code">%s</div>
-                    </div>
-                    <div class="warning">
-                        ⚠️ This code will expire in <strong>%s minutes</strong>.
-                        Please do not share this code with anyone.
-                    </div>
-                    <p class="instructions">
-                        If you didn't request this code, please ignore this email or contact our support team.
-                    </p>
-                    <div class="footer">
-                        <p>© 2024 Your App Name. All rights reserved.</p>
-                        <p>This is an automated message, please do not reply to this email.</p>
-                    </div>
-                </div>
-            </body>
-            </html>
-            """.formatted(verificationCode, codeExpiration);
-    }
 }
