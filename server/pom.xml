@@ -41,6 +41,12 @@
             <version>${easy-query.version}</version>
         </dependency>
 
+        <!-- AOP：easy-query 的 SQL 跟踪切面需要 aspectjweaver (ProceedingJoinPoint) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
         <!-- mysql -->
         <dependency>
             <groupId>com.mysql</groupId>

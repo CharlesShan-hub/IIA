@@ -75,4 +75,17 @@ public class OperationServiceImpl implements OperationService {
         log.debug("Create operation success: operationId={}, userId={}", operation.getOperationId(), operation.getUserId());
         return operation.getOperationId();
     }
+    
+    @Override
+    public Long createZero(Long userId) {
+        Operation zeroOp = new Operation();
+        zeroOp.setUserId(userId);
+        zeroOp.setIsReminderProject(false);
+        zeroOp.setIsReminderTask(false);
+        zeroOp.setIsReminderRecurrence(false);
+        zeroOp.setIsReminderHistory(false);
+        zeroOp.setIsReminderTag(false);
+        zeroOp.setIsReminderTaskTag(false);
+        return create(zeroOp);
+    }
 }

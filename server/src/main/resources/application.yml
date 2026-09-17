@@ -59,7 +59,7 @@ color:
 # ============================================
 app:
   env: ${spring.profiles.active:dev}  # 继承Spring环境
-  orm: mybatis  # 教学实验台 ORM 引擎开关: mybatis / easy-query（修改后需重启）
+  orm: easy-query  # 教学实验台 ORM 引擎开关: mybatis / easy-query（修改后需重启）
   verification:
     code:
       return-to-client: false  # 默认不返回验证码到客户端

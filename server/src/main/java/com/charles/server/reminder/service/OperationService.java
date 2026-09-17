@@ -22,4 +22,11 @@ public interface OperationService {
      * @param userId
      */
     void revert(Long userId);
+
+    /**
+     * Create initial (zero) operation as the baseline anchor of a new user's operation chain
+     * @param userId
+     * @return operation ID
+     */
+    Long createZero(Long userId);
 }

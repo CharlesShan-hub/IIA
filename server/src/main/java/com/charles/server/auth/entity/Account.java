@@ -10,7 +10,7 @@ import com.charles.server.auth.entity.proxy.AccountProxy;
 import lombok.Data;
 
 @Data
-@Table("account")
+@Table("iia_auth")
 @EntityProxy
 public class Account implements ProxyEntityAvailable<Account, AccountProxy> {
     @Column(primaryKey = true)
