@@ -16,6 +16,11 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true  # Map underscore to camel case
 
+# EasyQuery 配置
+easy-query:
+  database: mysql          # 数据库类型
+  name-conversion: underlined  # 字段名下划线转驼峰
+  
 # JWT 配置
 jwt:
   secret: ThisIsASecretKeyForJWTThatIsAtLeast64BytesLongEnoughForHS512AlgorithmSecurityRequirements!
@@ -54,6 +59,7 @@ color:
 # ============================================
 app:
   env: ${spring.profiles.active:dev}  # 继承Spring环境
+  orm: mybatis  # 教学实验台 ORM 引擎开关: mybatis / easy-query（修改后需重启）
   verification:
     code:
       return-to-client: false  # 默认不返回验证码到客户端

@@ -1,5 +1,6 @@
 package com.charles.server.auth.service.impl;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.charles.server.auth.dto.*;
@@ -17,6 +18,7 @@ import java.util.Map;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@ConditionalOnProperty(name = "app.orm", havingValue = "mybatis", matchIfMissing = true)
 public class AuthServiceImpl implements AuthService {
     private final AuthMapper authMapper;
     private final ProfileMapper profileMapper;

@@ -17,6 +17,7 @@
 
     <properties>
         <java.version>21</java.version>
+        <easy-query.version>3.0.100</easy-query.version>
     </properties>
 
     <dependencies>
@@ -31,6 +32,13 @@
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>3.0.3</version>
+        </dependency>
+
+        <!-- easy-query (与 MyBatis 共存，共用 Spring DataSource) -->
+        <dependency>
+            <groupId>com.easy-query</groupId>
+            <artifactId>sql-springboot-starter</artifactId>
+            <version>${easy-query.version}</version>
         </dependency>
 
         <!-- mysql -->
@@ -111,6 +119,25 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.38</version>
+                        </path>
+                        <path>
+                            <groupId>com.easy-query</groupId>
+                            <artifactId>sql-processor</artifactId>
+                            <version>${easy-query.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
