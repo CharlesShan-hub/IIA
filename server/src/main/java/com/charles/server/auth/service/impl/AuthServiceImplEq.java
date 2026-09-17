@@ -8,6 +8,7 @@ import com.charles.server.auth.entity.UserAll;
 import com.charles.server.auth.entity.proxy.UserAllProxy;
 import com.charles.server.auth.exception.AuthException;
 import com.charles.server.auth.service.AuthService;
+import com.charles.server.auth.service.MailService;
 import com.charles.server.auth.service.TokenService;
 import com.charles.server.reminder.service.OperationService;
 import com.easy.query.api.proxy.client.EasyEntityQuery;
@@ -30,6 +31,7 @@ public class AuthServiceImplEq implements AuthService {
     private final EasyEntityQuery easyEntityQuery;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
+    private final MailService mailService;
     private final OperationService operationService;
 
     @Override
@@ -106,7 +108,6 @@ public class AuthServiceImplEq implements AuthService {
 
     @Override
     public ProfileVO profile(String userId) {
-        // ✅ 第一个完整实现：单表查询，类型安全写法
         Profile profile = easyEntityQuery.queryable(Profile.class)
                 .where(p -> p.userId().eq(Long.valueOf(userId)))
                 .firstOrNull();
@@ -121,9 +122,21 @@ public class AuthServiceImplEq implements AuthService {
     }
 
     @Override
+    @Transactional
     public void resetPassword(ResetPasswordDTO dto) {
-        // TODO: easy-query updatable 更新密码，替换 authMapper.updateAccount
-        // 思路: easyEntityQuery.updatable(Account.class).where(...).setColumns(...)
-        throw new UnsupportedOperationException("easy-query 版 resetPassword 待实现，参考 AuthServiceImpl.resetPassword 的业务逻辑");
+        mailService.verifyCode(dto.getEmail(), dto.getCode());
+
+        Mail mail = easyEntityQuery.queryable(Mail.class)
+                .where(m -> m.email().eq(dto.getEmail()))
+                .firstOrNull();
+        if (mail == null) {
+            throw AuthException.userNotFound(dto.getEmail());
+        }
+
+        String newPasswordHash = passwordEncoder.encode(dto.getNewPassword());
+        easyEntityQuery.updatable(Account.class)
+                .where(a -> a.userId().eq(mail.getUserId()))
+                .setColumns(a -> a.passwordHash().set(newPasswordHash))
+                .executeRows();
     }
 }
